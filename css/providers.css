@@ -1,0 +1,13 @@
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+main {
+	flex: 1 0 auto;
+}
+
+[type='radio']:checked+label:after {
+	background-color: #f57c00;
+	border: 2px solid #f57c00;
+}

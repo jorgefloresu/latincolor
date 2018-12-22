@@ -1,0 +1,69 @@
+.plan-pref .planes-card {
+  padding-top:15px;
+}
+.plan-pref .legend2 {
+  font-weight:bolder;
+}
+.plan-pref .dropdown-trigger {
+  margin-bottom:10px;
+  padding:0 1rem;
+}
+article .card {
+  overflow: hidden;
+  border-radius: 3px;
+}
+article .card .card-image {
+  position: relative;
+  width: 100%;
+}
+article .card .card-image .card-title {
+  position: relative;
+  font-size: 1.28rem;
+  line-height: 1.6em;
+  text-align: center;
+  width: 100%;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.1);
+}
+article .price {
+  position: relative;
+  font-size: 4rem;
+  line-height: 1.6em;
+  color: #fff;
+  font-weight: 300;
+  text-align: center;
+}
+article .currency,
+article .millar {
+  font-weight: 100;
+  font-size: 1.42rem;
+  line-height: 1.6em;
+  top: -26px;
+}
+article .millar {
+  top: 0;
+}
+article .price-desc {
+  text-align: center;
+  color: #fff;
+  padding-bottom: 10px;
+}
+article .card .card-content {
+  padding: 0;
+}
+article .collection {
+  border: none;
+}
+article .collection .collection-item {
+  border-bottom: none;
+  text-align: center;
+  font-size: 1.07rem;
+  line-height: 1.6em;
+}
+article .btn {
+  border-radius:50px;
+}
+
+#paquetes-promo {
+}

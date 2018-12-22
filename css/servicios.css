@@ -1,0 +1,38 @@
+.servicios.card.grey-layout {
+  background-color: rgba(130, 130, 130, 0.65);
+}
+.servicios.card.brown-layout {
+  background-color: rgba(101, 88, 74, 0.5);
+}
+.servicios.card.gradient-layout {
+  background: -moz-linear-gradient(top,  rgba(232, 227, 227, 0.95) 0%, rgba(246, 242, 242, 0.95) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(232, 227, 227, 0.95)), color-stop(100%,rgba(246, 242, 242, 0.95))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(232, 227, 227, 0.95) 0%,rgba(246, 242, 242, 0.95) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(232, 227, 227, 0.95) 0%,rgba(246, 242, 242, 0.95) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(232, 227, 227, 0.95) 0%,rgba(246, 242, 242, 0.95) 100%); /* IE10+ */
+  background: linear-gradient(to bottom right,  rgba(239, 66, 218, 0.7) 0%,rgba(19, 38, 173, 0.7) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(232, 227, 227, 0.95)', endColorstr='rgba(246, 242, 242, 0.95)',GradientType=0 ); /* IE6-9 */
+}
+.servicios.card .card-image {
+  z-index: -1;
+}
+.servicios.card .card-content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.servicios.card .card-content .card-title {
+  font-size: 33px;
+  line-height: 40px;
+}
+.servicios.card .card-content .card-title.medium-title {
+  font-size: 25px;
+  line-height: 30px;
+}
+.servicios i.circle {
+  border: 2px solid;
+}
+.servicios a.square {
+  border: 1px solid;
+  border-radius: 5px;
+}

@@ -1,0 +1,69 @@
+.user-background {
+  background-color: #eee;
+  margin-top: 75px;
+}
+
+#profile-page-header {
+  overflow:hidden;
+  margin-top:0
+}
+
+#profile-page-header.card .card-image {
+  height:190px;
+}
+
+#profile-page-header .card-content {
+  margin-top:-32px;
+  padding-bottom:0;
+}
+
+#profile-page-header .card-content .row,
+#profile-page-header .card-content .card-title {
+  margin-bottom:0;
+}
+
+#profile-page-header .card-content p {
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+}
+
+#profile-page-contents .tab-user {
+  margin:10px 0;
+}
+
+#profile-page-contents .tabs.light-blue-text .indicator {
+  background-color: #03a9f4;
+}
+
+.card-profile-image {
+  width: 90px;
+  position: absolute;
+  top: 150px;
+  z-index: 1;
+  left: 40px;
+  cursor: pointer;
+  margin: 0;
+}
+
+#list-scroll {
+  position:relative;
+  overflow:hidden;
+  height: 200px;
+}
+
+.tab-user {
+  height: 245px;
+}
+
+.collection .image-item {
+  height: 50px;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.collection .btn-flat {
+  padding:0 10px;
+  margin-left: -10px;
+}

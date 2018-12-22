@@ -1,0 +1,23 @@
+.card-profile-image {
+  width: 80px;
+  position: absolute;
+  /* top: 180px; */
+  bottom: 232px;
+  z-index: 1;
+  left: 35px;
+  cursor: pointer;
+  margin: 0;
+}
+.btn-move-up {
+    position: relative;
+    top: -70px;
+    right: -18px;
+    margin-right: 10px !important;
+}
+.consultor .card .card-content {
+  margin-top: 25px;
+}
+.consultor .brand-icon {
+  position:absolute;
+  left:15px;
+}

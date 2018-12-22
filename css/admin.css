@@ -1,0 +1,43 @@
+
+.side-nav .collapsible-body li.active, .side-nav.fixed .collapsible-body li.active {
+    background-color: #00bcd4;
+}
+ul.side-nav.leftside-navigation li {
+    line-height: 44px;
+}
+.preloader-wrapper.small {
+  width:20px;
+  height:20px;
+  top:10px;
+}
+td.details-control {
+    background: url('DataTables-1.10.18/images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.details td.details-control {
+    background: url('DataTables-1.10.18/images/details_close.png') no-repeat center center;
+}
+td.new-label {
+  color:red;
+  font-weight:800;
+  text-transform: uppercase;
+}
+span.status-badge,
+span.status-badge-pro
+{
+  position:relative;
+  right: 0;
+}
+span.badge.new.status-badge-pro::after {
+  content: " progress";
+}
+.toolbar {
+    float: left;
+    clear: both;
+}
+.buyer {
+}
+.buyer p {
+  margin-top: 5px;
+  font-size: 12px;
+}

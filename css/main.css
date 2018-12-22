@@ -1,0 +1,37 @@
+.pinned .collection .collection-item.collection-options {
+  background: #f5f5f5;
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #f12088;
+}
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: #cb1b736b;
+}
+input[type=range]::-webkit-slider-thumb {
+  background-color: #f12088;
+}
+input[type=range]::-moz-range-thumb {
+  background-color: #f12088;
+}
+input[type=range]::-ms-thumb {
+  background-color: #f12088;
+}
+input[type=range]+.thumb {
+  background-color: #f12088;
+}
+input[type=range]+.thumb .value {
+  color: #f12088;
+}
+
+@media only screen and (max-width : 992px) {
+  .tabs {
+    visibility: hidden;
+  }
+  .header-search-wrapper {
+    top: 51px;
+    z-index: 1;
+  }
+  .btn-floating {
+    display: none;
+  }
+}
