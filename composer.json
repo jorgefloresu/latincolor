@@ -1,6 +1,6 @@
 {
   "require": {
     "php": "~7.1.20",
-    "gettext/languages": "^2.3"
+    "ext-gettext": "*"
   }
 }
