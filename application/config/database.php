@@ -64,10 +64,14 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'root',
-	'database' => 'ci_test',
+	// 'hostname' => 'localhost',
+	// 'username' => 'root',
+	// 'password' => 'root',
+	// 'database' => 'ci_test',
+	'hostname' => 'codemar.net',
+	'username' => 'jwwwadas',
+	'password' => '1zga95Wx',
+	'database' => 'jwwwadas_ci_test',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -82,5 +86,6 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE,
-	'port' => 8889
+	'port' => 3306
+	// 'port' => 8889
 );
