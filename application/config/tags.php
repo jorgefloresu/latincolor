@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['header_css'] = [
                           'materialize/css/materialize.min.css',
                           'css/providers.css',
-                          'materialize/material-icons/iconfont/material-icons.css',
+                          //'materialize/material-icons/iconfont/material-icons.css',
                           'css/home-style.css',
                           'css/styles.css'
                         ];
