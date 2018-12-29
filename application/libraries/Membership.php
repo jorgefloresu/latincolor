@@ -62,9 +62,9 @@ class Membership
 			$order['description'] = $detalles[0]->description;
 		}
 		else {
-			$order['description'] = ( $order['description']!=='' ?: $detalles[0]->description );
+			$order['description'] = $order['description']=='' ? $detalles[0]->description : $order['description'];
 		}
-
+		//print_r($order);
 		$this->send_email_order($user->row(), $order, $detalles[0]->productId);
 		return ['process'  => 'ok',
 						'detalles' => $detalles];
@@ -88,7 +88,12 @@ class Membership
 			$mail->Subject = "Orden de compra {$order['orderId']} - Plan {$media}";
 
 			if ($order['status'] == 'ord') {
-				$mail->Body = $this->CI->load->view('email/orden_recibida', $email_data, TRUE);
+				$email = $this->CI->load->view('email/Orden_recibida/mail','', TRUE);
+				$email = str_replace('__USUARIO__', strtoupper($user->first_name), $email);
+	      $email = str_replace('__ORDEN__', $order['orderId'], $email);
+	      $email = str_replace('__PRODUCTO__', $media, $email);
+				$email = str_replace('__DESCRIPCION__', $order['description'], $email);
+				$mail->Body = $email;
 				$mail->AltBody = 'Su orden fue recibida';
 
 			} elseif ($order['status'] == 'g2p') {

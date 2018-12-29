@@ -247,19 +247,22 @@ class Login extends CI_Controller {
 				//Create a new PHPMailer instance
 				$this->load->library("PHPMailer_Library");
 				$mail = $this->phpmailer_library->createPHPMailer();
-
+				$user = $this->membership_model->get_fullname($user_from_email);
+				$email_data = $user->row();
 				//Set who the message is to be sent to
-				$mail->addAddress($email, 'Jorge Flores');
+				$mail->addAddress($email, $email_data->fname);
 				//Set the subject line
-				$mail->Subject = 'Password recovery';
+				$mail->Subject = 'Tu nueva clave';
 				//Read an HTML message body from an external file, convert referenced images to embedded,
 				//convert HTML into a basic plain-text alternative body
 				$mail->CharSet = 'utf-8';
 				//$mail->msgHTML(file_get_contents(VIEWPATH.'content_sample.php'), __DIR__);
 				$mail->isHTML(true);
 				$new_passwd = $this->randomPassword();
-				$mail->Body = 'The new pasword for <b>'.$email.
-				 							'</b> is: <b>'. $new_passwd.'</b>';
+				$body = $this->load->view('email/Recuperar/mail','', TRUE);
+				$body = str_replace('__USUARIO__', strtoupper($email_data->first_name), $body);
+				$body = str_replace('__CLAVE__', $new_passwd, $body);
+				$mail->Body = $body;
 				//Replace the plain text body with one created manually
 				$mail->AltBody = 'This is a plain-text message body';
 				//Attach an image file
@@ -270,7 +273,7 @@ class Login extends CI_Controller {
 				    echo "Mailer Error: " . $mail->ErrorInfo;
 				} else {
 						$this->membership_model->update_member($user_from_email, ['password'=>$new_passwd]);
-				    echo "Su nueva clave ha sido enviada al correo proporcionado";
+				    echo "Tu nueva clave ha sido enviada al correo proporcionado";
 				}
 			} else {
 				http_response_code(404);

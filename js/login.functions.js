@@ -153,7 +153,7 @@ var Login = {
   onForgotPassword: function () {
       Login.config.linkForgotPassword.on('click', function(){
         Login.config.forgotForm[0].reset();
-        $('.response').css('color','black').text('Your new password will be sent to this email');
+        $('.response').css('color','black').text('Tu nueva clave será enviada a email que ingresas');
         Login.config.loginWindow.modal('close');
         Login.config.forgotWindow.modal('open');
       })

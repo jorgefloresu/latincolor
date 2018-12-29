@@ -38,19 +38,19 @@ var Pay = (function () {
 
 	    	$.extend(setup, values);
 
-  			// TCO.loadPubKey('sandbox');
-  			// setup.$CCForm.submit(function(e) {
-  			//   e.preventDefault();
-  			//   tokenRequest();
-  			// })
-
-  			setup.$CCForm.submit(function(event) {
-  				event.preventDefault();
-          $.download(setup.cartItems, function(res){
-            setup.resCartItems = res;
-            setup.$CCWindow.modal('close');
-          });
+  			TCO.loadPubKey('sandbox');
+  			setup.$CCForm.submit(function(e) {
+  			  e.preventDefault();
+  			  tokenRequest();
   			})
+
+  			// setup.$CCForm.submit(function(event) {
+  			// 	event.preventDefault();
+        //   $.download(setup.cartItems, function(res){
+        //     setup.resCartItems = res;
+        //     setup.$CCWindow.modal('close');
+        //   });
+  			// })
 
 	    }
 	}
