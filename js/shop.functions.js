@@ -133,7 +133,7 @@
               tco += item.tco;
               html += "<tr><td><img src='"+item.thumb+"' height='auto' style='max-height:110px;width: auto;min-width: 110px;max-width:110px'/></td><td>" + item.id + "</td>";
               html += "<td>" + item.desc    + "</td><td>" + item.sizelbl  + "</td>";
-              html += "<td>" + item.license + "</td><td>" + item.price.toFixed(2).toLocaleString() + "</td>";
+              html += "<td>" + item.license + "</td><td class='right-align'>" + item.price.toFixed(2).toLocaleString() + "</td>";
               html += "<td class='download center'><a href='' data-item='" + item.id + "' class='btn-flat'><i class='material-icons'>file_download</i></a></a></td>";
               html += "<td class='delete center'><a href='' data-item='" + item.id + "' class='btn-flat'><i class='material-icons'>delete</i></a></td></tr>";
             }
@@ -453,14 +453,15 @@
 
       _toast: function(type){
           let text, link;
+          let close = '<a class="toast-action" onclick="Materialize.Toast.removeAll()"><i class="material-icons white-text" style="padding-right:10px">clear</i></a>';
           switch (type) {
             case 'empty':
               text = "No tienes elementos en tu lista de compra";
-              link = '<a class="btn-flat toast-action modal-trigger" onclick="Materialize.Toast.removeAll()">Cerrar</a>';
+              link = close;
               break;
             case 'perfil':
               text = "Debes completar tu perfil";
-              link = '<a href="'+location.origin+'/latincolor/main/user'+'" class="btn-flat toast-action modal-trigger">Ir a tu perfil</a>';
+              link = '<a href="'+location.origin+'/latincolor/main/user'+'" class="btn-flat toast-action modal-trigger" onclick="Materialize.Toast.removeAll()">Ir a tu perfil</a>';
               break;
             case 'sesion':
               text = "Debes iniciar sesión";
@@ -468,7 +469,8 @@
               break;
           }
           let toast = $('<span>'+text+'</span>')
-                      .add($(link));
+                      .add($(link))
+                      .add($(close));
 
           Materialize.toast(toast, 30000);
 

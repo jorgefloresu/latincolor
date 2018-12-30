@@ -69,10 +69,11 @@ var Planes = {
           $.submitForm(form, function(res){
             Planes.config.planesResult.find('.popout').html('');
             if (res.length > 0) {
-              Planes.config.resultados.text('Planes para descarga '+selection[0]+' de '+selection[1]+' durante '+selection[2]).show();
+              let desc = 'Planes para descarga '+selection[0]+' de '+selection[1]+' durante '+selection[2];
+              Planes.config.resultados.text(desc).show();
               $('body,html').animate({ scrollTop: Planes.config.resultados.offset().top-90 }, 500);
               $.each(res, function(index, plan){
-                  let row = Templates.planesResult(plan);
+                  let row = Templates.planesResult(plan, desc);
                   Planes.config.planesResult.find('ul').append(row);
               });
               Planes.onComprarPlan();
@@ -102,11 +103,13 @@ var Planes = {
             id: $(this).data('id'),
             provider: $(this).data('provider'),
             desc: Planes.config.resultados.text(),
-            price: $(this).data('valor'),
+            price: $(this).data('price'),
             iva: $(this).data('iva'),
             tco: $(this).data('tco')
           }
-          env.shop.payPlan(planSelected);
+          //env.shop.payPlan(planSelected);
+          env.shop.addToCart(this);
+          env.shop.displayCart();
         })
   },
 

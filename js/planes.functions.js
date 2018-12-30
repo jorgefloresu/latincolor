@@ -140,9 +140,12 @@ var Planes = {
             desc: Planes.config.resultados.text(),
             price: $(this).data('valor'),
             iva: $(this).data('iva'),
-            tco: $(this).data('tco')
+            tco: $(this).data('tco'),
+            size: 'N/A',
+            license: 'N/A'
           }
-          Planes.shop.payPlan(planSelected);
+          //Planes.shop.payPlan(planSelected);
+          Planes.shop.addToCart(this);
         })
   },
 

@@ -7,8 +7,8 @@
         <table class="shopping-cart">
           <thead>
             <tr>
-              <th style="width: 120px">Producto</th><th>Producto ID</th><th>Descripción</th><th>Tamaño</th>
-              <th>Licencia</th><th>Precio</th>
+              <th style="width: 120px">Producto</th><th>Prod. ID</th><th>Descripción</th><th>Tamaño</th>
+              <th>Licencia</th><th>Precio($)</th>
             </tr>
           </thead>
           <tbody></tbody>

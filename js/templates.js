@@ -81,11 +81,12 @@ var userImageList = '<div class="recent-activity-list chat-out-list row">'+
      '</div>'+
      '</div>';
 
-var planesResult = function(plan) {
+var planesResult = function(plan, desc) {
+      let logoProvider = location.origin+"/latincolor/img/"+plan.provider+".png";
       let row = "<li><div class='collapsible-header valign-wrapper "+plan.deal+"'>"+
-                "<img src='"+location.origin+"/latincolor/img/"+plan.provider+".png'/>";
+                "<img src='"+logoProvider+"'/>";
       if (plan.deal!='')
-          row +="<span class='new badge red' data-badge-caption='oferta'>mejor</span>";
+          row +="<span class='new badge red' style='position:absolute;right:38%' data-badge-caption='oferta'>mejor</span>";
 
       row += "</div><div class='collapsible-body'>"+
               "<div class='row'><div class='col s6 m6 l6' style='border-right:1px #ccc solid'>"+
@@ -102,10 +103,12 @@ var planesResult = function(plan) {
       row +=  "<span style='text-align: center;text-decoration: line-through;'>Precio regular: $4.00</span>"+
               "<p style='border-bottom: none;text-align: center;font-size: 1.07rem;line-height: 1.6em;'>"+
               plan.fotos_suscripcion+" IMÁGENES</p>"+
-              "<p style='border-bottom: none;text-align: center;font-size: 1.07rem;line-height: 1.6em;'>"+
-              "COSTO DEL PLAN "+plan.valor+"</p><a href='#!' data-id='"+plan.id+"' data-valor='"+plan.valor+"' data-iva='"+plan.iva+
-              "' data-tco='"+plan.tco+"' data-provider='"+plan.provider+
-                "' class='comprar-plan-btn btn waves-effect waves-light center'>Comprar ahora</a>"+
+              "<p style='border-bottom: none;text-align: center;font-size: 1.07rem;line-height: 1.6em;color:red'>"+
+              "COSTO DEL PLAN $"+plan.valor+"</p><a href='#!' data-id='"+plan.id+"' data-img='"+plan.id+
+              "' data-price='"+plan.valor+"' data-iva='"+plan.iva+"' data-thumb='"+logoProvider+
+              "' data-tco='"+plan.tco+"' data-provider='"+plan.provider+"' data-desc='"+desc+
+              "' data-size='N/A' data-sizelbl='N/A' data-license='N/A'"+
+                "' class='comprar-plan-btn btn waves-effect waves-light center'>Agregar al carrito</a>"+
               "</ul></div></div></div>"+"</li>";
       return row;
     }
