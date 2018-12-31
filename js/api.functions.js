@@ -86,7 +86,7 @@ var Api = ( function() {
               resultControl: $('.result-control'),
               paginator: $(".paginator"),             // Contenedor del HTML del paginador
               progress: $(".progress"),
-              progressPos: '110px',
+              progressPos: '166px',
               error: $("#error"),
 
               tabs: $('ul.tabs'),
