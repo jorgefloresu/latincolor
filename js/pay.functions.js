@@ -33,7 +33,8 @@ var Pay = (function () {
 		        $CCNumber: $('#ccNo'),
 		        $CCVC: $('#cvv'),
 		        $CCMonth: $("#expMonth"),
-		        $CCYear: $("#expYear")
+		        $CCYear: $("#expYear"),
+            token: ''
 	    	};
 
 	    	$.extend(setup, values);
@@ -67,6 +68,7 @@ var Pay = (function () {
 		  //     username: setup.selCartItem.username.val(),
       //     items: JSON.stringify(setup.cartItems)
 		  // };
+      setup.token = datatoken.response.token.token;
       let form_data = {
 		      token: datatoken.response.token.token,
 		      orderId: setup.$orderId.val(),

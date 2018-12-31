@@ -87,6 +87,9 @@ var User = {
                        User.auth.init();
                        User.shop.displayCart();
                        $('#message').show().delay(1600).fadeOut('slow','linear');
+                       if ($.urlParam(location.href,'back')=='cart') {
+                         User.config.cart.modal('open');
+                       }
                      })
         });
   },

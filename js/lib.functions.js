@@ -216,6 +216,10 @@
                         //return (location.href.match(/search/gi) != null);
               }
 
+    $.urlParam = function(url, field) {
+              let exp = new RegExp( field + "=([^&]+)" );
+              return exp.exec(url)[1].replace(/\+/g," ");
+            }
 
     $(window).on('popstate', function(e) {
                   var state = e.originalEvent.state;

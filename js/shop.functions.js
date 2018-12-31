@@ -420,19 +420,21 @@
         Pay.setup.$CCWindow.modal({
           complete: function(){
             console.log(Pay.setup.resCartItems);
-            $.each(Pay.setup.resCartItems, function(index, item){
-              if (item.result == 'success') {
-                $('.delete a[data-item="'+item.productId+'"]')
-                    .html('')
-                    .parent()
-                    .addClass('remove');
-                $('.download a[data-item="'+item.productId+'"]')
-                    .html("<i class='material-icons green-text'>check_circle</i>");
-              }
-            });
-            self.$emptyCart.hide();
-            self.$checkout.hide();
-            $('#downloading').removeClass('hide');
+            if (Pay.setup.token != '') {
+              $.each(Pay.setup.resCartItems, function(index, item){
+                if (item.result == 'success') {
+                  $('.delete a[data-item="'+item.productId+'"]')
+                      .html('')
+                      .parent()
+                      .addClass('remove');
+                  $('.download a[data-item="'+item.productId+'"]')
+                      .html("<i class='small material-icons green-text'>check_circle</i>");
+                }
+              });
+              self.$emptyCart.hide();
+              self.$checkout.hide();
+              $('#downloading').removeClass('hide');
+            }
           }
         });
 
@@ -475,7 +477,7 @@
               break;
             case 'perfil':
               text = "Debes completar tu perfil";
-              link = '<a href="'+location.origin+'/latincolor/main/user'+'" class="btn-flat toast-action modal-trigger" onclick="Materialize.Toast.removeAll()">Ir a tu perfil</a>';
+              link = '<a href="'+location.origin+'/latincolor/main/user?back=cart'+'" class="btn-flat toast-action" onclick="Materialize.Toast.removeAll()">Ir a tu perfil</a>';
               break;
             case 'sesion':
               text = "Debes iniciar sesión";
