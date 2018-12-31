@@ -129,15 +129,23 @@
             let iva = 0, tco = 0;
             for (let i=0; i<cartLength; i++){
               let item = cart[i];
+              let icon = 'file_download';
+              if (item.size=='N/A') {
+                icon = 'monetization_on';
+              }
               iva += (country=='Colombia' || country==null ? item.iva : 0);
               tco += item.tco;
-              html += "<tr><td><img src='"+item.thumb+"' height='auto' style='max-height:110px;width: auto;min-width: 110px;max-width:110px'/></td><td>" + item.id + "</td>";
-              html += "<td>" + item.desc    + "</td><td>" + item.sizelbl  + "</td>";
-              html += "<td>" + item.license + "</td><td class='right-align'>" + item.price.toFixed(2).toLocaleString() + "</td>";
-              html += "<td class='download center'><a href='' data-item='" + item.id + "' class='btn-flat'><i class='material-icons'>file_download</i></a></a></td>";
-              html += "<td class='delete center'><a href='' data-item='" + item.id + "' class='btn-flat'><i class='material-icons'>delete</i></a></td></tr>";
+              html += "<tr><td><img src='"+item.thumb+"' height='auto' style='max-height:110px;width: auto;max-width:110px'/></td><td>" + item.id + "</td>";
+              html += "<td>" + item.desc    + "</td><td class='center'>" + item.sizelbl  + "</td>";
+              html += "<td class='center'>" + item.license + "</td><td class='right-align'>" + item.price.toFixed(2).toLocaleString() + "</td>";
+              html += "<td class='download center'><a href='' data-item='" + item.id + "' ><i class='small material-icons green-text'>"+icon+"</i></a></a></td>";
+              html += "<td class='delete center'><a href='' data-item='" + item.id + "' ><i class='small material-icons red-text'>delete</i></a></td></tr>";
             }
             this.$tableCartBody.html( html );
+            // this.$tableCartBody.imagesLoaded().progress(function(instance, image){
+            //   console.log(image.img.src+'size: '+image.img.width);
+            //   $(image.img).css('min-width',0);
+            // });
             this.$cartCount.text(cartLength).toggle(true);
             this.sideCartBtn.text(cartLength);
             this.sideCartBtn.attr('data-badge-caption','items');
@@ -183,14 +191,20 @@
             this.sideCartBtn.text(cart.length);
             this.$cartCount.css('display','inline');
             added.status = 'added';
-            Materialize.toast('Item '+id+', tamaño '+size+' ha sido agregado',2000);
+            Materialize.toast('Item '+id+(size=='N/A'?'':', tamaño '+size)+' ha sido agregado',4000);
           } else {
-            if (foundItem.element.size == $(item).data('size')) {
-              added.status = 'deleted';
-              Materialize.toast('Item '+id+', tamaño '+$(item).data('size')+' fue removido de la lista de compras',2000);
+            if ($(item).data('size') != 'N/A') {
+              if (foundItem.element.size == $(item).data('size')) {
+                added.status = 'deleted';
+                Materialize.toast('Item '+id+', tamaño '+$(item).data('size')+' fue removido de la lista de compras',4000);
+              } else {
+                added.status = 'exists';
+                Materialize.toast('Item '+id+', ya está agregado en la lista de compras',4000);
+              }
             } else {
-              added.status = 'exists';
-              Materialize.toast('Item '+id+', ya está agregado en la lista de compras',2000);
+              if (foundItem.element.size == $(item).data('size')) {
+                Materialize.toast('Item '+id+', ya está agregado en la lista de compras',4000);
+              }
             }
           }
           added.item = item;

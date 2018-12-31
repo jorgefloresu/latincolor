@@ -4,11 +4,11 @@
       <h5>Lista de Compras</h5>
 <!--       <input type="hidden" name="subaccountid" value="">
      subaccount:  -->
-        <table class="shopping-cart">
+        <table class="shopping-cart responsive-table">
           <thead>
             <tr>
               <th style="width: 120px">Producto</th><th>Prod. ID</th><th>Descripción</th><th>Tamaño</th>
-              <th>Licencia</th><th>Precio($)</th>
+              <th>Licencia</th><th>Precio($)</th><th style="width:6%"></th><th style="width:6%"></th>
             </tr>
           </thead>
           <tbody></tbody>

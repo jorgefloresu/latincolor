@@ -194,7 +194,7 @@
         </ul>
       </div> -->
   </nav>
-  <div class="progress" style="margin: 0; top:99px; position: fixed; display: none;">
+  <div class="progress" style="margin: 0; top:110px; position: fixed; display: none;">
       <div class="indeterminate" style="width: 70%"></div>
   </div>
 </div>
