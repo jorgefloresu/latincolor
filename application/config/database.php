@@ -59,19 +59,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 
-$active_group = 'default';
+$active_group = 'heroku';
 $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	// 'hostname' => 'localhost',
-	// 'username' => 'root',
-	// 'password' => 'root',
-	// 'database' => 'ci_test',
-	'hostname' => 'codemar.net',
-	'username' => 'jwwwadas',
-	'password' => '1zga95Wx',
-	'database' => 'jwwwadas_ci_test',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => 'root',
+	'database' => 'ci_test',
+	'port' => 8889,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -85,7 +82,28 @@ $db['default'] = array(
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
-	'save_queries' => TRUE,
-	'port' => 3306
-	// 'port' => 8889
+	'save_queries' => TRUE
+);
+
+$db['heroku'] = array(
+	'dsn'	=> '',
+	'hostname' => 'codemar.net',
+	'username' => 'jwwwadas',
+	'password' => '1zga95Wx',
+	'database' => 'jwwwadas_ci_test',
+	'port' => 3306,
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => TRUE,
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
 );
