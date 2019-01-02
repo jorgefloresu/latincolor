@@ -97,11 +97,11 @@ class Main extends CI_Controller {
       $data['first_name'] = $data['user']->first_name;
       $data['email_address'] = $data['user']->email_address;
       $data['password'] = '123abc456';
-      $email = $this->load->view('email/Orden_recibida/mail','', TRUE);
+      $email = $this->load->view('email/Compra/mail','', TRUE);
       $email = str_replace('__USUARIO__', strtoupper($data['user']->first_name), $email);
       $email = str_replace('__ORDEN__', $data['orderId'], $email);
       $email = str_replace('__PRODUCTO__', $data['productId'], $email);
-      //$email = str_replace('__DESCRIPCION__', strtoupper($data['description']), $email);
+      $email = str_replace('__DESCRIPCION__', strtoupper($data['description']), $email);
       //$email = str_replace('__CLAVE__', $data['password'], $email);
       echo $email;
 

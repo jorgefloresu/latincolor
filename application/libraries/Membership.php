@@ -89,27 +89,26 @@ class Membership
 
 			if ($order['status'] == 'ord') {
 				$email = $this->CI->load->view('email/Orden_recibida/mail','', TRUE);
-				$email = str_replace('__USUARIO__', strtoupper($user->first_name), $email);
-	      $email = str_replace('__ORDEN__', $order['orderId'], $email);
-	      $email = str_replace('__PRODUCTO__', $media, $email);
-				$email = str_replace('__DESCRIPCION__', $order['description'], $email);
-				$mail->Body = $email;
+				$mail->Body = replaceTags($user->first_name, $order, $media, $email);
 				$mail->AltBody = 'Su orden fue recibida';
 
 			} elseif ($order['status'] == 'g2p') {
-				$mail->Body = $this->CI->load->view('email/orden_proceso', $email_data, TRUE);
+				$email = $this->CI->load->view('email/Orden_proceso/mail', '', TRUE);
+				$mail->Body = replaceTags($user->first_name, $order, $media, $email);
 				$mail->AltBody = 'Su orden está en proceso';
 				$order['status'] = 'pro';
 
 			} else {
-				$mail->Body = $this->CI->load->view('email/orden_lista', $email_data, TRUE);
+				$email = $this->CI->load->view('email/Orden_completa/mail', '', TRUE);
+				$mail->Body = replaceTags($user->first_name, $order, $media, $email);
 				$mail->AltBody = 'Su orden está lista';
 				$mail->addAttachment(realpath("img/Contrato de Suscripcion Depositphotos.pdf"));
 			}
 
 		} else {
 			$mail->Subject = "Orden de compra {$order['orderId']} - Imágenes";
-			$mail->Body = $this->CI->load->view('email/download_product', $email_data, TRUE);
+			$email = $this->CI->load->view('email/Compra/mail', '', TRUE);
+			$mail->Body = replaceTags($user->first_name, $order, $media, $email);
 			$mail->AltBody = 'Has comprado una o varias imágenes';
 			//Attachments
 			switch ($order['provider']) {
@@ -133,6 +132,14 @@ class Membership
 				return "Tu compra ha sido exitosa";
 		}
 
+	}
+
+	function replaceTags($user, $order, $media, $email) {
+		$email = str_replace('__USUARIO__', strtoupper($user), $email);
+		$email = str_replace('__ORDEN__', $order['orderId'], $email);
+		$email = str_replace('__PRODUCTO__', $media, $email);
+		$email = str_replace('__DESCRIPCION__', $order['description'], $email);
+		return $email;
 	}
 
 

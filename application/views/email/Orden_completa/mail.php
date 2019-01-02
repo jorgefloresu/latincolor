@@ -244,7 +244,7 @@ a[x-apple-data-detectors=true] {
 
                     <div align="center" class="img-container center  autowidth  fullwidth " style="padding-right: 0px;  padding-left: 0px;">
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
-  <img class="center  autowidth  fullwidth" align="center" border="0" src="http://codemar.net/latincolor/img/email/orden_recibida/orden_recibida.jpg" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 100%;max-width: 580px" width="580">
+  <img class="center  autowidth  fullwidth" align="center" border="0" src="http://codemar.net/latincolor/img/email/orden_completa/orden_completa.jpg" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 100%;max-width: 580px" width="580">
 <!--[if mso]></td></tr></table><![endif]-->
 </div>
 
@@ -253,7 +253,7 @@ a[x-apple-data-detectors=true] {
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
 	<div style="color:#892C63;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:120%; padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;">
-		<div style="font-size:12px;line-height:14px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;color:#892C63;text-align:left;"><div style="line-height:14px; font-size:12px; text-align: center;"><span style="font-size: 24px; line-height: 28px;"><span style="line-height: 28px; font-size: 24px;">GRACIAS POR TU COMPRA __USUARIO__,</span></span></div></div>
+		<div style="font-size:12px;line-height:14px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;color:#892C63;text-align:left;"><div style="line-height:14px; font-size:12px; text-align: center;"><span style="font-size: 24px; line-height: 28px;"><span style="line-height: 28px; font-size: 24px;">FELICITACIONES __USUARIO__,</span></span></div></div>
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
 </div>
@@ -262,7 +262,7 @@ a[x-apple-data-detectors=true] {
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 0px; padding-bottom: 0px;"><![endif]-->
 	<div style="color:#555555;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:180%; padding-right: 20px; padding-left: 20px; padding-top: 0px; padding-bottom: 0px;">
-		<div style="line-height:22px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:12px;color:#555555;text-align:left;"><p style="margin: 0;line-height: 22px;text-align: center;font-size: 12px"><span style="background-color: transparent; font-size: 12px; line-height: 21px;"><span style="font-size: 18px; line-height: 32px;">Tu orden ha sido recibida!</span>&#160;</span></p><p style="margin: 0;font-size: 12px;line-height: 22px;text-align: center">&#160;</p></div>
+		<div style="line-height:22px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:12px;color:#555555;text-align:left;"><p style="margin: 0;line-height: 22px;text-align: center;font-size: 12px"><span style="background-color: transparent; font-size: 12px; line-height: 21px;"><span style="font-size: 18px; line-height: 32px;">Tu orden se completó satisfactoriamente!</span>&#160;</span></p><p style="margin: 0;font-size: 12px;line-height: 22px;text-align: center">&#160;</p></div>
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
 </div>
@@ -323,13 +323,6 @@ a[x-apple-data-detectors=true] {
 </div>
 
 
-                    <div class="">
-	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
-	<div style="color:#555555;line-height:120%;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;">
-		<div style="font-size:12px;line-height:14px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center">En instantes te llegará un e-mail confirmando tu proceso de compra.</p></div>
-	</div>
-	<!--[if mso]></td></tr></table><![endif]-->
-</div>
 
 
 
@@ -372,20 +365,18 @@ a[x-apple-data-detectors=true] {
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
 	<div style="color:#555555;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;line-height:180%; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;">
-		<div style="font-size:12px;line-height:22px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 22px;text-align: center"><span style="font-size: 20px; line-height: 36px;">Te felicitamos!</span></p><p style="margin: 0;font-size: 12px;line-height: 22px;text-align: center"><br><span style="font-size: 14px; line-height: 25px;">Estás a punto de utilizar imágenes que cuentan con toda la protección legal y sus derechos de uso.&#160;</span><span style="font-size: 14px; line-height: 25px;">Tienes alguna inquietud?</span></p></div>
+		<div style="font-size:12px;line-height:22px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 22px;text-align: center"><span style="font-size: 16px; line-height: 25px;">Has adquirido tu licencia estándar con los derechos que te permiten usar tus recursos fotográficos en:</span>
+      <br><span style="font-size: 16px; line-height: 25px;">1. Digital y redes sociales</span>
+      <br><span style="font-size: 16px; line-height: 25px;">2. Material impreso</span>
+      <br><span style="font-size: 16px; line-height: 25px;">3. Comercial, editorial y publicitario</span>
+      <br><br><span style="font-size: 14px; line-height: 25px;">Para mayor información, consulta tu licencia adjunta a este email</span>
+    </p></div>
 	</div>
 	<!--[if mso]></td></tr></table><![endif]-->
 </div>
 
 
 
-<div align="center" class="button-container center " style="padding-right: 25px; padding-left: 25px; padding-top:15px; padding-bottom:10px;">
-  <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 25px; padding-left: 25px; padding-top:15px; padding-bottom:10px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://codemar.net/latincolor/main/consultor" style="height:31pt; v-text-anchor:middle; width:142pt;" arcsize="12%" strokecolor="#f12088" fillcolor="#f12088"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; font-size:16px;"><![endif]-->
-    <a href="http://codemar.net/latincolor/main/consultor" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #f12088; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; max-width: 190px; width: 150px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;mso-border-alt: none">
-      <span style="font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:16px;line-height:32px;"><span style="font-family: 'lucida sans unicode', 'lucida grande', sans-serif; font-size: 16px; line-height: 32px;">Contacta tu consultor</span></span>
-    </a>
-  <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
-</div>
 
 
 
