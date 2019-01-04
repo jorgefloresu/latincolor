@@ -145,6 +145,7 @@ var Planes = {
             license: 'N/A'
           }
           //Planes.shop.payPlan(planSelected);
+          console.log(this);
           Planes.shop.addToCart(this);
         })
   },

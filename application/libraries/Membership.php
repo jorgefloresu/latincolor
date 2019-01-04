@@ -89,18 +89,18 @@ class Membership
 
 			if ($order['status'] == 'ord') {
 				$email = $this->CI->load->view('email/Orden_recibida/mail','', TRUE);
-				$mail->Body = replaceTags($user->first_name, $order, $media, $email);
+				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
 				$mail->AltBody = 'Su orden fue recibida';
 
 			} elseif ($order['status'] == 'g2p') {
 				$email = $this->CI->load->view('email/Orden_proceso/mail', '', TRUE);
-				$mail->Body = replaceTags($user->first_name, $order, $media, $email);
+				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
 				$mail->AltBody = 'Su orden está en proceso';
 				$order['status'] = 'pro';
 
 			} else {
 				$email = $this->CI->load->view('email/Orden_completa/mail', '', TRUE);
-				$mail->Body = replaceTags($user->first_name, $order, $media, $email);
+				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
 				$mail->AltBody = 'Su orden está lista';
 				$mail->addAttachment(realpath("img/Contrato de Suscripcion Depositphotos.pdf"));
 			}
@@ -108,7 +108,7 @@ class Membership
 		} else {
 			$mail->Subject = "Orden de compra {$order['orderId']} - Imágenes";
 			$email = $this->CI->load->view('email/Compra/mail', '', TRUE);
-			$mail->Body = replaceTags($user->first_name, $order, $media, $email);
+			$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
 			$mail->AltBody = 'Has comprado una o varias imágenes';
 			//Attachments
 			switch ($order['provider']) {

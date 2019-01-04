@@ -98,7 +98,7 @@ var Pay = (function () {
 		      dataType: 'json'
 		  }).done(function(data){
 		      if (data.response.responseCode == 'APPROVED'){
-		          setup.$CCWindow.modal('close');
+		          //setup.$CCWindow.modal('close');
 		          setup.$message.html('APROBADA');
 		          //-- before: Api.download(setup.selCartItem);
               processOrder(form_data);
@@ -133,18 +133,29 @@ var Pay = (function () {
 	}
 
   var processOrder = function(form) {
+      //var defer = $.Deferred(),
+      //    result = defer.then()
       //let status = ( form.provider=='Depositphoto' ? '' : 'ord' );
       //+form.orderId+'/'+form.username+'/'+form.totalId+'/'+form.description+'/'+form.tranType+'/'+status)
       $.getJSON(location.origin+'/latincolor/order/confirmar_orden', form)
-          .done(function(res){
+          .then(function(res){
             if (res.process == 'ok') {
               if (form.tranType == 'compra_img' || form.tranType == 'compra_imgs') {
                 $.download(setup.cartItems, function(res){
                   setup.resCartItems = res;
-                  setup.$CCWindow.modal('close');
-                });
+                  //setup.$CCWindow.modal('close');
+                })
+              } else {
+                setup.resCartItems = setup.cartItems;
+                setup.resCartItems[0].result = 'success';
+                console.log(setup.resCartItems);
+                //modalControl.resolve(setup.cartItems);
+                //setup.$CCWindow.modal('close');
               }
             }
+          })
+          .done(function(){
+            setup.$CCWindow.modal('close');
           })
           .fail(function(res){
             console.log(res);

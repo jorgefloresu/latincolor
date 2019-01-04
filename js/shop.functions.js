@@ -177,12 +177,14 @@
             let desc = $(item).data('desc');
             let thumb = $(item).data('thumb');
             let provider = $(item).data('provider');
+            let tranType = $(item).data('trantype');
             let iva = this._convertString($(item).data('iva'));
             let tco = this._convertString($(item).data('tco'));
 
             let total = this.storage.get(this.total);
             cart.push({'id':id, 'desc':desc, 'size':size, 'sizelbl':sizelbl, 'license':license,
-                        'price':price, 'iva':iva, 'tco':tco, 'thumb':thumb, 'provider':provider});
+                        'price':price, 'iva':iva, 'tco':tco, 'thumb':thumb, 'provider':provider,
+                        'tranType': tranType});
             total = total + price;
             console.log("add total:"+total);
             this.storage.set(this.total, total);
@@ -191,19 +193,19 @@
             this.sideCartBtn.text(cart.length);
             this.$cartCount.css('display','inline');
             added.status = 'added';
-            Materialize.toast('Item '+id+(size=='N/A'?'':', tamaño '+size)+' ha sido agregado',4000);
+            this._toast('info', 'Item '+id+(size=='N/A'?'':', tamaño '+size)+' ha sido agregado');
           } else {
             if ($(item).data('size') != 'N/A') {
               if (foundItem.element.size == $(item).data('size')) {
                 added.status = 'deleted';
-                Materialize.toast('Item '+id+', tamaño '+$(item).data('size')+' fue removido de la lista de compras',4000);
+                this._toast('info', 'Item '+id+', tamaño '+$(item).data('size')+' fue removido de la lista de compras');
               } else {
                 added.status = 'exists';
-                Materialize.toast('Item '+id+', ya está agregado en la lista de compras',4000);
+                this._toast('info', 'Item '+id+', ya está agregado en la lista de compras');
               }
             } else {
               if (foundItem.element.size == $(item).data('size')) {
-                Materialize.toast('Item '+id+', ya está agregado en la lista de compras',4000);
+                this._toast('info', 'Item '+id+', ya está agregado en la lista de compras');
               }
             }
           }
@@ -274,6 +276,7 @@
       },
 
       payItem: function(item) {
+        console.log(item);
         var order = Math.floor((Math.random()*1000000)+1);
         let userLogged = '';
         //if (typeof Api !== 'undefined')
@@ -302,7 +305,7 @@
         Pay.setup.cartItems = [];
         Pay.setup.cartItems.push({'orderId':order, 'productId':item.id, 'size':item.size, 'license_type':item.license,
                                   'price':item.price, 'iva':item.iva, 'tco':item.tco, 'provider':item.provider, 'thumb':item.thumb,
-                                  'description':item.desc, 'tranType':'compra_img', 'username':userLogged});
+                                  'description':item.desc, 'tranType':item.tranType, 'username':userLogged});
 
         Pay.setup.$aviso.addClass('hide');
         Pay.setup.$message.html('');
@@ -357,7 +360,7 @@
                                       'price':plan.price,
                                       'iva':plan.iva, 'tco':plan.tco,
                                       'provider':plan.provider, 'description':plan.desc,
-                                      'tranType':'compra_plan', 'username':userLogged});
+                                      'tranType':plan.tranType, 'username':userLogged});
           } else {
               self._toast("perfil");
           }
@@ -433,7 +436,9 @@
               });
               self.$emptyCart.hide();
               self.$checkout.hide();
-              $('#downloading').removeClass('hide');
+              if (Pay.setup.resCartItems[0].tranType != 'compra_plan') {
+                $('#downloading').removeClass('hide');
+              }
             }
           }
         });
@@ -467,10 +472,15 @@
 
       },
 
-      _toast: function(type){
+      _toast: function(type, info){
           let text, link;
+          let time = 30000;
           let close = '<a class="toast-action" onclick="Materialize.Toast.removeAll()"><i class="material-icons white-text" style="padding-right:10px">clear</i></a>';
           switch (type) {
+            case 'info':
+              text = info;
+              time = 4000;
+              break
             case 'empty':
               text = "No tienes elementos en tu lista de compra";
               link = close;
@@ -488,7 +498,7 @@
                       .add($(link))
                       .add($(close));
 
-          Materialize.toast(toast, 30000);
+          Materialize.toast(toast, time);
 
       },
 

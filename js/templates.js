@@ -97,17 +97,17 @@ var planesResult = function(plan, desc) {
               "Interés periodístico o general. Uso no comercial.</span></p></div>"+
               "<div class='col s6 m6 l6 center'>"+
               "<div class='price' style='position: relative;font-size: 4rem;line-height: 1.6em;font-weight: 300;text-align: center;'>"+
-                "<sup style='font-weight: 100;font-size: 1.42rem;line-height: 1.6em;top: -26px;'>$</sup>"+plan.por_imagen+
+                "<sup style='font-weight: 100;font-size: 1.42rem;line-height: 1.6em;top: -26px;'>US$</sup>"+plan.por_imagen.toLocaleString()+
                 "<sub style='font-weight: 100;font-size: 1.42rem;line-height: 1.6em;top: 0;'>c/imagen</sub>"+
               "</div>";
       row +=  "<span style='text-align: center;text-decoration: line-through;'>Precio regular: $4.00</span>"+
               "<p style='border-bottom: none;text-align: center;font-size: 1.07rem;line-height: 1.6em;'>"+
               plan.fotos_suscripcion+" IMÁGENES</p>"+
               "<p style='border-bottom: none;text-align: center;font-size: 1.07rem;line-height: 1.6em;color:red'>"+
-              "COSTO DEL PLAN $"+plan.valor+"</p><a href='#!' data-id='"+plan.id+"' data-img='"+plan.id+
+              "COSTO DEL PLAN US$"+plan.valor.toLocaleString()+"</p><a href='#!' data-id='"+plan.id+"' data-img='"+plan.id+
               "' data-price='"+plan.valor+"' data-iva='"+plan.iva+"' data-thumb='"+logoProvider+
               "' data-tco='"+plan.tco+"' data-provider='"+plan.provider+"' data-desc='"+desc+
-              "' data-size='N/A' data-sizelbl='N/A' data-license='N/A'"+
+              "' data-size='N/A' data-sizelbl='N/A' data-license='N/A' data-trantype='compra_plan"+
                 "' class='comprar-plan-btn btn waves-effect waves-light center'>Agregar al carrito</a>"+
               "</ul></div></div></div>"+"</li>";
       return row;

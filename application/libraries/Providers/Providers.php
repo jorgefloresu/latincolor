@@ -49,7 +49,8 @@ class Providers extends CI_Driver_Library {
 													 ."' data-license='".$item['license']."' data-size='".$item['size']
 													 ."' data-thumb='".$item['thumb']."' data-iva='".number_format($this->set_iva($item['price']),2)
 													 ."' data-tco='".number_format($this->set_tco($item['price']),2)
-													 ."' data-sizelbl='".$item['sizelbl']."' data-provider='".$item['provider']."'>";
+													 ."' data-sizelbl='".$item['sizelbl']."' data-provider='".$item['provider']
+													 ."' data-tranType='compra_img'>";
 	}
 
 	function price_item_cart($item) {
