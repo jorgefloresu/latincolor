@@ -57,7 +57,7 @@
             let self = this;
             this.navCartBtn.on('click', function(event) {
                 event.preventDefault();
-                if ($('#stotal').text() != '0.00') {
+                if ( $('#stotal').text() != '0' ) {
                   self.$emptyCart.show();
                   self.$checkout.show();
                   self.$element.modal({
@@ -71,7 +71,7 @@
             Pay.setup.init();
             Pay.setup.$CCWindow.modal({
                 complete: function(modal) {
-                  if (Pay.setup.$message.html() == 'APROBADA')
+                  if (Pay.setup.$message.html() == 'Transacción aprobada!... preparando compra')
                     self.setMessage('Descargando...');
                 }
             })
@@ -131,13 +131,13 @@
               let item = cart[i];
               let icon = 'file_download';
               if (item.size=='N/A') {
-                icon = 'monetization_on';
+                icon = 'credit_card';
               }
               iva += (country=='Colombia' || country==null ? item.iva : 0);
               tco += item.tco;
               html += "<tr><td><img src='"+item.thumb+"' height='auto' style='max-height:110px;width: auto;max-width:110px'/></td><td>" + item.id + "</td>";
               html += "<td>" + item.desc    + "</td><td class='center'>" + item.sizelbl  + "</td>";
-              html += "<td class='center'>" + item.license + "</td><td class='right-align'>" + item.price.toFixed(2).toLocaleString() + "</td>";
+              html += "<td class='center'>" + item.license + "</td><td class='right-align'>" + this._price(item.price) + "</td>";
               html += "<td class='download center'><a href='' data-item='" + item.id + "' ><i class='small material-icons green-text'>"+icon+"</i></a></a></td>";
               html += "<td class='delete center'><a href='' data-item='" + item.id + "' ><i class='small material-icons red-text'>delete</i></a></td></tr>";
             }
@@ -153,7 +153,7 @@
             this.iva = iva;
             this.tco = tco;
           }
-          this.$subTotal.text(total.toFixed(2).toLocaleString());
+          this.$subTotal.text(this._price(total));
         }
       },
 
@@ -257,9 +257,11 @@
                 self.actionItem(this);
               else {
                 self._toast("perfil");
+                self.openLoginWindow();
               }
             } else {
               self._toast("sesion");
+              self.openLoginWindow();
             }
           //}
         });
@@ -285,12 +287,12 @@
           userLogged = $.Auth.info('username');
         //}
         Pay.setup.factDescript.text(item.desc+', tamaño: '+item.size);
-        Pay.setup.factSubtotal.text(this._convertString(item.price).toFixed(2).toLocaleString());
-        Pay.setup.factIVA.text(this._convertString(item.iva).toFixed(2).toLocaleString());
-        Pay.setup.factTCO.text(this._convertString(item.tco).toFixed(2).toLocaleString());
-        Pay.setup.factTotal.text((this._convertString(item.price)+
+        Pay.setup.factSubtotal.text(this._price(this._convertString(item.price)));
+        Pay.setup.factIVA.text(this._price(this._convertString(item.iva)));
+        Pay.setup.factTCO.text(this._price(this._convertString(item.tco)));
+        Pay.setup.factTotal.text(this._price(this._convertString(item.price)+
                                   this._convertString(item.iva)+
-                                  this._convertString(item.tco)).toFixed(2).toLocaleString());
+                                  this._convertString(item.tco)));
 
         Pay.setup.$CCForm.trigger('reset');
         Pay.setup.$orderId.val(order);
@@ -419,7 +421,18 @@
         //console.log(Pay.setup.cartItems.length, Pay.setup.cartItems);
       },
 
+      openLoginWindow: function() {
+        Login.config.loginWindow.modal({
+          complete: function() {
+            if ($.Auth.status() == 'loggedIn') {
+              self._toast('info', 'Sesión iniciada');
+            }
+          }
+        })
+      },
+
       openPayWindow: function() {
+        console.log(Pay.setup.factTotal.text().replace(",", "."));
         Pay.setup.$CCWindow.modal({
           complete: function(){
             console.log(Pay.setup.resCartItems);
@@ -515,10 +528,15 @@
         return null;
       },
 
+      _price: function(valor) {
+        let local = $.Auth.info('country') == 'Colombia' || $.Auth.info('country') == null ? 'es-CO' : 'en-US';
+        return valor.toLocaleString(local, { maximumFractionDigits: 2 })
+      },
+
       _convertString: function( numStr ) {
         var num;
-        numStr = numStr.toString().replace(",", ".");
-        if( /^[-+]?[0-9]+\.[0-9]+$/.test( numStr ) ) {
+        //numStr = numStr.toString().replace(",", ".");
+        if( /^[-+]?[0-9]+[.,][0-9]+$/.test( numStr ) ) {
           num = parseFloat( numStr );
         } else if( /^\d+$/.test( numStr ) ) {
           num = parseInt( numStr, 10 );

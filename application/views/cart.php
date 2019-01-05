@@ -8,13 +8,13 @@
           <thead>
             <tr>
               <th style="width: 120px">Producto</th><th>Prod. ID</th><th>Descripción</th><th>Tamaño</th>
-              <th>Licencia</th><th>Precio($)</th><th style="width:6%"></th><th style="width:6%"></th>
+              <th class="center">Licencia</th><th class="right">Precio(US$)</th><th style="width:6%"></th><th style="width:6%"></th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
         <p id="sub-total">
-          <strong>Sub Total</strong>: <span id="stotal"></span>
+          <strong>Sub Total US$</strong>: <span id="stotal"></span>
         </p>
         <div id="downloading" class="card-panel teal hide" style="position: absolute;bottom:0;width:94%">
           <span class="white-text">Tu descarga ha iniciado. En caso que tu descarga esté incompleta

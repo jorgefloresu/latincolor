@@ -72,7 +72,8 @@ var Pay = (function () {
       let form_data = {
 		      token: datatoken.response.token.token,
 		      orderId: setup.$orderId.val(),
-		      totalId: Number(setup.factTotal.text()).toFixed(2),
+		      totalId: setup.factTotal.text().replace(",", "."),
+
 		      orderNumber: setup.$orderNumber.val(),
 
 		      productId: setup.cartItems[0].productId,

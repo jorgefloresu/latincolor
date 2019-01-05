@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="http://localhost:8888/CI/materialize/css/materialize.min.css" media="screen, projection"/>
+		<link rel="stylesheet" href="<?php echo base_url('materialize/admin/css/materialize.min.css'); ?>" media="screen, projection"/>
 		<!-- <link rel="stylesheet" href="<?php echo base_url('materialize/css/materialize.min.css'); ?>" media="screen, projection"/> -->
 		<link rel="stylesheet" href="<?php echo base_url('css/materialize-plus.css'); ?>" />
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -59,7 +59,7 @@
 		</div>
 
 		<script src="<?php echo base_url('js/jquery-3.3.1.min.js');?>"></script>
-		<script src="<?php echo base_url('materialize/js/materialize.min.js');?>"></script>
+		<script src="<?php echo base_url('materialize/admin/js/materialize.min.js');?>"></script>
 		<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<script src="http://localhost:8888/CI/materialize/js/materialize.min.js"></script> -->
 		<script src="<?php echo base_url('js/js.storage.min.js'); ?>"></script>

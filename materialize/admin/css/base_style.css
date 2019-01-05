@@ -1,0 +1,289 @@
+/* line 10, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: #F1F1F1;
+}
+
+/* line 17, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+main {
+  flex: 1 0 auto;
+}
+
+/* line 21, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav {
+  color: #757575;
+}
+
+/* line 25, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#topbar, nav#topbar i {
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  display: inline;
+}
+
+/* line 35, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#topbar li a {
+  font-size: 11px;
+  color: #757575;
+}
+
+/* line 40, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#topbar #top-usercart i {
+  font-size: 25px;
+}
+
+/* line 43, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#topbar #top-usercart i.tiny {
+  font-size: 1.5em;
+}
+
+/* line 47, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#topbar .cart-total {
+  display: inline;
+  position: absolute;
+  width: 25px;
+  text-align: center;
+  margin-left: -30px;
+  margin-top: 2px;
+}
+
+/* line 55, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#topbar .task-cat {
+  font-size: 0.7rem;
+}
+
+/* line 59, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+#top-options {
+  height: 37px;
+  line-height: 37px;
+}
+
+/* line 63, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+#top-options.active {
+  height: 40px;
+  line-height: 40px;
+}
+
+/* line 67, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+#top-options.active:hover {
+  height: 39px;
+  line-height: 39px;
+}
+
+/* line 72, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+header .brand-logo {
+  margin: 1px 0px;
+  padding: 0 10px;
+  color: #757575;
+}
+
+/* line 77, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+header .brand-logo img {
+  width: 145px;
+  height: auto;
+  margin-top: 3px;
+}
+
+/* line 83, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+#header {
+  margin-bottom: 20px;
+}
+
+/* line 87, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#slide-search-bar {
+  width: 700px;
+  height: 0;
+  margin: 50px auto;
+  line-height: 55px;
+}
+
+/* line 94, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#site-link {
+  margin-top: 15px;
+  height: 40px;
+  line-height: 40px;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* line 101, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.breadcrumb,
+.breadcrumb:before {
+  color: #757575;
+  font-size: 12px;
+}
+
+/* line 106, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.breadcrumb:last-child {
+  color: #D84A4A;
+}
+
+/* line 110, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#home-horizontal-nav {
+  margin-top: 40px;
+  opacity: 1;
+  height: 50px;
+  line-height: 50px;
+}
+
+/* line 116, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+nav#home-horizontal-nav li a {
+  color: #757575;
+}
+
+/* line 120, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+i.closer-right {
+  margin-left: 4px;
+  font-size: 16px;
+}
+
+/* line 124, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+i.closer-left {
+  margin-right: 4px;
+  font-size: 16px;
+}
+
+/* line 129, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.side-nav li {
+  line-height: 1.5;
+}
+
+/* ---- Footer ----- */
+/* line 135, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+#footbar li a,
+.footer-copyright div {
+  font-size: 11px;
+  color: #757575;
+}
+
+/* line 140, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.footer-copyright .row {
+  margin-bottom: 0;
+}
+
+/* line 144, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+#social li a {
+  padding: 0 10px;
+}
+
+/* line 148, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.page-footer .footer-copyright {
+  box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, 0.16);
+  z-index: 999;
+  position: relative;
+  background-color: white;
+}
+
+/* line 154, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.page-footer {
+  margin-top: 0;
+}
+
+/* line 157, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+ul#footer {
+  height: 50px;
+  width: 260px;
+  margin: auto;
+}
+
+/* ----------------- */
+/* line 165, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.imgdetail .card,
+.imgdetail .card .card-title {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 25px;
+}
+
+/* line 184, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.card-black {
+  background-color: #000 !important;
+  -webkit-transition: background 0.5s ease-in;
+  -moz-transition: background 0.5s ease-in;
+  -ms-transition: background 0.5s ease-in;
+  transition: background 0.5s ease-in;
+}
+
+/* line 189, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.action-red {
+  background-color: #B71C1C !important;
+  -webkit-transition: background 0.5s ease-in;
+  -moz-transition: background 0.5s ease-in;
+  -ms-transition: background 0.5s ease-in;
+  transition: background 0.5s ease-in;
+}
+
+/* line 194, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.card-text {
+  color: #FFF !important;
+  -webkit-transition: color 0.5s ease-in;
+  -moz-transition: color 0.5s ease-in;
+  -ms-transition: color 0.5s ease-in;
+  transition: color 0.5s ease-in;
+}
+
+/* line 199, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.provider {
+  margin-left: -21px;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* line 206, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.imgdetail .card .card-action {
+  padding: 15px 4px;
+  white-space: nowrap;
+  font-weight: normal;
+}
+
+/* line 212, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.imgdetail .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+  margin-right: 0;
+}
+
+/* line 216, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.imgdetail #keywords-preview {
+  font-size: 10px;
+  color: #757575;
+}
+
+/* line 221, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+#dimension {
+  font-size: 11px;
+}
+
+/* line 225, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.dl-horizontal {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px;
+  margin: 0;
+  font-size: 10px;
+  line-height: 30px;
+}
+
+/* line 233, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.dl-horizontal dt {
+  float: left;
+  width: 60%;
+  /* adjust the width; make sure the total of both is 100% */
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* line 241, /Applications/MAMP/htdocs/CI/materialize/scss/base_style.scss */
+.dl-horizontal dd {
+  float: left;
+  width: 40%;
+  /* adjust the width; make sure the total of both is 100% */
+  padding: 0;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+/*# sourceMappingURL=../css/base_style.map */
