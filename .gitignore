@@ -1,4 +1,7 @@
-materialize/material-icons/*
-system_old/*
+/materialize/material-icons/
+/system_old/
 .ftpconfig
 /vendor/
+/.vscode/
+/application/config.php
+/application/database.php

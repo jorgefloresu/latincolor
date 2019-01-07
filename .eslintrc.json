@@ -10,7 +10,8 @@
         "ecmaVersion": 2015
     },
     "globals": {
-        "Materialize": true
+        "Materialize": true,
+        "Login": true
     },
     "rules": {
         "no-console": "off",

@@ -140,7 +140,8 @@ var Admin = {
     },
 
     format: function(row) {
-      let div = $('<div/>').text('Loading...');
+      let message = row.new == 'g2p' ? 'Espere... Enviando notificacion a '+row.username : 'Cargando...';
+      let div = $('<div/>').text(message);
       console.log(row);
       $.getJSON(location.origin+'/latincolor/admin/ventas_detalle/'+
                 row.orderId+'/'+row.new+'/'+row.username+'/'+row.activity)
@@ -351,7 +352,7 @@ var Admin = {
         });
     },
 
-    onTableBody: function() {
+    /* onTableBody: function() {
       // Order by the grouping
       Admin.config.tableBody.on( 'click', 'tr.group', function () {
           let currentOrder = table.order()[0];
@@ -362,7 +363,7 @@ var Admin = {
               table.order( [ Admin.config.groupColumn, 'asc' ] ).draw();
           }
       });
-    },
+    }, */
 
     onAplicar: function(fullTable) {
       Admin.config.aplicar.click( function() {
