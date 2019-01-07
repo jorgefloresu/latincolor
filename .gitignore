@@ -3,5 +3,5 @@
 .ftpconfig
 /vendor/
 /.vscode/
-/application/config.php
-/application/database.php
+/application/config/config.php
+/application/config/database.php
