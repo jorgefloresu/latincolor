@@ -514,16 +514,28 @@ class Membership_model extends CI_Model {
 		return $this->db->count_all_results();
 	}
 
-	function change_venta_status($orderId='', $new_status='')
+	//function change_venta_status($orderId='', $new_status='')
+	function change_venta_status($order, $media, $url)
 	{
-		$this->db->set('status', $new_status);
-		$this->db->where('orderId', $orderId);
+		$this->db->set('status', $order['status']);
+		$this->db->where('orderId', $order['orderId']);
 		$this->db->update('ventas');
+		
+		$this->update_ventas_detalle($order, $media, $url);
+	}
+
+	function update_ventas_detalle($order, $media, $url) {
+		$this->db->set('url_plan', $url);
+		$this->db->set('user_plan', $order['plan']['username']);
+		$this->db->set('pwd_plan', $order['plan']['password']);
+		$this->db->where('orderId', $order['orderId']);
+		$this->db->where('productId', $media);
+		$this->db->update('ventas_detalle');
 	}
 
 	function get_ventas_detalle($orderId='')
 	{
-		$this->db->select('thumb, productId, provider, price, iva, tco, size, license_type, description');
+		$this->db->select('thumb, productId, provider, price, iva, tco, size, license_type, description, url_plan, user_plan, pwd_plan');
 		$this->db->where('orderId', $orderId);
 		$this->db->from('ventas_detalle');
 		$res = $this->db->get();

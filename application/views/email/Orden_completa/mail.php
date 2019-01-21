@@ -317,8 +317,11 @@ a[x-apple-data-detectors=true] {
                     <div class="">
 	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
 	<div style="color:#555555;line-height:200%;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;">
-		<div style="font-size:12px;line-height:24px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 16px; line-height: 32px;">Orden # __ORDEN__</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 16px; line-height: 32px;">Producto # __PRODUCTO__</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 14px; line-height: 28px;">__DESCRIPCION__</span></p></div>
-	</div>
+		<div style="font-size:12px;line-height:24px;font-family:Montserrat, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 16px; line-height: 32px;">Orden # __ORDEN__</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 16px; line-height: 32px;">Producto # __PRODUCTO__</span></p><p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 14px; line-height: 28px;">__DESCRIPCION__</span></p>
+    <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 14px; line-height: 28px;">Proveedor: __PROVEEDOR__</span></p></div>
+    <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 14px; line-height: 28px;">Usuario: __PLANUSER__</span></p>
+    <p style="margin: 0;font-size: 12px;line-height: 24px;text-align: center"><span style="font-size: 14px; line-height: 28px;">Password: __PLANPASS__</span></p>
+  </div>
 	<!--[if mso]></td></tr></table><![endif]-->
 </div>
 

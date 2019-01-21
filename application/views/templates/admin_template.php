@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="<?php echo base_url('materialize/admin/css/materialize.min.css'); ?>" media="screen, projection"/>
-		<!-- <link rel="stylesheet" href="<?php echo base_url('materialize/css/materialize.min.css'); ?>" media="screen, projection"/> -->
-		<link rel="stylesheet" href="<?php echo base_url('css/materialize-plus.css'); ?>" />
-		<link rel="stylesheet" href="<?php echo base_url('css/perfect-scrollbar.css'); ?>" />
-		<link rel="stylesheet" href="<?php echo base_url('css/admin.css'); ?>" />
-		<link rel="stylesheet" href="<?php echo base_url('css/datatables.min.css'); ?>" />
-		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  	<!-- <link href="http://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet" media="screen,projection"> -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="<?php echo base_url('materialize/admin/css/materialize.min.css'); ?>" media="screen, projection" />
+    <!-- <link rel="stylesheet" href="<?php echo base_url('materialize/css/materialize.min.css'); ?>" media="screen, projection"/> -->
+    <link rel="stylesheet" href="<?php echo base_url('css/materialize-plus.css'); ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('css/perfect-scrollbar.css'); ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('css/admin.css'); ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('css/datatables.min.css'); ?>" />
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link href="http://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet" media="screen,projection"> -->
 
 
-		<title>Latincol Panel</title>
+    <title>Latincol Panel</title>
 
-	</head>
+</head>
 
-  <body>
-		<header id="header" class="page-topbar">
-		  <!-- start header nav-->
-		  <?$this->load->view('templates/admin_header')?>
-		  <!-- end header nav-->
-		</header>
+<body>
+    <header id="header" class="page-topbar">
+        <!-- start header nav-->
+        <?$this->load->view('templates/admin_header')?>
+        <!-- end header nav-->
+    </header>
 
 
-		<div id="main">
-		    <!-- START WRAPPER -->
-		    <div class="wrapper">
+    <div id="main">
+        <!-- START WRAPPER -->
+        <div class="wrapper">
 
-		    <?$this->load->view('templates/admin_sidebar')?>
+            <?$this->load->view('templates/admin_sidebar')?>
 
-		    <section id="content">
+            <section id="content">
 
-		        <!--breadcrumbs start-->
-		        <!--<div id="breadcrumbs-wrapper" class=" grey lighten-3">
+                <!--breadcrumbs start-->
+                <!--<div id="breadcrumbs-wrapper" class=" grey lighten-3">
 		          <div class="container">
 		            <div class="row">
 		              <div class="col s12 m12 l12">
@@ -50,35 +50,39 @@
 		            </div>
 		          </div>
 		        </div> -->
-		        <!--breadcrumbs end-->
+                <!--breadcrumbs end-->
 
-		        <div class="container">
-		          <div class="section">
+                <div class="container">
+                    <div class="section">
 
-								<?=$main_content?>
+                        <?=$main_content?>
 
-							</div>
-					  </div>
-					</section>
-					</div>
-			</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <?$this->load->view('pages/plan_form')?>
 
-			<script type="text/javascript">
-				var userData = JSON.parse('<?=$user_info?>');
-			</script>
+    </div>
 
-			<script src="<?php echo base_url('js/jquery-3.3.1.min.js');?>"></script>
-			<script src="<?php echo base_url('materialize/admin/js/materialize.min.js');?>"></script>
-			<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+    var userData = JSON.parse('<?=$user_info?>');
+    </script>
+
+    <script src="<?php echo base_url('js/jquery-3.3.1.min.js');?>"></script>
+    <script src="<?php echo base_url('materialize/js/materialize.min.js');?>"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 			<script src="http://localhost:8888/CI/materialize/js/materialize.min.js"></script> -->
-			<script src="<?php echo base_url('js/js.storage.min.js'); ?>"></script>
-			<script src="<?php echo base_url('js/perfect-scrollbar.min.js'); ?>"></script>
-			<!-- <script src="<?php echo base_url('js/jquery.dataTables.min.js'); ?>"></script> -->
-			<script src="<?php echo base_url('js/datatables.min.js'); ?>"></script>
-			<script src="<?php echo base_url('js/jquery.validate.js'); ?>"></script>
-			<script src="<?php echo base_url('js/lib.functions.js');?>"></script>
-			<script src="<?php echo base_url('js/auth.functions.js');?>"></script>
-			<script src="<?php echo base_url('js/login.functions.js');?>"></script>
-			<script src="<?php echo base_url('js/admin.functions.js'); ?>"></script>
-		</body>
+    <script src="<?php echo base_url('js/js.storage.min.js'); ?>"></script>
+    <script src="<?php echo base_url('js/perfect-scrollbar.min.js'); ?>"></script>
+    <!-- <script src="<?php echo base_url('js/jquery.dataTables.min.js'); ?>"></script> -->
+    <script src="<?php echo base_url('js/datatables.min.js'); ?>"></script>
+    <script src="<?php echo base_url('js/jquery.validate.js'); ?>"></script>
+    <script src="<?php echo base_url('js/lib.functions.js');?>"></script>
+    <script src="<?php echo base_url('js/auth.functions.js');?>"></script>
+    <script src="<?php echo base_url('js/login.functions.js');?>"></script>
+    <script src="<?php echo base_url('js/admin.functions.js'); ?>"></script>
+</body>
+
 </html>

@@ -100,9 +100,24 @@ class Membership
 
 			} else {
 				$email = $this->CI->load->view('email/Orden_completa/mail', '', TRUE);
+				switch ($order['plan']['provider']) {
+					case 'Fotosearch':
+						$attach = realpath("img/Acuerdo de licencia de Fotosearch.pdf");
+						$url = "";
+						break;
+					case 'Depositphoto':
+						$attach = realpath("img/Contrato de Suscripcion Depositphotos.pdf");
+						$url = "";
+						break;
+					case 'Dreamstime':
+						$attach = realpath("img/Dreamstime Licencia Standar y Extendida.pdf");
+						$url = "http://www.dreamstime.com";
+						break;
+				}
 				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
 				$mail->AltBody = 'Su orden está lista';
-				$mail->addAttachment(realpath("img/Contrato de Suscripcion Depositphotos.pdf"));
+				$mail->addAttachment($attach);
+
 			}
 
 		} else {
@@ -110,6 +125,7 @@ class Membership
 			$email = $this->CI->load->view('email/Compra/mail', '', TRUE);
 			$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
 			$mail->AltBody = 'Has comprado una o varias imágenes';
+			$url = "";
 			//Attachments
 			switch ($order['provider']) {
 				case 'Fotosearch':
@@ -124,7 +140,8 @@ class Membership
 			}
 
 		}
-		$this->CI->membership_model->change_venta_status($order['orderId'], $order['status']);
+		//$this->CI->membership_model->change_venta_status($order['orderId'], $order['status']);
+		$this->CI->membership_model->change_venta_status($order, $media, $url);
 
 		if (!$mail->send()) {
 				throw new Exception("Mailer Error: " . $mail->ErrorInfo, 1);
@@ -139,6 +156,9 @@ class Membership
 		$email = str_replace('__ORDEN__', $order['orderId'], $email);
 		$email = str_replace('__PRODUCTO__', $media, $email);
 		$email = str_replace('__DESCRIPCION__', $order['description'], $email);
+		$email = str_replace('__PROVEEDOR__', $order['plan']['provider'], $email);
+		$email = str_replace('__PLANUSER__', $order['plan']['username'], $email);
+		$email = str_replace('__PLANPASS__', $order['plan']['password'], $email);
 		return $email;
 	}
 

@@ -107,7 +107,7 @@ var planesResult = function(plan, desc) {
               "COSTO DEL PLAN US$"+plan.valor.toLocaleString()+"</p><a href='#!' data-id='"+plan.id+"' data-img='"+plan.id+
               "' data-price='"+plan.valor+"' data-iva='"+plan.iva+"' data-thumb='"+logoProvider+
               "' data-tco='"+plan.tco+"' data-provider='"+plan.provider+"' data-desc='"+desc+
-              "' data-size='N/A' data-sizelbl='N/A' data-license='N/A' data-trantype='compra_plan"+
+              "' data-size='N/A' data-sizelbl='-' data-license='standard' data-trantype='compra_plan"+
                 "' class='comprar-plan-btn btn waves-effect waves-light center'>Agregar al carrito</a>"+
               "</ul></div></div></div>"+"</li>";
       return row;

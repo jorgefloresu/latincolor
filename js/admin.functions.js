@@ -218,40 +218,53 @@ var Admin = {
     },
 
     onConfirmar: function () {
-      $('div.toolbar .btn').on('click', function(){
-        let button = $(this);
-        button.text('Procesando...');
+        $('button#ingresar').on('click', function(){
+          Admin.sendUserPlan()
+        })
+    },
+
+    sendUserPlan: function () {
+        $('div.toolbar .btn').text('Enviando, espere...');
         let cellStatus = Admin.config.dataVentas.find('.selected .badge').parent();
-        if ( ! $(this).hasClass('disabled') && cellStatus.length > 0) {
+        if ( ! $('div.toolbar .btn').hasClass('disabled') && cellStatus.length > 0) {
           let row = Admin.dataTable.row('.selected').data();
           // row.orderId+'/'+row.username+'/'+row.monto
-          let orderData = {
-            order: JSON.stringify({
-              orderId: row.orderId,
-              tranType: row.activity,
-              status: '',
-              username: row.username,
-              description: '',
-            })
-          };
-          $.getJSON(location.origin+'/latincolor/order/confirmar_orden', orderData)
-              .done(function(res) {
-                    if (res.process == 'ok') {
-                      Admin.dataTable.cell(cellStatus).data('').draw();
+          $.getJSON(location.origin+'/latincolor/admin/ventas_detalle/'+
+                row.orderId+'/'+row.new+'/'+row.username+'/'+row.activity)
+              .then(function (venta) {
+                let orderData = {
+                  order: JSON.stringify({
+                    orderId: row.orderId,
+                    tranType: row.activity,
+                    status: '',
+                    username: row.username,
+                    description: '',
+                    plan: {
+                      provider: venta.result[0].provider,
+                      username: $('#plan-username').val(),
+                      password: $('#plan-password').val()
                     }
-                    location.reload();
-               })
-               .fail(function(res) {
-                 console.log(res)
-               });
+                  })
+                };
+                console.log(orderData);
+                $.getJSON(location.origin+'/latincolor/order/confirmar_orden', orderData)
+                  .done(function(res) {
+                        if (res.process == 'ok') {
+                          Admin.dataTable.cell(cellStatus).data('').draw();
+                        }
+                        location.reload();
+                  })
+                  .fail(function(res) {
+                    console.log(res)
+                  });
+              })  
+          
         }
-      })
-
     },
 
     addOrderButton: function() {
       if ($('#data-ventas').hasClass('ordenes')) {
-        $("div.toolbar").html('<a href="#" class="btn waves-effect waves-light disabled">Confirmar</a>');
+        $("div.toolbar").html('<a href="#plan-modal" class="btn modal-trigger waves-effect waves-light disabled">Confirmar</a>');
       }
 
     },
@@ -402,6 +415,9 @@ var Admin = {
     },
 
     setMaterial: function () {
+      $('.modal').modal({
+        dismissible: true
+      });
       $('.dropdown-button').dropdown({
         inDuration: 300,
         outDuration: 125,

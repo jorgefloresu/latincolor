@@ -35,7 +35,8 @@ span.badge.new.status-badge-pro::after {
     float: left;
     clear: both;
 }
-.buyer {
+#plan-modal {
+  max-width: 350px;
 }
 .buyer p {
   margin-top: 5px;

@@ -133,6 +133,10 @@ class Admin extends CI_Controller {
 		$this->load_page('ventas', $data);
 	}
 
+	function get_ventas_detalle($orderId) {
+		echo json_encode($this->membership_model->get_ventas_detalle($orderId));
+	}
+
 	function ventas_detalle($orderId='', $status='', $username='', $activity='')
 	{
 		// switch ($status)
@@ -158,6 +162,7 @@ class Admin extends CI_Controller {
 		}
 
 		$data['html_table'] = build_data_table($detalles, "style='font-size:12px'");
+		$data['result'] = $detalles;
 
 		echo json_encode($data);
 	}
