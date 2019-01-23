@@ -520,8 +520,9 @@ class Membership_model extends CI_Model {
 		$this->db->set('status', $order['status']);
 		$this->db->where('orderId', $order['orderId']);
 		$this->db->update('ventas');
-		
-		$this->update_ventas_detalle($order, $media, $url);
+		if ($url != "") {
+			$this->update_ventas_detalle($order, $media, $url);
+		}
 	}
 
 	function update_ventas_detalle($order, $media, $url) {

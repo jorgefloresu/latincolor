@@ -89,12 +89,15 @@ class Membership
 
 			if ($order['status'] == 'ord') {
 				$email = $this->CI->load->view('email/Orden_recibida/mail','', TRUE);
-				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
+				$url = "";
+				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
+				$mail->AddCC("gerencia@latincolorimages.com");
 				$mail->AltBody = 'Su orden fue recibida';
 
 			} elseif ($order['status'] == 'g2p') {
 				$email = $this->CI->load->view('email/Orden_proceso/mail', '', TRUE);
-				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
+				$url = "";
+				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
 				$mail->AltBody = 'Su orden está en proceso';
 				$order['status'] = 'pro';
 
@@ -114,7 +117,8 @@ class Membership
 						$url = "http://www.dreamstime.com";
 						break;
 				}
-				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
+				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
+				$mail->AddCC("gerencia@latincolorimages.com");
 				$mail->AltBody = 'Su orden está lista';
 				$mail->addAttachment($attach);
 
@@ -123,9 +127,9 @@ class Membership
 		} else {
 			$mail->Subject = "Orden de compra {$order['orderId']} - Imágenes";
 			$email = $this->CI->load->view('email/Compra/mail', '', TRUE);
-			$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email);
-			$mail->AltBody = 'Has comprado una o varias imágenes';
 			$url = "";
+			$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
+			$mail->AltBody = 'Has comprado una o varias imágenes';
 			//Attachments
 			switch ($order['provider']) {
 				case 'Fotosearch':
@@ -151,14 +155,17 @@ class Membership
 
 	}
 
-	function replaceTags($user, $order, $media, $email) {
+	function replaceTags($user, $order, $media, $email, $url) {
 		$email = str_replace('__USUARIO__', strtoupper($user), $email);
 		$email = str_replace('__ORDEN__', $order['orderId'], $email);
 		$email = str_replace('__PRODUCTO__', $media, $email);
 		$email = str_replace('__DESCRIPCION__', $order['description'], $email);
-		$email = str_replace('__PROVEEDOR__', $order['plan']['provider'], $email);
-		$email = str_replace('__PLANUSER__', $order['plan']['username'], $email);
-		$email = str_replace('__PLANPASS__', $order['plan']['password'], $email);
+		if ( array_key_exists('plan', $order)) {
+			$email = str_replace('__PROVEEDOR__', $order['plan']['provider'], $email);
+			$email = str_replace('__PLANUSER__', $order['plan']['username'], $email);
+			$email = str_replace('__PLANPASS__', $order['plan']['password'], $email);
+			$email = str_replace('__URL__', $url, $email);
+		}
 		return $email;
 	}
 

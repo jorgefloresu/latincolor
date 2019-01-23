@@ -302,7 +302,7 @@ class Main extends CI_Controller {
         $data['user_info'] = json_encode($fullname->row());
         $download_list = $this->membership_model->get_downloads($username);
         $data['download_list'] = $download_list->result();
-        $data['planes_list'] = $this->membership_model->user_planes();
+        $data['planes_list'] = $this->membership_model->user_planes($username);
         //$data['sum_downloads'] = sumar_valores($data['download_list'],'img_price');
         $data['sum_downloads'] = $this->membership_model->sum_price('downloads', 'img_price', $username);
         //$data['sum_planes'] = sumar_valores($data['planes_list'],'valor');
@@ -320,8 +320,10 @@ class Main extends CI_Controller {
       //echo json_encode($this->providers->depositphoto->getSubscriptionOffers());
       //print_r($this->membership->planes_params());
       //print_r($this->membership->get_plan('Depositphoto','Diaria',50,1));
-      $data['sum_downloads'] = $this->membership_model->sum_planes('jorgefloresu');
-      echo $data['sum_downloads'];
+      //$data['sum_downloads'] = $this->membership_model->sum_planes('jorgefloresu');
+      //echo $data['sum_downloads'];
+      $data['planes'] = $this->membership_model->user_planes('jafu');
+      highlight_string("<?php\n\$data =\n" .var_export($data['planes'], true).";\n?>");
     }
 
     function planes_params() {
