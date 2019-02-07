@@ -77,7 +77,9 @@
     <script src="<?php echo base_url('js/js.storage.min.js'); ?>"></script>
     <script src="<?php echo base_url('js/perfect-scrollbar.min.js'); ?>"></script>
     <!-- <script src="<?php echo base_url('js/jquery.dataTables.min.js'); ?>"></script> -->
+    <script src="<?php echo base_url('js/moment.min.js'); ?>"></script>
     <script src="<?php echo base_url('js/datatables.min.js'); ?>"></script>
+    <script src="<?php echo base_url('js/datetime-moment.js'); ?>"></script>
     <script src="<?php echo base_url('js/jquery.validate.js'); ?>"></script>
     <script src="<?php echo base_url('js/lib.functions.js');?>"></script>
     <script src="<?php echo base_url('js/auth.functions.js');?>"></script>

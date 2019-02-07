@@ -26,7 +26,7 @@ class Providers_depositphoto extends CI_Driver {
             );
 				if ($query['orientacion']!='') {
 					$params[RpcParams::SEARCH_ORIENTATION] = ($query['orientacion']=='Cuadrada') ?
-																										'square' : strtolower($query['orientacion']);
+															 'square' : strtolower($query['orientacion']);
 				}
 				if ($query['color']!='') {
 					$params[RpcParams::SEARCH_COLOR]  = '17';
@@ -244,6 +244,45 @@ class Providers_depositphoto extends CI_Driver {
 			default:
 				$res = $this->CI->depositclient->getSubaccounts();
 		}
+		$logout = $this->CI->depositclient->logout();
+
+		return $res;
+	}
+
+	function createSubaccount($userinfo)
+	{
+		$login = $this->CI->depositclient->login(DEF_DPUSER, DEF_DPPASS);
+		$this->CI->depositclient->setSessionId($login->sessionid);
+
+		$res = $this->CI->depositclient->createSubaccount($userinfo->email_address, 
+														$userinfo->first_name, 
+														$userinfo->last_name);
+
+		$logout = $this->CI->depositclient->logout();
+
+		$subaccountId = '';
+		if  ( ! is_object($res) ) {
+			if( isset($res['error']) ) {
+				log_message('error', '['.__CLASS__.':'.__LINE__.'] ' . $res['error']['msg']);
+				$subaccountId = 'Ya existe login';
+			} 
+		} elseif ( isset($res->type)) {
+			if ($res->type=='success' )
+				$subaccountId = $res->subaccountId;
+		}
+		return $subaccountId;
+		/*print_r($res);
+		echo $userinfo->email_address . $userinfo->first_name . $userinfo->last_name;
+		echo "Subaccount: $subaccountId";*/
+	}
+
+	function deleteSubaccount($subaccountId)
+	{
+		$login = $this->CI->depositclient->login(DEF_DPUSER, DEF_DPPASS);
+		$this->CI->depositclient->setSessionId($login->sessionid);
+
+		$res = $this->CI->depositclient->deleteSubaccount($subaccountId);
+
 		$logout = $this->CI->depositclient->logout();
 
 		return $res;

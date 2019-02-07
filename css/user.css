@@ -46,7 +46,7 @@
   margin: 0;
 }
 
-#list-scroll {
+.list-scroll {
   position:relative;
   overflow:hidden;
   height: 200px;

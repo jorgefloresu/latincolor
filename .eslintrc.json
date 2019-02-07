@@ -11,7 +11,12 @@
     },
     "globals": {
         "Materialize": true,
-        "Login": true
+        "Login": true,
+        "TCO": true,
+        "Templates": true,
+        "Storages": true,
+        "Pay": true,
+        "userData": true
     },
     "rules": {
         "no-console": "off",

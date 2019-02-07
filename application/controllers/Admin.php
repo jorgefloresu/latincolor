@@ -1,8 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-define('DEF_DPUSER', 'latincolorimages');
-define('DEF_DPPASS', 'latincol2016$');
-
 class Admin extends CI_Controller {
 
 	function __construct() {
@@ -116,9 +113,25 @@ class Admin extends CI_Controller {
 		$this->load_page('depositphoto', $data);
 	}
 
+	function create_subaccount($username) {
+        $fullname = $this->membership_model->get_fullname($username);
+        $userinfo = $fullname->row();
+		$subaccountId = $this->providers->createSubaccount("Depositphoto", $userinfo);
+		if ($subaccountId != '')
+			$this->membership_model->update_member($username, ['deposit_userid'=>$subaccountId]);
+		//print_r($subaccountId);
+		//print_r($resSubacc);
+	}
+
 	function get_subaccount_data($subaccountId) {
 		//echo json_encode($this->providers->depositphoto->getSubaccountData($subaccountId));
 		echo json_encode($this->providers->depositphoto->subaccounts('data', $subaccountId));
+	}
+
+	function delete_subaccount($subaccountId) {
+		$res = $this->providers->depositphoto->deleteSubaccount($subaccountId);
+		$this->membership_model->remove_subaccount($subaccountId);
+		redirect('admin');
 	}
 
 	function ordenes()
@@ -131,6 +144,7 @@ class Admin extends CI_Controller {
 	{
 		$data['ventas'] = $this->membership_model->get_ventas();
 		$this->load_page('ventas', $data);
+		//echo json_encode($data['ventas']);
 	}
 
 	function get_ventas_detalle($orderId) {
@@ -158,7 +172,9 @@ class Admin extends CI_Controller {
 			$detalles = $resp['detalles'];
 		}
 		else {
+			$order['status'] = func_num_args() == 3 ? '' : $status;
 			$detalles = $this->membership_model->get_ventas_detalle($orderId);
+			$this->membership_model->change_venta_status($order, $detalles[0]->productId);
 		}
 
 		$data['html_table'] = build_data_table($detalles, "style='font-size:12px'");

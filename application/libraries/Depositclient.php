@@ -345,7 +345,7 @@ class DepositClient
      * @param   string $company
      * @return  integer
      */
-    public function createSubaccount($sessionId, $subUsername, $subPass, $email, $firstName, $lastName, $company = null)
+    public function createSubaccount($email, $firstName, $lastName, $company=null, $subUsername=null, $subPass=null)
     {
         //$this->sessionId    = $sessionId;
 
@@ -354,16 +354,20 @@ class DepositClient
         $postParams = array(
             RpcParams::APIKEY       => $this->apiKey,
             RpcParams::COMMAND      => RpcParams::CREATE_SUBACCOUNT_CMD,
-            RpcParams::SESSION_ID   => $sessionId,
-            RpcParams::SUBACC_USERNAME => $subUsername,
-            RpcParams::SUBACC_PASSWORD => $subPass,
+            RpcParams::SESSION_ID   => $this->getSessionId(),
             RpcParams::SUBACC_EMAIL => $email,
             RpcParams::SUBACC_FNAME => $firstName,
-            RpcParams::SUBACC_LNAME => $lastName,
-            RpcParams::SUBACC_SEND_MAIL => 0);
+            RpcParams::SUBACC_LNAME => $lastName);
+            //RpcParams::SUBACC_SEND_MAIL => 0);
 
         if (null != $company) {
             $postParams[RpcParams::SUBACC_COMPANY] = $company;
+        }
+        if (null != $subUsername) {
+            $postParams[RpcParams::SUBACC_USERNAME] = $subUsername;
+        }
+        if (null != $subPass) {
+            $postParams[RpcParams::SUBACC_PASSWORD] = $subPass;
         }
 
         return $this->checkResponse($this->post($this->apiUrl, $postParams)); //->subaccountId;

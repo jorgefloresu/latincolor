@@ -70,6 +70,13 @@ class Membership_model extends CI_Model {
 		return $query;
 	}
 
+	function remove_subaccount($subaccountId)
+	{
+		$this->db->where('deposit_userid', $subaccountId);
+		$query = $this->db->update('membership', ['deposit_userid'=>'']);
+		return $query;
+	}
+
 	function user_exists($username)
 	{
 		$query = $this->db->get_where('membership', array('username'=>$username));
@@ -121,7 +128,7 @@ class Membership_model extends CI_Model {
 
 		$items = json_decode($this->input->post('items'), TRUE);
 		foreach ($items as $key => $item) {
-			unset($item['tranType']); unset($item['username']);
+			unset($item['tranType']); unset($item['username']); unset($item['idplan']);
 
 			$insert = $this->db->insert('ventas_detalle', $item);
 		}
@@ -501,8 +508,8 @@ class Membership_model extends CI_Model {
 	{
 		//$span = '<span style="color:red;font-weight:800">NEW</span>';
 		//$if = "IF(status='new','{$span}','') AS status";
-		$this->db->select("status, DATE_FORMAT(fecha,'%e/%m/%Y') as fecha, orderId, activity_type, username, monto");
-		$this->db->where('status = "" OR status="new"');
+		$this->db->select("status, DATE_FORMAT(fecha,'%d/%m/%Y %H:%i') as fecha, orderId, activity_type, username, monto");
+		$this->db->where("status = '' OR status='new'");
 		$res = $this->db->get('ventas');
 		return $res->result();
 	}
@@ -515,7 +522,7 @@ class Membership_model extends CI_Model {
 	}
 
 	//function change_venta_status($orderId='', $new_status='')
-	function change_venta_status($order, $media, $url)
+	function change_venta_status($order, $media, $url='')
 	{
 		$this->db->set('status', $order['status']);
 		$this->db->where('orderId', $order['orderId']);
@@ -546,8 +553,8 @@ class Membership_model extends CI_Model {
 
 	function get_ordenes()
 	{
-		$this->db->select("status, DATE_FORMAT(fecha,'%e/%m/%Y') as fecha, orderId, activity_type, username, monto");
-		$this->db->where('status = "ord" OR status = "pro"');
+		$this->db->select("status, DATE_FORMAT(fecha,'%d/%m/%Y %H:%i') as fecha, orderId, activity_type, username, monto");
+		$this->db->where('status = "ord" OR status = "pro" OR status = "g2p"');
 		$res = $this->db->get('ventas');
 		return $res->result();
 

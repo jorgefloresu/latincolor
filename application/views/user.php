@@ -101,10 +101,10 @@
             <li class="collection-item" style="padding:0">
             <ul class="collapsible" style="border:0;margin:0">
               <li>
-                <div class="collapsible-header valign-wrapper active">Imágenes</div>
+                <div class="collapsible-header valign-wrapper <?=$download_active?>">Imágenes</div>
                 <div class="collapsible-body" style="padding:0">
                   <ul class="collection">
-                    <div id="list-scroll">
+                    <div class="list-scroll">
 
                       <? foreach ($download_list as $item): ?>
 
@@ -143,10 +143,10 @@
               </li>
 
               <li>
-                <div class="collapsible-header valign-wrapper">Planes</div>
+                <div class="collapsible-header valign-wrapper <?=$planes_active?>">Planes</div>
                 <div class="collapsible-body" style="padding:0">
                   <ul class="collection">
-                    <!-- <div id="list-scroll"> -->
+                    <div class="list-scroll">
                       <? foreach ($planes_list as $item): ?>
                         <li class="collection-item">
                           <div class="row" style="margin-bottom:0">
@@ -160,7 +160,14 @@
                           </div>
                         </li>
                       <? endforeach ?>
-                    <!-- </div> -->
+                      <!-- <li class="collection-item">
+                        <div class="row" style="margin-bottom:0">
+                          <div class="col s12">
+                            <span class="right"><?//=$pags?></span>
+                          </div>
+                        </div>
+                      </li> -->
+                    </div>
                   </ul>
                 </div>
               </li>

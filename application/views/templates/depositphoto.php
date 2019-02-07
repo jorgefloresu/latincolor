@@ -22,10 +22,13 @@
                       </div>
                     </td>
                     <td>
-                      <span class="email"></span>
+                      <span class="email">Cargando...</span>
                     </td>
                     <td>
-                      <span class="since"></span>
+                      <span class="since">Cargando...</span>
+                    </td>
+                    <td>
+                      <a class='delete-user' href='<?=base_url("admin/delete_subaccount/{$value}")?>'><i class="material-icons red-text">delete</i></a>
                     </td>
                   </tr>
                 </tbody>

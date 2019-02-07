@@ -14,7 +14,7 @@ var Admin = {
             countOnce: true,
             groupColumn: 2,
           }
-
+          $.fn.dataTable.moment('DD/MM/YYYY HH:mm');
           Admin.dataTable = $('#data-ventas').DataTable({
                   "dom": 'lfrtip<"toolbar">',
                   "language": {
@@ -34,6 +34,7 @@ var Admin = {
       Admin.setDataTables();
       Admin.setDataVentas();
       Admin.onDepositphoto();
+      Admin.onDeleteSubaccount();
       Admin.setMaterial();
       Admin.getCounters();
       //setInterval(Admin.notify, 10000);
@@ -317,6 +318,8 @@ var Admin = {
     },
 
     setDataTables: function () {
+      $.fn.dataTable.moment('DD/MM/YYYY');
+
       let table = Admin.config.fullTable.DataTable({
         "language": {
           "lengthMenu": "Display records _MENU_"
@@ -411,6 +414,12 @@ var Admin = {
                   "<img src='"+location.origin+
                   "/latincolor/img/ajax-li.gif' class='right' style='margin-top:14px'/>";
         $(this).find('a').html(preload);
+      })
+    },
+
+    onDeleteSubaccount: function() {
+      $('.delete-user').on('click', function() {
+        $(this).parent().parent().find('span').text('Eliminando...');
       })
     },
 

@@ -63,7 +63,8 @@ class Transactions extends CI_Controller {
 	public function view_cart()
 	{
 		$cartitems = '';
-    if ($this->membership->is_logged_in())
+		$datares = [];
+    	if ($this->membership->is_logged_in())
 		{
 			$cartitems = $this->membership_model->get_cart();
 			$datares = $cartitems->result();

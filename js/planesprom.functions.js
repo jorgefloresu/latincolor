@@ -74,7 +74,7 @@ var Planes = {
               $('body,html').animate({ scrollTop: Planes.config.resultados.offset().top-90 }, 500);
               $.each(res, function(index, plan){
                   let row = Templates.planesResult(plan, desc);
-                  Planes.config.planesResult.find('ul').append(row);
+                  Planes.config.planesResult.find('.popout').append(row);
               });
               Planes.onComprarPlan();
               $('.collapsible').collapsible();
@@ -98,6 +98,7 @@ var Planes = {
   },
 
   onComprarPlan: function (plan) {
+        Planes.config.comprarPlan.off('click');
         Planes.config.comprarPlan.on('click', 'a.comprar-plan-btn', function() {
           let planSelected = {
             id: $(this).data('id'),
@@ -128,6 +129,7 @@ var Planes = {
   },
 
   setFrecuenciaList: function() {
+          Planes.config.frecuenciaList.off('click');
           Planes.config.frecuenciaList.on('click','a',function() {
             Planes.config.frecuenciaSel.text($(this).text());
             let per = ($(this).text()=='Diaria' ? 'por día' :
@@ -147,6 +149,7 @@ var Planes = {
   },
 
   setCantidadList: function() {
+            Planes.config.cantidadList.off('click');
             Planes.config.cantidadList.on('click','a',function() {
               Planes.config.cantidadSel.text($(this).text());
               //$(".selected-cantidad").css('display','inline-block');
@@ -157,6 +160,7 @@ var Planes = {
   },
 
   setTiempoList: function() {
+            Planes.config.tiempoList.off('click');
             Planes.config.tiempoList.on('click','a',function() {
               Planes.config.tiempoSel.text($(this).text());
               //$(".selected-tiempo").css('display','inline-block');

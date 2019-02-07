@@ -65,9 +65,13 @@ class Membership
 			$order['description'] = $order['description']=='' ? $detalles[0]->description : $order['description'];
 		}
 		//print_r($order);
-		$this->send_email_order($user->row(), $order, $detalles[0]->productId);
+		//$res = $this->send_email_order($user->row(), $order, $detalles[0]->productId);
+		$res['url'] = '';
+		
+		$this->CI->membership_model->change_venta_status($order, $detalles[0]->productId, $res['url']);
+		
 		return ['process'  => 'ok',
-						'detalles' => $detalles];
+				'detalles' => $detalles];
 	}
 
 	// public function send_email_order($user, $orderId, $media, $valor, $description, $activity_type, $status)
@@ -83,20 +87,19 @@ class Membership
 		$mail->addAddress($user->email_address, $user->fname);
 		$mail->CharSet = 'utf-8';
 		$mail->isHTML(true);
+		$url = "";
 
 		if ($order['tranType'] == 'compra_plan') {
 			$mail->Subject = "Orden de compra {$order['orderId']} - Plan {$media}";
 
 			if ($order['status'] == 'ord') {
 				$email = $this->CI->load->view('email/Orden_recibida/mail','', TRUE);
-				$url = "";
 				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
 				$mail->AddCC("gerencia@latincolorimages.com");
 				$mail->AltBody = 'Su orden fue recibida';
 
 			} elseif ($order['status'] == 'g2p') {
 				$email = $this->CI->load->view('email/Orden_proceso/mail', '', TRUE);
-				$url = "";
 				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
 				$mail->AltBody = 'Su orden está en proceso';
 				$order['status'] = 'pro';
@@ -106,11 +109,9 @@ class Membership
 				switch ($order['plan']['provider']) {
 					case 'Fotosearch':
 						$attach = realpath("img/Acuerdo de licencia de Fotosearch.pdf");
-						$url = "";
 						break;
 					case 'Depositphoto':
 						$attach = realpath("img/Contrato de Suscripcion Depositphotos.pdf");
-						$url = "";
 						break;
 					case 'Dreamstime':
 						$attach = realpath("img/Dreamstime Licencia Standar y Extendida.pdf");
@@ -127,7 +128,6 @@ class Membership
 		} else {
 			$mail->Subject = "Orden de compra {$order['orderId']} - Imágenes";
 			$email = $this->CI->load->view('email/Compra/mail', '', TRUE);
-			$url = "";
 			$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
 			$mail->AltBody = 'Has comprado una o varias imágenes';
 			//Attachments
@@ -145,14 +145,14 @@ class Membership
 
 		}
 		//$this->CI->membership_model->change_venta_status($order['orderId'], $order['status']);
-		$this->CI->membership_model->change_venta_status($order, $media, $url);
 
 		if (!$mail->send()) {
 				throw new Exception("Mailer Error: " . $mail->ErrorInfo, 1);
-		} else {
-				return "Tu compra ha sido exitosa";
 		}
-
+		
+		return ['result'=>"Tu compra ha sido exitosa",
+				'url' => $url];
+		
 	}
 
 	function replaceTags($user, $order, $media, $email, $url) {

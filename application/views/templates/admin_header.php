@@ -1,7 +1,7 @@
 <div class="navbar-fixed">
     <nav style="background-color:#106f89">
         <div class="nav-wrapper">
-            <h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1">Panel de Administración</a> <span class="logo-text">Materialize</span></h1>
+            <h1 class="logo-wrapper"><a href="<?=site_url('admin')?>" class="brand-logo darken-1">Panel de Administración</a> <span class="logo-text">Materialize</span></h1>
             <ul class="right hide-on-med-and-down">
                 <li class="search-out">
                     <input type="text" class="search-out-text">

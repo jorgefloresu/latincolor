@@ -7,7 +7,7 @@
             </div>
             <div class="col s8 m8 l8">
               <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">
-                <?=$user_data->fname?><i class="mdi-navigation-arrow-drop-down right" style="margin:0"></i></a>
+                <?=$user_data->fname?><i class="mdi-navigation-arrow-drop-down right" style="margin:0; width:1.5rem"></i></a>
               <ul id="profile-dropdown" class="dropdown-content" style="width: 128px; position: absolute; top: 57px; left: 101.234px; opacity: 1; display: none;">
                   <li><a href="#"><i class="mdi-action-face-unlock"></i> Profile</a>
                   </li>

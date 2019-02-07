@@ -1,8 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 define('DEF_NUMBER_OF_ROWS', 100);
-define('DEF_DPUSER', 'latincolorimages');
-define('DEF_DPPASS', 'latincol2016$');
 
 class Main extends CI_Controller {
 
@@ -302,11 +300,18 @@ class Main extends CI_Controller {
         $data['user_info'] = json_encode($fullname->row());
         $download_list = $this->membership_model->get_downloads($username);
         $data['download_list'] = $download_list->result();
+        $data['download_active'] = count($data['download_list'])>0 ? "active" : "";
         $data['planes_list'] = $this->membership_model->user_planes($username);
+        $data['planes_active'] = count($data['download_list'])==0 && count($data['planes_list'])>0 ? "active" : "";
         //$data['sum_downloads'] = sumar_valores($data['download_list'],'img_price');
         $data['sum_downloads'] = $this->membership_model->sum_price('downloads', 'img_price', $username);
         //$data['sum_planes'] = sumar_valores($data['planes_list'],'valor');
         $data['sum_planes'] = $this->membership_model->sum_planes($username);
+        
+        $offset = 4;
+        $this->pagination(count($data['planes_list']), $offset);
+        $data['pags'] = $this->pagination->create_links();
+        
         add_css(['perfect-scrollbar','user']);
         add_js(['user']);
         $this->load_page('user', $data);

@@ -1,5 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+define('DEF_DPUSER', 'latincolorimages');
+define('DEF_DPPASS', 'latincol2016$');
+
 class Providers extends CI_Driver_Library {
 
 	private $itemsToFill;
@@ -72,9 +75,19 @@ class Providers extends CI_Driver_Library {
 	function createSubscription($provider='', $subscriptionId='', $subaccountId='')
 	{
 		if ($provider == 'Depositphoto') {
-			$this->depositphoto->subaccounts('createSubscription', $subaccountId, $subscriptionId);
+			//$this->depositphoto->subaccounts('createSubscription', $subaccountId, $subscriptionId);
 		}
+		return array('suscriptionId'=>$subscriptionId, 'subaccountId'=>$subaccountId, 'provider'=>$provider);
 	}
+
+	function createSubaccount($provider, $userinfo) 
+	{
+		if ($provider == 'Depositphoto') {
+			$res = $this->depositphoto->createSubaccount($userinfo);
+		}
+		return $res;
+	}
+
 	// function itemsPerPage($rows) {
 	// 	return round( $rows / count($this->valid_drivers));
 	// }
