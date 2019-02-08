@@ -344,8 +344,8 @@ class Order extends CI_Controller
             $subaccountId = $this->providers->createSubaccount($order_data['provider'], $userinfo);
             $resSubacc = $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
 
-        }
-        $resSubs = [];*/
+        }*/
+        $resSubs = [];
 
         if (!array_key_exists('status', $order_data)) {
 
@@ -353,7 +353,7 @@ class Order extends CI_Controller
                 //$order_data['status'] = ( $order_data['provider']=='Depositphoto' ? 'new' : 'ord' );
                 if ($order_data['provider'] == 'Depositphoto') {
                     $order_data['status'] = 'new';
-                    //$resSubs = $this->providers->createSubscription($order_data['provider'], $order_data['idplan'], $subaccountId);
+                    $resSubs = $this->providers->createSubscription($order_data['provider'], $order_data['idplan'], $subaccountId);
                 } else {
                     $order_data['status'] = 'ord';
                 }
@@ -363,7 +363,7 @@ class Order extends CI_Controller
         }
         //$res = $this->membership->confirmar_orden($orderId, $username, $monto, $description, $activity_type, $status);
         $res = $this->membership->confirmar_orden($order_data);
-        //$res['subs'] = $resSubs;
+        $res['subs'] = $resSubs;
         //$res['subacc'] = $resSubacc;
         echo json_encode($res);
     }

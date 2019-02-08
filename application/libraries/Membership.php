@@ -65,8 +65,8 @@ class Membership
 			$order['description'] = $order['description']=='' ? $detalles[0]->description : $order['description'];
 		}
 		//print_r($order);
-		//$res = $this->send_email_order($user->row(), $order, $detalles[0]->productId);
-		$res['url'] = '';
+		//$res['url'] = '';
+		$res = $this->send_email_order($user->row(), $order, $detalles[0]->productId);
 		
 		$this->CI->membership_model->change_venta_status($order, $detalles[0]->productId, $res['url']);
 		

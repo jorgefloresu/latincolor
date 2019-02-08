@@ -89,13 +89,13 @@ var planesResult = function(plan, desc) {
           row +="<span class='new badge red' style='position:absolute;right:38%' data-badge-caption='oferta'>mejor</span>";
 
       row += "</div><div class='collapsible-body'>"+
-              "<div class='row'><div class='col s6 m6 l6' style='border-right:1px #ccc solid'>"+
+              "<div class='row'><div class='col s6 m6 l6'>"+
               "<strong>Tienes licencia para usar tus recursos en:</strong>"+
               "<p><i class='material-icons tiny pink-text'>check_circle</i><strong style='padding-left: 0.5em'>Comercial</strong><br/>"+
               "Publicidad, promoción, comercialización y otros usos comerciales.</span></p>"+
               "<p><i class='material-icons tiny pink-text'>check_circle</i><strong style='padding-left: 0.5em'>Editorial</strong><br/>"+
               "Interés periodístico o general. Uso no comercial.</span></p></div>"+
-              "<div class='col s6 m6 l6 center'>"+
+              "<div class='col s6 m6 l6 center' style='border-left:1px #ccc solid'>"+
               "<div class='price' style='position: relative;font-size: 4rem;line-height: 1.6em;font-weight: 300;text-align: center;'>"+
                 "<sup style='font-weight: 100;font-size: 1.42rem;line-height: 1.6em;top: -26px;'>US$</sup>"+plan.por_imagen.toLocaleString()+
                 "<sub style='font-weight: 100;font-size: 1.42rem;line-height: 1.6em;top: 0;'>c/imagen</sub>"+

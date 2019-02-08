@@ -53,17 +53,17 @@
             ['FRECUENCIA'=>['schedule',
                             'Disponemos de tanta variedad que vas a obtener muchas ventajas.',
                             '¿Con qué frecuencia deseas descargar imágenes?',
-                            'frecuencia', 'Selecciona'
+                            'frecuencia', 'Selecciona Frecuencia'
                            ],
              'CANTIDAD'  =>['collections',
                             'Porque una sola imagen no siempre dice todo lo que deseas.',
                             '¿Qué cantidad de imágenes <span class="periodo"></span> necesitas?',
-                            'cantidad', 'Selecciona'
+                            'cantidad', 'Selecciona Cantidad'
                            ],
              'TIEMPO'    =>['timelapse',
                             'Manten productivo tu ingenio creativo por mucho más tiempo.',
                             '¿Por cuánto tiempo quieres usar la suscripción?',
-                            'tiempo', 'Selecciona'
+                            'tiempo', 'Selecciona Tiempo'
                            ]
             ])?>
 
@@ -72,18 +72,18 @@
 
       <div class="row">
         <div class="col s12 m12 l12">
-          <div class="center" style="font-size:30px;font-weight:bolder">
-            <span class="resultados" style="display:none"></span>
+          <div style="font-size:18px;font-weight:bolder">
+            <span class="resultados valign-wrapper" style="display:none"></span>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="col s2 m2 l2">
+        <!-- <div class="col s2 m2 l2">
           <h5 class="plan-proveedor"></h5>
-        </div>
+        </div> -->
         <div id="paquetes-promo"></div>
-        <div class="col s8 m8 l8">
+        <div class="col s12 m12 l12">
           <div class="planes-result">
             <ul class='plan-option collapsible popout' data-collapsible='accordion'>
             </ul>

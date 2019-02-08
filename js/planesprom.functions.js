@@ -69,10 +69,15 @@ var Planes = {
           $.submitForm(form, function(res){
             Planes.config.planesResult.find('.popout').html('');
             if (res.length > 0) {
-              let desc = 'Planes para descarga '+selection[0]+' de '+selection[1]+' durante '+selection[2];
-              Planes.config.resultados.text(desc).show();
+              let icon = "<i class='small material-icons white-text green background-round' style='padding:7px;margin-right:10px'>check</i>";
+              let intro = "Estas son nuestras ofertas para ";
+              let desc = 'Planes para descarga '+selection[0]+' de '+selection[1]+' durante '+selection[2]+'<br>';
+              Planes.config.resultados.html(icon+intro+desc).show();
               $('body,html').animate({ scrollTop: Planes.config.resultados.offset().top-90 }, 500);
               $.each(res, function(index, plan){
+                  Planes.config.resultados.append(function(){
+                    return plan.provider + ', ';
+                  });
                   let row = Templates.planesResult(plan, desc);
                   Planes.config.planesResult.find('.popout').append(row);
               });
@@ -80,7 +85,7 @@ var Planes = {
               $('.collapsible').collapsible();
 
             } else {
-              Planes.config.resultados.text("Sin resultados").show();
+              Planes.config.resultados.html("Sin resultados").show();
             }
           });
   },

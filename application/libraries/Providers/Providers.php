@@ -75,9 +75,10 @@ class Providers extends CI_Driver_Library {
 	function createSubscription($provider='', $subscriptionId='', $subaccountId='')
 	{
 		if ($provider == 'Depositphoto') {
-			//$this->depositphoto->subaccounts('createSubscription', $subaccountId, $subscriptionId);
+			$res = $this->depositphoto->subaccounts('createSubscription', $subaccountId, $subscriptionId);
 		}
-		return array('suscriptionId'=>$subscriptionId, 'subaccountId'=>$subaccountId, 'provider'=>$provider);
+		//return array('suscriptionId'=>$subscriptionId, 'subaccountId'=>$subaccountId, 'provider'=>$provider);
+		return $res;
 	}
 
 	function createSubaccount($provider, $userinfo) 
