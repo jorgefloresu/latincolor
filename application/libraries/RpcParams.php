@@ -91,6 +91,8 @@ class RpcParams
     const SUBACC_SEND_MAIL = 'dp_send_mail';
     const SUBACC_LICENSE_ID = 'dp_subaccount_license_id';
 
+    const DATETIME_FORMAT = 'dp_datetime_format'; //values: 'date','datetime','unix'
+
     const ORIENT_ALL        = 'all';
     const ORIENT_VERTICAL   = 'vertical';
     const ORIENT_HORIZONTAL = 'horizontal';

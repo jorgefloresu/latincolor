@@ -42,9 +42,9 @@
                 }
 
     $.download = function(items, callback) {
-            result = items;
+            let result = items;
             $.each(items, function(index, selCartItem) {
-              lresult = selCartItem;
+              let lresult = selCartItem;
                 let form = {
                   url: location.origin+'/latincolor/main/download',
                   inputs: {

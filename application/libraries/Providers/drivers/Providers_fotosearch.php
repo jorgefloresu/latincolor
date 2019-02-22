@@ -111,6 +111,7 @@ class Providers_fotosearch extends CI_Driver {
 							'desc' 		=> $res->title,
 							'license' => $this->instant['license'],
 							'thumb' 	=> (string)$res->thumbnail_url,
+							'subscription' => 0,
 							'provider'=> 'Fotosearch'
 						));
 
@@ -137,6 +138,7 @@ class Providers_fotosearch extends CI_Driver {
 						'desc' 		=> $obj->title,
 						'license' => $license,
 						'thumb' 	=> (string)$obj->thumbnail_url,
+						'subscription' => 0,
 						'provider'=> 'Fotosearch'
 					));
 

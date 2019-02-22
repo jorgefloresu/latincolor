@@ -83,12 +83,13 @@ var userImageList = '<div class="recent-activity-list chat-out-list row">'+
 
 var planesResult = function(plan, desc) {
       let logoProvider = location.origin+"/latincolor/img/"+plan.provider+".png";
-      let row = "<li><div class='collapsible-header valign-wrapper "+plan.deal+"'>"+
+      //let row = "<li><div class='collapsible-header valign-wrapper "+plan.deal+"'>"+
+      let row = "<li><div class='collapsible-header valign-wrapper' "+ (plan.deal!=''?"style='border-left:5px solid red'":"")+">"+
                 "<img src='"+logoProvider+"'/>";
-      if (plan.deal!='')
-          row +="<span class='new badge red' style='position:absolute;right:38%' data-badge-caption='oferta'>mejor</span>";
+      //if (plan.deal!='')
+          //row +="<span class='new badge red' style='position:absolute;right:38%' data-badge-caption='oferta'>mejor</span>";
 
-      row += "</div><div class='collapsible-body'>"+
+      row += "</div><div class='collapsible-body' style='background-color:#eee'>"+
               "<div class='row'><div class='col s6 m6 l6'>"+
               "<strong>Tienes licencia para usar tus recursos en:</strong>"+
               "<p><i class='material-icons tiny pink-text'>check_circle</i><strong style='padding-left: 0.5em'>Comercial</strong><br/>"+

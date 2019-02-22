@@ -34,7 +34,7 @@
         <div id="my-signin2" class="input-field col s6"></div>
       </div> -->
       <div id="message" style="display:none; color:red">
-        <p class="error_msg center medium-small">Tus credenciales de usuario no son correctas</p>
+        <p class="error_msg center medium-small" style="font-size: 13px;margin-top: 0">Tus credenciales de usuario no son correctas</p>
       </div>
       <div class="row margin">
         <div class="input-field col s6 m6 l6">

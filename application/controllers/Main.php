@@ -331,6 +331,46 @@ class Main extends CI_Controller {
       highlight_string("<?php\n\$data =\n" .var_export($data['planes'], true).";\n?>");
     }
 
+    function get_plan_info() {
+      $subaccountId = $this->input->post('subaccountId');
+      $res = $this->membership_model->get_planes($this->input->post('planId'));
+      $plan = $res->row();
+      $plan_name = $this->membership_model->get_plan_dp($plan->offerId);
+      $subaccountData = $this->providers->depositphoto->subaccounts('data', $subaccountId, '', 'unix');
+      $data['result'] = '';
+      foreach ($subaccountData->subscriptions as $value) {
+        if ($value->name == $plan_name) {
+          $data['estado'] = $value->status;
+          $data['cantidad'] = $value->amount;
+          $data['periodo'] = $value->period;
+          $data['buyPeriod'] = $value->buyPeriod;
+          $dateBegin = new DateTime("@$value->dateBegin");
+          $dateEnd = new DateTime("@$value->dateEnd");
+          $data['fecha_ini'] = $dateBegin->format('d-m-Y H:i:s');
+          $data['fecha_fin'] = $dateEnd->format('d-m-Y H:i:s');
+          
+          $data['result'] = 'OK';
+        }
+      }
+      echo json_encode($data);
+    }
+
+    function check_subscriptions($subaccountId) {
+      
+      $res = $this->membership_model->get_planes($this->input->post('planId'));
+      $plan = $res->row();
+      $plan_name = $this->membership_model->get_plan_dp($plan->offerId);
+      $subaccountData = $this->providers->depositphoto->subaccounts('data', $subaccountId, '', 'unix');
+      $data = [];
+      foreach ($subaccountData->subscriptions as $key => $value) {
+        if ($value->status == 'active')
+          $data[$key]['id'] = $value->id;
+          $data[$key]['amount'] = $value->amount;
+          $data[$key]['name'] = $value->amount.' por '.($value->buyPeriod==1?'dia':'mes');
+      }
+      echo json_encode($data);
+    }
+
     function planes_params() {
       echo json_encode($this->membership->planes_params());
     }

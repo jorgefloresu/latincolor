@@ -290,7 +290,7 @@ hr {
 }
 
 td.table-sizes {
-  padding: 10px 0;
+  padding: 0;
 }
 
 .collection.collection-size {
@@ -553,11 +553,13 @@ p.collections-content {
   height: 62px;
 }
 
-.resultados {
-  border: 1px solid #ccc;
-  background-color: #e1e1e1;
-  /*border-radius: 5%;*/
-  padding: 30px 15px;
+.resultados-text {
+  font-size: 18px;
+  font-weight: bolder;
+  text-align: center;
+  background-color: #eeeeee;
+  padding: 20px 0;
+  color: #6b6b6b
 }
 
 .is-loading {
@@ -615,7 +617,7 @@ p.collections-content {
 
 .background-round {
     background-color: rgba(0, 0, 0, 0.18);
-    padding: 15px;
+    padding: 10px;
     border-radius: 50%;
 }
 

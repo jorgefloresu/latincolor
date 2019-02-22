@@ -17,6 +17,8 @@ var User = {
       phone: $('#phone'),
 
       reDownload: $('.re-download'),
+      planesView: $('#planes-view'),
+      planesCollection: $('.planes-collection'),
     }
 
     User.auth = new $.Auth({
@@ -33,6 +35,38 @@ var User = {
     User.setUserData();
     User.setRedownloads();
     User.savePrefs();
+    User.setPlanesView();
+  },
+
+  setPlanesView: function () {
+    User.config.planesCollection.on('click', 'a.plan-view', function (event) {
+      event.preventDefault();
+      if ($('.plan-ini').text() == 'Espere...') {
+        let form = {
+          url: location.origin + '/latincolor/main/get_plan_info',
+          inputs: {
+            subaccountId: $(this).data('subaccountid'),
+            planId: $(this).data('plan')
+          }
+        }
+        $.submitForm(form, function (res) {
+          if (res.result == 'OK') {
+            $('.plan-estado').text(res.estado).css({
+              'color': function(){
+                return res.estado == 'active' ? 'green' : 'red';
+              },
+              'font-weight': 'bold'
+            });
+            $('.plan-ini').text(res.fecha_ini);
+            $('.plan-fin').text(res.fecha_fin);
+            $('.plan-cantidad').text(res.cantidad);
+            $('.plan-periodo').text(res.periodo+(res.periodo>1?' dias':' dia'));
+            $('.plan-duracion').text(res.buyPeriod+' dias');
+          }
+        });
+      }
+      User.config.planesView.modal('open');
+    })
   },
 
   setRedownloads: function () {

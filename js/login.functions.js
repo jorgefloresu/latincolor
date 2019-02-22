@@ -21,7 +21,7 @@ var Login = {
         welcomeUser: $('#welcome-user'),
         welcomeBtn: $('.welcome-agree'),
         userProfile: $(".user-profile"),
-        loginWindow: $('#sign-in'),
+        //loginWindow: $('#sign-in'),
         loginMenu: $("#login-menu"),
         logUser: $("#loguser"),
         message: $('#message'),
@@ -76,6 +76,11 @@ var Login = {
         if (status == 'success') {
           Login.config.welcomeUser.find('h4').text('Bienvenido '+$('#first_name').val()+'!');
           Login.config.registerWindow.modal('close');
+          Login.config.welcomeUser.modal({
+            ready: function(modal){
+              $(modal).css('max-height','75%');
+            }  
+          });
           Login.config.welcomeUser.modal('open');
           $('.response').css('color','green').text(res);
           $('#login-username').val( $('#username').val() );
@@ -108,7 +113,8 @@ var Login = {
                 'class': 'grey-text text-darken-3 dropdown-button',
                 'data-activates': 'user-dropdown'
               });
-              Login.config.loginMenu.html(Templates.iconLoginDD(data.first_name));
+              Login.config.loginMenu.html(Templates.iconLoginDD(data.first_name))
+                .css('text-transform','capitalize');
               Login.setMaterial();
 
               $('body').data(data).trigger('login');
@@ -135,9 +141,17 @@ var Login = {
 
 
   onCreateAccount: function () {
-      Login.config.linkCreateAccount.on('click', function(){
+      Login.config.linkCreateAccount.on('click', function(event){
+        event.preventDefault();
         Login.config.loginWindow.modal('close');
+        Login.config.registerWindow.modal({
+          ready: function(modal){
+            $(modal).css('max-height','85%');
+          }
+        });
         Login.config.registerWindow.modal('open');
+
+        //$('#cart').modal('close');
       });
 
       //Login.config.welcomeBtn.on('click', Login.welcomeAgree)

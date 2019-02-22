@@ -329,7 +329,7 @@ class Membership_model extends CI_Model {
 
 	function user_planes($username='')
 	{
-		$this->db->select("a.session_date, a.activity_type, a.img_code, p.valor");
+		$this->db->select("a.session_date, a.activity_type, a.img_code, p.valor, p.id, p.offerId");
 		$this->prepare_planes();
 		$this->db->where("a.username", $username);
 		$this->db->order_by("a.session_date", "DESC");
@@ -386,7 +386,9 @@ class Membership_model extends CI_Model {
 		return $row;
 	}
 
-	function get_planes() {
+	function get_planes($id=null) {
+		if ($id != null)
+			$this->db->where('id', $id);
 		$query = $this->db->get('planes');
 		return $query;
 	}
@@ -430,6 +432,13 @@ class Membership_model extends CI_Model {
 			);
 			$this->db->insert('planes_dp', $plan);
 		}
+	}
+
+	function get_plan_dp($offerId) {
+		$this->db->where('offerId', $offerId);
+		$query = $this->db->get('planes_dp');
+		$row = $query->row();
+		return $row->name;
 	}
 
 	function get_system($feature=NULL) {

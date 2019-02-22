@@ -65,15 +65,15 @@ if(!function_exists('material_plan_card'))
     function material_plan_card($size, $cards) //$icon, $title, $activates, $label, $span, $id, $ddown, $chip)
     {
       //$colors = ['gradient-45deg-red-pink','gradient-45deg-amber-amber','gradient-45deg-green-teal'];
-      $colors = ['red','orange','green'];
+      $colors = ['blue','orange','indigo'];
       $html = '';
       $i = 0;
       foreach ($cards as $key => $item) {
         $col = "class='col {$size}'";
-        $card = "<div class='plan-pref card'>";
+        $card = "<div class='plan-pref card no-shadow' style='background-color:transparent'>";
         $card_content = "<div class='card-content center'>";
         //$header_icon = "<h4><i class='small material-icons white-text {$colors[$i]} gradient-shadow background-round'>{$item[0]}</i></h4>";
-        $header_icon = "<h4><i class='small material-icons white-text {$colors[$i]} background-round'>{$item[0]}</i></h4>";
+        $header_icon = "<h4 style='display:inline'><i class='small material-icons white-text {$colors[$i]} background-round'>{$item[0]}</i></h4>";
         $header_title="";//"<h5 class='planes-card'>{$key}</h5>";
         $legend1 = "";//"<p class='light grey-text'>{$item[1]}</p>";
         $legend2 = "";//"<p class='legend2'>{$item[2]}</p>";
@@ -81,7 +81,7 @@ if(!function_exists('material_plan_card'))
         $ddtrigger.= "<i class='material-icons medium right'>arrow_drop_down</i></a>";
         // $ddtrigger.= "<span class='selected-{$item[3]} blue white-text'></span>";
         $ddstruct = "<ul id='{$item[3]}-list' class='dropdown-{$item[3]} dropdown-content'></ul>";
-        $card_action = "<div class='card-action'>";
+        $card_action = "<div class='card-action' style='border:none'>";
         //$chip = "<div class='chip-plan chip-{$item[3]} center {$colors[$i]}'></div>";
         $chip = "<div class='chip-plan chip-{$item[3]} center'></div>";
         $html .= "<div {$col}>"

@@ -104,7 +104,8 @@ var Pay = (function () {
 		}).done(function (data) {
 			if (data.response.responseCode == 'APPROVED') {
 				//setup.$CCWindow.modal('close');
-				setup.$message.html('APROBADA');
+				let textResult = 'APROBADA. Procesando, espere...';
+				setup.$message.html(textResult);
 				//-- before: Api.download(setup.selCartItem);
 				processOrder(form_data);
 			}
@@ -163,6 +164,8 @@ var Pay = (function () {
 						//modalControl.resolve(setup.cartItems);
 						//setup.$CCWindow.modal('close');
 					}
+				} else {
+					console.log(res);
 				}
 			})
 			.done(function () {

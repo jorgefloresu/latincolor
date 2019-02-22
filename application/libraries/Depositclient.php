@@ -466,7 +466,7 @@ class DepositClient
      * @param   integer $subaccountId
      * @return  stdClass
      */
-    public function getSubaccountData($subaccountId)
+    public function getSubaccountData($subaccountId, $date_format=null)
     {
         $this->checkLoggedIn();
 
@@ -475,6 +475,10 @@ class DepositClient
             RpcParams::COMMAND      => RpcParams::GET_SUBACCOUNT_DATA_CMD,
             RpcParams::SESSION_ID   => $this->getSessionId(),
             RpcParams::SUBACC_ID    => $subaccountId);
+
+        if (null !== $date_format) {
+            $postParams[RpcParams::DATETIME_FORMAT] = $date_format;
+        }
 
         return $this->checkResponse($this->post($this->apiUrl, $postParams));
     }
@@ -517,7 +521,7 @@ class DepositClient
 
         $postParams = array(
             RpcParams::APIKEY       => $this->apiKey,
-            RpcParams::COMMAND      => RpcParams::GET_SUBSCRIPTION_OFFERS_CMD,
+            RpcParams::COMMAND      => RpcParams::GET_SUBSCRIPTION_CMD,
             RpcParams::SUBACC_ID    => $subaccountId,
             RpcParams::SESSION_ID   => $this->getSessionId());
 

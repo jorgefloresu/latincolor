@@ -44,10 +44,10 @@
             <li class="tab col s3 m3 l3"><a class="grey-text text-darken-3" href="#planes-videos">Videos</a></li>
           </ul>
         </div>
+        <div style='border:1px solid #CCC' class="row">
+        <div id="planes-imagenes" class="col s12" style="background-color:#d6d6d6">
 
-        <div id="planes-imagenes" class="col s12">
-
-          <div class="row">
+          <div class="row" style="margin-bottom:0">
 
             <?=material_plan_card("s12 m4 l4",
             ['FRECUENCIA'=>['schedule',
@@ -72,8 +72,9 @@
 
       <div class="row">
         <div class="col s12 m12 l12">
-          <div style="font-size:18px;font-weight:bolder">
-            <span class="resultados valign-wrapper" style="display:none"></span>
+          <div class="resultados-text">
+            <div class="result-icon"></div>
+            <span class="resultados"><span style="font-weight:100">Tus resultados aparecerán aquí</span></span>
           </div>
         </div>
       </div>
@@ -84,13 +85,13 @@
         </div> -->
         <div id="paquetes-promo"></div>
         <div class="col s12 m12 l12">
-          <div class="planes-result">
+          <div class="planes-result container">
             <ul class='plan-option collapsible popout' data-collapsible='accordion'>
             </ul>
           </div>
         </div>
       </div>
-
+      </div>
       <div id="planes-videos" class="col s12">
         <div class="row">
           <div class="col s12 m6 l3">

@@ -35,6 +35,7 @@ class Login extends CI_Controller {
 			'last_name' => $query->row()->last_name,
 			'email_address' => $query->row()->email_address,
 			'country' => $query->row()->country,
+			'deposit_userid' => $query->row()->deposit_userid,
 			'is_logged_in' => true
 		);
 		$this->session->set_userdata($data);

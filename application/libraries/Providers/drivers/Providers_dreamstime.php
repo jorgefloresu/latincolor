@@ -111,6 +111,7 @@ class Providers_dreamstime extends CI_Driver {
 					'desc' => $res->title,
 					'license' => $this->instant['license'],
 					'thumb' => $res->smallThumb,
+					'subscription' => 0,
 					'provider' => 'Dreamstime'
 				);
 
@@ -172,6 +173,7 @@ class Providers_dreamstime extends CI_Driver {
 					'desc' => $obj->title,
 					'license' => $license,
 					'thumb' => $obj->smallThumb,
+					'subscription' => 0,
 					'provider' => 'Dreamstime'
 				);
 
@@ -234,6 +236,7 @@ class Providers_dreamstime extends CI_Driver {
 					'desc' => $obj->title,
 					'license' => $license,
 					'thumb' => $obj->smallThumb,
+					'subscription' => 0,
 					'provider' => 'Dreamstime'
 				);
 

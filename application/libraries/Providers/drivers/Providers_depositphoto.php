@@ -124,9 +124,11 @@ class Providers_depositphoto extends CI_Driver {
 					if ($res->itype == 'video') {
 						$this->instant['size'] = 'smallweb';
 						$this->instant['price'] = $res->sizes->smallweb->credits;
+						$this->instant['subscription'] = $res->sizes->smallweb->subscription;
 					} else {
 						$this->instant['size'] = 's';
 						$this->instant['price'] = $res->sizes->s->credits;
+						$this->instant['subscription'] = $res->sizes->s->subscription;
 					}
 					$this->instant['source'] = 'instant';
 					$this->instant['license'] = 'standard';
@@ -140,6 +142,7 @@ class Providers_depositphoto extends CI_Driver {
 								'desc' 		=> $res->title,
 								'license' => $this->instant['license'],
 								'thumb' 	=> $res->thumb,
+								'subscription'=> $this->instant['subscription'],
 								'provider'=> 'Depositphoto'
 							));
 				}
@@ -176,6 +179,7 @@ class Providers_depositphoto extends CI_Driver {
 						'desc' 		=> $obj->title,
 						'license' => $license,
 						'thumb' 	=> $obj->thumb,
+						'subscription'=>$s->subscription,
 						'provider'=> 'Depositphoto'
 					));
         }
@@ -230,13 +234,13 @@ class Providers_depositphoto extends CI_Driver {
 		return $res;
 	}
 
-	function subaccounts($method='', $subaccountId='', $subscriptionId='')
+	function subaccounts($method='', $subaccountId='', $subscriptionId='', $date_format=null)
 	{
 		$login = $this->CI->depositclient->login(DEF_DPUSER, DEF_DPPASS);
 		$this->CI->depositclient->setSessionId($login->sessionid);
 		switch ($method) {
 			case 'data':
-				$res = $this->CI->depositclient->getSubaccountData($subaccountId);
+				$res = $this->CI->depositclient->getSubaccountData($subaccountId, $date_format);
 				break;
 			case 'createSubscription':
 				$res = $this->CI->depositclient->createSubaccountSubscription($subaccountId, $subscriptionId);

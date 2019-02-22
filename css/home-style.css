@@ -114,7 +114,7 @@ p {
 	margin:0
 }
 .sesion-menu {
-  margin-left: 30%;
+  /*margin-left: 30%;*/
   display: inline-block;
   float: none;
 }
@@ -207,9 +207,11 @@ nav#slide-search-bar {
   nav#slide-search-bar {
     width: 65%;
   }
+  /*
   .sesion-menu {
     margin-left: 30%;
   }
+  */
 }
 
 @media only screen and (max-width : 1500px) {
@@ -257,10 +259,12 @@ nav#slide-search-bar {
 }
 
 @media only screen and (max-width : 990px) {
+  /*
   .sesion-menu {
     margin-left: 0;
     float: right;
   }
+  */
   nav#slide-search-bar {
     width: 100%;
     margin-top: 0;

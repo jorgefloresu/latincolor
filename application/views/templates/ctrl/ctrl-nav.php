@@ -76,7 +76,8 @@
                   <li><a id="sign-out" href="<?=site_url('login/logout')?>">Cerrar sesión</a></li>
               </ul>
               <?php if ($logged): ?>
-                <a id="login-menu" href="#sign-out" class="login-menu grey-text text-darken-3 dropdown-button" data-activates="user-dropdown">
+                <a id="login-menu" href="#sign-out" class="login-menu grey-text text-darken-3 dropdown-button" 
+                  style="text-transform:capitalze" data-activates="user-dropdown">
                   <i class="material-icons left" style="height:30px;line-height:30px">account_circle</i>
                   <i class="material-icons right" style="height:30px;line-height:30px">arrow_drop_down</i>
                   <?php echo $user_data->first_name; ?>

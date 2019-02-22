@@ -65,24 +65,9 @@ var Api = ( function() {
               mediaSizes: $("#media-sizes"),
               mediaPrice: $("#mediaPrice"),
 
-              //resultLogin: $("#resultlogin"),         // Contenedor del JSON de la respuesta de login
-              //sessionId: $("input[name=sessionid]"),  // Muestra el ID de la session
-              //sessionIdText: $("#sessionidtext"),
               loginMenu: $("#login-menu"),
               userAccount: $(".chat-collapsible"),
 
-              // subAccountForm: $("#subaccountform"),
-              // subAccounts: $("#subaccounts"),
-              // resultSubaccounts: $("#resultsubaccounts"),
-              // subAccountId: $("input[name=subaccountid]"),
-              // subAccountIdText: $("#subAccountIdText"),
-              //
-              // subscriptionsForm: $("#subscriptionsForm"),
-              // resultSubscriptions: $("#resultSubscriptions"),
-              // subsPeriod: $("#subsPeriod"),
-              // subsCount: $("#subsCount"),
-              // subsBtn: $("#subsBtn"),
-              // subsPlans: $("#subsPlans"),
               resultControl: $('.result-control'),
               paginator: $(".paginator"),             // Contenedor del HTML del paginador
               progress: $(".progress"),
@@ -94,6 +79,10 @@ var Api = ( function() {
               userNav: $(".chat-close-collapse"),
               rightNav: $(".chat-collapse"),
               openCart: $('a.open-cart'),
+              directDownload: $('.direct-download'),
+
+              avisoPlan: true,
+              validSubscription: false,
 
             };
             $.extend(setup.config, settings);
@@ -115,6 +104,7 @@ var Api = ( function() {
 
   var doAfterLogin = function() {
           $('body').on('login', function(e) {
+              setup.config.avisoPlan = true;
               userData = $(this).data();
               Login.auth.init();
               shop.displayCart();
@@ -172,25 +162,42 @@ var Api = ( function() {
               setup.config.previewWindow.on('scroll', scrollPreview);
               setup.config.previewSimilar.on('click', 'a', {fillOut: previewFields}, mainMethod);
 
+              setup.config.directDownload.on('click', doDownload);
+
               setup.config.previewPrices.on("click", "a", function(event){
                   event.preventDefault();
                   //$('.size-info').html($(this).data('width')+' x '+$(this).data('height')+
                   //                     ' | Licencia: '+$(this).data('license'));
-                  let sizeClicked = shop.addToCart(this);
-                  if ( sizeClicked.status == 'added' ) {
+                  if ( ! setup.config.validSubscription || $(this).data('license') == 'extended') {
+                    $('.direct-download').hide();
+
+                    let subscriptionid = $('.dropdown-plan').text() == 'Elige Plan' ? '' : $('.dropdown-plan').text();
+                    $(this).data('subscriptionid', subscriptionid);
+  
+                    let sizeClicked = shop.addToCart(this);
+                    if ( sizeClicked.status == 'added' ) {
+                      preview.prices.find('a.active').removeClass('active')
+                                    .find('.size-option').removeClass('white-text').addClass('blue-text');
+                      $(this).addClass('active');
+                      $(this).find('.size-option').removeClass('blue-text').addClass('white-text');
+                    } else if ( sizeClicked.status == 'deleted' ) {
+                      shop.$tableCartBody
+                        .find(".delete a[data-item='" +$(sizeClicked.item).data('img')+ "']")
+                        .click();
+                        $(this).removeClass('active');
+                        $(this).find('.size-option').removeClass('white-text').addClass('blue-text');
+                    }
+                    shop.displayCart();      
+                  } else {
                     preview.prices.find('a.active').removeClass('active')
                                   .find('.size-option').removeClass('white-text').addClass('blue-text');
                     $(this).addClass('active');
                     $(this).find('.size-option').removeClass('blue-text').addClass('white-text');
-                  } else if ( sizeClicked.status == 'deleted' ) {
-                    shop.$tableCartBody
-                      .find(".delete a[data-item='" +$(sizeClicked.item).data('img')+ "']")
-                      .click();
-                      $(this).removeClass('active');
-                      $(this).find('.size-option').removeClass('white-text').addClass('blue-text');
+
+                    $('.direct-download').show();
                   }
-                  shop.displayCart();
               });
+              onPlanSelected();
               // setup.config.openCart.on('click', function(event){
               //   event.preventDefault();
               //   setup.config.previewClose.click();
@@ -202,6 +209,20 @@ var Api = ( function() {
           //  }
           }
 
+  var doDownload = function() {
+              let selected = preview.prices.find('a.active');
+              let item = [{
+                'productId': $(selected).data('img'),
+                'size': $(selected).data('size'),
+                'license_type': $(selected).data('license'),
+                'provider': $(selected).data('provider'),
+                'thumb': $(selected).data('thumb'),
+                'username': $.Auth.info('username'),
+              }];
+              $.download(item, function (res) {
+                console.log(res);
+              })
+  }
 
   // Asigna el contenido a los contenedores relacionados con el search
   var searchFields = function(data) {
@@ -234,6 +255,11 @@ var Api = ( function() {
               document.body.scrollTop = 0; // For Chrome, Safari and Opera
               document.documentElement.scrollTop = 0; // For IE and Firefox
           }
+
+  var hasValidSubscription = function () {
+          let url = location.origin+'/latincolor/main/check_subscriptions/';
+          return $.getJSON(url+$.Auth.info('deposit_userid'));
+  }
 
   var previewFields = function(data) {
               if (data.source == 'preview') {
@@ -271,6 +297,49 @@ var Api = ( function() {
                       $(".material-placeholder").show();
                     }
                     preview.prices.html(data.sizes);
+                    if ($.Auth.status() !== 'loggedIn' || 
+                        $.Auth.info('deposit_userid') == '' ||
+                        preview.prices.find('a:first').data('provider') !== 'Depositphoto') {
+                      $('.dropdown-plan').hide();
+                      $('.size-price').css({'text-decoration': 'none', 'color':'grey'});
+                      preview.prices.find('i').each(function(){
+                        $(this).remove();
+                      })
+                    } else {
+                        console.log($.Auth.info('deposit_userid'));
+                        preview.prices.append("<tr><td style='padding:0 30px'><i class='tiny material-icons green-text'>flag</i> Aplica descarga con subscripción</td></tr>");
+                        let html = "";
+                        let disponibles = 0;
+                        $('.dropdown-plan').show();
+                      
+                        hasValidSubscription()
+                          .then(function(res){
+                            if (res.length == 0) {
+                              $('.dropdown-plan').tooltip({
+                                tooltip: "Renueva tu plan o adquiere uno nuevo"
+                              })
+                            }
+                            $.each(res, function(key, plan){
+                              html += "<li><a href='#!' class='selected-plan blue-text text-darken-4' data-disponible='"+plan.amount+"' data-id='"+plan.id+"'>"+plan.id+"</a></li>";
+                              disponibles += Number(plan.amount);
+                            })
+                          })
+                          .done(function(){
+                            if (html != "") {
+                              html = "<li><a href='#!' class='blue-text text-darken-4'>Ninguno</a></li>" + html;
+                              $('#plan-activo').html(html);
+                              $('.size-price').css({'text-decoration': 'line-through', 'color':'#d3d3d3'});
+                              if (setup.config.avisoPlan) {
+                                Materialize.toast('Tienes '+disponibles+' descargas disponibles con tu suscripción', 5000);
+                                setup.config.avisoPlan = false;
+                              }
+                              setup.config.validSubscription = true;
+                              $('.dropdown-plan').tooltip({
+                                tooltip: "Elige Plan"
+                              })
+                            }
+                          })
+                    }
                     setup.config.previewPrices.find('.size-option div').css('width',function(){
                       return (data.type == 'video' ? '90px' : '38px')
                     });
@@ -333,41 +402,25 @@ var Api = ( function() {
             }
 
           }
-
-  var subaccountsFields = function(data) {
-              setup.config.resultSubaccounts.html(JSON.stringify(data.source, null, 3));
-              setup.config.subAccounts.html(data.subaccounts);
-              setup.config.subAccountId.val(setup.config.subAccounts.val());
-              setup.config.subAccountIdText.text(setup.config.subAccounts.val());
-
-              $("select").material_select();
-          }
-
-  var subAccountChange = function() {
-              setup.config.subAccountId.val($(this).val());
-              setup.config.subAccountIdText.text($(this).val());
-              setup.config.cart.forSubAccount($(this).val());
-
-          }
-
-  var subscriptionsFields = function(data) {
-              setup.config.resultSubscriptions.html(JSON.stringify(data.source, null, 3));
-              setup.config.subsPeriod.html(data.subsPeriod);
-              setup.config.subsCount.html(data.subsCount);
-              setup.config.subsPlans.html(data.subsPlans);
-
-              $("select").material_select();
-          }
-
-  var loginMethod = function(event) {
-              event.preventDefault();
-              var formData = $(this).prepareData();
-              console.log(this);
-              if ($(this).attr('id') == 'sign-out')
-                  $.submitForm(formData, logout);
-              else
-                  $.submitForm(formData, loginFields);
-          }
+  
+  var onPlanSelected = function () {
+              $('#plan-activo').on('click', 'a', function () {
+                /* let text = '',
+                    tiptext = '';
+                if ($(this).text() == 'Ninguno') {
+                  text = tiptext = 'Elegir Plan';                  
+                } else {
+                  text = $(this).text();
+                } */
+                let text = $(this).text() == 'Ninguno' ? 'Elegir Plan' : $(this).text();
+                $('.dropdown-plan').text(text);
+                if ($(this).data('disponible')!==undefined) {
+                  $('.dropdown-plan').tooltip({
+                    tooltip: "Disponibles: "+ $(this).data('disponible')
+                  })
+                }
+              })
+  }
 
   var showResult = function(data) {
               console.log(data);
@@ -430,6 +483,7 @@ var Api = ( function() {
                     }
                 });
               }*/
+              let url = '';
               setup.config.progress.toggle();
               if ($(this).is("form")) {
                 if (setup.config.keyword.val() != getFromUrl(location.href, 'keyword')) {
@@ -466,6 +520,7 @@ var Api = ( function() {
           }
 
   var setHistory = function(source) {
+              let url = '';
               if ($(source).is("form"))
                 url = $(source).attr("action")+ '?' + $(source).serialize();
               else
@@ -629,13 +684,15 @@ var Api = ( function() {
           $('.dropdown-button').dropdown({
             belowOrigin: true,
           });
+          $('.dropdown-plan').dropdown();
           $('.chat-collapsible').collapsible(collapsibleOpts);
           $(".chat-collapse").sideNav({
             edge: 'right'
           });
          $('.button-collapse').sideNav();
          $('.tooltipped').tooltip();
-         if ($('#stotal').text() != '0.00')
+         $('.dropdown-plan').tooltip('remove');
+         if ($('#stotal').text() != '0')
             $('.tooltipped').tooltip('remove');
   }
 

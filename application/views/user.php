@@ -145,17 +145,20 @@
               <li>
                 <div class="collapsible-header valign-wrapper <?=$planes_active?>">Planes</div>
                 <div class="collapsible-body" style="padding:0">
-                  <ul class="collection">
+                  <ul class="collection planes-collection">
                     <div class="list-scroll">
                       <? foreach ($planes_list as $item): ?>
                         <li class="collection-item">
                           <div class="row" style="margin-bottom:0">
-                            <div class="col s4">Compra plan <?=$item->img_code?></div>
-                            <div class="col s5">
+                            <div class="col s3">Compra: <?=$item->img_code?></div>
+                            <div class="col s4">
                               <span class="right"><?=$item->session_date?></span>
                             </div>
                             <div class="col s3">
                               <span class="right">$<?=$item->valor?></span>
+                            </div>
+                            <div class="col s2 right-align">
+                              <a href="#!" class="plan-view" data-subaccountid="<?=$user_data->deposit_userid?>" data-plan="<?=$item->id?>"><i class="material-icons">info</i></a>
                             </div>
                           </div>
                         </li>
@@ -188,6 +191,7 @@
   </div>
 
   <?$this->load->view('pages/payment_form'); ?>
+  <?$this->load->view('templates/planes_view'); ?>
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>

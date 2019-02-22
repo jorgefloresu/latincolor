@@ -50,7 +50,8 @@ class Providers extends CI_Driver_Library {
 													 ."' data-price='".$item['price']."' data-desc='".$item['desc']
 													 ."' data-height='".$item['height']."' data-width='".$item['width']
 													 ."' data-license='".$item['license']."' data-size='".$item['size']
-													 ."' data-thumb='".$item['thumb']."' data-iva='".number_format($this->set_iva($item['price']),2)
+													 ."' data-thumb='".$item['thumb']."' data-subscription='".$item['subscription']
+													 ."' data-iva='".number_format($this->set_iva($item['price']),2)
 													 ."' data-tco='".number_format($this->set_tco($item['price']),2)
 													 ."' data-sizelbl='".$item['sizelbl']."' data-provider='".$item['provider']
 													 ."' data-tranType='compra_img'>";
@@ -68,7 +69,10 @@ class Providers extends CI_Driver_Library {
 		// 				."<i class='material-icons'>add_shopping_cart</i></a></td></tr>";
 		//return $this->price_tag($item) .$item['width']. 'x' .$item['height']. '</a><br/><span class="size-name">'.strtoupper($item['size']).'</span></div>';
 		//return $this->price_tag($item) .strtoupper($item['size']). '</a><br/><span class="size-name">'.$item['width']. 'x' .$item['height'].'</span></li>';
-		$row = "<div class='row valign-wrapper'><div class='size-option col s4 blue-text text-darken-4'><div class='center'>".$item['sizelbl']."</div></div><div class='col s4 center-align'>".$item['width']."x".$item['height']."</div><div class='col s4 right-align'>US$ ".$item['price']."</div></div>";
+		//$show_flag = $this->CI->session->userdata('is_logged_in') ? "<i class='tiny material-icons green-text' style='position: absolute'>flag</i>" : "";
+		$show_flag = $item['subscription'] == 1 ? "<i class='tiny material-icons green-text' style='position: absolute'>flag</i>" : "";
+		$size_price = $item['subscription'] == 1 ? 'size-price' : '';
+		$row = "<div class='row valign-wrapper'><div class='size-option col s4 blue-text text-darken-4'><div class='center'>".$item['sizelbl']."</div></div><div class='col s4 center-align'>".$item['width']."x".$item['height']."</div><div class='".$size_price." col s4 right-align'>US$ ".$item['price'].$show_flag."</div></div>";
 		return $this->price_tag($item) . $row . '</a>';
 	}
 

@@ -321,7 +321,7 @@ class Order extends CI_Controller
             } catch (Twocheckout_Error $e) {
                 //$this->assertEquals('Bad request - parameter error', $e->getMessage());
                 print_r($e->getMessage());
-                echo json_encode($charge);
+                //echo json_encode($charge);
             }
         }
     }
@@ -335,16 +335,15 @@ class Order extends CI_Controller
 
         //$product_id = $this->input->get('productId');
 
-        //$username = $this->input->get('username');
-        //$fullname = $this->membership_model->get_fullname($username);
-        //$userinfo = $fullname->row();
-        //$subaccountId = $userinfo->deposit_userid;
-        /*$resSubacc = [];
+        $username = $this->input->get('username');
+        $fullname = $this->membership_model->get_fullname($username);
+        $userinfo = $fullname->row();
+        $subaccountId = $userinfo->deposit_userid;
+        $resSubacc = [];
         if ($subaccountId == '') {
             $subaccountId = $this->providers->createSubaccount($order_data['provider'], $userinfo);
             $resSubacc = $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
-
-        }*/
+        }
         $resSubs = [];
 
         if (!array_key_exists('status', $order_data)) {
@@ -364,7 +363,7 @@ class Order extends CI_Controller
         //$res = $this->membership->confirmar_orden($orderId, $username, $monto, $description, $activity_type, $status);
         $res = $this->membership->confirmar_orden($order_data);
         $res['subs'] = $resSubs;
-        //$res['subacc'] = $resSubacc;
+        $res['subacc'] = $resSubacc;
         echo json_encode($res);
     }
 

@@ -70,7 +70,7 @@ class Membership
 		
 		$this->CI->membership_model->change_venta_status($order, $detalles[0]->productId, $res['url']);
 		
-		return ['process'  => 'ok',
+		return ['process'  => $res['result'],
 				'detalles' => $detalles];
 	}
 
@@ -85,6 +85,7 @@ class Membership
 		$this->CI->load->library("PHPMailer_Library");
 		$mail = $this->CI->phpmailer_library->createPHPMailer();
 		$mail->addAddress($user->email_address, $user->fname);
+		//$mail->addAddress("jorfu@yahoo.com", $user->fname);
 		$mail->CharSet = 'utf-8';
 		$mail->isHTML(true);
 		$url = "";
@@ -106,7 +107,7 @@ class Membership
 
 			} else {
 				$email = $this->CI->load->view('email/Orden_completa/mail', '', TRUE);
-				switch ($order['plan']['provider']) {
+				switch ($order['provider']) {
 					case 'Fotosearch':
 						$attach = realpath("img/Acuerdo de licencia de Fotosearch.pdf");
 						break;
@@ -120,6 +121,7 @@ class Membership
 				}
 				$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
 				$mail->AddCC("gerencia@latincolorimages.com");
+				//$mail->AddCC("jorfu@yahoo.com");
 				$mail->AltBody = 'Su orden está lista';
 				$mail->addAttachment($attach);
 
@@ -145,12 +147,15 @@ class Membership
 
 		}
 		//$this->CI->membership_model->change_venta_status($order['orderId'], $order['status']);
-
-		if (!$mail->send()) {
-				throw new Exception("Mailer Error: " . $mail->ErrorInfo, 1);
+		try {
+			if (!$mail->send()) {
+					throw new Exception("Mailer Error: " . $mail->ErrorInfo, 1);
+			} 
+		} catch (Exception $e) {
+			return ['result'=>$e->getMessage(),
+					'url'=>""];
 		}
-		
-		return ['result'=>"Tu compra ha sido exitosa",
+		return ['result'=>"ok",
 				'url' => $url];
 		
 	}

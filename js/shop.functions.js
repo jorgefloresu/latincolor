@@ -82,6 +82,7 @@
       let self = this;
       this.$emptyCart.on('click', function (event) {
         event.preventDefault();
+        self.$element.off('click', '.download a');
         self.emptyCart();
       });
       this.$checkout.on('click', function (event) {
@@ -174,14 +175,18 @@
           let size = $(item).data('size');
           let sizelbl = $(item).data('sizelbl');
           let license = $(item).data('license');
-          let price = this._convertString($(item).data('price'));
           let desc = $(item).data('desc');
           let thumb = $(item).data('thumb');
           let provider = $(item).data('provider');
           let tranType = $(item).data('trantype');
-          let idplan = $(item).data('idplan') == null ? '' : $(item).data('idplan');
+          let idplan = $(item).data('idplan') == null ? 0 : this._convertString($(item).data('idplan'));
+          let price = this._convertString($(item).data('price'));
           let iva = this._convertString($(item).data('iva'));
           let tco = this._convertString($(item).data('tco'));
+          let subscriptionId = $(item).data('subscriptionid');
+          if (subscriptionId !== '') {
+            //price = iva = tco = 0;
+          }
 
           let total = this.storage.get(this.total);
           cart.push({
@@ -196,7 +201,8 @@
             'thumb': thumb,
             'provider': provider,
             'tranType': tranType,
-            'idplan': idplan
+            'idplan': idplan,
+            'subscriptionid': subscriptionId
           });
           total = total + price;
           console.log("add total:" + total);
@@ -334,7 +340,8 @@
         'description': item.desc,
         'tranType': item.tranType,
         'username': userLogged,
-        'idplan': ''
+        'idplan': '',
+        'subscriptionId': item.subscriptionId
       });
 
       Pay.setup.$aviso.addClass('hide');
@@ -406,7 +413,8 @@
             'description': plan.desc,
             'tranType': plan.tranType,
             'username': userLogged,
-            'idplan': plan.idplan
+            'idplan': plan.idplan,
+            'subscriptionId': ''
           });
     /*    } else {
           self._toast("perfil");
@@ -464,7 +472,8 @@
               'description': item.element.desc,
               'tranType': 'compra_imgs',
               'username': userLogged,
-              'idplan': item.element.idplan
+              'idplan': item.element.idplan,
+              'subscriptionId': item.subscriptionId
             });
           });
           Pay.setup.factDescript.text(textItems);
