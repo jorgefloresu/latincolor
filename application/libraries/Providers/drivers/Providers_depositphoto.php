@@ -18,11 +18,11 @@ class Providers_depositphoto extends CI_Driver {
 
 	function search($query) {
         $params = array(
+            	RpcParams::SEARCH_USERNAME => 'Kama',
               RpcParams::SEARCH_QUERY  => $query['keyword'],
               RpcParams::SEARCH_LIMIT  => $query['prov']['dp']['limit'],
               RpcParams::SEARCH_OFFSET => $query['prov']['dp']['offset'],
 							RpcParams::SEARCH_VECTOR => 'false'
-            	//RpcParams::SEARCH_USERNAME => 'Kama'
             );
 				if ($query['orientacion']!='') {
 					$params[RpcParams::SEARCH_ORIENTATION] = ($query['orientacion']=='Cuadrada') ?
@@ -165,7 +165,7 @@ class Providers_depositphoto extends CI_Driver {
 				$this->preview['similar'] = $obj->similar;
 				$this->preview['similar_url'] = 0;
         $this->preview['sizes'] = '';
-				$this->preview['sizes'] .= "<tr><td class='table-sizes'><div class='collection collection-size'>";
+				$this->preview['sizes'] .= "<tr><td class='table-sizes' colspan='2'><div class='collection collection-size'>";
 
         foreach ($obj->sizes as $key => $s) {
         	$license = ($key=='el0' ? 'extended' : 'standard');

@@ -162,41 +162,51 @@ var Api = ( function() {
               setup.config.previewWindow.on('scroll', scrollPreview);
               setup.config.previewSimilar.on('click', 'a', {fillOut: previewFields}, mainMethod);
 
-              setup.config.directDownload.on('click', doDownload);
-
               setup.config.previewPrices.on("click", "a", function(event){
                   event.preventDefault();
-                  //$('.size-info').html($(this).data('width')+' x '+$(this).data('height')+
-                  //                     ' | Licencia: '+$(this).data('license'));
-                  if ( ! setup.config.validSubscription || $(this).data('license') == 'extended') {
-                    $('.direct-download').hide();
-
+                  
+                  //if ( ! $(this).hasClass('direct-download')) {
                     let subscriptionid = $('.dropdown-plan').text() == 'Elige Plan' ? '' : $('.dropdown-plan').text();
                     $(this).data('subscriptionid', subscriptionid);
-  
-                    let sizeClicked = shop.addToCart(this);
-                    if ( sizeClicked.status == 'added' ) {
-                      preview.prices.find('a.active').removeClass('active')
-                                    .find('.size-option').removeClass('white-text').addClass('blue-text');
-                      $(this).addClass('active');
-                      $(this).find('.size-option').removeClass('blue-text').addClass('white-text');
-                    } else if ( sizeClicked.status == 'deleted' ) {
-                      shop.$tableCartBody
-                        .find(".delete a[data-item='" +$(sizeClicked.item).data('img')+ "']")
-                        .click();
-                        $(this).removeClass('active');
-                        $(this).find('.size-option').removeClass('white-text').addClass('blue-text');
-                    }
-                    shop.displayCart();      
-                  } else {
-                    preview.prices.find('a.active').removeClass('active')
-                                  .find('.size-option').removeClass('white-text').addClass('blue-text');
-                    $(this).addClass('active');
-                    $(this).find('.size-option').removeClass('blue-text').addClass('white-text');
+                    $('.direct-download').data('subscriptionid', subscriptionid);
+                      //$('.size-info').html($(this).data('width')+' x '+$(this).data('height')+
+                    //                     ' | Licencia: '+$(this).data('license'));
+                    if ( ! setup.config.validSubscription || $.Auth.status() !== 'loggedIn' || 
+                      $(this).data('license') == 'extended' || $(this).data('provider')!=='Depositphoto') {
+                      
+                      $('.direct-download').hide();
+    
+                      let sizeClicked = shop.addToCart(this);
+                      if ( sizeClicked.status == 'added' ) {
+                        preview.prices.find('a.active').removeClass('active')
+                                      .find('.size-option').removeClass('white-text').addClass('blue-text');
+                        $(this).addClass('active');
+                        $(this).find('.size-option').removeClass('blue-text').addClass('white-text');
+                      } else if ( sizeClicked.status == 'deleted' ) {
+                        shop.$tableCartBody
+                          .find(".delete a[data-item='" +$(sizeClicked.item).data('img')+ "']")
+                          .click();
+                          $(this).removeClass('active');
+                          $(this).find('.size-option').removeClass('white-text').addClass('blue-text');
+                      }
+                      shop.displayCart();      
+                    } else {                   
+                      if ($(this).hasClass('active')) {
+                        $(this).removeClass('active')
+                          .find('.size-option').removeClass('white-text').addClass('blue-text');
+                          $('.direct-download').hide();
+                      } else {
+                        preview.prices.find('a.active').removeClass('active')
+                                      .find('.size-option').removeClass('white-text').addClass('blue-text');
+                        $(this).addClass('active');
+                        $(this).find('.size-option').removeClass('blue-text').addClass('white-text');
 
-                    $('.direct-download').show();
-                  }
+                        $('.direct-download').show();
+                      }
+                    }
+                //  }
               });
+
               onPlanSelected();
               // setup.config.openCart.on('click', function(event){
               //   event.preventDefault();
@@ -210,6 +220,11 @@ var Api = ( function() {
           }
 
   var doDownload = function() {
+            //let activeSubscriptionId = $('.dropdown-plan').text() == 'Elige Plan' ? '' : $('.dropdown-plan').text();
+            console.log($(this).data('id'));
+            if ($(this).data('id') !== '' ) {
+              $('.msg-usa-plan').text('Iniciando...').css({'display':'flex', 'color':'grey'});
+
               let selected = preview.prices.find('a.active');
               let item = [{
                 'productId': $(selected).data('img'),
@@ -221,7 +236,11 @@ var Api = ( function() {
               }];
               $.download(item, function (res) {
                 console.log(res);
+                $('.msg-usa-plan').text('Descargando...')
               })
+            } else {
+              $('.msg-usa-plan').text('Usa tu Plan para poder descargar').css({'display':'flex','color':'red'});
+            }
   }
 
   // Asigna el contenido a los contenedores relacionados con el search
@@ -256,10 +275,6 @@ var Api = ( function() {
               document.documentElement.scrollTop = 0; // For IE and Firefox
           }
 
-  var hasValidSubscription = function () {
-          let url = location.origin+'/latincolor/main/check_subscriptions/';
-          return $.getJSON(url+$.Auth.info('deposit_userid'));
-  }
 
   var previewFields = function(data) {
               if (data.source == 'preview') {
@@ -307,38 +322,50 @@ var Api = ( function() {
                       })
                     } else {
                         console.log($.Auth.info('deposit_userid'));
-                        preview.prices.append("<tr><td style='padding:0 30px'><i class='tiny material-icons green-text'>flag</i> Aplica descarga con subscripción</td></tr>");
+                        preview.prices.append("<tr><td style='padding:20px 30px'><i class='tiny material-icons red-text'>schedule</i><span class='msg-aplica-plan'> Validando el estado de tu plan...</span><span class='msg-usa-plan' style='font-size:12px;display:none;position:absolute;color:red;padding:3px 0 0 19px'>Usa tu plan para poder descargar</span></td><td class='center' style='padding-right: 8px'><button class='direct-download waves-effect waves-light btn blue tooltipped' type='button' data-id='' style='padding:0 12px; display:none'><i class='material-icons'>file_download</i></button></td></tr>");
+                        setup.config.directDownload = $('.direct-download');
+                        setup.config.directDownload.on('click', doDownload);
+                        
                         let html = "";
                         let disponibles = 0;
                         $('.dropdown-plan').show();
                       
-                        hasValidSubscription()
-                          .then(function(res){
-                            if (res.length == 0) {
-                              $('.dropdown-plan').tooltip({
-                                tooltip: "Renueva tu plan o adquiere uno nuevo"
-                              })
-                            }
-                            $.each(res, function(key, plan){
-                              html += "<li><a href='#!' class='selected-plan blue-text text-darken-4' data-disponible='"+plan.amount+"' data-id='"+plan.id+"'>"+plan.id+"</a></li>";
-                              disponibles += Number(plan.amount);
-                            })
-                          })
-                          .done(function(){
-                            if (html != "") {
-                              html = "<li><a href='#!' class='blue-text text-darken-4'>Ninguno</a></li>" + html;
-                              $('#plan-activo').html(html);
-                              $('.size-price').css({'text-decoration': 'line-through', 'color':'#d3d3d3'});
-                              if (setup.config.avisoPlan) {
-                                Materialize.toast('Tienes '+disponibles+' descargas disponibles con tu suscripción', 5000);
-                                setup.config.avisoPlan = false;
+                        if ( ! setup.config.validSubscription ) {
+                          $.hasValidSubscription()
+                            .then(function(res){
+                              if (res.length == 0) {
+                                $('.dropdown-plan').tooltip({
+                                  tooltip: "Renueva tu plan o adquiere uno nuevo"
+                                })
                               }
-                              setup.config.validSubscription = true;
-                              $('.dropdown-plan').tooltip({
-                                tooltip: "Elige Plan"
+                              disponibles = Number(res.subscriptionAmount);
+                              $.each(res.subscriptions, function(key, plan){
+                                html += "<li><a href='#!' class='selected-plan blue-text text-darken-4' data-disponible='"+disponibles+"' data-id='"+plan.id+"'>"+plan.id+"</a></li>";
                               })
-                            }
-                          })
+                            })
+                            .done(function(){
+                              if (html != "") {
+                                $('.msg-aplica-plan').text(' Aplica descarga con subscripción')
+                                  .parent().find('i').removeClass('red-text').addClass('green-text').text('flag');
+                                //.
+                                html = "<li><a href='#!' class='blue-text text-darken-4'>Ninguno</a></li>" + html;
+                                $('#plan-activo').html(html);
+                                $('.size-price').css({'text-decoration': 'line-through', 'color':'#d3d3d3'});
+                                if (setup.config.avisoPlan) {
+                                  Materialize.toast('Tienes '+disponibles+' descargas disponibles con tu suscripción', 5000);
+                                  setup.config.avisoPlan = false;
+                                }
+                                setup.config.validSubscription = true;
+                                $('.dropdown-plan').tooltip({
+                                  tooltip: "Usa tu Plan"
+                                })
+                              }
+                            })
+                        } else {
+                          $('.msg-aplica-plan').text(' Aplica descarga con subscripción')
+                            .parent().find('i').removeClass('red-text').addClass('green-text').text('flag');
+                          $('.size-price').css({'text-decoration': 'line-through', 'color':'#d3d3d3'});
+                        }
                     }
                     setup.config.previewPrices.find('.size-option div').css('width',function(){
                       return (data.type == 'video' ? '90px' : '38px')
@@ -381,12 +408,12 @@ var Api = ( function() {
                   if (data.similar_url == 1 && data.similar.length > 0) {
                       console.log(data.similar);
                       preview.similarCont.toggle(true);
-                      preview.similar.html('Loading related images...');
+                      preview.similar.html('Cargando imágenes relacionadas...');
                       preview.similar.jGallery({}, data.similar);
                   } else if (data.similar) {
                         let provider = getFromUrl( $(this)[0].url, 'provider' );
                         preview.similarCont.toggle(true);
-                        preview.similar.html('Loading related images...');
+                        preview.similar.html('Cargando imágenes relacionadas...');
                         $.getJSONfrom(location.origin+'/latincolor/main/find_similar/'+data.id+'/'+provider)
                           .done(function(res){
                             preview.similar.jGallery({}, res.thumb);
@@ -412,8 +439,15 @@ var Api = ( function() {
                 } else {
                   text = $(this).text();
                 } */
-                let text = $(this).text() == 'Ninguno' ? 'Elegir Plan' : $(this).text();
+                let text = 'Usa tu plan';
+                if ($(this).text() == 'Ninguno') {
+                  $('.direct-download').data('id', '');
+                } else {
+                  $('.direct-download').data('id', $(this).data('id'));
+                  text = $(this).text();
+                }
                 $('.dropdown-plan').text(text);
+                $('.msg-usa-plan').css('display','none');
                 if ($(this).data('disponible')!==undefined) {
                   $('.dropdown-plan').tooltip({
                     tooltip: "Disponibles: "+ $(this).data('disponible')
@@ -470,7 +504,7 @@ var Api = ( function() {
             ///console.log($(this));
             if ($(this).parent().hasClass('active')) return false;
             if (setup.config.keyword.val() || !$(this).is("form")){
-              setup.config.searchPanel.show();
+              setup.config.searchPanel.css('display','flex');
               /*if ($(this).is("form")) {
                 setup.config.searchTotal.html(Templates.fakeCounter);
                 $('.timer').countTo({

@@ -147,7 +147,7 @@ class Providers_dreamstime extends CI_Driver {
 			$this->preview['type'] = $this->CI->input->get('type')=='video'?:'image';
 			$this->preview['source'] = 'preview';
 			$this->preview['sizes'] = '';
-			$this->preview['sizes'] .= "<tr><td class='table-sizes'><div class='collection collection-size'>";
+			$this->preview['sizes'] .= "<tr><td class='table-sizes' colspan='2'><div class='collection collection-size'>";
 
 			if ($this->CI->input->get('type')=='video') {
 				$this->preview['image'] = (string)$obj->largeThumb;

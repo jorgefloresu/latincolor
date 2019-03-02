@@ -140,8 +140,8 @@
             html += "<tr><td><img src='" + item.thumb + "' height='auto' style='max-height:110px;width: auto;max-width:110px'/></td><td>" + item.id + "</td>";
             html += "<td>" + item.desc + "</td><td class='center'>" + item.sizelbl + "</td>";
             html += "<td class='center'>" + item.license + "</td><td class='right-align'>" + this._price(item.price) + "</td>";
-            html += "<td class='download center'><a href='' id='"+item.id +"' data-item='" + item.id + "' ><i class='small material-icons green-text'>" + icon + "</i></a></a></td>";
-            html += "<td class='delete center'><a href='' id='"+item.id +"' data-item='" + item.id + "' ><i class='small material-icons red-text'>delete</i></a></td></tr>";
+            html += "<td class='download center' style='padding-left:15px'><a href='' class='btn blue' id='"+item.id +"' data-item='" + item.id + "' style='padding:0 10px'><i class='material-icons'>" + icon + "</i></a></a></td>";
+            html += "<td class='delete center'><a href='' class='btn red' id='"+item.id +"' data-item='" + item.id + "' style='padding:0 10px'><i class='material-icons'>delete</i></a></td></tr>";
           }
           this.$tableCartBody.html(html);
           // this.$tableCartBody.imagesLoaded().progress(function(instance, image){
@@ -430,6 +430,9 @@
       if ($.Auth.status() == 'loggedIn') {
         if ($.Auth.enabled()) {
 
+          this.openPayWindow();
+          Pay.setup.$CCWindow.modal('open');
+  
           console.log(this.$element.find('.download a').length);
           let self = this;
           let order = Math.floor((Math.random() * 1000000) + 1);
@@ -453,11 +456,11 @@
           Pay.setup.$message.html('');
           Pay.setup.userName.val(userLogged);
           Pay.setup.cartItems = [];
-          let textItems = '';
+          let itemsCount = 0;
           this.$element.find('.download a').each(function (index) {
             let item = self._found(this);
             let country = $.Auth.info('country');
-            textItems += item.element.id + ', ' + item.element.size + '; ';
+            itemsCount += 1;
             item.element.iva = (country == 'Colombia' || country == null ? item.element.iva : 0);
             Pay.setup.cartItems.push({
               'orderId': order,
@@ -476,7 +479,7 @@
               'subscriptionId': item.subscriptionId
             });
           });
-          Pay.setup.factDescript.text(textItems);
+          Pay.setup.factDescript.text('Compra de '+itemsCount+ (itemsCount>1?' items':' item'));
 
           if (Pay.setup.cartItems.length > 1) {
             Pay.setup.$aviso.removeClass('hide');
@@ -630,8 +633,8 @@
 
     _convertString: function (numStr) {
       var num;
-      //numStr = numStr.toString().replace(",", ".");
       if (/^[-+]?[0-9]+[.,][0-9]+$/.test(numStr)) {
+        numStr = numStr.toString().replace(",", ".");
         num = parseFloat(numStr);
       } else if (/^\d+$/.test(numStr)) {
         num = parseInt(numStr, 10);

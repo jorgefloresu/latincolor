@@ -47,7 +47,7 @@ class Providers extends CI_Driver_Library {
 	function price_tag($item) {
 
 		return "<a id='savetocart' class='collection-item' href='#' data-img='".$item['id']
-													 ."' data-price='".$item['price']."' data-desc='".$item['desc']
+													 ."' data-price='".number_format($item['price'],2)."' data-desc='".$item['desc']
 													 ."' data-height='".$item['height']."' data-width='".$item['width']
 													 ."' data-license='".$item['license']."' data-size='".$item['size']
 													 ."' data-thumb='".$item['thumb']."' data-subscription='".$item['subscription']

@@ -119,11 +119,11 @@ class Login extends CI_Controller {
 
 		if ($this->membership_model->user_exists($username)) {
 			http_response_code(404);
-			echo 'Nombre de usuario ya está asignado';
+			echo 'Nombre de usuario ya está asignado. Intenta con uno diferente';
 
 		} elseif ($this->membership_model->email_exists($email)) {
 			http_response_code(404);
-			echo 'Correo ya está asignado a otro usuario';
+			echo 'Correo ya está asignado a otro usuario. Intenta con uno diferente';
 
 		} elseif ($this->membership_model->create_member()) {
 
@@ -150,14 +150,14 @@ class Login extends CI_Controller {
 
 			if (!$mail->send()) {
 					http_response_code(500);
-					echo "Mailer Error: " . $mail->ErrorInfo;
+					echo "Tu cuenta ha sido creada, pero no ha sido posible enviarte el correo";
 			} else {
-					echo "Se ha enviado el correo con éxito";
+					echo "Tu cuenta ha sido creada. Te hemos enviado un correo";
 			}
 
 		} else {
 			http_response_code(500);
-			echo 'Ha ocurrido un error al crear el usuario';
+			echo 'Ha ocurrido un error al crear el usuario. Favor contacta con nosotros';
 		}
 
 	}

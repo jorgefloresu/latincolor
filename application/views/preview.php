@@ -45,7 +45,7 @@
                 <!-- <th>Size</th>
                               <th>Dimension</th>
                               <th>Price</th> -->
-                <th class="center-align">ESCOGE EL TAMAÑO</th>
+                <th class="center-align" colspan="2">ESCOGE EL TAMAÑO</th>
               </tr>
             </thead>
             <tbody>
@@ -57,16 +57,16 @@
           <!-- Dropdown Trigger -->
           <a class='dropdown-button dropdown-plan waves-effect waves-light white btn tooltipped' 
             data-position="top" href='#' data-activates='plan-activo' 
-            style="border: .12rem solid blue;color: blue; padding:0 1rem">Elige Plan</a>
+            style="border: .12rem solid blue;color: blue; padding:0 1rem">Usa tu Plan</a>
 
           <!-- Dropdown Structure -->
           <ul id='plan-activo' class='dropdown-content'>
           </ul>
           <a href="<?=site_url('main/planes')?>" class="waves-effect waves-light btn" style="background-color: transparent;border: .12rem solid #f12088;color: #f12088;padding:0 1rem">
-            Ver planes</a>
-          <a href="#" class="direct-download waves-effect waves-light btn blue" style="padding:0 12px; display:none"><i class="material-icons">file_download</i></a>
-          <a href="#" class="menu-cart waves-effect waves-light tooltipped btn right" data-tooltip="Carrito vacío" style="background-color:#1c9414; padding:0 12px">
-            <i class="material-icons">shopping_cart</i></a>
+            Compra un plan</a>
+          
+          <a href="#" class="menu-cart waves-effect waves-light tooltipped btn right blue darken-2" data-tooltip="Carrito vacío" style="background-color:#1c9414; padding:0 12px">
+            <i class="material-icons">shopping_cart</i><label class="cart-count right" style="margin:4px 0 0 0"></label></a>
         </div>
       </div>
 

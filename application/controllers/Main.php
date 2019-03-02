@@ -361,12 +361,13 @@ class Main extends CI_Controller {
       $plan = $res->row();
       $plan_name = $this->membership_model->get_plan_dp($plan->offerId);
       $subaccountData = $this->providers->depositphoto->subaccounts('data', $subaccountId, '', 'unix');
-      $data = [];
+      $data['subscriptionAmount'] = $subaccountData->subscriptionAmount;
+      $data['filesAmount'] = $subaccountData->filesAmount;
       foreach ($subaccountData->subscriptions as $key => $value) {
         if ($value->status == 'active')
-          $data[$key]['id'] = $value->id;
-          $data[$key]['amount'] = $value->amount;
-          $data[$key]['name'] = $value->amount.' por '.($value->buyPeriod==1?'dia':'mes');
+          $data['subscriptions'][$key]['id'] = $value->id;
+          $data['subscriptions'][$key]['amount'] = $value->amount;
+          $data['subscriptions'][$key]['name'] = $value->amount.' por '.($value->buyPeriod==1?'dia':'mes');
       }
       echo json_encode($data);
     }

@@ -58,18 +58,18 @@
                   }
                 }
                 console.log(form);
-                // $.submitForm(form, function(data) {
-                //           console.log(data);
-                //           window.location = data.url;
-                //           $('.progress').toggle(false);
-                          lresult.result = 'success';
-                          result[index] = lresult;
-                          // lresult.result = (selCartItem.productId == '9886988' ||
-                          //        selCartItem.productId =='40858424' ? 'success':'');
-                          //window.onunload = function() {
-                          //  $('#downloading').modal('close');
-                          //}
-                // })
+                $.submitForm(form, function(data) {
+                    console.log(data);
+                    window.location = data.url;
+                    $('.progress').toggle(false);
+                    lresult.result = 'success';
+                    result[index] = lresult;
+                    // lresult.result = (selCartItem.productId == '9886988' ||
+                    //        selCartItem.productId =='40858424' ? 'success':'');
+                    window.onunload = function() {
+                      $('#downloading').modal('close');
+                    }
+                })
               })
               callback(result);
             }
@@ -100,6 +100,11 @@
                       }, dfd.reject);
                 });
 
+    $.hasValidSubscription = function () {
+                  let url = location.origin+'/latincolor/main/check_subscriptions/';
+                  return $.getJSON(url+$.Auth.info('deposit_userid'));
+          }
+        
     $.setValidador = function(callback) {
                   $.validator.setDefaults({
                       errorClass: 'invalid',

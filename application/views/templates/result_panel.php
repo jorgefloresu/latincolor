@@ -1,7 +1,7 @@
         <div class="row">
           <div class="col m2 l2 panel" style="display:none">
             <div class="pinned hide-on-med-and-down"
-              style="top: 170px; bottom: 10px; height: auto; width: 16%; overflow-y: scroll;display: none;">
+              style="top: 170px; bottom: 0; height: auto; width: 16%; overflow-y: scroll;display: none;">
 
                 <!-- <div class="toc-wrapper" >
                   <div class="card">
@@ -32,8 +32,8 @@
                 </div>
                 -->
                 <!-- </div> -->
-                <ul class="collapsible indigo darken-4">
-                  <li class="white-text" style="padding:15px 7px;font-size: 0.98rem;font-weight: 100;"><span style="padding:14px">FILTROS DE BÚSQUEDA</span></li>
+                <ul class="collapsible grey lighten-4" style="width:100%">
+                  <li class="white-text indigo darken-4" style="padding:15px 7px;font-size: 0.98rem;font-weight: 100;"><span style="padding:14px">FILTROS DE BÚSQUEDA</span></li>
                   <li class="grey lighten-4 center-align" style="padding:15px 10px;">
                     <img class="search-type-icon" src="<?=$icon?>">
                     <!-- <i class="material-icons medium">crop_original</i> -->
@@ -105,7 +105,7 @@
                          </p>
                         </form>
                         <span class="title" style="font-size:12px">0</span>
-                        <span class="title" style="font-size:12px; margin-left:125px">200</span>
+                        <span class="title" style="font-size:12px; margin-left:70%">200</span>
                     </div>
                   </li>
                   <ul class="collection grey lighten-2">

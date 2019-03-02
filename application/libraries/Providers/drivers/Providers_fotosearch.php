@@ -71,8 +71,6 @@ class Providers_fotosearch extends CI_Driver {
         $imgFile = $this->CI->fotosearch_api->goDownload($res->download_id);
 
 				$this->CI->load->model('membership_model');
-				//if ( $query = $this->CI->membership_model->record_transaction($username, 'download', $media) )
-				//{
 					$rec = array(
 						'username' => $username,
 						'date' => date("Y-m-d H:i:s"),
@@ -89,7 +87,6 @@ class Providers_fotosearch extends CI_Driver {
 						'license_id' => 'No License'
 					);
 					$this->CI->membership_model->record_download($rec);
-				//}
 
 				//return array('url' => $saveAs, 'licenseid' => $size);
 
@@ -124,7 +121,7 @@ class Providers_fotosearch extends CI_Driver {
         $this->preview['title'] = $obj->title;
         $this->preview['keywords'] = implode(', ', $obj->keywords);
         $this->preview['sizes'] = '';
-				$this->preview['sizes'] .= "<tr><td class='table-sizes'><div class='collection collection-size'>";
+				$this->preview['sizes'] .= "<tr><td class='table-sizes' colspan='2'><div class='collection collection-size'>";
 				$this->preview['source'] = 'preview';
         foreach ($obj->resolutions as $key => $s) {
         	$license = 'standard';
