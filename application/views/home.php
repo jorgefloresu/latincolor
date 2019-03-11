@@ -164,6 +164,7 @@
 <?$this->load->view('templates/sign_in')?>
 <?$this->load->view('pages/signup_form')?>
 <?$this->load->view('pages/forgot_pass')?>
+<?$this->load->view('templates/info_bottom')?>
 
 <footer class="page-footer white hide-on-small-only">
   <div class="footer-copyright">

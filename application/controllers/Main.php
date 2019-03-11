@@ -98,7 +98,7 @@ class Main extends CI_Controller {
       $data['plan']['provider'] = 'Dreamstime';
       $data['plan']['username'] = 'jafu';
       $data['plan']['password'] = '123abc456';
-      $email = $this->load->view('email/Orden_completa/mail','', TRUE);
+      $email = $this->load->view('email/Compra/mail','', TRUE);
       $email = str_replace('__USUARIO__', strtoupper($data['user']->first_name), $email);
       $email = str_replace('__ORDEN__', $data['orderId'], $email);
       $email = str_replace('__PRODUCTO__', $data['productId'], $email);
@@ -364,10 +364,11 @@ class Main extends CI_Controller {
       $data['subscriptionAmount'] = $subaccountData->subscriptionAmount;
       $data['filesAmount'] = $subaccountData->filesAmount;
       foreach ($subaccountData->subscriptions as $key => $value) {
-        if ($value->status == 'active')
+        if ($value->status == 'active') {
           $data['subscriptions'][$key]['id'] = $value->id;
           $data['subscriptions'][$key]['amount'] = $value->amount;
           $data['subscriptions'][$key]['name'] = $value->amount.' por '.($value->buyPeriod==1?'dia':'mes');
+        }
       }
       echo json_encode($data);
     }
@@ -410,20 +411,27 @@ class Main extends CI_Controller {
     }
 
     function download() {
-
-        switch ($this->input->post('provider')) {
-        	case 'Fotosearch':
-        		$res = $this->providers->fotosearch->download();
-        		echo json_encode($res);
-        		break;
-          case 'Dreamstime':
-        		$res = $this->providers->dreamstime->download();
-        		echo json_encode($res);
-        		break;
-        	default:
-        		$res = $this->providers->depositphoto->download();
-        		echo json_encode($res);
+        $items = $this->input->post('items');
+        foreach ($items as $key => $value) {
+          $item = json_decode($value, true);
+          $provider = $item['provider'];
+          /* switch ($item['provider']) {
+            case 'Fotosearch':
+              $res[$key] = $this->providers->fotosearch->download();
+              break;
+            case 'Dreamstime':
+              $res[$key] = $this->providers->dreamstime->download();
+              break;
+            default:
+              //$res[$key] = ['url'=>'http://depositphotos.com', 'licenseid'=>'1234455'];
+              $res[$key] = $this->providers->depositphoto->download();
+          } */
+          $res[$key] = $this->providers->{strtolower($provider)}->download();
+          $item['result'] = 'success';
+          $res[$key] = array_merge($res[$key], $item);
         }
+        echo json_encode($res);
+    
     }
 
     function reDownload()
@@ -431,6 +439,18 @@ class Main extends CI_Controller {
       $license_id = $this->input->post('lid');
       $provider = $this->input->post('provider');
       $res = $this->providers->{strtolower($provider)}->reDownload($license_id);
+      /* header('Connection: Keep-Alive');
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="imagen.jpg"');
+        setcookie("fileDownloadToken", "fileDownloadToken", time()+360, "/"); // 10 minutes
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        flush();
+        readfile($res->downloadLink);
+        exit; */
       echo json_encode($res);
     }
 

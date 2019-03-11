@@ -41,6 +41,14 @@
           <p class="buyer-name"></p>
           <label>Email</label>
           <p class="buyer-email"></p>
+          <label>Dirección</label>
+          <p class="buyer-direccion"></p>
+          <label>Teléfono</label>
+          <p class="buyer-telefono"></p>
+          <label>Empresa</label>
+          <p class="buyer-empresa"></p>
+          <label>NIT</label>
+          <p class="buyer-nit"></p>
       </blockquote>
       </div>
     </div>

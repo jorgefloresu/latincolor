@@ -97,6 +97,7 @@
   <?$this->load->view('pages/payment_form'); ?>
   <?$this->load->view('pages/signup_form')?>
   <?$this->load->view('pages/forgot_pass')?>
+  <?$this->load->view('templates/info_bottom')?>
 
 
   <!-- Error Structure -->

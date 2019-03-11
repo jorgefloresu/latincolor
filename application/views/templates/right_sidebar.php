@@ -13,17 +13,25 @@
         </li>
         <li class="li-hover">
             <ul class="chat-collapsible" data-collapsible="expandable">
-            <li id="user-purchases" data-url="<?php echo site_url('transactions/view_cart');?>">
-                <div class="collapsible-header teal white-text active">
-                    <i class="material-icons">whatshot</i>Imagenes Compradas
+            <li id="user-purchases" data-url="<?=base_url('transactions/view_downloads')?>">
+                <div class="collapsible-header blue white-text active">
+                    <i class="material-icons">image</i>Imagenes Compradas
                 </div>
                 <div class="collapsible-body recent-activity">
                     <div class="image-list" style="padding-top: 15px"></div>
                 </div>
             </li>
-            <li id="user-payments" data-url="<?php echo site_url('transactions/view_cart');?>">
+            <li id="user-planes" data-url="<?=base_url('transactions/view_planes')?>">
+                <div class="collapsible-header green white-text">
+                    <i class="material-icons">next_week</i>Planes Adquiridos
+                </div>
+                <div class="collapsible-body recent-activity">
+                    <div class="image-list" style="padding-top: 15px"></div>
+                </div>
+            </li>
+            <!-- <li id="user-payments" data-url="">
                 <div class="collapsible-header light-blue white-text active">
-                <i class="material-icons">attach_money</i>Sales Report</div>
+                <i class="material-icons">next_week</i>Planes Adquiridos</div>
                 <div class="collapsible-body sales-repoart">
                     <div class="sales-repoart-list  chat-out-list row">
                         <div class="col s8">Target Salse</div>
@@ -92,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> -->
             </ul>
         </li>
     </ul>

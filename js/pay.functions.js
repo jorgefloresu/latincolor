@@ -47,13 +47,13 @@ var Pay = (function () {
 				tokenRequest();
 			})
 
-			// setup.$CCForm.submit(function(event) {
-			// 	event.preventDefault();
-			//   $.download(setup.cartItems, function(res){
-			//     setup.resCartItems = res;
-			//     setup.$CCWindow.modal('close');
-			//   });
-			// })
+			/* setup.$CCForm.submit(function(event) {
+				event.preventDefault();
+				$.download(setup.cartItems, function(res){
+					setup.resCartItems = res;
+					setup.$CCWindow.modal('close');
+				});
+			}) */
 
 		}
 	}

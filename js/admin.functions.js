@@ -133,6 +133,10 @@ var Admin = {
           $('.buyer-user').text(res.username);
           $('.buyer-name').text(res.fname);
           $('.buyer-email').text(res.email_address);
+          $('.buyer-direccion').text(res.address);
+          $('.buyer-telefono').text(res.phone);
+          $('.buyer-empresa').text(res.empresa);
+          $('.buyer-nit').text(res.nit);
         })
         .fail(function(res) {
           console.log(res);

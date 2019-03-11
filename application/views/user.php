@@ -66,6 +66,8 @@
               <div class="row tab-user">
                 <?=material_input("s6", "first_name", "prefs[first_name]", "Nombre")?>
                 <?=material_input("s6", "last_name", "prefs[last_name]", "Apellido")?>
+                <?=material_input("s6", "empresa", "prefs[empresa]", "Empresa")?>
+                <?=material_input("s6", "nit", "prefs[nit]", "NIT")?>
               </div>
             </div>
             <div id="tab-addr" class="col s12">
@@ -115,12 +117,16 @@
                               </div>
                               <div class="col s1">
                                 <? if ($item->img_provider == 'Depositphoto'): ?>
-                                  <a href='' class="re-download btn-flat waves-effect waves-grey"
+                                  <a href='' class="re-download btn blue waves-effect waves-grey" style="padding:0 10px" 
                                       data-url="<?=base_url('main/reDownload')?>" data-provider="<?=$item->img_provider?>"
-                                      data-lid="<?=$item->license_id?>">
+                                      data-lid="<?=$item->license_id?>" data-id="<?=$item->img_code?>">
                                     <i class="material-icons">file_download</i>
                                   </a>
-                              <? endif ?>
+                                <? else: ?>
+                                  <a href='#info' class="btn blue waves-effect waves-grey modal-trigger" style="padding:0 10px">
+                                    <i class="material-icons">info_outline</i>
+                                  </a>
+                                <? endif ?>
                               </div>
                               <div class="col s3">
                                 <p class="collections-title"><?=$item->img_code?></p>
@@ -132,6 +138,11 @@
                               <div class="col s3">
                                 <span class="right">$<?=number_format($item->img_price,2)?></span>
                               </div>
+                          </div>
+                          <div class="msg-redownload row" style="margin-bottom:0;display:none">
+                            <div class="col s12">
+                              <p class="collections-content red-text">Error al obtener el enlace de la descarga. Por favor contacta a <a href="<?=base_url('main/consultor')?>">Tu Consultor.</a></p>
+                            </div>
                           </div>
                         </li>
 
@@ -184,14 +195,10 @@
 
   <?$this->load->view('cart')?>
 
-  <div id="downloading" class="modal bottom-sheet">
-      <div class="modal-content">
-        <p>Descargando...</p>
-      </div>
-  </div>
-
   <?$this->load->view('pages/payment_form'); ?>
   <?$this->load->view('templates/planes_view'); ?>
+  <?$this->load->view('templates/info_view'); ?>
+  <?$this->load->view('templates/info_bottom'); ?>
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>

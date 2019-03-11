@@ -73,6 +73,20 @@ class Transactions extends CI_Controller {
 		echo json_encode($datares);
 	}
 
+	public function view_downloads() 
+	{
+		$username = $this->input->get('username');
+		$download_list = $this->membership_model->get_downloads($username);
+		$data = $download_list->result();
+		echo json_encode($data);
+	}
+
+	public function view_planes() {
+		$username = $this->input->get('username');
+		$data = $this->membership_model->user_planes($username);
+		echo json_encode($data);
+	}
+
 	public function items_in_cart()
 	{
 		$datares = $this->membership_model->count_cart_items();

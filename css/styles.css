@@ -403,10 +403,10 @@ td.table-sizes {
 .download a.btn-flat, .delete a.btn-flat{
   padding: 0 1rem;
 }
-/* .side-nav li {
-  line-height: 1.5;
+.side-nav li {
+  line-height: 20px;
 }
-.side-nav li>a {
+/*.side-nav li>a {
   padding: 0;
 } */
 #chat-out .collapsible-header{

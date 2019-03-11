@@ -70,7 +70,7 @@ var Api = ( function() {
 
               resultControl: $('.result-control'),
               paginator: $(".paginator"),             // Contenedor del HTML del paginador
-              progress: $(".progress"),
+              progress: $(".load-progress"),
               progressPos: '166px',
               error: $("#error"),
 
@@ -107,6 +107,7 @@ var Api = ( function() {
               setup.config.avisoPlan = true;
               userData = $(this).data();
               Login.auth.init();
+              $('.chat-collapsible').collapsible(collapsibleOpts);
               shop.displayCart();
           });
   }
@@ -116,21 +117,8 @@ var Api = ( function() {
             accordion : true,
             onOpen : function(el) {
                       if (el.attr('id')=='user-purchases')
-                        getPurchases(el);
+                        $.getPurchases(el);
                     }
-          }
-
-  var getPurchases = function(el) {
-            el.find('.image-list').html('');
-            let url = el.data('url')+'?username='+$.Auth.info('username');
-            $.getJSONfrom(url).then(function(res) {
-                $.each(res, function(index, val) {
-                  let html = Templates.userImageList.replace('src=""','src="'+val.img_url+'"')
-                                                    .replace('Code', val.img_code)
-                                                    .replace('Provider', val.img_provider);
-                  el.find('.image-list').append(html)
-                })
-            })
           }
 
   var setSearch = function() {
@@ -333,7 +321,7 @@ var Api = ( function() {
                         if ( ! setup.config.validSubscription ) {
                           $.hasValidSubscription()
                             .then(function(res){
-                              if (res.length == 0) {
+                              if (res.subscriptions == undefined) {
                                 $('.dropdown-plan').tooltip({
                                   tooltip: "Renueva tu plan o adquiere uno nuevo"
                                 })
@@ -344,21 +332,27 @@ var Api = ( function() {
                               })
                             })
                             .done(function(){
+                              if (setup.config.avisoPlan) {
+                                Materialize.toast('Tienes '+disponibles+' descargas disponibles con tu suscripción', 5000);
+                                setup.config.avisoPlan = false;
+                              }
                               if (html != "") {
                                 $('.msg-aplica-plan').text(' Aplica descarga con subscripción')
                                   .parent().find('i').removeClass('red-text').addClass('green-text').text('flag');
                                 //.
                                 html = "<li><a href='#!' class='blue-text text-darken-4'>Ninguno</a></li>" + html;
-                                $('#plan-activo').html(html);
                                 $('.size-price').css({'text-decoration': 'line-through', 'color':'#d3d3d3'});
-                                if (setup.config.avisoPlan) {
-                                  Materialize.toast('Tienes '+disponibles+' descargas disponibles con tu suscripción', 5000);
-                                  setup.config.avisoPlan = false;
-                                }
+                                $('#plan-activo').html(html);
                                 setup.config.validSubscription = true;
                                 $('.dropdown-plan').tooltip({
                                   tooltip: "Usa tu Plan"
                                 })
+                              } else {
+                                preview.prices.find('.table-sizes i').each(function(){
+                                  $(this).remove();
+                                });          
+                                $('.msg-aplica-plan').text(' No dispones de planes activos')
+                                  .parent().find('i').removeClass('red-text').addClass('gray-text').text('warning');
                               }
                             })
                         } else {

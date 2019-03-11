@@ -25,26 +25,48 @@
 
     // Submit the form data using Ajax
     $.submitForm = function(form, populate) {
-                    $('.progress').toggle(true);
+                    $('.load-progress').toggle(true);
                     $.ajax({
                         url: form.url,
                         data: form.inputs,
                         method: "POST",
                         dataType: "json"
                     }).done(function(res){
-                      $('.progress').toggle(false);
+                      $('.load-progress').toggle(false);
                       populate(res);
                     }).fail(function(res){
-                      $('.progress').toggle(false);
+                      $('.load-progress').toggle(false);
                       populate(res);
                       //alert("Error from url: "+form.url);
                     });
                 }
 
     $.download = function(items, callback) {
-            let result = items;
+            $('#download-progress').modal();
+            $('#download-progress').modal('open');
+            let downloadItems = {
+              items: []
+            }
+            $.each(items, function (index, selCartItem) {
+              downloadItems.items.push(JSON.stringify({
+                  id: selCartItem.productId,
+                  size: selCartItem.size,
+                  price: Number(selCartItem.price).toFixed(2),
+                  license: selCartItem.license_type,
+                  provider: selCartItem.provider,
+                  username: selCartItem.username,
+                  thumb: selCartItem.thumb,
+                  result: ''
+                })
+              )
+            });
+
+            $.post(location.origin+'/latincolor/main/download', downloadItems)
+              .done(getFile);
+
+            /* let result = items;
             $.each(items, function(index, selCartItem) {
-              let lresult = selCartItem;
+                let lresult = selCartItem;
                 let form = {
                   url: location.origin+'/latincolor/main/download',
                   inputs: {
@@ -58,22 +80,91 @@
                   }
                 }
                 console.log(form);
-                $.submitForm(form, function(data) {
+                $.submitForm(form, getFile) */
+                  /* function(data) {
                     console.log(data);
                     window.location = data.url;
                     $('.progress').toggle(false);
                     lresult.result = 'success';
                     result[index] = lresult;
-                    // lresult.result = (selCartItem.productId == '9886988' ||
-                    //        selCartItem.productId =='40858424' ? 'success':'');
                     window.onunload = function() {
                       $('#downloading').modal('close');
                     }
-                })
-              })
-              callback(result);
+                  }) */
+              /* })
+              callback(result); */
+
+              function getFile(response) {
+                let data = JSON.parse(response);
+                if (data.error) {
+                  $('.msg-redownload').show();
+                } else {
+                  $.each(data, function(index, item){
+                    $('.cnt').text(index+1 +' de '+ data.length);
+                    $('#download-progress p').text(' Esperando a recibir el archivo...');
+                    $.loadFile(item.url, function (file) {
+                      $.saveFile(file, 'image/jpeg', 'LCI-'+item.provider.substring(0,2)+'-'+item.id);
+                    })
+                  });
+                  callback(data);
+                }
+              }
+                    
             }
 
+    $.loadFile = function (file, response) {
+                let request = new XMLHttpRequest();
+                request.responseType = 'blob';
+                request.open('GET', file);
+                request.addEventListener('progress', updateProgress);
+                request.addEventListener('load', function () {
+                  response(request.response);
+                });
+                request.send();
+
+                function updateProgress(evt){
+                  if (evt.lengthComputable){
+                    let percentComplete = (evt.loaded / evt.total)*100;
+                    let percent = Math.ceil(percentComplete)+'%';
+                    $('.determinate').css('width', percent);
+                    $('#download-progress p').text(' Recibiendo...');
+                    $('.pct').text('('+percent+')');
+                    if (percentComplete == 100) {
+                      $('#download-progress i').show();
+                      $('#download-progress p').text(' 100% Completado');
+                    }
+                  }
+                }
+            }
+
+    $.saveFile = function (object, mime, name) {
+              let a = document.createElement('a');
+              let url = URL.createObjectURL(object);
+              a.href = url;
+              a.download = name;
+              a.click();
+            }
+
+    $.getPurchases = function(el) {
+              el.find('.image-list').html('');
+              let url = el.data('url')+'?username='+$.Auth.info('username');
+              let html = '';
+              $.getJSONfrom(url).then(function(res) {
+                  $.each(res, function(index, val) {
+                    if (el.attr('id')=='user-purchases') {
+                      html += Templates.userImageList.replace('src=""','src="'+val.img_url+'"')
+                                                      .replace('Code', val.img_code)
+                                                      .replace('Provider', val.img_provider);
+                    } else {
+                      html += Templates.userPlanList.replace('Provider', val.provider)
+                                                    .replace('Code', val.img_code)
+                                                    .replace('Date', val.session_date);
+                    }
+                  })
+                  el.find('.image-list').html(html);
+                })
+            }
+            
     $.getJSONfrom = $.createCache(function(dfd, url, formData) {
                     //console.log(url);
                     $.getJSON(url,formData).then(dfd.resolve, dfd.reject);

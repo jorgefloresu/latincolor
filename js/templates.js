@@ -81,6 +81,20 @@ var userImageList = '<div class="recent-activity-list chat-out-list row">'+
      '</div>'+
      '</div>';
 
+var userPlanList = '<div class="recent-activity-list chat-out-list row">'+
+     '<div class="col s4 recent-activity-list-icon">'+
+     '<div class="center-align">'+
+     'Provider'+
+     '</div>'+
+     '</div>'+
+     '<div class="col s4 recent-activity-list-text" style="font-weight:300">'+
+     '<b>Code</b>'+
+     '</div>'+
+     '<div class="col s4">'+
+     'Date'+
+     '</div>'+
+     '</div>';
+
 var planesResult = function(plan, desc) {
       let logoProvider = location.origin+"/latincolor/img/"+plan.provider+".png";
       //let row = "<li><div class='collapsible-header valign-wrapper "+plan.deal+"'>"+
@@ -127,6 +141,7 @@ return {
      btnTryWith: btnTryWith,
      cardAction: cardAction,
      userImageList: userImageList,
+     userPlanList: userPlanList,
      planesResult: planesResult,
      fakeCounter: fakeCounter
 }

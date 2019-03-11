@@ -329,7 +329,7 @@ class Membership_model extends CI_Model {
 
 	function user_planes($username='')
 	{
-		$this->db->select("a.session_date, a.activity_type, a.img_code, p.valor, p.id, p.offerId");
+		$this->db->select("a.session_date, a.activity_type, a.img_code, p.provider, p.valor, p.id, p.offerId");
 		$this->prepare_planes();
 		$this->db->where("a.username", $username);
 		$this->db->order_by("a.session_date", "DESC");
@@ -356,7 +356,7 @@ class Membership_model extends CI_Model {
 			$query = $this->db->query(
 				"SELECT CONCAT(first_name,' ',last_name) as fname,
 					first_name, last_name, username, email_address, address,
-					city, state, country, zip, phone, deposit_userid
+					city, state, country, zip, phone, empresa, nit, deposit_userid
 				 FROM membership WHERE username='$username'");
 		//$row = $query->row();
 		//return $row;

@@ -70,20 +70,34 @@ var User = {
   },
 
   setRedownloads: function () {
+    let provider, imageId;
     User.config.reDownload.on('click', function (event) {
       event.preventDefault();
+      provider = $(this).data('provider');
+      imageId = $(this).data('id');
       let form = {
         url: $(this).data('url'),
         inputs: {
           lid: $(this).data('lid'),
-          provider: $(this).data('provider'),
+          provider: provider,
         }
       }
+      $('#download-progress').modal('open');
       $.submitForm(form, getFile);
     });
 
     function getFile(data) {
-      window.location = data.downloadLink;
+      console.log(data);
+      if (data.error) {
+        $('.msg-redownload').show();
+      } else {
+          $('.cnt').text('1 de 1');
+          $('#download-progress p').text(' Esperando a recibir el archivo...');
+          $.loadFile(data.downloadLink, function (file) {
+            $.saveFile(file, 'image/jpeg', 'LCI-'+provider.substring(0,2)+'-'+imageId+'-rdw');
+          });
+      }
+      //window.location = data.downloadLink;
     }
 
   },

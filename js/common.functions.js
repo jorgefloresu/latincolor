@@ -34,6 +34,9 @@ $.Common.prototype = {
           });
           this.config.iconSearch.on('click', function(){
             self.config.searchForm.submit();
+          });
+          $('.chat-collapsible').on('click','li', function(){
+            $.getPurchases($(this));
           })
   },
 
@@ -43,21 +46,9 @@ $.Common.prototype = {
           $('body').on('login', function(e) {
               userData = $(this).data();
               Login.auth.init();
+              $('.chat-collapsible').collapsible(self.collapsibleOpts);
               self.shop.displayCart();
           });
-  },
-
-  getPurchases: function(el) {
-            el.find('.image-list').html('');
-            let url = el.data('url')+'?username='+$.Auth.info('username');
-            $.getJSONfrom(url).then(function(res) {
-                $.each(res, function(index, val) {
-                  let html = Templates.userImageList.replace('src=""','src="'+val.img_url+'"')
-                                                    .replace('Code', val.img_code)
-                                                    .replace('Provider', val.img_provider);
-                  el.find('.image-list').append(html)
-                })
-            })
   },
 
   menuMedios: function (current, main) {
@@ -67,6 +58,14 @@ $.Common.prototype = {
            if (main.config.keyword.val()) {
                main.config.searchForm.submit();
            }
+  },
+
+  collapsibleOpts: {
+    accordion : true,
+    onOpen : function(el) {
+              if (el.attr('id')=='user-purchases')
+                $.getPurchases(el);
+            }
   },
 
   setMaterial: function() {
@@ -81,13 +80,7 @@ $.Common.prototype = {
               edge: 'right'
             });
             $(".dropdown-trigger").dropdown();
-            $('.chat-collapsible').collapsible({
-              accordion : true,
-              onOpen : function(el) {
-                        if (el.attr('id')=='user-purchases')
-                          self.getPurchases(el);
-                      }
-            });
+            $('.chat-collapsible').collapsible(self.collapsibleOpts);
             $('.dropdown-button').dropdown({
               belowOrigin: true,
             });
