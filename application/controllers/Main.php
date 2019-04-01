@@ -90,7 +90,7 @@ class Main extends CI_Controller {
       $user = $this->membership_model->get_fullname('jorgefloresu');
       $data['user'] = $user->row();
       $data['orderId'] = '1234567890';
-      $data['productId'] = '1234567890';
+      $data['productId'] = '1234567890<br>0987654321<br>1122334455<br>';
       $data['description'] = 'Plan de 5 imagenes por 30 dias';
       $data['first_name'] = $data['user']->first_name;
       $data['email_address'] = $data['user']->email_address;
@@ -212,6 +212,7 @@ class Main extends CI_Controller {
             //}
 
               //header('Content-Type: application/json');
+              header('Access-Control-Allow-Origin: *');
               echo json_encode($data);
         }
         else {
@@ -415,23 +416,29 @@ class Main extends CI_Controller {
         foreach ($items as $key => $value) {
           $item = json_decode($value, true);
           $provider = $item['provider'];
-          /* switch ($item['provider']) {
-            case 'Fotosearch':
-              $res[$key] = $this->providers->fotosearch->download();
-              break;
-            case 'Dreamstime':
-              $res[$key] = $this->providers->dreamstime->download();
-              break;
-            default:
-              //$res[$key] = ['url'=>'http://depositphotos.com', 'licenseid'=>'1234455'];
-              $res[$key] = $this->providers->depositphoto->download();
-          } */
-          $res[$key] = $this->providers->{strtolower($provider)}->download();
-          $item['result'] = 'success';
+          //$res[$key] = ['url'=>'http://depositphotos.com', 'licenseid'=>'1234455'];
+          $res[$key] = $this->providers->{strtolower($provider)}->download($item);
+          if ($res[$key]['url'] == '') {
+            $item['result'] = 'failed';
+          } else {
+            $item['result'] = 'success';
+            if (count($items) > 1) {
+              $this->downloadUrlToFile($res[$key]['url'], $item);
+            }
+          }
           $res[$key] = array_merge($res[$key], $item);
         }
-        echo json_encode($res);
-    
+
+        if (count($res) > 1) {
+          $zip_name = $this->files2zip($res);
+          header('Content-type: application/zip');
+          header('Content-Disposition: attachment; filename="'.$zip_name.'"');
+          $zip_resp[0] = ['url'=>base_url('zip/'.$zip_name), 'result'=>'success', 'licenseid'=>''];
+          echo json_encode($zip_resp);
+        } else {
+          echo json_encode($res);
+        }
+
     }
 
     function reDownload()
@@ -452,6 +459,42 @@ class Main extends CI_Controller {
         readfile($res->downloadLink);
         exit; */
       echo json_encode($res);
+    }
+
+    function downloadUrlToFile($url, $item)
+    {
+      $outFileName = APPPATH . 'downloads/' . $item['provider'] . '_' . $item['id'] . '.jpg';   
+      if(is_file($url)) {
+          copy($url, $outFileName); 
+      } else {
+          $options = array(
+            CURLOPT_FILE    => fopen($outFileName, 'w'),
+            CURLOPT_TIMEOUT =>  28800, // set this to 8 hours so we dont timeout on big files
+            CURLOPT_URL     => $url
+          );
+
+          $ch = curl_init();
+          curl_setopt_array($ch, $options);
+          curl_exec($ch);
+          curl_close($ch);
+      }
+    }
+
+    function files2zip($items) {
+      $zip = new ZipArchive(); // Load zip library 
+      $zip_name = FCPATH .'zip/'. time() . ".zip"; // Zip name
+      if($zip->open($zip_name, ZIPARCHIVE::CREATE)!==TRUE)
+      { 
+        // Opening zip file to load files
+        $error .= "* Sorry ZIP creation failed at this time";
+      }
+      foreach($items as $item)
+      { 
+        $file = APPPATH . 'downloads/' . $item['provider'] . '_' . $item['id'] . '.jpg';
+        $zip->addFile($file, basename($file)); // Adding files into zip
+      }
+      $zip->close();
+      return basename($zip_name);
     }
 
     function pagination($totalrows, $offset) {
@@ -478,8 +521,9 @@ class Main extends CI_Controller {
       //$config['suffix'] = '?' . http_build_query($params, '', "&");
 		}
 
-		//config for bootstrap pagination class integration
-		$config['full_tag_open'] = '<p class="current-page" style="display:inline;border: 1px solid;padding: 6px 10px;"></p> de <p class="num-pages" style="display:inline;""></p><ul class="pagination" style="margin-top:0; margin-bottom:0;display:inline">';
+		//config for materialize pagination class integration
+		//$config['full_tag_open'] = '<p class="current-page" style="display:inline;border: 1px solid;padding: 6px 10px;"></p> de <p class="num-pages" style="display:inline;""></p><ul class="pagination" style="margin-top:0; margin-bottom:0;display:inline">';
+		$config['full_tag_open'] = '<input type="text" value="0" class="current-page" style="display:inline;border: 1px solid;width:50px;margin:0;height:1.5rem;text-align:right;padding:2px 5px;"> de <p class="num-pages" style="display:inline;""></p><ul class="pagination" style="margin-top:0; margin-bottom:0;display:inline">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link'] = '<i class="material-icons">first_page</i>';
 		//$config['last_link'] = '<i class="material-icons">last_page</i>';

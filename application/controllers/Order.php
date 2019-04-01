@@ -237,29 +237,41 @@ class Order extends CI_Controller
     public function testPay()
     {
         $this->load->model('membership_model');
-        $username = $this->input->post('username');
+        $items = json_decode($this->input->post('items'), true);
+        //$all_items = array_merge($items['images'], $items['planes']);
+        $activity_type = $this->input->post('tranType');
+
+        /* $username = $this->input->post('username');
         $activity_type = $this->input->post('tranType');
         $product_id = $this->input->post('productId');
         $provider = $this->input->post('provider');
-        $description = $this->input->post('description');
+        $description = $this->input->post('description'); */
+        $username = $this->input->post('username');
         $fullname = $this->membership_model->get_fullname($username);
         $userinfo = $fullname->row();
+
+
+        $unique = strtotime('now');
+        $orderId = floatval($unique);
 
         $subaccountCheck = true;
 
         try {
-            if ($activity_type == 'compra_plan' && $provider=='Depositphoto') {
-                $subaccountId = $userinfo->deposit_userid;
-                if ($subaccountId == '') {
-                    $subaccountId = $this->providers->createSubaccount($provider, $userinfo);
-                    if ($subaccountId == 'Ya existe login') {
-                        $subaccountCheck = false;
-                        throw new Twocheckout_Error('Ya existe login');
-                        //echo json_encode($charge);
-                        //return;
+            if (count($items['planes']) > 0) {
+                $provider = $items['planes'][0]['provider'];
+                if ($provider=='Depositphoto') {
+                    $subaccountId = $userinfo->deposit_userid;
+                    if ($subaccountId == '') {
+                        $subaccountId = $this->providers->createSubaccount($provider, $userinfo);
+                        if ($subaccountId == 'Ya existe login') {
+                            $subaccountCheck = false;
+                            throw new Twocheckout_Error('Ya existe login');
+                            //echo json_encode($charge);
+                            //return;
+                        }
+                        else    
+                            $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
                     }
-                    else    
-                        $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
                 }
             }
         } catch (Twocheckout_Error $e) {
@@ -276,7 +288,7 @@ class Order extends CI_Controller
             try {
             
                 $charge = Twocheckout_Charge::auth(array(
-                        "merchantOrderId" => $this->input->post('orderId'),
+                        "merchantOrderId" => $orderId,
                         "token" => $this->input->post('token'),
                         "currency" => 'USD',
                         "total" => $this->input->post('totalId'),
@@ -312,7 +324,7 @@ class Order extends CI_Controller
                     //} catch (Exception $e) {
                     //    $charge['noemail'] = $e->getMessage();
                     //}
-                    $this->membership_model->record_transaction($username, $activity_type, $product_id, $charge);
+                    $this->membership_model->record_transaction($username, $activity_type, $charge);
                     echo json_encode($charge);
                 }
                         
@@ -331,37 +343,51 @@ class Order extends CI_Controller
     {
         $this->load->library('membership');
 
-        $order_data = json_decode($this->input->get('order'), true);
+        //$order_data = json_decode($this->input->get('order'), true);
+        $order = [
+            'orderId' => $this->input->get('orderId'),
+            'totalId' => $this->input->get('totalId'),
+            'username'=> $this->input->get('username'),
+            'description'=> $this->input->get('tranType'),
+            'images_status' => '',
+            'planes_status' => '',
+            'items' => json_decode($this->input->get('items'), true)
+        ];
 
         //$product_id = $this->input->get('productId');
 
-        $username = $this->input->get('username');
+        $username = $order['username'];
         $fullname = $this->membership_model->get_fullname($username);
         $userinfo = $fullname->row();
-        $subaccountId = $userinfo->deposit_userid;
         $resSubacc = [];
-        if ($subaccountId == '') {
-            $subaccountId = $this->providers->createSubaccount($order_data['provider'], $userinfo);
-            $resSubacc = $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
-        }
         $resSubs = [];
 
-        if (!array_key_exists('status', $order_data)) {
+        //if (!array_key_exists('status', $order_data)) {
 
-            if ($order_data['tranType'] == 'compra_plan') {
+            if (count($order['items']['planes']) > 0) {
+                $order['list'][] = floatval("{$order['orderId']}2");
+                $order_data = $order['items']['planes'][0];
                 //$order_data['status'] = ( $order_data['provider']=='Depositphoto' ? 'new' : 'ord' );
                 if ($order_data['provider'] == 'Depositphoto') {
-                    $order_data['status'] = 'new';
+                    $subaccountId = $userinfo->deposit_userid;
+                    if ($subaccountId == '') {
+                        $subaccountId = $this->providers->createSubaccount($order_data['provider'], $userinfo);
+                        $resSubacc = $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
+                    }            
+                    $order['status'] = 'new';
                     $resSubs = $this->providers->createSubscription($order_data['provider'], $order_data['idplan'], $subaccountId);
                 } else {
-                    $order_data['status'] = 'ord';
+                    $order['status'] = 'ord';
                 }
-            } else {
-                $order_data['status'] = 'new';
+            } 
+
+            if (count($order['items']['images']) > 0) {
+                $order['list'][] = floatval("{$order['orderId']}1");
+                $order['status'] = 'new';
             }
-        }
+        //}
         //$res = $this->membership->confirmar_orden($orderId, $username, $monto, $description, $activity_type, $status);
-        $res = $this->membership->confirmar_orden($order_data);
+        $res = $this->membership->confirmar_orden($order);
         $res['subs'] = $resSubs;
         $res['subacc'] = $resSubacc;
         echo json_encode($res);

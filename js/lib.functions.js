@@ -2,6 +2,7 @@
 
     // Guarda el url de cada link visitado
     var cache = {};
+    var valProgress;
 
     $.createCache = function( requestFunction ) {
                     return function( key, callback ) {
@@ -99,12 +100,20 @@
                 if (data.error) {
                   $('.msg-redownload').show();
                 } else {
+                  valProgress = 0;
                   $.each(data, function(index, item){
-                    $('.cnt').text(index+1 +' de '+ data.length);
-                    $('#download-progress p').text(' Esperando a recibir el archivo...');
-                    $.loadFile(item.url, function (file) {
-                      $.saveFile(file, 'image/jpeg', 'LCI-'+item.provider.substring(0,2)+'-'+item.id);
-                    })
+                    if (item.result == 'success') {
+                      $('#download-progress p').text(' Esperando a recibir el archivo...');
+                      console.log(item.url);
+                      $.loadFile(item.url, function (file) {
+                        if (item.url.substr(-3) == 'zip') {
+                          let hoy = new Date();
+                          $.saveFile(file, 'LCI-'+hoy.getTime()+'.zip');
+                        } else {
+                          $.saveFile(file, 'LCI-'+item.provider.substring(0,2)+'-'+item.id);
+                        }
+                      })
+                    }
                   });
                   callback(data);
                 }
@@ -120,11 +129,17 @@
                 request.addEventListener('load', function () {
                   response(request.response);
                 });
+                //request.setRequestHeader('Access-Control-Allow-Origin', '*');
                 request.send();
 
                 function updateProgress(evt){
                   if (evt.lengthComputable){
-                    let percentComplete = (evt.loaded / evt.total)*100;
+                    let percentComplete;
+                    if (evt.loaded > valProgress) {
+                      console.log(evt.loaded+' '+valProgress);
+                      valProgress = evt.loaded;  
+                    }
+                    percentComplete = (valProgress / evt.total)*100;
                     let percent = Math.ceil(percentComplete)+'%';
                     $('.determinate').css('width', percent);
                     $('#download-progress p').text(' Recibiendo...');
@@ -137,7 +152,7 @@
                 }
             }
 
-    $.saveFile = function (object, mime, name) {
+    $.saveFile = function (object, name) {
               let a = document.createElement('a');
               let url = URL.createObjectURL(object);
               a.href = url;
@@ -314,7 +329,12 @@
 
     $.urlParam = function(url, field) {
               let exp = new RegExp( field + "=([^&]+)" );
-              return exp.exec(url)[1].replace(/\+/g," ");
+              let str = exp.exec(url);
+              console.log(str);
+              if (str == null)
+                return '';
+              else
+                return exp.exec(url)[1].replace(/\+/g," ");
             }
 
     $(window).on('popstate', function(e) {

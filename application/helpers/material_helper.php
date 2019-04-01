@@ -13,11 +13,12 @@ if(!function_exists('material_select'))
 
 if(!function_exists('material_input'))
 {
-    function material_input($size, $id, $name, $label)
+    function material_input($size, $id, $name, $label, $required=FALSE)
     {
       $col = "class='input-field col {$size}'";
       $attrib = "id='{$id}' name='{$name}' type='text'";
-      $input = "<div {$col}><input {$attrib}><label for='{$id}'>{$label}</label></div>";
+      $text_required = "class='validate' required oninvalid=\"this.setCustomValidity('El dato es requerido!')\" onkeyup=\"setCustomValidity('')\"";
+      $input = "<div {$col}><input {$attrib} {$text_required}><label for='{$id}'>{$label}</label></div>";
       return $input;
     }
 }
@@ -28,7 +29,7 @@ if(!function_exists('material_password'))
     {
       $col = "class='input-field col {$size}'";
       $attrib = "id='{$id}' name='{$name}' type='password'";
-      $passwd = "<div {$col}><input {$attrib} required='' aria-required='true'><label for='{$id}'>{$label}</label></div>";
+      $passwd = "<div {$col}><input {$attrib} ><label for='{$id}'>{$label}</label></div>";
       return $passwd;
     }
 }

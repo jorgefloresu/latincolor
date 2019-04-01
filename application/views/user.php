@@ -61,13 +61,13 @@
                                       'tab-addr'=>'Dirección',
                                       'tab-pass'=>'Password'])?>
             </li>
-          <form action="<?=base_url('login/set_userpref')?>" class="set-userpref" novalidate>
+          <form action="<?=base_url('login/set_userpref')?>" class="set-userpref" validate>
             <div id="tab-name" class="col s12">
               <div class="row tab-user">
-                <?=material_input("s6", "first_name", "prefs[first_name]", "Nombre")?>
-                <?=material_input("s6", "last_name", "prefs[last_name]", "Apellido")?>
-                <?=material_input("s6", "empresa", "prefs[empresa]", "Empresa")?>
-                <?=material_input("s6", "nit", "prefs[nit]", "NIT")?>
+                <?=material_input("s6", "first_name", "prefs[first_name]", "Nombre", TRUE)?>
+                <?=material_input("s6", "last_name", "prefs[last_name]", "Apellido", TRUE)?>
+                <?=material_input("s6", "empresa", "prefs[empresa]", "Empresa", TRUE)?>
+                <?=material_input("s6", "nit", "prefs[nit]", "NIT", TRUE)?>
               </div>
             </div>
             <div id="tab-addr" class="col s12">
@@ -75,9 +75,9 @@
                   <?=material_select("s6", "country", "prefs[country]", "Selecciona el país")?>
                   <?=material_select("s6", "region", "prefs[state]", "Selecciona el departamento")?>
                   <?=material_select("s6", "city", "prefs[city]", "Selecciona la ciudad")?>
-                  <?=material_input("s6", "address", "prefs[address]", "Calle, Avenida, Apto, Número")?>
-                  <?=material_input("s6", "zip", "prefs[zip]", "Código ZIP")?>
-                  <?=material_input("s6", "phone", "prefs[phone]", "Teléfono")?>
+                  <?=material_input("s6", "address", "prefs[address]", "Calle, Avenida, Apto, Número", TRUE)?>
+                  <?=material_input("s6", "zip", "prefs[zip]", "Código ZIP", TRUE)?>
+                  <?=material_input("s6", "phone", "prefs[phone]", "Teléfono", TRUE)?>
                 </div>
             </div>
             <div id="tab-pass" class="col s12">

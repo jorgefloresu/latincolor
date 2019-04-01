@@ -76,13 +76,20 @@ class Providers_depositphoto extends CI_Driver {
 				return $similar;
 	}
 
-    function download() {
-        $media = $this->CI->input->post('id');
+    function download($item) {
+        /* $media = $this->CI->input->post('id');
         $size = $this->CI->input->post('size');
 				$price = $this->CI->input->post('price');
         $license = $this->CI->input->post('license');
         $username = $this->CI->input->post('username');
-				$img_url = $this->CI->input->post('thumb');
+				$img_url = $this->CI->input->post('thumb'); */
+
+				$media = $item['id'];
+				$size = $item['size'];
+				$price = $item['price'];
+				$license = $item['license'];
+				$username = $item['username'];
+				$img_url = $item['thumb'];
 
         $subaccountid = "";
         $subaccountid = $this->CI->membership_model->other_member_id($username);
@@ -199,7 +206,7 @@ class Providers_depositphoto extends CI_Driver {
 					$html  = "<div><img src='$value->url2' height='170'/><div class='caption'>";
 					$html .= "<a class='view-link' href='".base_url('main/preview')."/$value->id/?provider=Depositphoto'><i class='material-icons'>zoom_in</i></a>";
 					$html .= "<a class='cart-link' href='".base_url('main/instant')."/$value->id/?provider=Depositphoto'><i class='material-icons' style='padding-left:10px;'>add_shopping_cart</i></a>";
-					$html .= "<a href='#'><i class='material-icons' style='padding-left:10px;'>file_download</i></a>";
+					//$html .= "<a href='#'><i class='material-icons' style='padding-left:10px;'>file_download</i></a>";
 					$html .= "</div></div>";
 
 					$this->result['images'][] = [

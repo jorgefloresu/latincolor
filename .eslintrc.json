@@ -16,6 +16,7 @@
         "Templates": true,
         "Storages": true,
         "Pay": true,
+        "Api": true,
         "userData": true
     },
     "rules": {

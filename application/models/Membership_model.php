@@ -102,36 +102,53 @@ class Membership_model extends CI_Model {
 		return $row->deposit_userid;
 	}
 
-	function record_transaction($username, $activity_type, $media, $charge)
+	function record_transaction($username, $activity_type, $charge)
 	{
-		$this->record_payment($charge);
-
-		$new_transaction_data = array(
-			'username' => $username,
-			'session_date' => date("Y-m-d H:i:s"),
-			'activity_type' => $activity_type,
-			'img_code' => $media
-		);
-
-		$this->db->insert('activities', $new_transaction_data);
-
-		$new_ventas_data = array(
-			'orderId' => $this->input->post('orderId'),
-			'activity_type' => $activity_type,
-			'username' => $username,
-			'monto' => $this->input->post('totalId'),
-			'fecha' => date("Y-m-d H:i:s"),
-			'status' => ($activity_type=='compra_plan' ? 'ord' : 'new')
-		);
-
-		$this->db->insert('ventas', $new_ventas_data);
-
 		$items = json_decode($this->input->post('items'), TRUE);
-		foreach ($items as $key => $item) {
-			unset($item['tranType']); unset($item['username']); unset($item['idplan']);
+        $all_items = array_merge($items['images'], $items['planes']);
 
-			$insert = $this->db->insert('ventas_detalle', $item);
+		$this->record_payment($username, $charge);
+
+		foreach ($all_items as $key => $item) {
+			$new_transaction_data[] = array(
+				'username' => $username,
+				'session_date' => date("Y-m-d H:i:s"),
+				'activity_type' => $item['tranType'],
+				'img_code' => $item['productId']
+			);
 		}
+
+		$this->db->insert_batch('activities', $new_transaction_data);
+
+		$total['images'] = 0;
+		$total['planes'] = 0;
+
+		foreach ($items as $key => $item) {
+			foreach ($item as $value) {
+				$total[$key] += $value['price'] + $value['iva'] + $value['tco'];
+				$orderType = ($key == 'images' ? 1 : 2);
+				$orderId = floatval("{$charge['response']['merchantOrderId']}{$orderType}");
+				$value['orderId'] = $orderId;
+				unset($value['tranType']); unset($value['username']); unset($value['idplan']);
+				$data_insert[] = $value;
+			}
+			if ($total[$key] > 0) {
+				$new_ventas_data[] = array(
+					'orderId' => $orderId,
+					'activity_type' => $activity_type,
+					'username' => $username,
+					'monto' => $total[$key],
+					'fecha' => date("Y-m-d H:i:s"),
+					'status' => ($activity_type=='compra_plan' ? 'ord' : 'new')
+				);
+	
+			}
+		//}
+
+		//foreach ($all_items as $key => $item) {
+		}
+		$this->db->insert_batch('ventas', $new_ventas_data);
+		$insert = $this->db->insert_batch('ventas_detalle', $data_insert);
 
 		return $insert;
 	}
@@ -154,16 +171,16 @@ class Membership_model extends CI_Model {
 		return $query;
 	}
 
-	function record_payment($charge)
+	function record_payment($username, $charge)
 	{
 		$new_payment_data = array(
-			'username' => $this->input->post('username'),
-			'order_number' => $this->input->post('orderNumber'),
+			'username' => $username,
+			'order_number' => $charge['response']['orderNumber'],
 			'date' => date("Y-m-d H:i:s"),
-			'merchant_order_id' => $this->input->post('orderId'),
+			'merchant_order_id' => $charge['response']['merchantOrderId'],//$this->input->post('orderId'),
 			'token' => $charge['response']['transactionId'],
 			'total' => $this->input->post('totalId'),
-			'img_code' => $this->input->post('productId')
+			'img_code' => ''
 			);
 		$insert = $this->db->insert('payments', $new_payment_data);
 		return $insert;

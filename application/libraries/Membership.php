@@ -56,31 +56,37 @@ class Membership
 		// $detalles = $this->CI->membership_model->get_ventas_detalle($orderId);
 		// $user = $this->CI->membership_model->get_fullname($username);
 		// $this->send_email_order($user->row(), $orderId, $detalles[0]->productId, $monto, $description, $activity_type, $status);
-		$detalles = $this->CI->membership_model->get_ventas_detalle($order['orderId']);
 		$user = $this->CI->membership_model->get_fullname($order['username']);
-		if ( ! array_key_exists('description', $order) ) {
-			$order['description'] = $detalles[0]->description;
+		$resp_process = [];
+		foreach ($order['list'] as $value) {
+			# code...
+			$order['orderId'] = $value;
+			$detalles = $this->CI->membership_model->get_ventas_detalle($order['orderId']);
+			/* if ( ! array_key_exists('description', $order) ) {
+				$order['description'] = $detalles[0]->description;
+			}
+			else {
+				$order['description'] = $order['description']=='' ? $detalles[0]->description : $order['description'];
+			} */
+			//print_r($order);
+			//$res['url'] = '';
+			$res = $this->send_email_order($user->row(), $order);
+			$resp_process = array_merge($resp_process, $res);
+			$url = array_key_exists('planes', $res) ? $res['planes']['url'] : '';
+			$this->CI->membership_model->change_venta_status($order, $detalles[0]->productId, $url);
 		}
-		else {
-			$order['description'] = $order['description']=='' ? $detalles[0]->description : $order['description'];
-		}
-		//print_r($order);
-		//$res['url'] = '';
-		$res = $this->send_email_order($user->row(), $order, $detalles[0]->productId);
 		
-		$this->CI->membership_model->change_venta_status($order, $detalles[0]->productId, $res['url']);
-		
-		return ['process'  => $res['result'],
+		return ['process'  => $resp_process,
 				'detalles' => $detalles];
 	}
 
 	// public function send_email_order($user, $orderId, $media, $valor, $description, $activity_type, $status)
-	public function send_email_order($user, $order, $media)
+	public function send_email_order($user, $order)
 	{
-		$email_data['user'] = $user;
-		$email_data['orderId'] = $order['orderId'];
-		$email_data['productId'] = $media;
-		$email_data['description'] = $order['description'];
+		//$email_data['user'] = $user;
+		//$email_data['orderId'] = $order['orderId'];
+		//$email_data['productId'] = $media;
+		//$email_data['description'] = $order['description'];
 
 		$this->CI->load->library("PHPMailer_Library");
 		$mail = $this->CI->phpmailer_library->createPHPMailer();
@@ -89,8 +95,13 @@ class Membership
 		$mail->CharSet = 'utf-8';
 		$mail->isHTML(true);
 		$url = "";
+		$result = [
+				   'images' => ['result'=> '', 'url' => ''],
+				   'planes' => ['result'=> '', 'url' => '']
+				  ];
 
-		if ($order['tranType'] == 'compra_plan') {
+		if (count($order['items']['planes']) > 0) {
+			$media = $order['items']['planes'][0]['productId'];
 			$mail->Subject = "Orden de compra {$order['orderId']} - Plan {$media}";
 
 			if ($order['status'] == 'ord') {
@@ -125,39 +136,53 @@ class Membership
 				$mail->AltBody = 'Su orden está lista';
 				$mail->addAttachment($attach);
 
+				$result['planes'] = $this->send_mail($mail, $url);
+
 			}
 
-		} else {
+		} elseif (count($order['items']['images']) > 0) {
 			$mail->Subject = "Orden de compra {$order['orderId']} - Imágenes";
 			$email = $this->CI->load->view('email/Compra/mail', '', TRUE);
-			$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
-			$mail->AltBody = 'Has comprado una o varias imágenes';
-			//Attachments
-			switch ($order['provider']) {
-				case 'Fotosearch':
-					$mail->addAttachment(realpath("img/Acuerdo de licencia de Fotosearch.pdf"));
-					break;
-				case 'Depositphoto':
-					$mail->addAttachment(realpath("img/Contrato de Licencia Standar y Extendida Depositphotos.pdf"));
-					break;
-				case 'Dreamstime':
-					$mail->addAttachment(realpath("img/Dreamstime Licencia Standar y Extendida.pdf"));
-					break;
-			}
 
+			$media = '';
+			foreach ($order['items']['images'] as $key => $value) {
+				$media .= $value['productId'].'<br>';
+				//Attachments
+				switch ($value['provider']) {
+					case 'Fotosearch':
+						$mail->addAttachment(realpath("img/Acuerdo de licencia de Fotosearch.pdf"));
+						break;
+					case 'Depositphoto':
+						$mail->addAttachment(realpath("img/Contrato de Licencia Standar y Extendida Depositphotos.pdf"));
+						break;
+					case 'Dreamstime':
+						$mail->addAttachment(realpath("img/Dreamstime Licencia Standar y Extendida.pdf"));
+						break;
+				}
+			}
+			$mail->AddCC("gerencia@latincolorimages.com");
+			$mail->Body = $this->replaceTags($user->first_name, $order, $media, $email, $url);
+			$mail->AltBody = $order['description'];
+
+			$result['images'] = $this->send_mail($mail);
 		}
 		//$this->CI->membership_model->change_venta_status($order['orderId'], $order['status']);
+		return $result;
+	}
+
+	function send_mail($mail, $url='')
+	{
 		try {
 			if (!$mail->send()) {
-					throw new Exception("Mailer Error: " . $mail->ErrorInfo, 1);
+				throw new Exception("Mailer Error: " . $mail->ErrorInfo, 1);
 			} 
 		} catch (Exception $e) {
 			return ['result'=>$e->getMessage(),
 					'url'=>""];
 		}
+
 		return ['result'=>"ok",
 				'url' => $url];
-		
 	}
 
 	function replaceTags($user, $order, $media, $email, $url) {

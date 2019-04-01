@@ -245,8 +245,15 @@ var Api = ( function() {
               $('.estas-buscando').text('Estás buscando '+getFromUrl(location.href,'medio').toLowerCase());
               $('.this-keyword').text(setup.config.keyword.val());
               $('.search-type-icon').attr('src', location.origin+'/latincolor/img/'+getFromUrl(location.href,'medio')+'-50.png');
-              $('.current-page').text(data.cur_page);
+              //$('.current-page').text(data.cur_page);
+              $('.current-page').val(data.cur_page);
               $('.num-pages').text(data.num_pages+(data.num_pages==1?' pagina':' paginas'));
+              $('.current-page').on('keypress', function(e) {
+                if (e.which == 13) {
+                  setup.config.searchForm.attr("action", location.origin+'/latincolor/main/search/'+$(this).val());
+                  setup.config.searchForm.submit();
+                }
+              });
               //let tabUrl = $('.'+setup.config.provider.val()).data('url');
               //console.log(tabUrl);
               //let keywordUrl = getFromUrl(tabUrl, 'keyword');

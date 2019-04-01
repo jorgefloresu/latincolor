@@ -4,11 +4,11 @@
     <i class="material-icons">cancel</i>
   </a>
   <div class="modal-content">
-    <h5>Descargando... <span class="cnt"></span> <span class="pct"></span></h5>
+    <h5>Descargando... <span class="next"></span> <span class="cnt"></span> <span class="pct"></span></h5>
 
     <div class="progress">
       <div class="determinate" style="width: 0%"></div>
     </div>
-    <p><i class="material-icons green-text left" style="display: none">check_circle</i>  Solicitando autorización...</p>
+    <p><i class="material-icons green-text left" style="display: none">check_circle</i>  Contactando servidor de descargas...</p>
   </div>
 </div>

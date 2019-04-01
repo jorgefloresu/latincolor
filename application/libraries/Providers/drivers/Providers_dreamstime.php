@@ -61,19 +61,28 @@ class Providers_dreamstime extends CI_Driver {
         return $this->convertPreview($res);
     }
 
-    function download() {
-				$media = $this->CI->input->post('id');
+    function download($item) {
+				/* $media = $this->CI->input->post('id');
 				$size = $this->CI->input->post('size');
 				$price = $this->CI->input->post('price');
 				$license = $this->CI->input->post('license');
 				$username = $this->CI->input->post('username');
-				$img_url = $this->CI->input->post('thumb');
+				$img_url = $this->CI->input->post('thumb'); */
+
+				$media = $item['id'];
+				$size = $item['size'];
+				$price = $item['price'];
+				$license = $item['license'];
+				$username = $item['username'];
+				$img_url = $item['thumb'];
+				$url = '';
+				$licenseId = '';
 
 				$this->CI->load->model('membership_model');
 				$purchased_media = $this->CI->dreamstime_api->goImageDownload($media, $size);
 
-				//if ( $query = $this->CI->membership_model->record_transaction($username, 'download', $media) )
-				//{
+				if ( isset($purchased_media->downloadURL) )
+				{
 					$rec = array(
 						'username' => $username,
 						'date' => date("Y-m-d H:i:s"),
@@ -89,9 +98,16 @@ class Providers_dreamstime extends CI_Driver {
 						'license_type' => $license,
 						'license_id' => (string)$purchased_media->downloadID
 					);
+					
 					$this->CI->membership_model->record_download($rec);
-				//}
-				return array('url' => (string)$purchased_media->downloadURL, 'licenseid' => (string)$purchased_media->downloadID);
+					$url = (string)$purchased_media->downloadURL;
+					$licenseId = (string)$purchased_media->downloadID;
+
+				} elseif ( isset($purchased_media->errorMessage)) {
+					log_message('error', '['.__CLASS__.':'.__LINE__.'] ' . $purchased_media->errorMessage);
+				}
+
+				return array('url' => $url, 'licenseid' => $licenseId);
 
 				//return array('url' => $purchased_media->downloadURL, 'licenseid' => $purchased_media->downloadID);
 
@@ -312,7 +328,7 @@ class Providers_dreamstime extends CI_Driver {
 							$html  = "<div><img src='$value->largeThumb' height='170' /><div class='caption'>";
 							$html .= "<a class='view-link' href='".base_url('main/preview')."/$value->imageID/?provider=Dreamstime&type=$value->mediaType'><i class='material-icons'>zoom_in</i></a>";
 							$html .= "<a class='cart-link' href='".base_url('main/instant')."/$value->imageID/?provider=Dreamstime&type=$value->mediaType'><i class='material-icons' style='padding-left:10px;'>add_shopping_cart</i></a>";
-							$html .= "<a href='#'><i class='material-icons' style='padding-left:10px;'>file_download</i></a>";
+							//$html .= "<a href='#'><i class='material-icons' style='padding-left:10px;'>file_download</i></a>";
 							$html .= "</div></div>";
 
 							$this->result['images'][] = [

@@ -6,4 +6,6 @@
 /application/config/config.php
 /application/config/database.php
 /application/logs/
+/application/downloads/
 /node_modules/
+/zip/

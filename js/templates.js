@@ -66,7 +66,7 @@ var cardAction = function(item, provider){
      return '<a href="'+item+'?provider='+provider+'">Preview</a>';
      }
 
-var userImageList = '<div class="recent-activity-list chat-out-list row">'+
+var userImageList = '<div class="recent-activity-list chat-out-list row" style="margin-bottom:0">'+
      '<div class="col s4 recent-activity-list-icon">'+
      '<div class="center-align">'+
      '<img src="" width="100%">'+

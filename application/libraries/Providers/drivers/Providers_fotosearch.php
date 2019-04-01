@@ -56,13 +56,20 @@ class Providers_fotosearch extends CI_Driver {
         return $this->convertPreview($res);
     }
 
-  function download() {
-				$media = $this->CI->input->post('id');
+  function download($item) {
+				/* $media = $this->CI->input->post('id');
         $size = $this->CI->input->post('size');
 				$price = $this->CI->input->post('price');
         $license = $this->CI->input->post('license');
         $username = $this->CI->input->post('username');
-				$img_url = $this->CI->input->post('thumb');
+				$img_url = $this->CI->input->post('thumb'); */
+
+				$media = $item['id'];
+				$size = $item['size'];
+				$price = $item['price'];
+				$license = $item['license'];
+				$username = $item['username'];
+				$img_url = $item['thumb'];
 
 				$usage = 'sale';
         $saveAs = 'fs_'.$media;
@@ -159,7 +166,7 @@ class Providers_fotosearch extends CI_Driver {
 						$html  = "<div><img src='$value->preview_url' height='170'/><div class='caption'>";
 						$html .= "<a class='view-link' href='".base_url('main/preview/')."/$value->id/?provider=Fotosearch'><i class='material-icons'>zoom_in</i></a>";
 						$html .= "<a class='cart-link' href='".base_url('main/instant/')."/$value->id/?provider=Fotosearch'><i class='material-icons' style='padding-left:10px;'>add_shopping_cart</i></a>";
-						$html .= "<a href='#'><i class='material-icons' style='padding-left:10px;'>file_download</i></a>";
+						//$html .= "<a href='#'><i class='material-icons' style='padding-left:10px;'>file_download</i></a>";
 						$html .= "</div></div>";
 
 						$type = ((string)$value->type=='VIDEO') ? 'video' :

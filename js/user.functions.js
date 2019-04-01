@@ -15,6 +15,8 @@ var User = {
       address: $('#address'),
       zip: $('#zip'),
       phone: $('#phone'),
+      empresa: $('#empresa'),
+      nit: $('#nit'),
 
       reDownload: $('.re-download'),
       planesView: $('#planes-view'),
@@ -148,6 +150,8 @@ var User = {
     User.config.address.val(userData.address);
     User.config.zip.val(userData.zip);
     User.config.phone.val(userData.phone);
+    User.config.empresa.val(userData.empresa);
+    User.config.nit.val(userData.nit);
 
     var currentCountries = [],
       currentStates = [];

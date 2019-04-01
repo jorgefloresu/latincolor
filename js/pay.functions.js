@@ -12,10 +12,14 @@ var Pay = (function () {
 				$CCForm: $('#myCCForm'),
 				$orderId: $('#orderId'),
 				$totalId: $('#totalId'),
+				tranType: '',
 				$orderNumber: $('#orderNumber'),
-				cartItems: [],
+				cartItems: {
+					images:[],
+					planes:[]
+				},
 				userName: $('#pay_username'),
-				selCartItem: {
+				/* selCartItem: {
 					id: $('#imageCode'),
 					description: $('#description'),
 					size: $('#size'),
@@ -25,8 +29,11 @@ var Pay = (function () {
 					tran_type: '',
 					username: $('#pay_username'),
 					idplan: ''
+				}, */
+				resCartItems: {
+					images:[],
+					planes:[]
 				},
-				resCartItems: [],
 				$aviso: $('#aviso'),
 				$message: $('#pay-message p'),
 				$CCWindow: $('#buy'),
@@ -49,10 +56,20 @@ var Pay = (function () {
 
 			/* setup.$CCForm.submit(function(event) {
 				event.preventDefault();
-				$.download(setup.cartItems, function(res){
-					setup.resCartItems = res;
-					setup.$CCWindow.modal('close');
-				});
+				console.log(setup.cartItems);
+				let form_data = {
+					token: 'prueba',
+					orderId: setup.$orderId.val(),
+					totalId: setup.factTotal.text().replace(",", "."),
+					tranType: setup.tranType,
+					username: setup.userName.val(),
+					items: JSON.stringify(setup.cartItems)
+				};
+				processOrder(form_data);
+				// $.download(setup.cartItems.images, function(res){
+				// 	setup.resCartItems.images = res;
+				// 	setup.$CCWindow.modal('close');
+				// });
 			}) */
 
 		}
@@ -74,24 +91,27 @@ var Pay = (function () {
 
 		let form_data = {
 			token: datatoken.response.token.token,
-			orderId: setup.$orderId.val(),
+			//orderId: setup.$orderId.val(),
+			orderId: 0,
 			totalId: setup.factTotal.text().replace(",", "."),
+			tranType: setup.tranType,
+			username: setup.userName.val(),
 
-			orderNumber: setup.$orderNumber.val(),
+			//orderNumber: setup.$orderNumber.val(),
 
-			productId: setup.cartItems[0].productId,
+			/* productId: setup.cartItems[0].productId,
 			provider: setup.cartItems[0].provider,
 			description: setup.cartItems[0].description,
 			tranType: setup.cartItems[0].tranType,
-			username: setup.cartItems[0].username,
-			order: JSON.stringify({
+			username: setup.cartItems[0].username, */
+			/* order: JSON.stringify({
 				orderId: setup.$orderId.val(),
 				tranType: setup.cartItems[0].tranType,
 				idplan: setup.cartItems[0].idplan,
 				provider: setup.cartItems[0].provider,
 				username: setup.cartItems[0].username,
 				description: setup.cartItems[0].description,
-			}),
+			}), */
 			items: JSON.stringify(setup.cartItems)
 		};
 		setup.$message.html('Verificando tarjeta...');
@@ -106,6 +126,7 @@ var Pay = (function () {
 				//setup.$CCWindow.modal('close');
 				let textResult = 'APROBADA. Procesando, espere...';
 				setup.$message.html(textResult);
+				form_data.orderId = data.response.merchantOrderId;
 				//-- before: Api.download(setup.selCartItem);
 				processOrder(form_data);
 			}
@@ -150,15 +171,22 @@ var Pay = (function () {
 		//+form.orderId+'/'+form.username+'/'+form.totalId+'/'+form.description+'/'+form.tranType+'/'+status)
 		$.getJSON(location.origin + '/latincolor/order/confirmar_orden', form)
 			.then(function (res) {
-				if (res.process == 'ok') {
-					if (form.tranType == 'compra_img' || form.tranType == 'compra_imgs') {
-						$.download(setup.cartItems, function (res) {
-							setup.resCartItems = res;
+				if (res.process.images.result == 'ok') {
+					if (setup.cartItems.images.length > 0) {
+						$.download(setup.cartItems.images, function (res) {
+							setup.resCartItems.images = res;
+							console.log(setup.resCartItems);
 							//setup.$CCWindow.modal('close');
 						})
-					} else {
-						setup.resCartItems = setup.cartItems;
-						setup.resCartItems[0].result = 'success';
+					}
+				} else {
+					console.log(res);
+				}
+				if (res.process.planes.result == 'ok') {
+					if (setup.cartItems.planes.length > 0) {
+						setup.resCartItems.planes = setup.cartItems.planes;
+						setup.resCartItems.planes[0].result = 'success';
+						//setup.resCartItems.images[0].result = 'success';
 						console.log(setup.resCartItems);
 						console.log(res);
 						//modalControl.resolve(setup.cartItems);

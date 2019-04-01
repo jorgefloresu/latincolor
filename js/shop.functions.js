@@ -137,7 +137,7 @@
             }
             iva += (country == 'Colombia' || country == null ? item.iva : 0);
             tco += item.tco;
-            html += "<tr><td><img src='" + item.thumb + "' height='auto' style='max-height:110px;width: auto;max-width:110px'/></td><td>" + item.id + "</td>";
+            html += "<tr><td><img src='" + item.thumb + "' height='auto' style='max-height:90px;width: auto;max-width:90px'/></td><td>" + item.id + "</td>";
             html += "<td>" + item.desc + "</td><td class='center'>" + item.sizelbl + "</td>";
             html += "<td class='center'>" + item.license + "</td><td class='right-align'>" + this._price(item.price) + "</td>";
             html += "<td class='download center' style='padding-left:15px'><a href='' class='btn blue' id='"+item.id +"' data-item='" + item.id + "' style='padding:0 10px'><i class='material-icons'>" + icon + "</i></a></a></td>";
@@ -319,15 +319,18 @@
       Pay.setup.$CCForm.trigger('reset');
       Pay.setup.$orderId.val(order);
       Pay.setup.$totalId.val(item.price);
+      Pay.setup.tranType = 'Compra de imagen';
+      Pay.setup.userName.val(userLogged);
       Pay.setup.$orderNumber.val(order);
-      Pay.setup.selCartItem.id.val(item.id);
+      /* Pay.setup.selCartItem.id.val(item.id);
       Pay.setup.selCartItem.description.val(item.desc);
       Pay.setup.selCartItem.size.val(item.size);
       Pay.setup.selCartItem.license.val(item.license);
       Pay.setup.selCartItem.provider.val(item.provider);
-      Pay.setup.selCartItem.username.val(userLogged);
-      Pay.setup.cartItems = [];
-      Pay.setup.cartItems.push({
+      Pay.setup.selCartItem.username.val(userLogged); */
+      Pay.setup.cartItems.images = [];
+      Pay.setup.cartItems.planes = [];
+      Pay.setup.cartItems.images.push({
         'orderId': order,
         'productId': item.id,
         'size': item.size,
@@ -397,13 +400,15 @@
           Pay.setup.$CCForm.trigger('reset');
           Pay.setup.$orderId.val(order);
           Pay.setup.$totalId.val(this._convertString(plan.price));
+          Pay.setup.tranType = 'Compra de plan';
           Pay.setup.$orderNumber.val(order);
           Pay.setup.$message.html('');
           Pay.setup.$aviso.addClass('hide');
           Pay.setup.$CCWindow.modal('open');
           Pay.setup.userName.val(userLogged);
-          Pay.setup.cartItems = [];
-          Pay.setup.cartItems.push({
+          Pay.setup.cartItems.images = [];
+          Pay.setup.cartItems.planes = [];
+          Pay.setup.cartItems.planes.push({
             'orderId': order,
             'productId': plan.id,
             'price': plan.price,
@@ -452,17 +457,19 @@
           Pay.setup.$CCForm.trigger('reset');
           Pay.setup.$orderId.val(order);
           Pay.setup.$totalId.val(this.$subTotal.text());
+          Pay.setup.tranType = 'compra_imgs';
           Pay.setup.$orderNumber.val(order);
           Pay.setup.$message.html('');
           Pay.setup.userName.val(userLogged);
-          Pay.setup.cartItems = [];
+          Pay.setup.cartItems.images = [];
+          Pay.setup.cartItems.planes = [];
           let itemsCount = 0;
           this.$element.find('.download a').each(function (index) {
             let item = self._found(this);
             let country = $.Auth.info('country');
             itemsCount += 1;
             item.element.iva = (country == 'Colombia' || country == null ? item.element.iva : 0);
-            Pay.setup.cartItems.push({
+            let itemToPush = {
               'orderId': order,
               'productId': item.element.id,
               'size': item.element.size,
@@ -473,15 +480,20 @@
               'provider': item.element.provider,
               'thumb': item.element.thumb,
               'description': item.element.desc,
-              'tranType': 'compra_imgs',
+              'tranType': item.element.tranType,
               'username': userLogged,
               'idplan': item.element.idplan,
               'subscriptionId': item.subscriptionId
-            });
+            }
+            if (item.element.tranType == 'compra_img') {
+              Pay.setup.cartItems.images.push(itemToPush);
+            } else {
+              Pay.setup.cartItems.planes.push(itemToPush);
+            }
           });
           Pay.setup.factDescript.text('Compra de '+itemsCount+ (itemsCount>1?' items':' item'));
 
-          if (Pay.setup.cartItems.length > 1) {
+          if (Pay.setup.cartItems.images.length + Pay.setup.cartItems.planes.length > 1) {
             Pay.setup.$aviso.removeClass('hide');
           } else {
             Pay.setup.$aviso.addClass('hide');
@@ -515,13 +527,15 @@
     openPayWindow: function () {
       console.log(Pay.setup.factTotal.text().replace(",", "."));
       let self = this;
+      let allItems = [];
+      allItems.push.apply(Pay.setup.resCartItems.images, Pay.setup.resCartItems.planes);
+      console.log(allItems);
       Pay.setup.$CCWindow.modal({
         complete: function () {
-          console.log(Pay.setup.resCartItems);
-          if (Pay.setup.resCartItems.length > 0) {
+          if (allItems.length > 0) {
             if (Pay.setup.token != '') {
               //let cart = self.storage.get(self.cartName);
-              $.each(Pay.setup.resCartItems, function (index, item) {
+              $.each(allItems, function (index, item) {
                 if (item.result == 'success') {
                   let objDelete = '.delete a[data-item="' + item.productId + '"]';
                   $(objDelete).html('')
@@ -536,7 +550,7 @@
               //self.storage.set(self.cartName, cart);
               self.$emptyCart.hide();
               self.$checkout.hide();
-              if (Pay.setup.resCartItems[0].tranType != 'compra_plan') {
+              if (Pay.setup.resCartItems.images.length > 0) {
                 $('#downloading').removeClass('hide');
                 Pay.setup.$message.html() == 'Transacción aprobada!... preparando compra';
                 self.setMessage('Descargando...');
