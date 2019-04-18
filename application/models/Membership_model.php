@@ -410,7 +410,7 @@ class Membership_model extends CI_Model {
 		return $query;
 	}
 
-	function get_plan($provider, $frecuencia, $cantidad, $tiempo)
+	function get_plan($medio, $frecuencia, $cantidad, $tiempo)
 	{
 		$deal = "IF((SELECT MIN(valor) FROM planes WHERE frecuencia='$frecuencia'
 						AND cantidad=$cantidad AND tiempo=$tiempo)<valor,'','active')";
@@ -418,7 +418,7 @@ class Membership_model extends CI_Model {
 		$costo_imagen = "ROUND((valor / fotos_suscripcion), 2)";
 
 		$query = $this->db->query("SELECT *, $deal AS deal, $costo_imagen AS por_imagen
-							FROM planes WHERE frecuencia='$frecuencia'
+							FROM planes WHERE medio='$medio' AND frecuencia='$frecuencia'
 							AND cantidad=$cantidad AND tiempo=$tiempo ORDER BY valor ASC");
 
 		// $data = array(
@@ -515,15 +515,17 @@ class Membership_model extends CI_Model {
 		$this->db->insert_batch('planes', $data);
 	}
 
-	function planes_params() {
+	function planes_params($medio) {
 		$fields = ["frecuencia", "cantidad", "tiempo"];
+		$medio = urldecode($medio);
 		foreach ($fields as $field) {
-			$query = $this->db->query("SELECT $field FROM planes group by $field");
+			$query = $this->db->query("SELECT $field FROM planes WHERE medio='$medio' group by $field");
 			$result = $query->result();
 			foreach ($result as $value) {
 				$val = $value->{$field};
-				$params[$field][] = $val . ($field=="cantidad" ? " imágenes"
-																 : ($field=="tiempo" ? ($val==1 ? " mes" :" meses") : ""));
+				$params[$field][] = $val . 
+					($field=="cantidad" ? ($medio=="Fotos"? " imágenes" : " videos")
+										: ($field=="tiempo" ? ($val==1 ? " mes" :" meses") : ""));
 			}
 		}
 		return $params;
@@ -548,9 +550,10 @@ class Membership_model extends CI_Model {
 	}
 
 	//function change_venta_status($orderId='', $new_status='')
-	function change_venta_status($order, $media, $url='')
+	function change_venta_status($order, $media='', $url='')
 	{
 		$this->db->set('status', $order['status']);
+		$this->db->set('activity_type', $order['tranType']);
 		$this->db->where('orderId', $order['orderId']);
 		$this->db->update('ventas');
 		if ($url != "") {
@@ -560,8 +563,8 @@ class Membership_model extends CI_Model {
 
 	function update_ventas_detalle($order, $media, $url) {
 		$this->db->set('url_plan', $url);
-		$this->db->set('user_plan', $order['plan']['username']);
-		$this->db->set('pwd_plan', $order['plan']['password']);
+		$this->db->set('user_plan', $order['items']['planes'][0]['username']);
+		$this->db->set('pwd_plan', $order['items']['planes'][0]['password']);
 		$this->db->where('orderId', $order['orderId']);
 		$this->db->where('productId', $media);
 		$this->db->update('ventas_detalle');

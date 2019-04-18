@@ -102,6 +102,8 @@
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
+<?$this->load->view('templates/footer_tag') ?>
+
 <?=put_headers('js', $user_info)?>
 
 </body>

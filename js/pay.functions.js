@@ -173,8 +173,12 @@ var Pay = (function () {
 			.then(function (res) {
 				if (res.process.images.result == 'ok') {
 					if (setup.cartItems.images.length > 0) {
-						$.download(setup.cartItems.images, function (res) {
-							setup.resCartItems.images = res;
+						$.download(setup.cartItems.images, function (res2) {
+							// let res2 = setup.cartItems.images;
+							// $.each(res2, function(i,t){
+							// 	t.result = 'success';
+							// });
+							setup.resCartItems.images = res2;
 							console.log(setup.resCartItems);
 							//setup.$CCWindow.modal('close');
 						})

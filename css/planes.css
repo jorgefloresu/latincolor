@@ -30,7 +30,7 @@ article .price {
   position: relative;
   font-size: 4rem;
   line-height: 1.6em;
-  color: #fff;
+  color: #f12088;
   font-weight: 300;
   text-align: center;
 }
@@ -46,8 +46,10 @@ article .millar {
 }
 article .price-desc {
   text-align: center;
-  color: #fff;
-  padding-bottom: 10px;
+  /* color: #fff; */
+  padding: 10px;
+  border-bottom: 1px solid #dedede;
+  border-top: 1px solid #dedede;
 }
 article .card .card-content {
   padding: 0;
@@ -57,13 +59,14 @@ article .collection {
 }
 article .collection .collection-item {
   border-bottom: none;
-  text-align: center;
+  /* text-align: center; */
   font-size: 1.07rem;
   line-height: 1.6em;
+  padding: 10px 5px;
 }
 article .btn {
   border-radius:50px;
 }
-
-#paquetes-promo {
+.plan-option p {
+  line-height: 1.2rem;
 }

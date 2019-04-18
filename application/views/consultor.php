@@ -8,7 +8,24 @@
 
   <main class="consultor">
 
-    <div class="container">
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+          <div class="container">
+            <br><br>
+            <h1 class="header center white-text text-lighten-2">Mi Consultor</h1>
+            <div class="row center">
+              <h5 class="header col s12 light">Tu punto de atención centralizado</h5>
+            </div>
+            <div class="row center">
+              <a href="#dinos-tu-consulta" id="consultor-btn" class="btn-large waves-effect waves-light blue accent-3">Dinos tu consulta</a>
+            </div>
+
+          </div>
+        </div>
+        <div class="parallax"><img src="<?=base_url('img/consultor.jpg')?>" alt="planes"></div>
+    </div>
+
+    <div id="dinos-tu-consulta" class="container">
 
         <div class="row">
           <div class="col s12 m6 l6">
@@ -113,6 +130,8 @@
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
+<?$this->load->view('templates/footer_tag') ?>
+
 <?=put_headers('js', $user_info)?>
 
 </body>

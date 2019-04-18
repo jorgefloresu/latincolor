@@ -50,7 +50,7 @@
               <li><a class="dropdown-button grey-text text-darken-3" href="#!" data-activates="opciones" style="font-size:12px">CONTÁCTANOS<i class="material-icons right" style="height:30px;line-height:30px;margin-left:0">arrow_drop_down</i></a></li>
               <ul id="opciones" class="dropdown-homeopt dropdown-content">
                 <li><a href="<?=site_url('main/consultor')?>">Mi Consultor</a></li>
-                <li><a href="#!">Quienes somos</a></li>
+                <li><a href="<?=site_url('main/nosotros')?>">Quienes somos</a></li>
                 <li class="divider"></li>
                 <li><a href="<?=site_url('main/contactanos')?>">Contáctanos</a></li>
               </ul>

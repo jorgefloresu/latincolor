@@ -16,7 +16,7 @@ class Main extends CI_Controller {
     	  $this->load->driver('providers');
         $this->load->helper(['tag','material']);
         $this->logo = base_url('img/LCI-logo-Hi.png');
-        //$this->load->library('session');
+        $this->load->library('taxes');
 
     }
 
@@ -255,10 +255,26 @@ class Main extends CI_Controller {
       echo json_encode($data);
     }
 
+    function paquete_button($plan_id) {
+      $info['data'] = $this->membership_model->get_planes($plan_id)->row();
+      $info['iva'] = $this->taxes->set_iva($info['data']->valor);
+      $info['tco'] = $this->taxes->set_tco($info['data']->valor + $info['iva'], true);
+
+      return json_decode(json_encode($info));
+    }
+
     function planes() {
+      $data['plan'] = [
+                        'small' => $this->paquete_button('DP049'),
+                        'medium'=> $this->paquete_button('IN246'),
+                        'large' => $this->paquete_button('DT200'),
+                        'xlarge'=> $this->paquete_button('AS001')
+                      ];
       add_css('planes');
       add_js(['common','planesprom']);
-      $this->load_page('planes');
+      $this->load_page('planes', $data);
+      // echo "<pre>"; print_r($data); echo "</pre>";
+      // echo $data['plan']['small']->data->provider;
 
     }
 
@@ -291,6 +307,12 @@ class Main extends CI_Controller {
       add_css('contactanos');
       add_js(['common','contactanos']);
       $this->load_page('contactanos');
+    }
+
+    function nosotros()
+    {
+      add_js(['common']);
+      $this->load_page('nosotros');
     }
 
     function user(){
@@ -374,18 +396,19 @@ class Main extends CI_Controller {
       echo json_encode($data);
     }
 
-    function planes_params() {
-      echo json_encode($this->membership->planes_params());
+    function planes_params($medio) {
+      echo json_encode($this->membership->planes_params($medio));
     }
 
     function calc_plan() {
-      $provider = $this->input->post('provider');
+      //$provider = $this->input->post('provider');
       $frecuencia = $this->input->post('frecuencia');
       $cantidad = $this->input->post('cantidad');
       $tiempo = $this->input->post('tiempo');
+      $medio = $this->input->post('medio');
       //header('Content-Type: application/json');
 
-      echo json_encode($this->membership->get_plan($provider, $frecuencia, $cantidad, $tiempo));
+      echo json_encode($this->membership->get_plan($medio, $frecuencia, $cantidad, $tiempo));
     }
 
     function ptest ($id=NULL){

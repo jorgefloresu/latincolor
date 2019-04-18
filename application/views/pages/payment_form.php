@@ -81,7 +81,7 @@
                     <label>Año</label>
                     <select class="browser-default" id="expYear">
                         <option value="" disabled selected>YYYY</option>
-                        <?php for ($i=2019; $i < 2029 ; $i++) {
+                        <?php for ($i=date("Y"); $i < date("Y")+10 ; $i++) {
                             echo '<option value="'.$i.'">'.$i.'</option>';
                         }; ?>
                     </select>

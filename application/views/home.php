@@ -55,7 +55,7 @@
             <li><a class="dropdown-button" href="#!" data-activates="opciones">CONTÁCTANOS<i class="material-icons right">arrow_drop_down</i></a></li>
             <ul id="opciones" class="dropdown-homeopt dropdown-content">
               <li><a href="<?=site_url('main/consultor')?>">Mi Consultor</a></li>
-              <li><a href="#!">Quienes somos</a></li>
+              <li><a href="<?=site_url('main/nosotros')?>">Quienes somos</a></li>
               <li class="divider"></li>
               <li><a href="<?=site_url('main/contactanos')?>">Contáctanos</a></li>
             </ul>
@@ -118,8 +118,8 @@
     <!-- <div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 1"></div> -->
     <div class="parallax">
       <video id="hero-vid" autoplay loop muted playsinline>
-        <source src="./img/videobkg_men.webm" type="video/webm">
-        <source src="./img/videobkg_men.mp4" type="video/mp4">
+        <source src="./img/intro-1080p.webm" type="video/webm">
+        <source src="./img/intro-1080p.mp4" type="video/mp4">
       </video>
     </div>
 
@@ -166,17 +166,17 @@
 <?$this->load->view('pages/forgot_pass')?>
 <?$this->load->view('templates/info_bottom')?>
 
-<footer class="page-footer white hide-on-small-only">
+<footer class="home-page-footer page-footer white hide-on-small-only">
   <div class="footer-copyright">
-    <div class="footer-text black-text">
+    <div class="footer-text grey-text text-lighten-3">
       <div class="row no-margin-bottom">
         <div class="col s12 m6 l6">
           &reg; 2018 Latin Color Images
-          <a class="black-text text-lighten-3" href="#">Politicas y privacidad</a>
-          <a class="black-text text-lighten-3" href="#">Condiciones de uso <span id="wt"></span></a>
+          <a class="grey-text text-lighten-3" href="#">Politicas y privacidad</a>
+          <a class="grey-text text-lighten-3" href="#">Condiciones de uso <span id="wt"></span></a>
         </div>
         <div class="col s12 m6 l6">
-          <div class="right"><a class="black-text text-lighten-3" href="#">Idioma <i class="fas fa-globe fa-lg">globe</i></a></div>
+          <div class="right"><a class="grey-text text-lighten-3" href="#">Idioma <i class="fas fa-globe fa-lg">globe</i></a></div>
         </div>
       </div>
     </div>

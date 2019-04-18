@@ -37,6 +37,137 @@ class Order extends CI_Controller
         Environment::setSubscriptionsCustomUrl("https://sandbox.api.payulatam.com/payments-api/rest/v4.3/");
     }
 
+    public function token_payu()
+    {
+        $this->init_payu();
+
+        $parameters = array(
+            //Ingrese aquí el nombre del pagador.
+            PayUParameters::PAYER_NAME => "APPROVED",
+            //Ingrese aquí el identificador del pagador.
+            PayUParameters::PAYER_ID => "10",
+            //Ingrese aquí el documento de identificación del comprador.
+            PayUParameters::PAYER_DNI => "32144457",
+            //Ingrese aquí el número de la tarjeta de crédito
+            PayUParameters::CREDIT_CARD_NUMBER => "4111111111111111",
+            //Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
+            PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "2020/10",
+            //Ingrese aquí el nombre de la tarjeta de crédito
+            PayUParameters::PAYMENT_METHOD => "VISA"
+        );
+            
+        $response = PayUTokens::create($parameters);   
+        if($response){
+            //podrás obtener el token de la tarjeta
+            $response->creditCardToken->creditCardTokenId;
+            echo "<pre>";
+            print_r($response);
+            echo "</pre>";
+        }
+    }
+
+    public function test_token_payu($token)
+    {
+        $this->init_payu();
+        $string = bin2hex(random_bytes(10));
+        $reference = "payment_$string";
+        $value = "10000";
+        $deviceSessionId = md5(session_id() . microtime());
+
+        $parameters = array(
+            //Ingrese aquí el identificador de la cuenta.
+            PayUParameters::ACCOUNT_ID => "512321",
+            //Ingrese aquí el código de referencia.
+            PayUParameters::REFERENCE_CODE => $reference,
+            //Ingrese aquí la descripción.
+            PayUParameters::DESCRIPTION => "payment test",
+            
+            // -- Valores --
+            //Ingrese aquí el valor.        
+            PayUParameters::VALUE => $value,
+            //Ingrese aquí la moneda.
+            PayUParameters::CURRENCY => "COP",
+            
+            // -- Comprador 
+            //Ingrese aquí el nombre del comprador.
+            PayUParameters::BUYER_NAME => "First name and second buyer name",
+            //Ingrese aquí el email del comprador.
+            PayUParameters::BUYER_EMAIL => "buyer_test@test.com",
+            //Ingrese aquí el teléfono de contacto del comprador.
+            PayUParameters::BUYER_CONTACT_PHONE => "7563126",
+            //Ingrese aquí el documento de contacto del comprador.
+            PayUParameters::BUYER_DNI => "5415668464654",
+            //Ingrese aquí la dirección del comprador.
+            PayUParameters::BUYER_STREET => "calle 100",
+            PayUParameters::BUYER_STREET_2 => "5555487",
+            PayUParameters::BUYER_CITY => "Medellin",
+            PayUParameters::BUYER_STATE => "Antioquia",
+            PayUParameters::BUYER_COUNTRY => "CO",
+            PayUParameters::BUYER_POSTAL_CODE => "000000",
+            PayUParameters::BUYER_PHONE => "7563126",
+            
+            // -- pagador --
+            //Ingrese aquí el nombre del pagador.
+            PayUParameters::PAYER_NAME => "APPROVED",
+            //Ingrese aquí el email del pagador.
+            PayUParameters::PAYER_EMAIL => "payer_test@test.com",
+            //Ingrese aquí el teléfono de contacto del pagador.
+            PayUParameters::PAYER_CONTACT_PHONE => "7563126",
+            //Ingrese aquí el documento de contacto del pagador.
+            PayUParameters::PAYER_DNI => "5415668464654",
+            //Ingrese aquí la dirección del pagador.
+            PayUParameters::PAYER_STREET => "calle 93",
+            PayUParameters::PAYER_STREET_2 => "125544",
+            PayUParameters::PAYER_CITY => "Bogota",
+            PayUParameters::PAYER_STATE => "Bogota",
+            PayUParameters::PAYER_COUNTRY => "CO",
+            PayUParameters::PAYER_POSTAL_CODE => "000000",
+            PayUParameters::PAYER_PHONE => "7563126",
+            
+            //DATOS DEL TOKEN
+            PayUParameters::TOKEN_ID => "$token",
+            
+            //Ingrese aquí el nombre de la tarjeta de crédito
+            //VISA||MASTERCARD||AMEX||DINERS
+            PayUParameters::PAYMENT_METHOD => "VISA",
+            
+            //Ingrese aquí el número de cuotas.
+            PayUParameters::INSTALLMENTS_NUMBER => "1",
+            //Ingrese aquí el nombre del pais.
+            PayUParameters::COUNTRY => PayUCountries::CO,
+            
+            //Session id del device.
+            PayUParameters::DEVICE_SESSION_ID => $deviceSessionId,
+            //IP del pagadador
+            PayUParameters::IP_ADDRESS => "127.0.0.1",
+            //Cookie de la sesión actual.
+            PayUParameters::PAYER_COOKIE=> session_id(),
+            //Cookie de la sesión actual.        
+            PayUParameters::USER_AGENT=>"Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0"
+        );
+            
+        $response = PayUPayments::doAuthorizationAndCapture($parameters);
+
+        if ($response) {
+            $response->transactionResponse->orderId;
+            $response->transactionResponse->transactionId;
+            $response->transactionResponse->state;
+            if ($response->transactionResponse->state=="PENDING") {
+                $response->transactionResponse->pendingReason;	
+            }
+            //$response->transactionResponse->paymentNetworkResponseCode;
+            //$response->transactionResponse->paymentNetworkResponseErrorMessage;
+            //$response->transactionResponse->trazabilityCode;
+            $response->transactionResponse->responseCode;
+            //$response->transactionResponse->responseMessage;
+
+            echo "<pre>";
+            print_r($response->transactionResponse);
+            echo "</pre>";
+   	
+        }
+    }
+
     public function test_payu()
     {
         $this->init_payu();
@@ -107,7 +238,7 @@ class Order extends CI_Controller
             //Ingrese aquí el número de la tarjeta de crédito
             PayUParameters::CREDIT_CARD_NUMBER => "4097440000000004",
             //Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
-            PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "2018/12",
+            PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "2020/12",
             //Ingrese aquí el código de seguridad de la tarjeta de crédito
             PayUParameters::CREDIT_CARD_SECURITY_CODE => "321",
             //Ingrese aquí el nombre de la tarjeta de crédito
@@ -153,13 +284,13 @@ class Order extends CI_Controller
         }
     }
 
-    public function consulta_payu()
+    public function consulta_payu($orderId)
     {
         //Esta funcion devuelve muchos mas datos de la transaccion
         $this->init_payu();
         //Ingresa aquí el código de referencia de la orden.
         //history id: 7765626
-        $parameters = array(PayUParameters::ORDER_ID => "7765642");
+        $parameters = array(PayUParameters::ORDER_ID => "$orderId");
 
         $order = PayUReports::getOrderDetail($parameters);
 
@@ -192,12 +323,12 @@ class Order extends CI_Controller
 
     }
 
-    public function trans_payu()
+    public function trans_payu($transactionId)
     {
         //Esta funcion devuelve los mismos datos que se obtienen al hacer un pago
         //history tran: 788ddc83-cf24-427f-b68a-5be75c5befa5
         $this->init_payu();
-        $parameters = array(PayUParameters::TRANSACTION_ID => "e7cac6f4-a5f8-474c-8756-25517e405904");
+        $parameters = array(PayUParameters::TRANSACTION_ID => "$transactionId");
 
         $response = PayUReports::getTransactionResponse($parameters);
 
@@ -353,7 +484,6 @@ class Order extends CI_Controller
             'planes_status' => '',
             'items' => json_decode($this->input->get('items'), true)
         ];
-
         //$product_id = $this->input->get('productId');
 
         $username = $order['username'];
@@ -362,10 +492,11 @@ class Order extends CI_Controller
         $resSubacc = [];
         $resSubs = [];
 
-        //if (!array_key_exists('status', $order_data)) {
+        $from_admin = $this->input->get('status');
+
+        if (! $from_admin) {
 
             if (count($order['items']['planes']) > 0) {
-                $order['list'][] = floatval("{$order['orderId']}2");
                 $order_data = $order['items']['planes'][0];
                 //$order_data['status'] = ( $order_data['provider']=='Depositphoto' ? 'new' : 'ord' );
                 if ($order_data['provider'] == 'Depositphoto') {
@@ -374,18 +505,30 @@ class Order extends CI_Controller
                         $subaccountId = $this->providers->createSubaccount($order_data['provider'], $userinfo);
                         $resSubacc = $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
                     }            
-                    $order['status'] = 'new';
+                    $status = 'new';
                     $resSubs = $this->providers->createSubscription($order_data['provider'], $order_data['idplan'], $subaccountId);
                 } else {
-                    $order['status'] = 'ord';
+                    $status = 'ord';
                 }
+
+                $order['list'][] = ['orderId' => floatval("{$order['orderId']}2"),
+                                    'description' => $order['items']['planes'][0]['description'],
+                                    'tranType' => 'compra_plan',
+                                    'status' => $status];
             } 
 
             if (count($order['items']['images']) > 0) {
-                $order['list'][] = floatval("{$order['orderId']}1");
-                $order['status'] = 'new';
+                $order['list'][] = ['orderId' => floatval("{$order['orderId']}1"),
+                                    'description' => $order['items']['images'] > 1 ? 'Compra de imágenes' : 'Compra de imagen',
+                                    'tranType' => $order['items']['images'] > 1 ? 'compra_imgs' : 'compra_img',
+                                    'status' => 'new'];
             }
-        //}
+        } else {
+            $order['list'][] = ['orderId' => $order['orderId'],
+                                'description' => $this->input->get('description'),
+                                'tranType' => $this->input->get('tranType'),
+                                'status' => $from_admin];
+        }
         //$res = $this->membership->confirmar_orden($orderId, $username, $monto, $description, $activity_type, $status);
         $res = $this->membership->confirmar_orden($order);
         $res['subs'] = $resSubs;

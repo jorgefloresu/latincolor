@@ -163,17 +163,34 @@ class Admin extends CI_Controller {
 		// 		break;
 		// }
 		// $detalles = $this->membership_model->get_ventas_detalle($orderId);
-		$order['orderId'] = $orderId;
-		$order['status'] = $status;
-		$order['username'] = $username;
-		$order['tranType'] = $activity;
+		$order = [
+			'orderId' => $orderId,
+			'totalId' => 0,
+			'username'=> func_num_args() == 3 ? $status : $username,
+			'tranType' => func_num_args() == 3 ? $username : $activity,
+			'status' => func_num_args() == 3 ? '' : $status,
+			'images_status' => '',
+			'planes_status' => ''
+		];
+
+		$detalles = $this->membership_model->get_ventas_detalle($orderId);
+
+		if ($activity == 'compra_plan') {
+			$order['items']['planes'] = json_decode(json_encode($detalles), true);
+		} else {
+			$order['items']['images'] = json_decode(json_encode($detalles), true);
+		}
+		
 		if ( ($status !== '' && $status !== 'pro') && $activity == 'compra_plan') {
+			$order['list'][] = ['orderId' => $orderId,
+													'description' => $detalles[0]->description,
+													'tranType' => $activity,
+													'status' => $status];
 			$resp = $this->membership->confirmar_orden($order);
 			$detalles = $resp['detalles'];
 		}
 		else {
-			$order['status'] = func_num_args() == 3 ? '' : $status;
-			$detalles = $this->membership_model->get_ventas_detalle($orderId);
+			//$order['status'] = func_num_args() == 3 ? '' : $status;
 			$this->membership_model->change_venta_status($order, $detalles[0]->productId);
 		}
 

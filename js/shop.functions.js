@@ -527,11 +527,12 @@
     openPayWindow: function () {
       console.log(Pay.setup.factTotal.text().replace(",", "."));
       let self = this;
-      let allItems = [];
-      allItems.push.apply(Pay.setup.resCartItems.images, Pay.setup.resCartItems.planes);
-      console.log(allItems);
       Pay.setup.$CCWindow.modal({
         complete: function () {
+          let allItems = [];
+          allItems.push.apply(allItems, Pay.setup.resCartItems.images);
+          allItems.push.apply(allItems, Pay.setup.resCartItems.planes);
+          console.log(allItems);
           if (allItems.length > 0) {
             if (Pay.setup.token != '') {
               //let cart = self.storage.get(self.cartName);
@@ -539,12 +540,14 @@
                 if (item.result == 'success') {
                   let objDelete = '.delete a[data-item="' + item.productId + '"]';
                   $(objDelete).html('')
+                    .removeClass('btn red')
                     .parent()
                     .addClass('remove');
                   //let cartItem = self._found(objDelete);
                   //cart.splice(cartItem.index, 1);
                   $('.download a[data-item="' + item.productId + '"]')
-                    .html("<i class='small material-icons green-text'>check_circle</i>");
+                    .html("<i class='small material-icons green-text'>check_circle</i>")
+                    .removeClass('btn blue');
                 }
               });
               //self.storage.set(self.cartName, cart);

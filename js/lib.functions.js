@@ -306,6 +306,12 @@
                                 }).text())
                 }
 
+    $.fn.textOnly = function() {
+                  return $(this).contents().filter(function(){
+                    return this.nodeType == 3
+                  }).text();
+                }
+
     $.fn.jGallery = function(options, data, callback) {
                 console.log(data);
                 let defaults = {

@@ -29,6 +29,14 @@
   font-size: 25px;
   line-height: 30px;
 }
+.servicios.card .card-reveal .card-title.medium-title {
+  font-size: 16px;
+  line-height: 20px;
+}
+.servicios.card .card-reveal p.medium-title {
+  font-size: 12px;
+  line-height: 15px;
+}
 .servicios i.circle {
   border: 2px solid;
 }

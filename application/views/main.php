@@ -58,18 +58,8 @@
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
+
 <?=put_headers('js', $user_info)?>
 
-
-
-<script type="text/javascript">
-      //subAccountForm.on("submit", {fillOut:Api.subaccountsFields}, Api.mainMethod);
-      //subAccounts.on("change", Api.subAccountChange);
-
-      //subscriptionsForm.on("submit", {fillOut:Api.subscriptionsFields}, Api.mainMethod);
-// $(document).ready(function(){
-//   Api.setup.init();
-// })
-</script>
 </body>
 </html>

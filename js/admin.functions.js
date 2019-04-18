@@ -238,23 +238,27 @@ var Admin = {
                 row.orderId+'/'+row.new+'/'+row.username+'/'+row.activity)
               .then(function (venta) {
                 let orderData = {
-                  order: JSON.stringify({
                     orderId: row.orderId,
                     tranType: row.activity,
-                    status: '',
+                    status: 'pro',
                     username: row.username,
-                    description: '',
-                    plan: {
-                      provider: venta.result[0].provider,
-                      username: $('#plan-username').val(),
-                      password: $('#plan-password').val()
-                    }
-                  })
+                    description: venta.result[0].description,
+                    items: JSON.stringify({
+                      images: [],
+                      planes: [{
+                        orderId: row.orderId,
+                        provider: venta.result[0].provider,
+                        productId: venta.result[0].productId,
+                        tranType: row.activity,
+                        username: $('#plan-username').val(),
+                        password: $('#plan-password').val()
+                      }]
+                    })
                 };
                 console.log(orderData);
                 $.getJSON(location.origin+'/latincolor/order/confirmar_orden', orderData)
                   .done(function(res) {
-                        if (res.process == 'ok') {
+                        if (res.process.planes.result == 'ok') {
                           Admin.dataTable.cell(cellStatus).data('').draw();
                         }
                         location.reload();

@@ -6,6 +6,11 @@ var Planes = {
       chipProvider: $(".chip-provider"),
       resultados: $(".resultados"),
 
+      medioList: $("#medio-list"),
+      medioSel: $(".selected-medio"),
+      medioChip: $(".chip-medio"),
+      medio: $(".medio"),
+
       frecuenciaList: $("#frecuencia-list"),
       frecuenciaSel: $(".selected-frecuencia"),
       frecuenciaChip: $(".chip-frecuencia"),
@@ -25,6 +30,8 @@ var Planes = {
 
       planesResult: $(".planes-result"),
       comprarPlan: $(".plan-option"),
+      comprarPaquete: $(".paquete-option"),
+      backToPlanes: $('#back-to-planes'),
 
     }
     Planes.setMaterial();
@@ -33,17 +40,20 @@ var Planes = {
   },
 
   setPlanes: function () {
-    Planes.setProvidersList();
+    Planes.setMedioList();
+    //Planes.setProvidersList();
     Planes.setFrecuenciaList();
     Planes.setCantidadList();
     Planes.setTiempoList();
     Planes.setArmaPlan();
     Planes.setPaquetes();
+    Planes.setBackToPlanes();
     Planes.setChipAction();
+    Planes.onComprarPaquete();
 
     Planes.config.resultados.on('calcular', function () {
       //if ($('.chip').length == 4) {
-      if ($('.chip').length == 3) {
+      if ($('.chip').length == 4) {
         let selection = [];
         $('.chip').each(function (index) {
           let str = $(this).text();
@@ -53,16 +63,17 @@ var Planes = {
           url: location.origin + '/latincolor/main/calc_plan',
           inputs: {
             //provider: selection[0],
-            frecuencia: selection[0],
-            cantidad: selection[1].split(" ")[0],
-            tiempo: selection[2].split(" ")[0]
+            medio: selection[0],
+            frecuencia: selection[1],
+            cantidad: selection[2].split(" ")[0],
+            tiempo: selection[3].split(" ")[0]
           }
         }
         Planes.processSelectedPlan(form, selection);
       }
     });
 
-    Planes.getPlanesParams();
+    //Planes.getPlanesParams('Fotos');
   },
 
   processSelectedPlan: function (form, selection) {
@@ -74,7 +85,7 @@ var Planes = {
       if (res.length > 0) {
         let good = icon('green', 'check_circle');
         let intro = "Hemos encontrado " + res.length + (res.length>1?" opciones":" opción")+" de ";
-        let desc = 'Planes para descarga ' + selection[0] + ' de ' + selection[1] + ' durante ' + selection[2];
+        let desc = 'Planes de '+selection[0]+' para descarga ' + selection[1] + ' de ' + selection[2] + ' durante ' + selection[3];
         $('.result-icon').html(good);
         Planes.config.resultados.html(intro + desc.toLowerCase() + ' con:<br>').show();
         //$('body,html').animate({ scrollTop: Planes.config.resultados.offset().top-90 }, 500);
@@ -96,8 +107,8 @@ var Planes = {
     });
   },
 
-  getPlanesParams: function () {
-    $.getJSONfrom(location.origin + '/latincolor/main/planes_params')
+  getPlanesParams: function (medio) {
+    $.getJSONfrom(location.origin + '/latincolor/main/planes_params/'+medio)
       .then(function (res) {
         $.each(res, function (name, params) {
           $("#" + name + "-list").html('');
@@ -125,6 +136,13 @@ var Planes = {
     })
   },
 
+  onComprarPaquete: function (paquete) {
+    Planes.config.comprarPaquete.on('click', 'a.comprar-paquete-btn', function () {
+      env.shop.addToCart(this);
+      env.shop.displayCart();
+    })
+  },
+
   setProvidersList: function () {
     Planes.config.providersList.on('click', 'a', function () {
       Planes.config.selectedProvider.text($(this).text());
@@ -137,6 +155,18 @@ var Planes = {
       //selection.provider = $(this).text();
       //});
     });
+  },
+
+  setMedioList: function() {
+    Planes.config.medioList.html(Templates.videoTypes());
+    Planes.config.medioList.off('click');
+    Planes.config.medioList.on('click', 'a', function() {
+      //Planes.config.medioSel.text($(this).text());
+      let option = $(this).textOnly();
+      Planes.config.medioChip.html('<div class="chip white-text">' + option + '<i class="close material-icons">close</i></div>');
+      Planes.getPlanesParams(option);
+      Planes.config.resultados.trigger('calcular');
+    })
   },
 
   setFrecuenciaList: function () {
@@ -190,27 +220,38 @@ var Planes = {
   },
 
   setArmaPlan: function () {
-    Planes.config.armaPlanBtn.on('click', function () {
-      //$('body,html').animate({ scrollTop: $('body').height() }, 1000);
-      $('body,html').animate({
-        scrollTop: $('#planes-section').offset().top - 30
-      }, 500);
+    Planes.config.armaPlanBtn.on('click', function(){
+      Planes.desplazar('#planes-section');
       return false;
     });
   },
 
   setPaquetes: function () {
-    Planes.config.paquetesBtn.on('click', function () {
-      $('body,html').animate({
-        scrollTop: $('body').height()
-      }, 1000);
+    Planes.config.paquetesBtn.on('click', function() {
+      Planes.desplazar('#paquetes-promo');
       return false;
     });
+  },
+
+  setBackToPlanes: function() {
+    Planes.config.backToPlanes.on('click', function() {
+      Planes.desplazar('#planes-section');
+      return false;
+    })
+  },
+
+  desplazar: function(tag) {
+    $('body,html').animate({
+      scrollTop: $(tag).offset().top - 140
+    }, 500);
   },
 
   setMaterial: function () {
     $('select').material_select();
     $(".chips").material_chip();
+    $(".dropdown-trigger").dropdown({
+      constrainWidth: false
+    })
   },
 
 }

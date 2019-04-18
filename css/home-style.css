@@ -93,7 +93,7 @@ p {
 
 #hero-vid {
   backface-visibility:hidden;
-  background:url("../img/imagebkg_men.jpg") no-repeat scroll 0 0px #000;
+  background:url("../img/intro-1080p.jpg") no-repeat scroll 0 0px #000;
   background-size:cover;
   bottom:0;
   height:auto;
@@ -188,8 +188,8 @@ nav#slide-search-bar {
 .footer-text {
   width: 100%;
 }
-.footer-text .black-text {
-  text-shadow: #fff 0px 1px 1px;
+.footer-text .grey-text {
+  /* text-shadow: #fff 0px 1px 1px; */
   padding: 0 10px;
 }
 .no-margin-bottom {
@@ -364,10 +364,12 @@ i.material-icons.icon-options {
   margin-right: 0;
 }
 
-footer.page-footer {
+footer.home-page-footer {
   /*margin: 0;*/
   max-height: 13.5vh;
-  padding-top: 0
+  padding-top: 0;
+  background-color: rgba(0,0,0,.6) !important;
+  border-top: 1px solid #CCC;
 }
 
 .dropdown-user,
