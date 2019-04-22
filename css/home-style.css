@@ -67,6 +67,8 @@ nav .brand-logo {
 }
 main.home, nav {
   background-color:rgba(0,0,0,.4);
+  height: 64px;
+  line-height: 64px;
 }
 
 p {
@@ -279,8 +281,11 @@ nav#slide-search-bar {
     width: 95%;
   }
   h2 {
-    font-size: 2.9rem;
+    font-size: 2.2rem;
     margin-bottom: 10px;
+  }
+  .nav-wrapper {
+    padding: 0;
   }
 }
 
@@ -359,6 +364,28 @@ nav#slide-search-bar {
   }
 }
 
+@media only screen and (max-height : 768px) {
+  .home h5 {
+    display: block;
+  }
+}
+@media only screen and (max-height : 575px) {
+  .home .header {
+    visibility: hidden;
+  }
+}
+@media only screen and (max-height : 425px) {
+  .home .header {
+    visibility: hidden;
+  }
+  #index-banner .row {
+    margin-bottom: 0;
+  }
+  .home h5 {
+    display: none;
+  }
+}
+
 i.material-icons.icon-options {
   line-height: 33px;
   margin-right: 0;
@@ -394,8 +421,12 @@ footer.home-page-footer {
 .left-nav .collapsible-body, .left-nav.fixed .collapsible-body {
   background-color: rgba(42,42,42,.8);
 }
-.left-nav li > a {
+.left-nav li > a,
+.left-nav li > a > i.material-icons {
   color: #AAA;
+}
+.left-nav li > a > i.material-icons {
+  margin: 0 10px 0 0;
 }
 .left-nav li > a:hover,
 .left-nav .collapsible-header:hover, .left-nav.fixed .collapsible-header:hover {
@@ -404,6 +435,8 @@ footer.home-page-footer {
 
 .side-nav .collapsible-header, .side-nav.fixed .collapsible-header {
   padding: 0 32px;
+  height: 48px;
+  line-height: 48px;
 }
 .side-nav .collapsible-body li a, .side-nav.fixed .collapsible-body li a {
   padding: 0 23.5px 0 61px;

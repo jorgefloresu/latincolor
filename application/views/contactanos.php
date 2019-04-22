@@ -21,13 +21,13 @@
       </div>
 
         <div class="row">
-          <div class="col s6">
+          <div class="col s12 m6">
             <div class="card">
               <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" src="<?=base_url('img/user-profile-bg.jpg')?>" alt="user background">
               </div>
               <div class="card-content">
-                  <img src="<?=base_url('img/avatar.jpg')?>" alt="" class="circle responsive-img activator card-profile-image z-depth-1">
+                  <img src="<?=base_url('img/avatar.jpg')?>" alt="" class="circle responsive-img activator card-profile-image z-depth-1 hide-on-med-and-down">
                   <a class="btn-floating activator btn-move-up waves-effect waves-light pink accent-2 right">
                     <i class="material-icons white-text">account_circle</i>
                   </a>
@@ -39,7 +39,7 @@
               </div>
             </div>
           </div>
-          <div class="col s6">
+          <div class="col s12 m6">
             <ul class="collection">
               <li class="collection-item avatar">
                 <i class="fab fa-skype fa-3x pink-text text-accent-2 brand-icon"></i>

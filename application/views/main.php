@@ -7,11 +7,12 @@
         <!-- <div class="col s2 valign-wrapper" style="height:30px;"> -->
           <!-- <span style="margin-left:-13px">Buscando...</span> -->
         <!-- </div> -->
-        <div class="col s6 offset-s2 valign-wrapper totaln" style="height:30px;"></div>
+        <div class="col l2 hide-on-med-and-down offset"></div>
+        <div class="col s5 m7 l6 valign-wrapper totaln" style="height:30px;"></div>
         <!-- <div class="col s3 valign-wrapper" style="height:30px;">
           <span class="current-page" style="border: 1px solid #ccc;padding: 4px 10px;"></span>
         </div> -->
-        <div class="col s4 right-align">
+        <div class="col s7 m5 l4 right-align pages">
           <div class="paginator"></div>
         </div>
       </div>
@@ -25,9 +26,10 @@
         </div>
 
         <div class="result-control row" style="margin-top:85px;padding-left:13px;margin-bottom:10px;">
-          <div class="col s6 offset-s2 valign-wrapper totaln">
+          <div class="col l2 hide-on-med-and-down offset"></div>
+          <div class="col s5 m7 l6 valign-wrapper totaln">
           </div>
-          <div class="col s4 right-align">
+          <div class="col s7 m5 l4 right-align pages">
             <div class="paginator"></div>
           </div>
         </div>

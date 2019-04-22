@@ -6,7 +6,7 @@
 }
 .plan-pref .dropdown-trigger {
   margin-bottom:10px;
-  padding:0 1rem;
+  padding:0 .5rem;
 }
 article .card {
   overflow: hidden;
@@ -26,6 +26,7 @@ article .card .card-image .card-title {
   text-transform: uppercase;
   background: rgba(0, 0, 0, 0.1);
 }
+.price,
 article .price {
   position: relative;
   font-size: 4rem;
@@ -34,6 +35,7 @@ article .price {
   font-weight: 300;
   text-align: center;
 }
+.currency, .millar,
 article .currency,
 article .millar {
   font-weight: 100;
@@ -41,6 +43,7 @@ article .millar {
   line-height: 1.6em;
   top: -26px;
 }
+.millar,
 article .millar {
   top: 0;
 }
@@ -60,13 +63,25 @@ article .collection {
 article .collection .collection-item {
   border-bottom: none;
   /* text-align: center; */
-  font-size: 1.07rem;
-  line-height: 1.6em;
-  padding: 10px 5px;
+  font-size: .9rem;
+  line-height: 1.4em;
+  padding: 5px 5px;
 }
 article .btn {
   border-radius:50px;
 }
 .plan-option p {
   line-height: 1.2rem;
+}
+@media only screen and (max-width : 720px) {
+  .price {
+    font-size: 2rem;
+  }
+  .price sub,
+  .price sup {
+    font-size: 1rem;
+  }
+  .price sup {
+    top: -10px;
+  }
 }

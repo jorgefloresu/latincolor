@@ -140,7 +140,7 @@
             html += "<tr><td><img src='" + item.thumb + "' height='auto' style='max-height:90px;width: auto;max-width:90px'/></td><td>" + item.id + "</td>";
             html += "<td>" + item.desc + "</td><td class='center'>" + item.sizelbl + "</td>";
             html += "<td class='center'>" + item.license + "</td><td class='right-align'>" + this._price(item.price) + "</td>";
-            html += "<td class='download center' style='padding-left:15px'><a href='' class='btn blue' id='"+item.id +"' data-item='" + item.id + "' style='padding:0 10px'><i class='material-icons'>" + icon + "</i></a></a></td>";
+            html += "<td class='download center'><a href='' class='btn blue' id='"+item.id +"' data-item='" + item.id + "' style='padding:0 10px'><i class='material-icons'>" + icon + "</i></a></a></td>";
             html += "<td class='delete center'><a href='' class='btn red' id='"+item.id +"' data-item='" + item.id + "' style='padding:0 10px'><i class='material-icons'>delete</i></a></td></tr>";
           }
           this.$tableCartBody.html(html);

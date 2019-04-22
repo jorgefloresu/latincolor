@@ -49,7 +49,7 @@
 
           <div class="row" style="margin-bottom:0">
 
-            <?=material_plan_card("s12 m3 l3",
+            <?=material_plan_card("s12 m6 l3",
             [ 'MEDIO'     =>['image',
                              '',
                              '',

@@ -157,7 +157,7 @@ if(!function_exists('material_paquete_card'))
       $currency = "<sup class='currency'>{$sign}</sup>{$valor}";
       $millar = "<sup class='millar'>mil</sub>";
       $desc = "</div><div class='price-desc' style='background:rgba(0,0,0,0.1)'>{$desc}</div></div>";
-      $card_content = "<div class='card-content' style='height:400px'>";
+      $card_content = "<div class='card-content' style='height:330px'>";
       $card_action = "<div class='card-action center-align'>";
 
       $html = "<article {$col}>"

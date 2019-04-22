@@ -311,7 +311,7 @@ class Main extends CI_Controller {
 
     function nosotros()
     {
-      add_js(['common']);
+      add_js(['common','nosotros']);
       $this->load_page('nosotros');
     }
 
@@ -380,9 +380,9 @@ class Main extends CI_Controller {
 
     function check_subscriptions($subaccountId) {
       
-      $res = $this->membership_model->get_planes($this->input->post('planId'));
-      $plan = $res->row();
-      $plan_name = $this->membership_model->get_plan_dp($plan->offerId);
+      //$res = $this->membership_model->get_planes($this->input->post('planId'));
+      //$plan = $res->row();
+      //$plan_name = $this->membership_model->get_plan_dp($plan->offerId);
       $subaccountData = $this->providers->depositphoto->subaccounts('data', $subaccountId, '', 'unix');
       $data['subscriptionAmount'] = $subaccountData->subscriptionAmount;
       $data['filesAmount'] = $subaccountData->filesAmount;

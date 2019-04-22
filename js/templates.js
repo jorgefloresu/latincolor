@@ -159,9 +159,9 @@ var planesResult = function(plan, desc) {
               "<p style='font-size:12px'>Las fotografías de uso Editorial no pueden ser usadas en medios publicitarios.</p>"+
               "</div>"+
               "<div class='col s5 m5 l5 center'>"+
-              "<div class='price' style='position: relative;font-size: 4rem;line-height: 1.6em;font-weight: 300;text-align: center;'>"+
-                "<sup style='font-weight: 100;font-size: 1.42rem;line-height: 1.6em;top: -26px;'>US$</sup>"+plan.por_imagen.toLocaleString()+
-                "<sub style='font-weight: 100;font-size: 1.42rem;line-height: 1.6em;top: 0;'>c/"+(plan.medio=='Fotos'?'foto':'video')+"</sub>"+
+              "<div class='price'>"+
+                "<sup class='currency'>US$</sup>"+plan.por_imagen.toLocaleString()+
+                "<sub class='millar'>c/"+(plan.medio=='Fotos'?'foto':'video')+"</sub>"+
               "</div>";
       row +=  "<span style='text-align: center;text-decoration: line-through;'>Precio regular: $4.00</span>"+
               "<p style='border-bottom: none;text-align: center;font-size: 1.07rem;line-height: 1.6em;'>"+
@@ -173,7 +173,7 @@ var planesResult = function(plan, desc) {
     }
 
 var planFeatures = function(features) {
-     let checkIcon = "<i class='material-icons tiny pink-text'>check_circle</i><span style='padding-left: 0.5em'>";
+     let checkIcon = "<i class='material-icons tiny green-text'>check_circle</i><span style='padding-left: 0.5em'>";
      let item = '';
      $.each(features, function(index, feature){
           item += '<p>' + checkIcon + feature + '</span></p>';

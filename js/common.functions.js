@@ -76,6 +76,7 @@ $.Common.prototype = {
                 self.shop.$element.modal('close');
               }
             });
+            $('.button-collapse').sideNav();
             $(".chat-collapse").sideNav({
               edge: 'right'
             });

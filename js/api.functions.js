@@ -240,7 +240,7 @@ var Api = ( function() {
               setup.config.searchTotal.find('.totalk').html(data.keyword);
               setup.config.searchTotal.find('.badge').html(data.time);
               //setup.config.searchTotal.find('.totaln').html(new Intl.NumberFormat().format(data.total));
-              $('.totaln').html('RESULTADOS DE BÚSQUEDA: <span style="font-weight:900; padding:0 10px;">'+
+              $('.totaln').html('<span class="hide-on-small-only">RESULTADOS: </span><span style="font-weight:900; padding:0 2px;">'+
                                 new Intl.NumberFormat().format(data.total)+'</span> coincidencias');
               $('.estas-buscando').text('Estás buscando '+getFromUrl(location.href,'medio').toLowerCase());
               $('.this-keyword').text(setup.config.keyword.val());
@@ -359,8 +359,11 @@ var Api = ( function() {
                                   $(this).remove();
                                 });          
                                 $('.msg-aplica-plan').text(' No dispones de planes activos')
-                                  .parent().find('i').removeClass('red-text').addClass('gray-text').text('warning');
+                                  .parent().find('i').removeClass('red-text').addClass('yellow gray-text').text('warning');
                               }
+                            })
+                            .fail(function(res){
+                              console.log(res)
                             })
                         } else {
                           $('.msg-aplica-plan').text(' Aplica descarga con subscripción')
@@ -690,7 +693,9 @@ var Api = ( function() {
                 { opacity: 0 },
                 { complete: function(el) {
                       setup.config.resultSearch.toggleClass('l10',false).toggleClass('l12',true);
-                      $('.totaln').toggleClass('s6 offset-s2', false).toggleClass('s8',true)
+                      $('.offset').hide();
+                      $('.pages').toggleClass('l4',false).toggleClass('l6',true);
+                      //$('.totaln').toggleClass('s6', false).toggleClass('s8',true)
                   }
               });
             } else {
@@ -698,7 +703,9 @@ var Api = ( function() {
                 { opacity: 1 },
                 { begin: function(el) {
                       setup.config.resultSearch.toggleClass('l10',true).toggleClass('l12',false);
-                      $('.totaln').toggleClass('s8',false).toggleClass('s6 offset-s2', true);
+                      $('.offset').show();
+                      $('.pages').toggleClass('l6',false).toggleClass('l4',true);
+                      //$('.totaln').toggleClass('s8',false).toggleClass('s6', true);
                   }
               });
             }
@@ -721,10 +728,10 @@ var Api = ( function() {
           });
           $('.dropdown-plan').dropdown();
           $('.chat-collapsible').collapsible(collapsibleOpts);
+          $('.button-collapse').sideNav();
           $(".chat-collapse").sideNav({
             edge: 'right'
           });
-         $('.button-collapse').sideNav();
          $('.tooltipped').tooltip();
          $('.dropdown-plan').tooltip('remove');
          if ($('#stotal').text() != '0')

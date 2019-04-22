@@ -3,14 +3,14 @@
   <nav class="top-content white-text z-depth-0" role="navigation">
     <div class="nav-wrapper">
       <div class="row">
-        <div class="col s3">
+        <div class="col m3">
           <!-- <a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta" target="_blank" class="phone"><i class="fab fa-whatsapp fa-2x"></i> + (57) 314 295 8463</a> -->
           <a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
-            target="_blank" class="phone" style="padding-left: 30px;">
+            target="_blank" class="phone hide-on-small-only" style="padding-left: 30px;">
             <img src="<?=base_url('img/whatsapp-30.png')?>" style="margin: 10px -35px;position: absolute;"> + (57) 314
             295 8463</a>
         </div>
-        <div class="col s6 center">
+        <div class="col s12 m6 center">
           <div id="signuser" class="sesion-menu">
             <?php if ($logged): ?>
             <a href="<?=site_url('main/user')?>" class="sign-in modal-trigger">Hola,
@@ -29,7 +29,7 @@
             <?php endif; ?>
           </div>
         </div>
-        <div class="col s3">
+        <div class="col m3">
           <ul class="right hide-on-med-and-down">
             <span class="left">Síguenos</span>
             <li><a href="#"><i class="fab fa-facebook fa-lg"></i></a></li>
@@ -77,7 +77,7 @@
           <li><a href="#" class="waves-effect">Servicios</a></li>
           <li><a class="dropdown-button" href="#!" data-activates="slide-out">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
         </ul> -->
-          <ul id="slide-out" class="left-nav side-nav">
+        <ul id="slide-out" class="left-nav side-nav">
             <li>
               <div class="user-view">
                 <!-- <div class="background">
@@ -91,21 +91,31 @@
               </div>
             </li>
             <li><a href="<?=site_url('main/planes')?>">Planes & Suscripciones</a></li>
-            <li><a href="#!">Paquetes</a></li>
-            <li><a href="#">Servicios</a></li>
+            <li><a href="<?=site_url('main/planes#paquetes-promo')?>">Paquetes</a></li>
+            <li><a href="<?=site_url('main/servicios')?>">Servicios</a></li>
             <li>
               <ul class="collapsible collapsible-accordion">
                 <li>
                   <a class="collapsible-header">Opciones</a>
                   <div class="collapsible-body">
                     <ul>
-                      <li><a href="#!">Mi Consultor</a></li>
-                      <li><a href="#!">Opcion 1</a></li>
-                      <li><a href="#!">Opcion 2</a></li>
+                      <li><a href="<?=site_url('main/consultor')?>">Mi Consultor</a></li>
+                      <li><a href="<?=site_url('main/nosotros')?>">Quienes somos</a></li>
+                      <li><a href="<?=site_url('main/contactanos')?>">Contáctanos</a></li>
                     </ul>
                   </div>
                 </li>
               </ul>
+            </li>
+            <li><a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
+              target="_blank" class="phone">Número de Contacto</a>
+            </li>
+            <li>
+              <a id="sideCart" href="#" class="menu-cart tooltipped" data-position="left" data-delay="50"
+                data-tooltip="Lista vacía">
+                <i class="material-icons left">shopping_cart</i>Carrito de Compras
+                <span class="new badge red right" data-badge-caption="items"></span>
+              </a>
             </li>
           </ul>
         </div>

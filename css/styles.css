@@ -85,6 +85,7 @@ nav.nav-extended .top-content {
 
 .header-search-wrapper .input-field.inline {
   vertical-align:inherit;
+  width: 85%;
 }
 
 .header-search-wrapper-focus  i {
@@ -172,6 +173,9 @@ nav.nav-extended .top-content {
 .pinned ul.collection {
   border-radius: 0;
 }
+.switch label .lever {
+  margin: 0 8px;
+}
 #aplicar-op {
   padding: 0 1rem;
 }
@@ -250,6 +254,9 @@ hr {
   max-width: 100%;
   margin: 0 auto;
   position: absolute;
+}
+.card .card-action {
+  padding: 16px 20px;
 }
 .imgdetail-back {
   position: fixed;
@@ -527,6 +534,12 @@ p.collections-content {
   #index-banner .section {
     top: 0;
   }
+  .header-search-wrapper .input-field.inline {
+    width: 80%;
+  }
+  /* #planes-imagenes .row .col {
+    padding: 0;
+  } */
 }
 
 .icon-block {
@@ -543,9 +556,7 @@ p.collections-content {
   padding-top: 10px;
 }
 
-.plan-pref.card .card-content {
-  padding: 10px 17px;
-}
+.plan-pref.card .card-content, 
 .plan-pref.card .card-content p {
   padding: 10px 0;
 }

@@ -33,7 +33,7 @@
                 -->
                 <!-- </div> -->
                 <ul class="collapsible grey lighten-4" style="width:100%">
-                  <li class="white-text indigo darken-4" style="padding:15px 7px;font-size: 0.98rem;font-weight: 100;"><span style="padding:14px">FILTROS DE BÚSQUEDA</span></li>
+                  <li class="white-text indigo darken-4" style="padding:15px 0;font-size: 0.98rem;font-weight: 100;text-align:center">FILTROS DE BÚSQUEDA</li>
                   <li class="grey lighten-4 center-align" style="padding:15px 10px;">
                     <img class="search-type-icon" src="<?=$icon?>">
                     <!-- <i class="material-icons medium">crop_original</i> -->
@@ -71,7 +71,7 @@
                           <!-- <p>Cantidad mostrada: <span class="count-on-page"></span><br> -->
                         <? $data['options'] = array(
                                     'co-all' => array('title'=>'', 'name'=>'Todos'),
-                                    'co-byn' => array('title'=>'', 'name'=>'Blanco y Negro')
+                                    'co-byn' => array('title'=>'', 'name'=>'Blanco/Negro')
                                   );
                            $data['field'] = $color;
                            $data['option_class'] = 'co-options';

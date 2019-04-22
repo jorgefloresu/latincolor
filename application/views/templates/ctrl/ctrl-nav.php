@@ -17,7 +17,7 @@
             <a href="#signup-page" id="signup-user" class="modal-trigger grey-text text-darken-3"><?//=_("Sign up")?></a>
           <?//php endif; ?>
         </div> -->
-        <ul class="right hide-on-med-and-down">
+        <ul class="right hide-on-small-only">
           <span class="left">Síguenos</span>
           <li><a href="#"><i class="fab fa-facebook fa-lg grey-text text-darken-3"></i></a></li>
           <li><a href="#"><i class="fab fa-twitter fa-lg grey-text text-darken-3"></i></a></li>
@@ -28,20 +28,20 @@
         <div class="row valign-wrapper" style="margin-bottom: 0px;height: 80px">
           <div class="col s2 m3 l3 valign-wrapper">
             <a href="<?=site_url()?>" class="brand-logo" style="margin-top:12px"><img src="<?=$logo?>"/></a>
-            <a href="#" data-activates="mobile-demo" class="grey-text text-darken-3 button-collapse">
+            <a href="#" data-activates="mobile-demo" class="button-collapse grey-text text-darken-3">
               <i class="material-icons">menu</i>
             </a>
           </div>
           <div class="col s8 m6 l3">
           </div>
           <div class="col s2 m3 l6">
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <ul id="nav-mobile" class="right">
             <!-- Dropdown Trigger -->
             <!-- <li style="width: 160px">
               <a class="dropdown-button dropdown-providers grey-text text-darken-3" href="" data-activates="search-in">Buscar en
                 <i class="material-icons right">arrow_drop_down</i></a>
             </li> -->
-            <div style="position:absolute; left:270px; height:30px; line-height:30px; top:27px">
+            <div class="hide-on-med-and-down" style="position:absolute; left:270px; height:30px; line-height:30px; top:27px">
 
               <li><a href="<?=site_url('main/planes')?>" class="grey-text text-darken-3" style="font-size:12px">PLANES & SUSCRIPCIONES</a></li>
               <li><a href="<?=site_url('main/planes#paquetes-promo')?>" class="grey-text text-darken-3" style="font-size:12px">PAQUETES</a></li>
@@ -57,7 +57,7 @@
 
             </div>
 
-            <div style="position:absolute; height:35px; line-height:35px; top:23px; right:0; margin-right:30px">
+            <div class="hide-on-small-only" style="position:absolute; height:35px; line-height:35px; top:23px; right:0; margin-right:30px">
             <li>
               <a id="menuCart" href="#" class="menu-cart grey-text text-darken-3 tooltipped valign-wrapper" data-position="left" data-delay="50" data-tooltip="Lista vacía" style="border-radius: 50%;width: 50px;height: 50px;margin-top: -10px;">
                 <i class="material-icons left" style="height:30px;line-height:30px;margin-left:-9px">shopping_cart</i>
@@ -78,13 +78,13 @@
               <?php if ($logged): ?>
                 <a id="login-menu" href="#sign-out" class="login-menu grey-text text-darken-3 dropdown-button" 
                   style="text-transform:capitalze" data-activates="user-dropdown">
-                  <i class="material-icons left" style="height:30px;line-height:30px">account_circle</i>
+                  <i class="material-icons left hide-on-med-and-down" style="height:30px;line-height:30px">account_circle</i>
                   <i class="material-icons right" style="height:30px;line-height:30px">arrow_drop_down</i>
                   <?php echo $user_data->first_name; ?>
                 </a>
               <?php else: ?>
                 <a id="login-menu" href="#sign-in" class="login-menu grey-text text-darken-3 modal-trigger" style="font-size:12px;text-transform:uppercase">
-                <i class="material-icons left" style="height:30px;line-height:30px">account_circle</i><?=_("Login")?>
+                <i class="material-icons left hide-on-med-and-down" style="height:30px;line-height:30px">account_circle</i><?=_("Login")?>
                 </a>
               <?php endif; ?>
             </li>
@@ -93,6 +93,26 @@
           </div>
         </div>
         <ul class="side-nav" id="mobile-demo">
+          <li><a href="<?=site_url('main/planes')?>">Planes & Suscripciones</a></li>
+          <li><a href="<?=site_url('main/planes#paquetes-promo')?>">Paquetes</a></li>
+          <li><a href="<?=site_url('main/servicios')?>">Servicios</a></li>
+          <li>
+              <ul class="collapsible collapsible-accordion">
+                <li>
+                  <a class="collapsible-header">Opciones</a>
+                  <div class="collapsible-body">
+                    <ul>
+                      <li><a href="<?=site_url('main/nosotros')?>">Mi Consultor</a></li>
+                      <li><a href="<?=site_url('main/nosotros')?>">Quienes somos</a></li>
+                      <li><a href="<?=site_url('main/contactanos')?>">Contáctanos</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li><a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
+            target="_blank" class="phone">Número de Contacto</a>
+          </li>
           <li>
             <a id="sideCart" href="#" class="menu-cart grey-text text-darken-3 tooltipped" data-position="left" data-delay="50" data-tooltip="Lista vacía">
               <i class="material-icons left">shopping_cart</i>Cart
@@ -106,7 +126,6 @@
               <li>
                 <a class="login-menu grey-text text-darken-3 collapsible-header">
                   <i class="material-icons left">account_circle</i>
-                  <i class="material-icons right">arrow_drop_down</i>
                   <?php echo $user_data->first_name; ?>
                 </a>
                 <div class="collapsible-body">
@@ -168,7 +187,7 @@
                 <div class="col s12" style="padding: 0 7px 0 0;">
                     <!-- <i class="material-icons">search</i> -->
                     BUSCAR
-                    <div class="input-field inline" style="width:85%">
+                    <div class="input-field inline">
                       <i class="material-icons icon-search">search</i>
                       <input type="text" id="keyword" name="keyword" placeholder="Enter the keywords"
                         value="<?=$keyword?>" class="header-search-input z-depth-2 grey-text" />

@@ -50,6 +50,7 @@ var Planes = {
     Planes.setBackToPlanes();
     Planes.setChipAction();
     Planes.onComprarPaquete();
+    Planes.fixPaqueteSize();
 
     Planes.config.resultados.on('calcular', function () {
       //if ($('.chip').length == 4) {
@@ -237,6 +238,14 @@ var Planes = {
     Planes.config.backToPlanes.on('click', function() {
       Planes.desplazar('#planes-section');
       return false;
+    })
+  },
+
+  fixPaqueteSize: function() {
+    $(window).resize(function(){
+      $('#paquete-option .card .card-content').height(function(){
+          return $('#paquete-option .card').width() > 200 ? 330 : 400;
+      });
     })
   },
 

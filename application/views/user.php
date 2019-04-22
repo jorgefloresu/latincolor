@@ -11,20 +11,21 @@
           <div class="card-image waves-effect waves-block waves-light">
               <img class="activator" src="<?=base_url('img/user-profile-bg.jpg')?>" alt="user background">
           </div>
-          <figure class="card-profile-image">
+          <figure class="card-profile-image hide-on-small-only">
               <img src="<?=base_url('img/avatar.jpg')?>" alt="profile image" class="circle z-depth-2 responsive-img activator">
           </figure>
           <div class="card-content">
             <div class="row">
-              <div class="col s3 offset-s2">
+              <div class="col m2 hide-on-small-only"></div>
+              <div class="col s4 m3">
                   <h4 class="card-title grey-text text-darken-4"><?=$user_data->fname?></h4>
                   <p class="medium-small grey-text"><?=$logged?></p>
               </div>
-              <div class="col s2 center-align">
+              <div class="col s4 m2 center-align">
                   <h4 class="card-title grey-text text-darken-4">$<?=$sum_downloads?></h4>
                   <p class="medium-small grey-text">Imágenes compradas</p>
               </div>
-              <div class="col s2 center-align">
+              <div class="col s4 m2 center-align">
                   <h4 class="card-title grey-text text-darken-4">$<?=$sum_planes?></h4>
                   <p class="medium-small grey-text">Planes comprados</p>
               </div>
@@ -54,7 +55,7 @@
           </div>
       </div>
       <div id="profile-page-contents" class="row">
-        <div class="col s12 m6 l6">
+        <div class="col s12 m5 l6">
           <ul class="collection white">
             <li class="collection-item" style="border-bottom:none">
               <?=material_tabs("s3", ['tab-name'=>'Nombre',
@@ -90,7 +91,7 @@
         </form>
         </ul>
         </div>
-        <div class="col s12 m6 l6">
+        <div class="col s12 m7 l6">
           <ul class="collection">
             <li class="collection-item avatar">
               <i class="material-icons circle light-blue">folder</i>
@@ -109,13 +110,12 @@
                     <div class="list-scroll">
 
                       <? foreach ($download_list as $item): ?>
-
                         <li class="collection-item">
                           <div class="row" style="margin-bottom:0">
                               <div class="image-item col s2"
                                 style="background-image: url(<?=$item->img_url?>);">
                               </div>
-                              <div class="col s1">
+                              <div class="col s2">
                                 <? if ($item->img_provider == 'Depositphoto'): ?>
                                   <a href='' class="re-download btn blue waves-effect waves-grey" style="padding:0 10px" 
                                       data-url="<?=base_url('main/reDownload')?>" data-provider="<?=$item->img_provider?>"
@@ -133,9 +133,11 @@
                                 <p class="collections-content"><?=$item->img_provider?></p>
                               </div>
                               <div class="col s3">
-                                <span class="right"><?=$item->date?></span>
+                                <? $dt = new DateTime($item->date) ?>
+                                <p class="collections-title"><?=$dt->format('m/d/Y')?></p>
+                                <p class="collections-content"><?=$dt->format('h:i:s A')?></p>
                               </div>
-                              <div class="col s3">
+                              <div class="col s2">
                                 <span class="right">$<?=number_format($item->img_price,2)?></span>
                               </div>
                           </div>

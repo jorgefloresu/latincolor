@@ -7,8 +7,9 @@
         <table class="shopping-cart responsive-table">
           <thead>
             <tr>
-              <th style="width: 120px">Producto</th><th>Prod. ID</th><th>Descripción</th><th>Tamaño</th>
-              <th class="center">Licencia</th><th class="right">Precio(US$)</th><th style="width:6%"></th><th style="width:6%"></th>
+              <th style="width: 120px">Producto</th><th>Prod.ID</th><th>Descripción</th><th>Tamaño</th>
+              <th class="center">Licencia</th><th>Precio(US$)</th><th>Comprar</th><th>Quitar</th>
+              <!-- <th style="width:6%"></th><th style="width:6%">Acciones</th> -->
             </tr>
           </thead>
           <tbody></tbody>
