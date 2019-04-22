@@ -240,8 +240,8 @@ var Api = ( function() {
               setup.config.searchTotal.find('.totalk').html(data.keyword);
               setup.config.searchTotal.find('.badge').html(data.time);
               //setup.config.searchTotal.find('.totaln').html(new Intl.NumberFormat().format(data.total));
-              $('.totaln').html('<span class="hide-on-small-only">RESULTADOS: </span><span style="font-weight:900; padding:0 2px;">'+
-                                new Intl.NumberFormat().format(data.total)+'</span> coincidencias');
+              $('.totaln').html('<span>RESULTADOS: </span><span style="font-weight:900; padding:0 2px;">'+
+                                new Intl.NumberFormat().format(data.total)+'</span><span> coincidencias</span>');
               $('.estas-buscando').text('Estás buscando '+getFromUrl(location.href,'medio').toLowerCase());
               $('.this-keyword').text(setup.config.keyword.val());
               $('.search-type-icon').attr('src', location.origin+'/latincolor/img/'+getFromUrl(location.href,'medio')+'-50.png');

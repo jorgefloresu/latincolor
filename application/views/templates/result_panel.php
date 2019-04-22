@@ -33,7 +33,7 @@
                 -->
                 <!-- </div> -->
                 <ul class="collapsible grey lighten-4" style="width:100%">
-                  <li class="white-text indigo darken-4" style="padding:15px 0;font-size: 0.98rem;font-weight: 100;text-align:center">FILTROS DE BÚSQUEDA</li>
+                  <li class="white-text indigo darken-4" style="padding:13px 0;font-size: 0.98rem;font-weight: 100;text-align:center">FILTROS DE BÚSQUEDA</li>
                   <li class="grey lighten-4 center-align" style="padding:15px 10px;">
                     <img class="search-type-icon" src="<?=$icon?>">
                     <!-- <i class="material-icons medium">crop_original</i> -->

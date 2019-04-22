@@ -179,6 +179,9 @@ nav.nav-extended .top-content {
 #aplicar-op {
   padding: 0 1rem;
 }
+.pagination li a {
+  padding: 0 5px;
+}
 
 .pagination li a i {
   /* border: 1px solid; */

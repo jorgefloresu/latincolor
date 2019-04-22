@@ -546,7 +546,7 @@ class Main extends CI_Controller {
 
 		//config for materialize pagination class integration
 		//$config['full_tag_open'] = '<p class="current-page" style="display:inline;border: 1px solid;padding: 6px 10px;"></p> de <p class="num-pages" style="display:inline;""></p><ul class="pagination" style="margin-top:0; margin-bottom:0;display:inline">';
-		$config['full_tag_open'] = '<input type="text" value="0" class="current-page" style="display:inline;border: 1px solid;width:50px;margin:0;height:1.5rem;text-align:right;padding:2px 5px;"> de <p class="num-pages" style="display:inline;""></p><ul class="pagination" style="margin-top:0; margin-bottom:0;display:inline">';
+		$config['full_tag_open'] = '<input type="text" value="0" class="current-page" style="display:inline;border: 1px solid #CCC;width:50px;margin:0;height:1.3rem;text-align:right;padding:2px 5px;"> de <p class="num-pages" style="display:inline;""></p><ul class="pagination" style="margin-top:0; margin-bottom:0;display:inline">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link'] = '<i class="material-icons">first_page</i>';
 		//$config['last_link'] = '<i class="material-icons">last_page</i>';

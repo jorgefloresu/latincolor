@@ -186,7 +186,7 @@
                 <!-- </div> -->
                 <div class="col s12" style="padding: 0 7px 0 0;">
                     <!-- <i class="material-icons">search</i> -->
-                    BUSCAR
+                    <span class="hide-on-small-only">BUSCAR</span>
                     <div class="input-field inline">
                       <i class="material-icons icon-search">search</i>
                       <input type="text" id="keyword" name="keyword" placeholder="Enter the keywords"
