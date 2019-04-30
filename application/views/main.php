@@ -23,7 +23,7 @@
   <main class="search-result-background">
         <?$this->load->view('templates/result_panel')?>
         <div class="fixed-action-btn">
-          <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">photo_filter</i></a>
+          <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">fullscreen</i></a>
         </div>
 
         <div class="result-control row" style="margin-top:85px;padding-left:13px;margin-bottom:10px;">

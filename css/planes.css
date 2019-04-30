@@ -73,8 +73,16 @@ article .btn {
 .plan-option p {
   line-height: 1.2rem;
 }
+.plan-option .row .col:first-child {
+  border-right:1px #ccc solid;
+  border-bottom: none;
+}
 @media only screen and (max-width : 720px) {
-  .price {
+  .plan-option .row .col:first-child {
+    border-right: none;
+    border-bottom: 1px #ccc solid;
+  }
+  /* .price {
     font-size: 2rem;
   }
   .price sub,
@@ -83,5 +91,5 @@ article .btn {
   }
   .price sup {
     top: -10px;
-  }
+  } */
 }

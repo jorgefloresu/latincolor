@@ -34,45 +34,42 @@
       </div>
       <div class="container">
           <div class="row">
-            <div class="col s12 m4 l4">
-                <?=material_servicio_card('brown-layout','img/drone.jpg',
-                                          'PRODUCE TUS PROPIAS FOTOGRAFIAS','',
-                                          'Realizamos la pre producción, producción y pos producción en imágenes y videos, con locaciones perfectas, modelos profesionales y un gran equipo productor.',
-                                          'Ir a Mi Consultor')?>
-            </div>
-
-            <div class="col s12 m8 l8">
-              <div class="row" style="margin-bottom:0">
-                <div class="col s12 m6 l6">
+            <div class="col s12 m12 l6">
                   <?=material_servicio_card('gradient-layout','img/bailarina.jpg',
-                                            'IMAGENES Y VIDEOS CON DRONE','medium-title',
+                                            'IMAGENES Y VIDEOS CON DRONE','',
                                             'Con nuestro Panthom 4 DJ Pro obtienes las mejores imágenes creativas en 300dpi y videos hasta en 4K, utiliza esta maravillosa tecnología para mostrar espacios y lugares aéreos; también disponible para cubrir eventos sociales.',
                                             'Ir a Mi Consultor')?>
                 </div>
-                <div class="col s12 m6 l6">
+                <div class="col s12 m12 l6">
                   <?=material_servicio_card('grey-layout','img/sala.jpg',
-                                            'FOTOGRAFIA DE PRODUCTO','medium-title',
+                                            'FOTOGRAFIA DE PRODUCTO','',
                                             'Con nuestro personal calificado realizamos tus fotografías para tu sitio web y redes sociales, tu tienda online, tu catálogo de productos y material impreso.',
                                             'Ir a Mi Consultor')?>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col s12 m12 l12">
+          </div>
+          <div class="row">
+                <div class="col s12">
                   <?=material_servicio_card('brown-layout','img/360.jpg',
                                             'IMAGENES EN 360 GRADOS','',
                                             'Por fin llegó la manera de mostrar cada detalle de los productos que vendes con equipos inteligentes, podrás mostrar todos tus artículos en 360° con los detalles que desees resaltar.'
                                             .'Además, cuentas con innovadoras mesas giratorias que permitirán mostrar en tu tienda física tus productos en 360°.',
                                             '')?>
                 </div>
-              </div>
-            </div>
+          </div>
+          <div class="row">
+                <div class="col s12 m6 l4">
+                      <?=material_servicio_card('brown-layout','img/drone.jpg',
+                                                'PRODUCE TUS PROPIAS FOTOGRAFIAS','',
+                                                'Realizamos la pre producción, producción y pos producción en imágenes y videos, con locaciones perfectas, modelos profesionales y un gran equipo productor.',
+                                                'Ir a Mi Consultor')?>
+                </div>
+                <div class="col s12 m6 l8 center" style="margin-top:15%">
+                      <h5>Quieres saber más acerca de nuestros servicios?</h5>
+                      <p>Contacta tu consultor</p>
+                      <a href="<?=base_url('main/consultor')?>" class="btn-large waves-effect waves-light blue accent-3">Mi Consultor</a>
+                </div>
           </div>
           <div class="container center">
-            <h5>Quieres saber más acerca de nuestros servicios?</h5>
-            <p>Contacta tu consultor</p>
-            <div class="row center">
-              <a href="<?=base_url('main/consultor')?>" class="btn-large waves-effect waves-light blue accent-3">Mi Consultor</a>
-            </div>
           </div>
     </div>
     </div>

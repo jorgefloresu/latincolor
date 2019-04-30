@@ -110,7 +110,7 @@
                   </li>
                   <ul class="collection grey lighten-2">
                     <li class="collection-item collection-options center-align">
-                      <a id="aplicar-op" href="#!" class="btn-flat waves-effect waves-light"><i class="material-icons right">filter_list</i>Aplicar filtro</a>
+                      <a id="aplicar-op" href="#!" class="btn-flat waves-effect waves-light"><i class="material-icons left">filter_list</i>Aplicar filtro</a>
                     </li>
                   </ul>
               </ul>

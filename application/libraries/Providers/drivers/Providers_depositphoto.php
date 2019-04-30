@@ -18,7 +18,7 @@ class Providers_depositphoto extends CI_Driver {
 
 	function search($query) {
         $params = array(
-            	RpcParams::SEARCH_USERNAME => 'Kama',
+            	//RpcParams::SEARCH_USERNAME => 'Kama',
               RpcParams::SEARCH_QUERY  => $query['keyword'],
               RpcParams::SEARCH_LIMIT  => $query['prov']['dp']['limit'],
               RpcParams::SEARCH_OFFSET => $query['prov']['dp']['offset'],

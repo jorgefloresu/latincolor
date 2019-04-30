@@ -312,7 +312,7 @@ td.table-sizes {
 }
 
 #cart {
-  width: 60%;
+  width: 70%;
 }
 /* #loading {
   height: 300px;
@@ -387,11 +387,11 @@ td.table-sizes {
 .materialboxed:hover:not(.active) {
   opacity: 1;
 }
-.material-placeholder {
-  /* height: 300px; */
+/*.material-placeholder {
+   height: 300px; */
   /* max-height: 500px;
-  min-height: 300px; */
-}
+  min-height: 300px; 
+}*/
 .margin {
   margin: 0 !important;
 }
@@ -531,6 +531,9 @@ p.collections-content {
   #index-banner .section {
     top: 10%;
   }
+  #cart {
+    width: 80%;
+  }
 }
 
 @media only screen and (max-width : 600px) {
@@ -539,6 +542,12 @@ p.collections-content {
   }
   .header-search-wrapper .input-field.inline {
     width: 80%;
+  }
+  .search-wrapper .input-field {
+    padding: 0 77px 0 15px;
+  }
+  .container {
+    width: 87%;
   }
   /* #planes-imagenes .row .col {
     padding: 0;

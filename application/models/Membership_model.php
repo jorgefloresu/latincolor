@@ -129,7 +129,8 @@ class Membership_model extends CI_Model {
 				$orderType = ($key == 'images' ? 1 : 2);
 				$orderId = floatval("{$charge['response']['merchantOrderId']}{$orderType}");
 				$value['orderId'] = $orderId;
-				unset($value['tranType']); unset($value['username']); unset($value['idplan']);
+				unset($value['tranType']); unset($value['username']); 
+				unset($value['idplan']); unset($value['subscriptionId']);
 				$data_insert[] = $value;
 			}
 			if ($total[$key] > 0) {

@@ -13,6 +13,7 @@ var Api = ( function() {
                 icon: $('#icon-type'),
                 title: $('#title'),
                 subtitle: $('#subtitle'),
+                condiciones: $('.condiciones'),
                 imgContainer: $('#loading'),
                 image: $('#loading img'),
                 prices: $('#prices table tbody'),
@@ -280,6 +281,8 @@ var Api = ( function() {
                   if (data) {
                     preview.title.html(data.title);
                     preview.subtitle.html("No. de referencia: #"+data.id);
+                    preview.condiciones.text(data.provider);
+                    $('.provider-features').html(Templates.previewFeatures(data.provider));
                     if (data.type == 'video') {
                       preview.image.css('min-height', 0);
                       setup.config.previewPrices.css('min-height', '270px');
@@ -688,7 +691,12 @@ var Api = ( function() {
           }
 
   var floatButton = function(){
-            if (setup.config.panel.css('opacity') == '1') {
+    
+          $(this).find('i').text(function(index, text){
+            return text == 'fullscreen' ? text+'_exit' : 'fullscreen';
+          });
+
+          if (setup.config.panel.css('opacity') == '1') {
               setup.config.panel.velocity(
                 { opacity: 0 },
                 { complete: function(el) {

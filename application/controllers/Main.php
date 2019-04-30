@@ -229,10 +229,11 @@ class Main extends CI_Controller {
 
     function preview($imagecode){
         $data['logo'] = $this->logo;
+        $data['provider'] = $this->input->get('provider');
         //$data['back'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         //$_SESSION['mysession'] = $data['back'];
         //$data['page'] = $this->load->view('preview', '', true);
-        $res = $this->providers->{strtolower($this->input->get('provider'))}->preview($imagecode);
+        $res = $this->providers->{strtolower($data['provider'])}->preview($imagecode);
         if (count($res)==0)
           header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 

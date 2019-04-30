@@ -44,3 +44,21 @@
   border: 1px solid;
   border-radius: 5px;
 }
+/* .servicios.card p {
+  line-height: 1.5rem;
+} */
+@media only screen and (max-width : 800px) {
+  /* .servicios.card .card-content .card-title {
+    font-size: 25px;
+    line-height: 33px;
+  }
+  .servicios.card .card-reveal .card-title {
+    font-size: 20px;
+    line-height: 25px;
+  } */
+  .servicios.card .card-reveal p {
+    /* font-size: 14px; */
+    line-height: 20px;
+  }
+  
+}

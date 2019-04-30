@@ -102,7 +102,7 @@
                   <a class="collapsible-header">Opciones</a>
                   <div class="collapsible-body">
                     <ul>
-                      <li><a href="<?=site_url('main/nosotros')?>">Mi Consultor</a></li>
+                      <li><a href="<?=site_url('main/consultor')?>">Mi Consultor</a></li>
                       <li><a href="<?=site_url('main/nosotros')?>">Quienes somos</a></li>
                       <li><a href="<?=site_url('main/contactanos')?>">Contáctanos</a></li>
                     </ul>
@@ -189,7 +189,7 @@
                     <span class="hide-on-small-only">BUSCAR</span>
                     <div class="input-field inline">
                       <i class="material-icons icon-search">search</i>
-                      <input type="text" id="keyword" name="keyword" placeholder="Enter the keywords"
+                      <input type="text" id="keyword" name="keyword" placeholder="Digita aquí palabras claves en idioma inglés"
                         value="<?=$keyword?>" class="header-search-input z-depth-2 grey-text" />
                       <!-- <input type="hidden" id="provider" name="provider" value="$provider" /> -->
                     </div>

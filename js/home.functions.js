@@ -31,6 +31,7 @@ var Home  = {
           Home.onSearchOptions();
           Home.onSearchField();
           Home.onSearchButton();
+          Home.changeHeader();
     },
 
 
@@ -101,6 +102,33 @@ var Home  = {
               Home.config.searchForm.submit();
             }
           })
+    },
+
+    changeHeader: function () {
+      let counter = 0;
+      let headers = [
+                     'Videos en todas las resoluciones <br/> para todo uso Web, HD y 4K', 
+                     'Imágenes vectoriales para expresar <br/> tus ideas creativas con calidad',
+                     'Fotografías en alta calidad <br/> para diseño publicitario'
+                    ];
+      let maxCounter = headers.length - 1;
+      setInterval(function() {
+        $('.home h2').velocity(
+          {opacity:0},
+          {complete: function(el){
+            $('.home h2').html(headers[counter]);
+            if (counter == maxCounter) {
+              counter = 0; //reset to start
+            } else {
+                ++counter; //iterate to next image
+            }
+          }
+        });
+        $('.home h2').velocity(
+          {opacity:1},
+          "easeInSine"
+        )
+      }, 4000)
     },
 
     setMaterial: function() {

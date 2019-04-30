@@ -95,7 +95,7 @@ var userPlanList = '<div class="recent-activity-list chat-out-list row">'+
      '</div>'+
      '</div>';
 
-var providerFeatures = function(provider, medio) {
+var providerPlanFeatures = function(provider, medio) {
      let commonFeatures = {
           'Fotos': [
                'Imágenes Royalty Free, libres de derechos',
@@ -152,13 +152,13 @@ var planesResult = function(plan, desc) {
           //row +="<span class='new badge red' style='position:absolute;right:38%' data-badge-caption='oferta'>mejor</span>";
 
       row += "</div><div class='collapsible-body' style='background-color:#eee'>"+
-              "<div class='row'><div class='col s7 m7 l7' style='border-right:1px #ccc solid'>"+
+              "<div class='row'><div class='col s12 m7 l7'>"+
               "<strong>Tienes licencia estándar para usar tus recursos fotográficos en:</strong>"+
-              planFeatures(providerFeatures(plan.provider, plan.medio))+
+              planFeatures(providerPlanFeatures(plan.provider, plan.medio))+
               "<p style='font-size:12px'>No incluye permiso para material merchandising destinado para la venta.</p>"+
               "<p style='font-size:12px'>Las fotografías de uso Editorial no pueden ser usadas en medios publicitarios.</p>"+
               "</div>"+
-              "<div class='col s5 m5 l5 center'>"+
+              "<div class='col s12 m5 l5 center'>"+
               "<div class='price'>"+
                 "<sup class='currency'>US$</sup>"+plan.por_imagen.toLocaleString()+
                 "<sub class='millar'>c/"+(plan.medio=='Fotos'?'foto':'video')+"</sub>"+
@@ -172,6 +172,30 @@ var planesResult = function(plan, desc) {
       return row;
     }
 
+var providerPreviewFeatures = function(provider) {
+     let particularFeatures = {
+          'Depositphoto': [
+               'Todo uso digital y en redes sociales',
+               'Impresiones hasta 500.000 copias por imagen en cualquier medio',
+               'Todo uso comercial y publicitario',
+               'Material merchandising entregado de manera gratuita'
+          ],
+          'Dreamstime': [
+               'Todo uso digital y en redes sociales',
+               'No tiene limitante de impresiones',
+               'Todo uso comercial y publicitario',
+               'Material merchandising entregado de manera gratuita'
+          ],
+          'Fotosearch': [
+               'Todo uso digital y en redes sociales',
+               'Impresiones hasta 1.000.000 copias por imagen en cualquier medio',
+               'Todo uso comercial y publicitario',
+               'Material merchandising entregado de manera gratuita'
+          ]
+     }
+     return particularFeatures[provider];
+}
+
 var planFeatures = function(features) {
      let checkIcon = "<i class='material-icons tiny green-text'>check_circle</i><span style='padding-left: 0.5em'>";
      let item = '';
@@ -179,6 +203,21 @@ var planFeatures = function(features) {
           item += '<p>' + checkIcon + feature + '</span></p>';
      });
      return item;
+}
+
+var previewFeatures = function(provider) {
+     let features = providerPreviewFeatures(provider);
+     let tag = '<ul>'+
+                '<li class="center" style="margin-bottom:10px"></li>'+
+                '<li class="blue darken-4" style="height: 2px;"></li>'+
+                '<ul class="collection" style="border:none; padding-left:2.6em; list-style-image:url('+ "'" + location.origin+'/latincolor/img/check_circle.png' + "')" + '">';
+
+     $.each(features, function(index, feature) {
+          tag += "<li class='collection-item' style='border-bottom:none; background-color:transparent; padding:7px 20px'>"+
+                 "<span style='top:-7px; position:relative'>"+feature+"</span></li>";
+     });
+     tag += '</ul><li class="indigo" style="height: 2px;"></li></ul>';
+     return tag;
 }
 
 var planButton = function(plan, desc) {
@@ -215,6 +254,7 @@ return {
      userPlanList: userPlanList,
      planesResult: planesResult,
      videoTypes: videoTypes,
+     previewFeatures: previewFeatures,
      fakeCounter: fakeCounter
 }
 

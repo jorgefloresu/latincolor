@@ -128,8 +128,8 @@
     <!-- <div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 1"></div> -->
     <div class="parallax">
       <video id="hero-vid" autoplay loop muted playsinline>
-        <source src="./img/intro-1080p.webm" type="video/webm">
-        <source src="./img/intro-1080p.mp4" type="video/mp4">
+        <source src="./img/home.webm" type="video/webm">
+        <source src="./img/home.mp4" type="video/mp4">
       </video>
     </div>
 
@@ -148,7 +148,7 @@
             <?=form_open('main/search/1', 'id="home-search" method="get"')?>
             <div class="search-wrapper card">
               <div class="input-field">
-                <input id="search" type="search" name="keyword" placeholder="Buscar imágenes, vectores y videos"
+                <input id="search" type="search" name="keyword" placeholder="Digita palabras claves en idioma inglés"
                   required>
                 <i class="material-icons icon-search red darken-4">search</i>
                 <input type='hidden' id="medio" name='medio' />

@@ -19,7 +19,7 @@
   </div>
   <div class="row" style="width:97%">
 
-    <div id="imgheight-container" class="imgheight col s12 m7 center">
+    <div id="imgheight-container" class="imgheight col s12 m12 l7 center">
       <div id="loading" class="">
         <a class="popup-link" href="" title=""><img src="" class="responsive-img" /></a>
         <video class="responsive-video" controls poster="" width="600" height="300">
@@ -45,13 +45,28 @@
                 <!-- <th>Size</th>
                               <th>Dimension</th>
                               <th>Price</th> -->
-                <th class="center-align" colspan="2">ESCOGE EL TAMAÑO</th>
+                <th class="center-align" colspan="2">ESCOGE EL TAMAÑO<i class="material-icons right blue-text activator" style="cursor:pointer">info</i></th>
               </tr>
             </thead>
             <tbody>
 
             </tbody>
           </table>
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>Imágenes de <span class="condiciones"></span></span>
+            <span class="center"><b>Derechos de Uso Licencia Estándar</b></span>
+            <!-- <ul>
+                <li class="center" style="margin-bottom:10px"></li>
+                <li class="blue darken-4" style="height: 2px;"></li>
+                <?//=material_collection(['Todo uso digital y en redes sociales','Impresiones hasta 500.000 copias por imagen en cualquier medio','Todo uso comercial y publicitario','Material merchandising entregado de manera gratuita'])?>
+                <li class="indigo" style="height: 2px;"></li>
+            </ul>    -->
+            <div class="provider-features">
+
+            </div>           
+            <p style="font-size:12px;line-height:1rem">No incluye permiso para material merchandising destinado para la venta. 
+            Las fotografías de uso Editorial no pueden ser usadas en medios publicitarios.</p>
         </div>
         <div class="card-action">
           <!-- Dropdown Trigger -->

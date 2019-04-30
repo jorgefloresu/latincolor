@@ -95,7 +95,8 @@ p {
 
 #hero-vid {
   backface-visibility:hidden;
-  background:url("../img/intro-1080p.jpg") no-repeat scroll 0 0px #000;
+  /* background:url("../img/intro-1080p.jpg") no-repeat scroll 0 0px #000; */
+  background: #000;
   background-size:cover;
   bottom:0;
   height:auto;
@@ -232,7 +233,7 @@ nav#slide-search-bar {
     width: auto;
   } */
   nav#slide-search-bar {
-    width: 75%;
+    width: 77%;
   }
 }
 
@@ -383,6 +384,13 @@ nav#slide-search-bar {
   }
   .home h5 {
     display: none;
+  }
+}
+
+@media only screen and (min-resolution: 117dpi) and (max-resolution: 119dpi), only screen and (min-resolution: 131dpi) and (max-resolution: 133dpi), only screen and (min-resolution: 145dpi) and (max-resolution: 154dpi), only screen and (min-resolution: 162dpi) and (max-resolution: 164dpi), only screen and (min-resolution: 169dpi) {
+  #hero-vid {
+    height: 100%;
+    width: auto;
   }
 }
 

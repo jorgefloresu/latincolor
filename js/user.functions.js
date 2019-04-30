@@ -246,6 +246,7 @@ var User = {
     $('.list-scroll').perfectScrollbar({
       suppressScrollX: !0
     });
+    $('.button-collapse').sideNav();
     $('select').material_select();
     $(window).resize(function () {
       $("#list-scroll").height($(this).height() - 490);
