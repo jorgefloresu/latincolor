@@ -7,6 +7,7 @@ class Admin extends CI_Controller {
 		$this->load->library('membership');
 		$this->load->model('membership_model');
 		$this->load->driver('providers');
+		$this->load->driver('pasarelas');
 		$this->load->helper('tag');
 
 	}
@@ -241,5 +242,20 @@ class Admin extends CI_Controller {
     //$this->load->view('view_csv', $data);
 		//$this->index('planes');
 	}
+
+	public function consulta_payu($merchantOrderId)
+  {
+		$orderId = $this->membership_model->get_payment_order($merchantOrderId);
+		if ($orderId !== null) {
+			$response = $this->pasarelas->payu->consulta_payu($orderId);
+		} else {
+			$response = 'No se encuentra esa transacción';
+		}
+    //header('Content-Type: application/json');
+		//echo json_encode($response);
+		//$data['result'] = "<pre>".print_r($response)."</pre>";
+		echo json_encode($response);
+
+  }
 
 }

@@ -181,9 +181,9 @@
     <div class="footer-text grey-text text-lighten-3">
       <div class="row no-margin-bottom">
         <div class="col s12 m6 l6">
-          &reg; 2018 Latin Color Images
-          <a class="grey-text text-lighten-3" href="#">Politicas y privacidad</a>
-          <a class="grey-text text-lighten-3" href="#">Condiciones de uso <span id="wt"></span></a>
+          &reg; 2019 Latin Color Images
+          <a class="grey-text text-lighten-3" href="<?=base_url('main/privacidad')?>">Politicas de privacidad</a>
+          <a class="grey-text text-lighten-3" href="<?=base_url('main/condiciones')?>">Términos de la licencia de uso <span id="wt"></span></a>
         </div>
         <div class="col s12 m6 l6">
           <div class="right"><a class="grey-text text-lighten-3" href="#">Idioma <i class="fas fa-globe fa-lg">globe</i></a></div>

@@ -127,7 +127,8 @@ class Membership_model extends CI_Model {
 			foreach ($item as $value) {
 				$total[$key] += $value['price'] + $value['iva'] + $value['tco'];
 				$orderType = ($key == 'images' ? 1 : 2);
-				$orderId = floatval("{$charge['response']['merchantOrderId']}{$orderType}");
+				//$orderId = floatval("{$charge['response']['merchantOrderId']}{$orderType}");
+				$orderId = floatval("{$charge['merchantOrderId']}{$orderType}");
 				$value['orderId'] = $orderId;
 				unset($value['tranType']); unset($value['username']); 
 				unset($value['idplan']); unset($value['subscriptionId']);
@@ -144,9 +145,6 @@ class Membership_model extends CI_Model {
 				);
 	
 			}
-		//}
-
-		//foreach ($all_items as $key => $item) {
 		}
 		$this->db->insert_batch('ventas', $new_ventas_data);
 		$insert = $this->db->insert_batch('ventas_detalle', $data_insert);
@@ -174,15 +172,28 @@ class Membership_model extends CI_Model {
 
 	function record_payment($username, $charge)
 	{
-		$new_payment_data = array(
+		// Twocheckout
+		/* $new_payment_data = array(
 			'username' => $username,
 			'order_number' => $charge['response']['orderNumber'],
 			'date' => date("Y-m-d H:i:s"),
-			'merchant_order_id' => $charge['response']['merchantOrderId'],//$this->input->post('orderId'),
+			'merchant_order_id' => $charge['response']['merchantOrderId'],
 			'token' => $charge['response']['transactionId'],
 			'total' => $this->input->post('totalId'),
 			'img_code' => ''
+			); */
+
+		// PayU
+		$new_payment_data = array(
+			'username' => $username,
+			'order_number' => $charge['orderId'],
+			'date' => date("Y-m-d H:i:s"),
+			'merchant_order_id' => $charge['merchantOrderId'],
+			'token' => $charge['transactionId'],
+			'total' => $this->input->post('totalId'),
+			'img_code' => ''
 			);
+
 		$insert = $this->db->insert('payments', $new_payment_data);
 		return $insert;
 
@@ -372,10 +383,11 @@ class Membership_model extends CI_Model {
 	{
 		if (null != $username)
 			$query = $this->db->query(
-				"SELECT CONCAT(first_name,' ',last_name) as fname,
-					first_name, last_name, username, email_address, address,
-					city, state, country, zip, phone, empresa, nit, deposit_userid
-				 FROM membership WHERE username='$username'");
+				"SELECT CONCAT(first_name,' ',last_name) as fname, first_name, last_name, 
+					membership.id, username, email_address, address, city, state, country, 
+					code, zip, phone, empresa, nit, cc_token, cc_method, deposit_userid
+				 FROM membership, countries WHERE username='$username' 
+				 AND membership.country=countries.name");
 		//$row = $query->row();
 		//return $row;
 		return $query;
@@ -402,6 +414,19 @@ class Membership_model extends CI_Model {
 				 FROM payments WHERE username='$username'");
 		$row = $query->row();
 		return $row;
+	}
+
+	function get_payment_order($merchantOrderId)
+	{
+		$this->db->where('merchant_order_id', $merchantOrderId);
+		$query = $this->db->get('payments');
+		if ($query->num_rows()>0) {
+			$row = $query->row();
+			$order = $row->order_number;
+		} else {
+			$order = null;
+		}
+		return $order;
 	}
 
 	function get_planes($id=null) {

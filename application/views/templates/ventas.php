@@ -21,7 +21,11 @@
             <? foreach ($ventas as $venta): ?>
               <tr><td></td>
               <? foreach ($venta as $key => $value): ?>
+                  <? if ($key == 'orderId'): ?>
+                    <td><a class='modal-trigger modal-close view-tran' href='#pasarela-tran'><?= substr($value, 0, strlen($value)-1); ?></a></td>
+                  <? else: ?>
                     <td><?= $value ?></td>
+                  <? endif ?>
               <? endforeach ?>
               </tr>
             <? endforeach ?>
@@ -55,3 +59,5 @@
   </div>
 
 </div>
+
+<?$this->load->view('templates/view_pasarela_tran')?>

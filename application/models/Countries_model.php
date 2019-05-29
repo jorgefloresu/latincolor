@@ -31,4 +31,15 @@ class Countries_model extends CI_Model {
       return $cities->result();
   }
 
+  function get_country_code($country)
+  {
+    $condition = array(
+      'name' => $state_id
+    );
+    $this->db->select('code');
+    $this->db->where('countries', $condition);
+    $query = $this->db->get();
+    return $query->row()->code;
+  }
+
 }

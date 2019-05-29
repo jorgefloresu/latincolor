@@ -38,20 +38,28 @@ var Pay = (function () {
 				$message: $('#pay-message p'),
 				$CCWindow: $('#buy'),
 
+				tipoTarjeta: $('#tipo-tarjeta'),
 				$CCNumber: $('#ccNo'),
 				$CCVC: $('#cvv'),
 				$CCMonth: $("#expMonth"),
 				$CCYear: $("#expYear"),
-				token: ''
-			};
+				token: '',
 
+				tabsPayMethods: $('ul.tabs')
+			};
+			
 			$.extend(setup, values);
 
-			TCO.loadPubKey('sandbox');
+			//TCO.loadPubKey('sandbox');
 			setup.$CCForm.submit(function (e) {
+			//$('.login-form').submit(function(e) {
 				e.preventDefault();
-				//console.log(e);
-				tokenRequest();
+				setup.$message.html('Enviando información...');
+				//console.log(this);
+				//tokenRequest();
+				//tokenRequestPayU();
+				//payWithToken();
+				payWithPayU();
 			})
 
 			/* setup.$CCForm.submit(function(event) {
@@ -73,6 +81,44 @@ var Pay = (function () {
 			}) */
 
 		}
+	}
+
+	var payWithPayU = function() {
+		let args = {
+			url: setup.$CCForm.prop('action'), 
+			//location.origin + '/latincolor/order/PayU_pay',
+			inputs: {
+				//orderId: setup.$orderId.val(),
+				totalId: setup.factTotal.text().replace(",", "."),
+				tranType: setup.tranType,
+				username: setup.userName.val(),
+				tipoTarjeta: setup.tipoTarjeta.val(),
+				ccNo: setup.$CCNumber.val(),
+				expMonth: setup.$CCMonth.val(),
+				expYear: setup.$CCYear.val(),
+				cvv: setup.$CCVC.val(),
+				items: JSON.stringify(setup.cartItems)
+			}
+		};
+
+		$.submitForm(args, function(res){
+			if (res.state == "APPROVED") {
+				let textResult = 'APROBADA. Procesando, espere...';
+				setup.$message.html(textResult);
+				setup.token = res.transactionId;
+				args.inputs.orderId = res.merchantOrderId;
+				args.inputs.token = res.transactionId;
+				console.log(res);
+				console.log(args.inputs);
+				processOrder(args.inputs);
+			} else if (res.state == "DECLINED") {
+				console.log(res.responseMessage);
+				setup.$message.html('<span style="color:red">'+res.responseMessage+'</span>');
+			} else {
+				console.log(res);
+				setup.$message.html('<span style="color:red">'+res+'</span>');
+			}
+		})
 	}
 
 	var successTokenCC = function (datatoken) {
@@ -115,7 +161,6 @@ var Pay = (function () {
 			items: JSON.stringify(setup.cartItems)
 		};
 		setup.$message.html('Verificando tarjeta...');
-		console.log(form_data);
 		$.ajax({
 			url: setup.$CCForm.prop('action'),
 			type: 'POST',
@@ -128,7 +173,8 @@ var Pay = (function () {
 				setup.$message.html(textResult);
 				form_data.orderId = data.response.merchantOrderId;
 				//-- before: Api.download(setup.selCartItem);
-				processOrder(form_data);
+				console.log(form_data);
+				//processOrder(form_data);
 			}
 		}).fail(function (data) {
 			console.log(data);
@@ -151,7 +197,7 @@ var Pay = (function () {
 
 	var tokenRequest = function () {
 		// Setup token request arguments
-		var args = {
+		let args = {
 			sellerId: "901331385",
 			publishableKey: "9D266415-16A9-49D0-AD84-AC8A1A735EB2",
 			ccNo: setup.$CCNumber.val(),
@@ -164,20 +210,54 @@ var Pay = (function () {
 		TCO.requestToken(successTokenCC, errorTokenCC, args);
 	}
 
+	var tokenRequestPayU = function () {
+		let args = {
+			url: location.origin + '/latincolor/order/PayU_token',
+			inputs: {
+				username: setup.userName.val(),
+				tipoTarjeta: setup.tipoTarjeta.val(),
+				ccNo: setup.$CCNumber.val(),
+				expMonth: setup.$CCMonth.val(),
+				expYear: setup.$CCYear.val()
+			}
+		};
+		$.submitForm(args, function(res){
+			console.log(res);
+			if (res.status != 500) {
+				if (res.code == 'SUCCESS') {
+					//payWithToken(res);
+					console.log(res);
+				} else {
+					console.log(res);
+				}
+			} else {
+				console.log('Ha ocurrido un error interno');
+			}
+		})
+	}
+
+	var payWithToken = function () {
+		let form_data = {
+			url: location.origin + '/latincolor/order/PayU_pay_token',
+			inputs: {
+				//token: datatoken.creditCardToken.creditCardTokenId,
+				orderId: 0,
+				totalId: setup.factTotal.text().replace(",", "."),
+				tranType: setup.tranType,
+				username: setup.userName.val()
+			}
+		}
+		$.submitForm(form_data, function(res){
+			console.log(res)
+		})
+	}
+
 	var processOrder = function (form) {
-		//var defer = $.Deferred(),
-		//    result = defer.then()
-		//let status = ( form.provider=='Depositphoto' ? '' : 'ord' );
-		//+form.orderId+'/'+form.username+'/'+form.totalId+'/'+form.description+'/'+form.tranType+'/'+status)
 		$.getJSON(location.origin + '/latincolor/order/confirmar_orden', form)
 			.then(function (res) {
 				if (res.process.images.result == 'ok') {
 					if (setup.cartItems.images.length > 0) {
 						$.download(setup.cartItems.images, function (res2) {
-							// let res2 = setup.cartItems.images;
-							// $.each(res2, function(i,t){
-							// 	t.result = 'success';
-							// });
 							setup.resCartItems.images = res2;
 							console.log(setup.resCartItems);
 							//setup.$CCWindow.modal('close');

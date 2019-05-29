@@ -282,5 +282,20 @@ class Login extends CI_Controller {
 			}
 	}
 
+	function test_mail() {
+		$this->load->library("PHPMailer_Library_lci");
+		$mail = $this->phpmailer_library_lci->createPHPMailer();
+		$mail->addAddress("gerencia@latincolorimages.com", "Carolina Arévalo");
+		$mail->Subject = "Prueba email desde Pruebas LCI";
+		$mail->Body = "Prueba email desde Pruebas LCI";
+		try {
+			if (!$mail->send()) {
+				throw new Exception("Mailer Error: " . $mail->ErrorInfo, 1);
+			} 
+		} catch (Exception $e) {
+			echo $e->getMessage();
+				
+		}
+	}
 
 }

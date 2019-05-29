@@ -186,9 +186,15 @@ if(!function_exists('material_servicio_card'))
     {
       $mi_consultor = base_url('main/consultor');
       $serv_card = "<div class='servicios card {$style}'>"
-                  ."<div class='card-image waves-effect waves-block waves-light'>"
-                  ."<img class='activator' src='".base_url("{$image}")."'>"
-                  ."</div>"
+                  ."<div class='card-image waves-effect waves-block waves-light'>";
+      if (substr($image, -3) != 'mp4') {
+        $serv_card .= "<img class='activator' src='".base_url("{$image}")."'>";
+      } else {
+        $serv_card .= "<video autoplay loop muted playsinline>"
+                    ."<source src='".base_url("{$image}")."' type='video/mp4'>"
+                    ."</video>";
+      }
+      $serv_card .= "</div>"
                   ."<div class='card-content'>"
                   ."<span class='card-title activator white-text ".$title_size."'>{$title}"
                   ."<i class='small material-icons right activator circle'>arrow_forward</i>"

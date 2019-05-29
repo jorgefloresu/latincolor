@@ -35,6 +35,7 @@ var Admin = {
       Admin.setDataVentas();
       Admin.onDepositphoto();
       Admin.onDeleteSubaccount();
+      Admin.onOrderView();
       Admin.setMaterial();
       Admin.getCounters();
       //setInterval(Admin.notify, 10000);
@@ -428,6 +429,27 @@ var Admin = {
     onDeleteSubaccount: function() {
       $('.delete-user').on('click', function() {
         $(this).parent().parent().find('span').text('Eliminando...');
+      })
+    },
+
+    onOrderView: function() {
+      $('#pasarela-tran').modal({
+        complete: function() {
+          $('.tran-detail').text('');
+        }
+      });
+
+      $('.view-tran').on('click', function(e){
+        e.preventDefault();
+        $('.tran-detail').text('Obteniendo transacción...');
+        let order = $(this).text();
+        $.getJSON(location.origin+'/latincolor/admin/consulta_payu/'+order)
+          .then(function(res){
+            console.log(res);
+            $('.tran-detail').text(JSON.stringify(res, null, 3));
+          }).fail(function(res){
+            console.log(res);
+          })
       })
     },
 

@@ -159,6 +159,7 @@ nav#slide-search-bar {
 	height: 55px;
   border-bottom: none !important;
   color: #000;
+  line-height: normal;
 }
 
 .search-wrapper .input-field input[type=search]:focus {
@@ -193,7 +194,7 @@ nav#slide-search-bar {
 }
 .footer-text .grey-text {
   /* text-shadow: #fff 0px 1px 1px; */
-  padding: 0 10px;
+  padding-left: 20px;
 }
 .no-margin-bottom {
   margin-bottom: 0;

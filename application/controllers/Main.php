@@ -11,6 +11,7 @@ class Main extends CI_Controller {
         //$this->output->cache(60);
         //$this->output->delete_cache();
         //$this->load->library('rawdata/depositclient');
+        require_once APPPATH . 'libraries/PayU.php';
         $this->load->library('membership');
         $this->load->library('language',array('language'=>'es_SV'));
     	  $this->load->driver('providers');
@@ -52,6 +53,10 @@ class Main extends CI_Controller {
       $data['logged'] = $this->membership->is_logged_in();
       $data['user_data'] = (object) array('fname'=>'','email_address'=>'');
       $data['user_info'] = '';
+      $data['banks'] = $this->banks();
+      $data['persona'] = $this->persona();
+      $data['documento'] = $this->documento();
+      $data['tarjeta'] = $this->tarjeta();
 
       //$userdata = (object) array('fname'=>'','email_address'=>'');
       if ($data['logged']){
@@ -154,6 +159,68 @@ class Main extends CI_Controller {
       print_r($cut);
     }
 
+    public function init_payu()
+    {
+        //PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
+        //PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
+        //PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
+        PayU::$apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
+        PayU::$apiLogin = "pRRXKOl8ikMmt9u";
+        PayU::$merchantId = "508029";
+        PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
+        PayU::$isTest = true; //Dejarlo True cuando sean pruebas.
+
+        //Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
+        //Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
+        //Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
+
+        // URL de Pagos
+        Environment::setPaymentsCustomUrl("https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi");
+        // URL de Consultas
+        Environment::setReportsCustomUrl("https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi");
+        // URL de Suscripciones para Pagos Recurrentes
+        Environment::setSubscriptionsCustomUrl("https://sandbox.api.payulatam.com/payments-api/rest/v4.3/");
+    }
+
+    function banks() {
+      $this->init_payu();
+      //Ingrese aquí el nombre del medio de pago
+      $parameters = array(
+        //Ingrese aquí el identificador de la cuenta.
+        PayUParameters::PAYMENT_METHOD => "PSE",
+        //Ingrese aquí el nombre del pais.
+        PayUParameters::COUNTRY => PayUCountries::CO,
+      );
+      $array=PayUPayments::getPSEBanks($parameters);
+      return $array->banks;
+
+    }
+
+    function persona() {
+      return [['tipo'=>'Persona Natural', 'code'=>'N'],
+              ['tipo'=>'Persona Jurídica', 'code'=>'J']];
+    }
+
+    function documento() {
+      return [['code'=>'CC', 'tipo'=>'Cédula de ciudadanía'],
+              ['code'=>'CE', 'tipo'=>	'Cédula de extranjería'],
+              ['code'=>'NIT', 'tipo'=>	'Número de Identificación Tributaria'],
+              ['code'=>'TI', 'tipo'=>	'Tarjeta de Identidad'],
+              ['code'=>'PP', 'tipo'=>	'Pasaporte'],
+              ['code'=>'IDC', 'tipo'=>	'Identificador único de cliente'],
+              ['code'=>'CEL', 'tipo'=>	'Identificador de la línea del móvil'],
+              ['code'=>'RC', 'tipo'=>	'Registro civil de nacimiento'],
+              ['code'=>'DE', 'tipo'=>	'Documento de identificación extranjero']];
+    }
+
+    function tarjeta() {
+      return [['code'=>'VISA', 'tipo'=>'VISA'],
+              ['code'=>'MASTERCARD', 'tipo'=>'MASTERCARD'],
+              ['code'=>'DINERS', 'tipo'=>'DINERS'],
+              ['code'=>'AMEX', 'tipo'=>'AMEX'],
+              ['code'=>'VISA_DEBIT', 'tipo'=>'VISA_DEBIT']];
+    }
+
     function search($page) {
         $data['logo'] = $this->logo;
         $data['keyword'] = ($this->input->get('keyword') ?: "");
@@ -176,6 +243,11 @@ class Main extends CI_Controller {
             $fullname = $this->membership_model->get_fullname($data['logged']);
             $data['user_info'] = json_encode($fullname->row());
         }
+
+        $data['banks'] = $this->banks();
+        $data['persona'] = $this->persona();
+        $data['documento'] = $this->documento();
+        $data['tarjeta'] = $this->tarjeta();
 
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
                 strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
@@ -316,6 +388,18 @@ class Main extends CI_Controller {
       $this->load_page('nosotros');
     }
 
+    function privacidad()
+    {
+      add_js('common');
+      $this->load_page('privacidad');
+    }
+
+    function condiciones()
+    {
+      add_js('common');
+      $this->load_page('condiciones');
+    }
+
     function user(){
       $username = $this->membership->is_logged_in();
       if ($username != '') {
@@ -331,7 +415,7 @@ class Main extends CI_Controller {
         $data['sum_downloads'] = $this->membership_model->sum_price('downloads', 'img_price', $username);
         //$data['sum_planes'] = sumar_valores($data['planes_list'],'valor');
         $data['sum_planes'] = $this->membership_model->sum_planes($username);
-        
+        $data['tarjeta'] = 
         $offset = 4;
         $this->pagination(count($data['planes_list']), $offset);
         $data['pags'] = $this->pagination->create_links();
@@ -440,7 +524,7 @@ class Main extends CI_Controller {
         foreach ($items as $key => $value) {
           $item = json_decode($value, true);
           $provider = $item['provider'];
-          //$res[$key] = ['url'=>'http://depositphotos.com', 'licenseid'=>'1234455'];
+          //$res[$key] = ['url'=>'http://localhost:8888/latincolor/img/paquetes.jpg', 'licenseid'=>'1234455'];
           $res[$key] = $this->providers->{strtolower($provider)}->download($item);
           if ($res[$key]['url'] == '') {
             $item['result'] = 'failed';

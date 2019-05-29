@@ -281,7 +281,9 @@ var Api = ( function() {
                   if (data) {
                     preview.title.html(data.title);
                     preview.subtitle.html("No. de referencia: #"+data.id);
-                    preview.condiciones.text(data.provider);
+                    preview.condiciones.text(function(){
+                      return data.provider + (data.provider=='Depositphoto'?'s':'');
+                    });
                     $('.provider-features').html(Templates.previewFeatures(data.provider));
                     if (data.type == 'video') {
                       preview.image.css('min-height', 0);
@@ -740,10 +742,10 @@ var Api = ( function() {
           $(".chat-collapse").sideNav({
             edge: 'right'
           });
-         $('.tooltipped').tooltip();
-         $('.dropdown-plan').tooltip('remove');
-         if ($('#stotal').text() != '0')
-            $('.tooltipped').tooltip('remove');
+          $('.tooltipped').tooltip();
+          $('.dropdown-plan').tooltip('remove');
+          if ($('#stotal').text() != '0')
+              $('.tooltipped').tooltip('remove');
   }
 
   return {

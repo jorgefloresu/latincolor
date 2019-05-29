@@ -32,10 +32,23 @@
                     <i class="material-icons white-text">account_circle</i>
                   </a>
                   <span class="card-title activator grey-text text-darken-4">Latin Color Images</span>
-                  <p><i class="material-icons small cyan-text text-darken-2">room</i> Calle 169 # 45A No. 66</p>
-                  <p style="margin-left:34px"> Bogotá D.C., Colombia</p>
-                  <p><i class="material-icons small cyan-text text-darken-2">phone</i> +57 (314) 295 8463</p>
-                  <p><i class="material-icons small cyan-text text-darken-2">email</i> ventas@latincolorimages.com</p>
+                  <p class="valign-wrapper"><i class="material-icons small cyan-text text-darken-2">room</i> Calle 169<sup>a</sup> # 56 - 57 Oficina 504</p>
+                  <p class="valign-wrapper" style="padding:10px 0"><i class="material-icons small cyan-text text-darken-2">phone</i> +57 1 694 05 60</p>
+                  <p class="valign-wrapper"><i class="material-icons small cyan-text text-darken-2">email</i> ventas@latincolorimages.com</p>
+                  <p style="margin-top:10px"> Bogotá D.C., Colombia</p>
+                  <p style="margin-top:34px"><b>Para ventas y soporte en Colombia y Latinoamérica</b></p>
+                  <p class="valign-wrapper" style="padding:10px 0"><i class="material-icons small cyan-text text-darken-2">email</i> carolina@latincolorimages.com</p>
+                  <p><a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
+                    target="_blank" class="phone hide-on-small-only" style="padding-left: 30px;">
+                    <img src="<?=base_url('img/whatsapp-30.png')?>" style="margin:0 -30px;position: absolute;"> +57 1 314
+                    295 8463</a>
+                  </p>
+                  <p style="margin-top:34px"><b>Para ventas y soporte en Centroamérica</b></p>
+                  <p class="valign-wrapper" style="padding:10px 0"><i class="material-icons small cyan-text text-darken-2">email</i> jorge@latincolorimages.com</p>
+                  <p><a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
+                      target="_blank" class="phone hide-on-small-only" style="padding-left: 30px;">
+                      <img src="<?=base_url('img/whatsapp-30.png')?>" style="margin:0 -30px;position: absolute;"> +503 7920 2025</a>
+                  </p>
               </div>
             </div>
           </div>
@@ -43,35 +56,24 @@
             <ul class="collection">
               <li class="collection-item avatar">
                 <i class="fab fa-skype fa-3x pink-text text-accent-2 brand-icon"></i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                   Second Line
+                <span class="title">Skype</span>
+                <p><a href="skype:latincolorimages?chat">latincolorimages</a>
                 </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
               </li>
               <li class="collection-item avatar">
                 <i class="fab fa-facebook fa-3x pink-text text-accent-2 brand-icon"></i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                   Second Line
+                <span class="title">Facebook</span>
+                <p><a href="https://www.facebook.com/LatinColorImages/">LatinColorImages</a>
                 </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-              </li>
-              <li class="collection-item avatar">
-                <i class="fab fa-twitter fa-3x brand-icon pink-text text-accent-2"></i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                   Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
               </li>
               <li class="collection-item avatar">
                 <i class="fab fa-instagram fa-3x brand-icon pink-text text-accent-2"></i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                   Second Line
+                <span class="title">Instagram</span>
+                <p><a href="https://www.instagram.com/latincolorimages/?hl=es-la">latincolorimages</a> 
                 </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
               </li>
             </ul>
           </div>

@@ -15,6 +15,11 @@ nav.nav-extended .top-content {
   line-height: 35px;
   min-height: 35px;
 }
+
+.page-footer ul.browser-default li {
+  margin-left: -25px;
+}
+
 #welcome-user {
   height: 600px;
   max-height: 600px;
@@ -44,9 +49,9 @@ nav.nav-extended .top-content {
   z-index: 990;
 }
 /*Search box*/
-.search-result-background {
-  /* background-color: #eee; */
-}
+/*.search-result-background {
+   background-color: #eee;
+}*/
 .header-search-wrapper {
   /* max-width: 824px; */
   /* width: 100%; */
@@ -372,6 +377,9 @@ td.table-sizes {
 #savetocart:hover:before{
   content: '\E5CC';
 }
+table.responsive-table th.responsive-header {
+  width: 120px;
+}
 #loading img {
   margin: 0 auto;
   object-fit: cover;
@@ -398,7 +406,7 @@ td.table-sizes {
 #buy {
   max-width: 800px;
   max-height: 475px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 #buy select.browser-default {
   width: auto;
@@ -524,7 +532,7 @@ p.collections-content {
   .planes .parallax-container .section,
   .consultor .parallax-container .section,
   .servicios .parallax-container .section
-   {
+  {
     position: absolute;
     top: 40%;
   }
@@ -533,6 +541,9 @@ p.collections-content {
   }
   #cart {
     width: 80%;
+  }
+  table.responsive-table th.responsive-header {
+    height: 86px;
   }
 }
 

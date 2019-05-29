@@ -35,9 +35,10 @@
                     }).done(function(res){
                       $('.load-progress').toggle(false);
                       populate(res);
-                    }).fail(function(res){
+                    }).fail(function(jqXHR, textStatus, errorThrown){
                       $('.load-progress').toggle(false);
-                      populate(res);
+                      populate(jqXHR);
+                      //alert(errorThrown);
                       //alert("Error from url: "+form.url);
                     });
                 }
@@ -50,10 +51,10 @@
             }
             $.each(items, function (index, selCartItem) {
               downloadItems.items.push(JSON.stringify({
-                  id: selCartItem.productId,
+                  productId: selCartItem.productId,
                   size: selCartItem.size,
                   price: Number(selCartItem.price).toFixed(2),
-                  license: selCartItem.license_type,
+                  license_type: selCartItem.license_type,
                   provider: selCartItem.provider,
                   username: selCartItem.username,
                   thumb: selCartItem.thumb,
@@ -110,7 +111,7 @@
                           let hoy = new Date();
                           $.saveFile(file, 'LCI-'+hoy.getTime()+'.zip');
                         } else {
-                          $.saveFile(file, 'LCI-'+item.provider.substring(0,2)+'-'+item.id);
+                          $.saveFile(file, 'LCI-'+item.provider.substring(0,2)+'-'+item.productId);
                         }
                       })
                     }

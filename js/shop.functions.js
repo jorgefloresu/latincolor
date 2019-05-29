@@ -528,6 +528,9 @@
       console.log(Pay.setup.factTotal.text().replace(",", "."));
       let self = this;
       Pay.setup.$CCWindow.modal({
+        /* ready: function() {
+            Pay.setup.tabsPayMethods.tabs();
+        }, */
         complete: function () {
           let allItems = [];
           allItems.push.apply(allItems, Pay.setup.resCartItems.images);
@@ -556,14 +559,13 @@
               if (Pay.setup.resCartItems.images.length > 0) {
                 $('#downloading').removeClass('hide');
                 Pay.setup.$message.html() == 'Transacción aprobada!... preparando compra';
-                self.setMessage('Descargando...');
+                self.setMessage('Descargado');
               }
               //Pay.setup.resCartItems = [];
             }
           }
         }
       });
-
       //Pay.setup.$CCWindow.modal('open');
 
     },

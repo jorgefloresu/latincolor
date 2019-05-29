@@ -41,7 +41,7 @@
               <a class="dropdown-button dropdown-providers grey-text text-darken-3" href="" data-activates="search-in">Buscar en
                 <i class="material-icons right">arrow_drop_down</i></a>
             </li> -->
-            <div class="hide-on-med-and-down" style="position:absolute; left:270px; height:30px; line-height:30px; top:27px">
+            <div class="hide-on-med-and-down" style="position:absolute; left:270px; height:35px; line-height:35px; top:23px">
 
               <li><a href="<?=site_url('main/planes')?>" class="grey-text text-darken-3" style="font-size:12px">PLANES & SUSCRIPCIONES</a></li>
               <li><a href="<?=site_url('main/planes#paquetes-promo')?>" class="grey-text text-darken-3" style="font-size:12px">PAQUETES</a></li>
