@@ -84,7 +84,7 @@ class Providers_depositphoto extends CI_Driver {
         $username = $this->CI->input->post('username');
 				$img_url = $this->CI->input->post('thumb'); */
 
-				$media = $item['id'];
+				$media = $item['productId'];
 				$size = $item['size'];
 				$price = $item['price'];
 				$license = $item['license'];
@@ -149,6 +149,7 @@ class Providers_depositphoto extends CI_Driver {
 								'desc' 		=> $res->title,
 								'license' => $this->instant['license'],
 								'thumb' 	=> $res->thumb,
+								'type' 		=> $res->itype,
 								'subscription'=> $this->instant['subscription'],
 								'provider'=> 'Depositphoto'
 							));
@@ -186,6 +187,7 @@ class Providers_depositphoto extends CI_Driver {
 						'desc' 		=> $obj->title,
 						'license' => $license,
 						'thumb' 	=> $obj->thumb,
+						'type' 		=> $this->preview['type'],
 						'subscription'=>$s->subscription,
 						'provider'=> 'Depositphoto'
 					));

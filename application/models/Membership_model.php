@@ -54,7 +54,8 @@ class Membership_model extends CI_Model {
 			'last_name' => $this->input->post('last_name'),
 			'email_address' => $this->input->post('email_address'),
 			'username' => $this->input->post('username'),
-			'password' => md5($this->input->post('password'))
+			'password' => md5($this->input->post('password')),
+			'country' => $this->input->post('country')
 		);
 
 		$insert = $this->db->insert('membership', $new_member_insert_data);
@@ -122,6 +123,8 @@ class Membership_model extends CI_Model {
 
 		$total['images'] = 0;
 		$total['planes'] = 0;
+		$data_insert = [];
+		$new_ventas_data = [];
 
 		foreach ($items as $key => $item) {
 			foreach ($item as $value) {
@@ -132,7 +135,7 @@ class Membership_model extends CI_Model {
 				$value['orderId'] = $orderId;
 				unset($value['tranType']); unset($value['username']); 
 				unset($value['idplan']); unset($value['subscriptionId']);
-				$data_insert[] = $value;
+				array_push($data_insert, $value);
 			}
 			if ($total[$key] > 0) {
 				$new_ventas_data[] = array(

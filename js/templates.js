@@ -134,6 +134,10 @@ var providerPlanFeatures = function(provider, medio) {
                     'Impresiones hasta 1.000.000 copias por imagen en cualquier medio',
                ],
                'Videos': []
+          },
+          'Adobe': {
+               'Fotos':[],
+               'Videos':[]
           }
      };
      medio = medio.substring(0,6);
@@ -191,7 +195,8 @@ var providerPreviewFeatures = function(provider) {
                'Impresiones hasta 1.000.000 copias por imagen en cualquier medio',
                'Todo uso comercial y publicitario',
                'Material merchandising entregado de manera gratuita'
-          ]
+          ],
+          'Adobe': []
      }
      return particularFeatures[provider];
 }
@@ -224,7 +229,7 @@ var planButton = function(plan, desc) {
      let logoProvider = location.origin+"/latincolor/img/"+plan.provider+".png";
      return "<a data-id='"+plan.id+"' data-img='"+plan.id+
                "' data-price='"+plan.valor+"' data-iva='"+plan.iva+"' data-thumb='"+logoProvider+
-               "' data-tco='"+plan.tco+"' data-provider='"+plan.provider+"' data-desc='"+desc+
+               "' data-tco='"+plan.tco+"' data-provider='"+plan.provider+"' data-desc='"+desc+"' data-type='plan'"+
                "' data-size='N/A' data-sizelbl='-' data-license='standard' data-trantype='compra_plan' data-idplan='"+plan.offerId+
                "' class='comprar-plan-btn btn waves-effect waves-light blue'><i class='material-icons tiny'>add_shopping_cart</i></a>";
 }

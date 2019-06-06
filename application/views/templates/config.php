@@ -13,14 +13,6 @@
             <label for="<?=$key?>"><?=$field['description']?></label>
           </div>
         <?endforeach?>
-        <!-- <div class="input-field col s12">
-          <input id="comision" name="comision" value="<?=$comision?>" placeholder="Use decimales, ej: digite 0.4 para representar 40%" type="text" class="validate">
-          <label for="comision">Porcentaje de Comisión</label>
-        </div>
-        <div class="input-field col s12">
-          <input id="iva" name="iva" value="<?=$iva?>" placeholder="Use decimales, ej: digite 0.16 para representar 16%" type="text" class="validate">
-          <label for="iva">IVA</label>
-        </div> -->
 
     </div>
     <div class="row">

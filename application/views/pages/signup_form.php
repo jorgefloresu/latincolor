@@ -22,17 +22,30 @@
 					</div>
      			</div>
 				<div class="row margin">
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<i class="material-icons prefix">account_circle</i>
 						<input type="text" id="username" name="username" required="" aria-required="true">
 						<label for="username">Nombre de usuario</label>
 					</div>
+					<div class="input-field col s6">
+						<select class="country" name="country">
+						<? foreach ($countries as $country) {
+							$value = $country->code=='00'?'':$country->name;
+							$disabled = $country->code=='00'?'disabled':'';
+							$selected = $country->code=='CO'?'selected':'';
+							echo "<option value='$value' $disabled $selected>".$country->name."</option>";
+						}?>
+						</select>
+						<label>País donde te encuentras</label>
+					</div>
+				</div>
+				<div class="row margin">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">email</i>
 						<input type="email" id="email_address" name="email_address" required="" aria-required="true">
 						<label for="email_address">Dirección email</label>
 					</div>
-    			</div>
+    		</div>
 				<div class="row margin">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">lock</i>

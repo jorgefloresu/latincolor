@@ -54,10 +54,11 @@
                   productId: selCartItem.productId,
                   size: selCartItem.size,
                   price: Number(selCartItem.price).toFixed(2),
-                  license_type: selCartItem.license_type,
+                  license: selCartItem.license_type,
                   provider: selCartItem.provider,
                   username: selCartItem.username,
                   thumb: selCartItem.thumb,
+                  type: selCartItem.type,
                   result: ''
                 })
               )
@@ -115,6 +116,7 @@
                         }
                       })
                     }
+                    if (item.url.substr(-3) == 'zip') return false;
                   });
                   callback(data);
                 }

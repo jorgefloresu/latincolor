@@ -69,17 +69,22 @@ class Providers_dreamstime extends CI_Driver {
 				$username = $this->CI->input->post('username');
 				$img_url = $this->CI->input->post('thumb'); */
 
-				$media = $item['id'];
+				$media = $item['productId'];
 				$size = $item['size'];
 				$price = $item['price'];
 				$license = $item['license'];
 				$username = $item['username'];
 				$img_url = $item['thumb'];
+				$type = $item['type'];
 				$url = '';
 				$licenseId = '';
 
 				$this->CI->load->model('membership_model');
-				$purchased_media = $this->CI->dreamstime_api->goImageDownload($media, $size);
+				if ($type == 'image') {
+					$purchased_media = $this->CI->dreamstime_api->goImageDownload($media, $size);
+				} else {
+					$purchased_media = $this->CI->dreamstime_api->goVideoDownload($media, $size);
+				}
 
 				if ( isset($purchased_media->downloadURL) )
 				{
@@ -127,20 +132,21 @@ class Providers_dreamstime extends CI_Driver {
 					'desc' => $res->title,
 					'license' => $this->instant['license'],
 					'thumb' => $res->smallThumb,
+					'type' => $this->CI->input->get('type'),
 					'subscription' => 0,
 					'provider' => 'Dreamstime'
 				);
 
 				if ($this->CI->input->get('type')=='video') {
 						$this->instant['id'] = $res->videoID;
-						$this->instant['size'] = 'Web';
+						$this->instant['size'] = 'web';
 						$this->instant['tag'] = $this->price_item_cart( array_merge($item, array(
 									'id' 			=> $this->instant['id'],
 									'price' 	=> $this->set_price($res->videoweb),
 									'width' 	=> $res->videowebWidth,
 									'height' 	=> $res->videowebHeight,
 									'size' 		=> $this->instant['size'],
-									'sizelbl' => $this->instant['size']
+									'sizelbl' => 'Web'
 								)));
 				} else {
 						$this->instant['id'] = $res->imageID;
@@ -189,19 +195,20 @@ class Providers_dreamstime extends CI_Driver {
 					'desc' => $obj->title,
 					'license' => $license,
 					'thumb' => $obj->smallThumb,
+					'type' => $this->preview['type'],
 					'subscription' => 0,
 					'provider' => 'Dreamstime'
 				);
 
       	$this->preview['sizes'] .= $this->price_item( array_merge($item, array(
-								'size' => 'Web',
+								'size' => 'web',
 								'sizelbl' => 'Web',
 								'width' => $obj->videowebWidth,
 								'height' => $obj->videowebHeight,
 								'price' => $this->set_price($obj->videoweb)
 							))).$this->price_item( array_merge($item, array(
 								'size' => '720',
-								'sizelbl' => '720',
+								'sizelbl' => '720p',
 								'width' => $obj->video720Width,
 								'height' => $obj->video720Height,
 								'price' => $this->set_price($obj->video720)
@@ -210,7 +217,7 @@ class Providers_dreamstime extends CI_Driver {
 				if ($obj->video1080)
 					$this->preview['sizes'] .= $this->price_item( array_merge($item, array(
 								'size' => '1080',
-								'sizelbl' => '1080',
+								'sizelbl' => '1080p',
 								'width' => $obj->video1080Width,
 								'height' => $obj->video1080Height,
 								'price' => $this->set_price($obj->video1080)
@@ -252,6 +259,7 @@ class Providers_dreamstime extends CI_Driver {
 					'desc' => $obj->title,
 					'license' => $license,
 					'thumb' => $obj->smallThumb,
+					'type' => 'image',
 					'subscription' => 0,
 					'provider' => 'Dreamstime'
 				);

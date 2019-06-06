@@ -32,6 +32,7 @@ class DreamstimeParams
     const MEDIA_COPIES       = 'copies';
 
     const DOWNLOAD_CMD       = 'download';
+    const DOWNLOAD_VIDEO     = 'videodownload';
 }
 
 ?>

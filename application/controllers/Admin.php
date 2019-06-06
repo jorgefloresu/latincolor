@@ -252,9 +252,9 @@ class Admin extends CI_Controller {
 			$response = 'No se encuentra esa transacción';
 		}
     //header('Content-Type: application/json');
-		//echo json_encode($response);
-		//$data['result'] = "<pre>".print_r($response)."</pre>";
 		echo json_encode($response);
+		//$data['result'] = "<pre>".print_r($response)."</pre>";
+		//echo json_encode($response);
 
   }
 

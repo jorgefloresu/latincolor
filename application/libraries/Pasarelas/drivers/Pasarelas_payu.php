@@ -50,10 +50,10 @@ class Pasarelas_payu extends CI_Driver {
             //Ingrese aquí el valor del IVA (Impuesto al Valor Agregado solo valido para Colombia) de la transacción,
             //si se envía el IVA nulo el sistema aplicará el 19% automáticamente. Puede contener dos dígitos decimales.
             //Ej: 19000.00. En caso de no tener IVA debe enviarse en 0.
-            //PayUParameters::TAX_VALUE => "", //"3193",
+            PayUParameters::TAX_VALUE => 0, //"3193",
             //Ingrese aquí el valor base sobre el cual se calcula el IVA (solo valido para Colombia).
             //En caso de que no tenga IVA debe enviarse en 0.
-            //PayUParameters::TAX_RETURN_BASE => "", //"16806",
+            PayUParameters::TAX_RETURN_BASE => 0, //"16806",
 
             //Ingrese aquí la moneda.
             PayUParameters::CURRENCY => $pay['currency'],
@@ -96,7 +96,9 @@ class Pasarelas_payu extends CI_Driver {
 
             //Ingrese aquí el nombre de la tarjeta de crédito
             //VISA||MASTERCARD||AMEX||DINERS
-            PayUParameters::PAYMENT_METHOD => $pay['userinfo']->cc_method,
+            //PayUParameters::PAYMENT_METHOD => $pay['userinfo']->cc_method,
+            PayUParameters::PAYMENT_METHOD => $pay['tipoTarjeta'],
+
             //Ingrese aquí el número de cuotas.
             PayUParameters::INSTALLMENTS_NUMBER => "1",
             //Ingrese aquí el nombre del pais.
@@ -159,11 +161,14 @@ class Pasarelas_payu extends CI_Driver {
         $this->init_payu();
         //Ingresa aquí el código de referencia de la orden.
         //history id: 7765626
-        $parameters = array(PayUParameters::ORDER_ID => "$orderId");
+        $parameters = array(PayUParameters::ORDER_ID => $orderId);
 
-        $order = PayUReports::getOrderDetail($parameters);
+        try {
+            $order = PayUReports::getOrderDetail($parameters);
+        } catch (Exception $e) {
+            $order = $e->getMessage();
+        }
 
-        
         return $order;
 
     }

@@ -442,7 +442,8 @@ var Admin = {
       $('.view-tran').on('click', function(e){
         e.preventDefault();
         $('.tran-detail').text('Obteniendo transacción...');
-        let order = $(this).text();
+        let order = $(this).data('order');
+        $('#pasarela-tran').modal('open');
         $.getJSON(location.origin+'/latincolor/admin/consulta_payu/'+order)
           .then(function(res){
             console.log(res);

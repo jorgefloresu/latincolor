@@ -144,7 +144,7 @@ class Membership
 						break;
 					case 'Ingimages':
 						$attach = '';
-						$url = 'http://www.ingimages.com';
+						$url = 'http://www.ingimage.com';
 						break;
 					default:
 						$attach = '';

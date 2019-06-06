@@ -22,7 +22,7 @@
               <tr><td></td>
               <? foreach ($orden as $key => $value): ?>
                   <? if ($key == 'orderId'): ?>
-                    <td><a class='modal-trigger modal-close view-tran' href='#pasarela-tran'><?= $value ?></a></td>
+                    <td class="view-tran blue-text" style="cursor:pointer" data-order="<?=substr($value, 0, strlen($value)-1)?>"><?=$value?></td>
                   <? else: ?>
                     <td><?= $value ?></td>
                   <? endif ?>

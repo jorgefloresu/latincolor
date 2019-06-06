@@ -744,8 +744,9 @@ var Api = ( function() {
           });
           $('.tooltipped').tooltip();
           $('.dropdown-plan').tooltip('remove');
-          if ($('#stotal').text() != '0')
+          if ($('#stotal').text() != '0') {
               $('.tooltipped').tooltip('remove');
+          }
   }
 
   return {

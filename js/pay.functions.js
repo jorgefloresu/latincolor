@@ -2,7 +2,7 @@ var Pay = (function () {
 
 	var setup = {
 		init: function () {
-			let values = {
+			var values = {
 				factDescript: $('.fact-descript'),
 				factSubtotal: $('.fact-subtotal'),
 				factIVA: $('.fact-iva'),
@@ -44,6 +44,7 @@ var Pay = (function () {
 				$CCMonth: $("#expMonth"),
 				$CCYear: $("#expYear"),
 				token: '',
+				processed: false,
 
 				tabsPayMethods: $('ul.tabs')
 			};
@@ -102,13 +103,13 @@ var Pay = (function () {
 		};
 
 		$.submitForm(args, function(res){
+			console.log(res);
 			if (res.state == "APPROVED") {
 				let textResult = 'APROBADA. Procesando, espere...';
 				setup.$message.html(textResult);
 				setup.token = res.transactionId;
 				args.inputs.orderId = res.merchantOrderId;
 				args.inputs.token = res.transactionId;
-				console.log(res);
 				console.log(args.inputs);
 				processOrder(args.inputs);
 			} else if (res.state == "DECLINED") {
@@ -254,38 +255,23 @@ var Pay = (function () {
 
 	var processOrder = function (form) {
 		$.getJSON(location.origin + '/latincolor/order/confirmar_orden', form)
-			.then(function (res) {
-				if (res.process.images.result == 'ok') {
-					if (setup.cartItems.images.length > 0) {
-						$.download(setup.cartItems.images, function (res2) {
-							setup.resCartItems.images = res2;
-							console.log(setup.resCartItems);
-							//setup.$CCWindow.modal('close');
-						})
+				.then(function (res) {
+					if (res.process.images.result !== 'ok') {						
+						console.log('error al enviar correo de orden de las imagenes');
+						Materialize.toast('No fue posible enviar notificación al correo',4000);
 					}
-				} else {
-					console.log(res);
-				}
-				if (res.process.planes.result == 'ok') {
-					if (setup.cartItems.planes.length > 0) {
-						setup.resCartItems.planes = setup.cartItems.planes;
-						setup.resCartItems.planes[0].result = 'success';
-						//setup.resCartItems.images[0].result = 'success';
-						console.log(setup.resCartItems);
-						console.log(res);
-						//modalControl.resolve(setup.cartItems);
-						//setup.$CCWindow.modal('close');
+					if (res.process.planes.result !== 'ok') {
+						console.log('error al enviar correo de orden del plan');
+						Materialize.toast('No fue posible enviar notificación al correo',4000);
 					}
-				} else {
+				})
+				.done(function () {
+					setup.processed = true;
+					setup.$CCWindow.modal('close');
+				})
+				.fail(function (res) {
 					console.log(res);
-				}
-			})
-			.done(function () {
-				setup.$CCWindow.modal('close');
-			})
-			.fail(function (res) {
-				console.log(res);
-			});
+				})
 	}
 
 	return {

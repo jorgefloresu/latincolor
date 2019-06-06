@@ -88,6 +88,12 @@ class Login extends CI_Controller {
 		echo json_encode($user_info);
 	}
 
+	function full_user_info($username)
+	{
+		$fullname = $this->membership_model->get_fullname($username);
+		echo json_encode($fullname->row());
+	}
+
 	function signup()
 	{
 		$data['title'] = "Login Page";

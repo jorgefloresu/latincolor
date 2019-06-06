@@ -1,29 +1,25 @@
 <div id="buy" class="modal">
   <div class="modal-content" style="padding:10px">
-    <div id="aviso" class="row hide" style="margin-bottom:0">
+    <!-- <div id="aviso" class="row hide" style="margin-bottom:0">
       <div class="col s12">
         <div class="card-panel yellow no-shadow" style="padding: 15px">
           <span><i><strong>Importante:</strong> Ten en cuenta que para descargar varias imágenes, debes asegurarte
               que tu navegador tenga habilitada la opción de descargas multiples.</i></span>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row" style="margin-top: 10px">
-      <h5>Selecciona método de pago</h5>
+      <div class="col s12">
+        <h5>Selecciona método de pago</h5>
+      </div>
+      
       <!-- <ul class="tabs" style="margin-bottom:10px; background-color:transparent">
             <li class="tab col s6"><a href="#pay-tarjeta">Tarjeta de Crédito</a></li>
             <li class="tab col s6"><a href="#pay-transfer">Transferencia Bancaria</a></li>
         </ul> -->
     </div>
     <div class="row" style="margin-bottom:0;">
-      <img src="<?=base_url('img/co-credito.png')?>" style="height:45px">
-    </div>
-    <div class="row" style="margin-bottom:0;">
-      <div class="col s4">
-        <?$this->load->view('templates/pre_factura')?>
-      </div>
-      <div class="col s1"></div>
-      <div class="col s7">
+      <div class="col s6">
         <?php echo form_open('order/testPay', 'id="myCCForm" class="login-form" novalidate'); ?>
         <input id="token" name="token" type="hidden" value="TokenCode">
         <input id="orderId" name="orderId" type="hidden" value="">
@@ -44,20 +40,27 @@
               <?echo '<option value="'.$t['code'].'">'.$t['tipo'].'</option>'?>
               <?endforeach?>
             </select>
+            <div class="row" style="margin-bottom:0;">
+              <img src="<?=base_url('img/co-credito.png')?>" style="height:45px">
+            </div>
           </div>
-        </div>
-        <div class="row margin">
-          <div class="col s12">
-            <label>NÚMERO DE LA TARJETA</label>
-            <input type="text" id="ccNo" size="25" value="" class="validate flat-field" required="" aria-required="true"
+          </div>
+          <div class="row margin">
+          <div class="input-field col s9">
+            <i class="material-icons prefix">credit_card</i>
+            <input type="text" id="ccNo" size="25" value="" class="validate" required="" aria-required="true"
               autocomplete="off">
+            <label>Número de la tarjeta</label>
           </div>
         </div>
-        <div class="row margin" style="padding: 0 .75rem;">
+        <!-- <div class="row margin" style="padding: 0 .75rem;">
           <label>FECHA DE EXPIRACION</label>
-        </div>
-        <div class="row margin">
-          <div class="col s3">
+        </div> -->
+        <div class="row">
+          <div class="col s1">
+            <i class="material-icons small" style="padding-top: 1.5rem">event_note</i>
+          </div>
+          <div class="col s3" style="margin-left: 1rem">
             <label>Mes</label>
             <select class="browser-default" id="expMonth">
               <option value="" disabled selected>MM</option>
@@ -82,10 +85,11 @@
           </div>
         </div>
         <div class="row margin">
-          <div class="col s5">
-            <label>CVC</label>
-            <input type="text" id="cvv" size="4" value="" class="validate flat-field" required="" aria-required="true"
+          <div class="input-field col s4">
+            <i class="material-icons prefix">vpn_key</i>
+            <input type="text" id="cvv" size="4" value="" class="validate" required="" aria-required="true"
               autocomplete="off">
+            <label>CVC</label>
           </div>
         </div>
         <div class="row">
@@ -98,6 +102,9 @@
           </div>
         </div>
         <?php echo form_close(); ?>
+      </div>
+      <div class="col s6">
+        <?$this->load->view('templates/pre_factura')?>
       </div>
     </div>
     <!-- <div id="pay-transfer">

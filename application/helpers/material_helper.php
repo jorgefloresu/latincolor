@@ -135,7 +135,7 @@ if(!function_exists('material_button'))
         $desc .= ($p->medio=='Fotos'?'imágenes':'videos') . " durante $p->tiempo " . ($p->tiempo==1?'mes':'meses');
         $button = "<a data-id='$p->id' data-img='$p->id'"
                  ." data-price='$p->valor' data-iva='$plan->iva' data-thumb='$logo_provider'"
-                 ." data-tco='$plan->tco' data-provider='$p->provider' data-desc='$desc'"
+                 ." data-tco='$plan->tco' data-provider='$p->provider' data-desc='$desc' data-type='plan'"
                  ." data-size='N/A' data-sizelbl='-' data-license='standard' data-trantype='compra_plan' data-idplan='$p->offerId'"
                  ." class='comprar-paquete-btn btn waves-effect waves-light blue'><i class='material-icons tiny'>add_shopping_cart</i></a>";
       } else {

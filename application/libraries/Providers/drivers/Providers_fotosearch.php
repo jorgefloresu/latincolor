@@ -64,7 +64,7 @@ class Providers_fotosearch extends CI_Driver {
         $username = $this->CI->input->post('username');
 				$img_url = $this->CI->input->post('thumb'); */
 
-				$media = $item['id'];
+				$media = $item['productId'];
 				$size = $item['size'];
 				$price = $item['price'];
 				$license = $item['license'];
@@ -78,22 +78,23 @@ class Providers_fotosearch extends CI_Driver {
         $imgFile = $this->CI->fotosearch_api->goDownload($res->download_id);
 
 				$this->CI->load->model('membership_model');
-					$rec = array(
-						'username' => $username,
-						'date' => date("Y-m-d H:i:s"),
-						'img_code' => $media,
-						'img_provider' => 'Fotosearch',
-						'img_url' => $img_url,
-						'img_price' => $price,
-						'price_type' => 'credits',
-						'resolution' => '',
-						'size' => $size,
-						'img_dimension' => '',
-						'img_pixels' => '',
-						'license_type' => $license,
-						'license_id' => 'No License'
-					);
-					$this->CI->membership_model->record_download($rec);
+
+				$rec = array(
+					'username' => $username,
+					'date' => date("Y-m-d H:i:s"),
+					'img_code' => $media,
+					'img_provider' => 'Fotosearch',
+					'img_url' => $img_url,
+					'img_price' => $price,
+					'price_type' => 'credits',
+					'resolution' => '',
+					'size' => $size,
+					'img_dimension' => '',
+					'img_pixels' => '',
+					'license_type' => $license,
+					'license_id' => 'No License'
+				);
+				$recId = $this->CI->membership_model->record_download($rec);
 
 				//return array('url' => $saveAs, 'licenseid' => $size);
 
@@ -115,6 +116,7 @@ class Providers_fotosearch extends CI_Driver {
 							'desc' 		=> $res->title,
 							'license' => $this->instant['license'],
 							'thumb' 	=> (string)$res->thumbnail_url,
+							'type' 		=> 'image',
 							'subscription' => 0,
 							'provider'=> 'Fotosearch'
 						));
@@ -142,6 +144,7 @@ class Providers_fotosearch extends CI_Driver {
 						'desc' 		=> $obj->title,
 						'license' => $license,
 						'thumb' 	=> (string)$obj->thumbnail_url,
+						'type' 		=> 'image',
 						'subscription' => 0,
 						'provider'=> 'Fotosearch'
 					));

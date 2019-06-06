@@ -13,6 +13,7 @@ class Main extends CI_Controller {
         //$this->load->library('rawdata/depositclient');
         require_once APPPATH . 'libraries/PayU.php';
         $this->load->library('membership');
+        $this->load->model('countries_model');
         $this->load->library('language',array('language'=>'es_SV'));
     	  $this->load->driver('providers');
         $this->load->helper(['tag','material']);
@@ -53,6 +54,7 @@ class Main extends CI_Controller {
       $data['logged'] = $this->membership->is_logged_in();
       $data['user_data'] = (object) array('fname'=>'','email_address'=>'');
       $data['user_info'] = '';
+      $data['countries'] = $this->countries_model->get_countries();
       $data['banks'] = $this->banks();
       $data['persona'] = $this->persona();
       $data['documento'] = $this->documento();
@@ -244,6 +246,7 @@ class Main extends CI_Controller {
             $data['user_info'] = json_encode($fullname->row());
         }
 
+        $data['countries'] = $this->countries_model->get_countries();
         $data['banks'] = $this->banks();
         $data['persona'] = $this->persona();
         $data['documento'] = $this->documento();
@@ -415,7 +418,7 @@ class Main extends CI_Controller {
         $data['sum_downloads'] = $this->membership_model->sum_price('downloads', 'img_price', $username);
         //$data['sum_planes'] = sumar_valores($data['planes_list'],'valor');
         $data['sum_planes'] = $this->membership_model->sum_planes($username);
-        $data['tarjeta'] = 
+        //$data['tarjeta'] = 
         $offset = 4;
         $this->pagination(count($data['planes_list']), $offset);
         $data['pags'] = $this->pagination->create_links();
@@ -531,6 +534,8 @@ class Main extends CI_Controller {
           } else {
             $item['result'] = 'success';
             if (count($items) > 1) {
+              //$res[1]['url'] = 'http://localhost:8888/latincolor/img/bailarina1.jpg'; 
+              //$res[1]['licenseid'] = '1234466';
               $this->downloadUrlToFile($res[$key]['url'], $item);
             }
           }
@@ -538,14 +543,14 @@ class Main extends CI_Controller {
         }
 
         if (count($res) > 1) {
+          $last = count($res) - 1;
           $zip_name = $this->files2zip($res);
           header('Content-type: application/zip');
           header('Content-Disposition: attachment; filename="'.$zip_name.'"');
-          $zip_resp[0] = ['url'=>base_url('zip/'.$zip_name), 'result'=>'success', 'licenseid'=>''];
-          echo json_encode($zip_resp);
-        } else {
-          echo json_encode($res);
+          array_unshift($res, ['url'=>base_url('zip/'.$zip_name), 'result'=>'success', 'licenseid'=>'']);
         }
+
+        echo json_encode($res);
 
     }
 
@@ -571,7 +576,8 @@ class Main extends CI_Controller {
 
     function downloadUrlToFile($url, $item)
     {
-      $outFileName = APPPATH . 'downloads/' . $item['provider'] . '_' . $item['id'] . '.jpg';   
+      $extension = ($item['type']=='video' ? '.mp4' : '.jpg');
+      $outFileName = APPPATH . 'downloads/' . $item['provider'] . '_' . $item['productId'] . $extension;   
       if(is_file($url)) {
           copy($url, $outFileName); 
       } else {
@@ -597,8 +603,9 @@ class Main extends CI_Controller {
         $error .= "* Sorry ZIP creation failed at this time";
       }
       foreach($items as $item)
-      { 
-        $file = APPPATH . 'downloads/' . $item['provider'] . '_' . $item['id'] . '.jpg';
+      {
+        $extension = ($item['type']=='video' ? '.mp4' : '.jpg'); 
+        $file = APPPATH . 'downloads/' . $item['provider'] . '_' . $item['productId'] . $extension;
         $zip->addFile($file, basename($file)); // Adding files into zip
       }
       $zip->close();

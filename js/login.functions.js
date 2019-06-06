@@ -146,7 +146,7 @@ var Login = {
         Login.config.loginWindow.modal('close');
         Login.config.registerWindow.modal({
           ready: function(modal){
-            $(modal).css('max-height','85%');
+            $(modal).css('max-height','85%');      
           }
         });
         Login.config.registerWindow.modal('open');
@@ -185,6 +185,7 @@ var Login = {
     $('.dropdown-button').dropdown({
         belowOrigin: true,
     });
+    $('select').material_select();
   },
 
 }

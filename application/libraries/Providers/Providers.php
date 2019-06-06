@@ -31,7 +31,7 @@ class Providers extends CI_Driver_Library {
 	}
 
 	function set_price($original_price) {
-		return $original_price * (1+strval($this->comision));
+		return ceil($original_price) * (1+strval($this->comision));
 	}
 
 	function set_iva($valor) {
@@ -54,7 +54,7 @@ class Providers extends CI_Driver_Library {
 													 ."' data-iva='".number_format($this->set_iva($item['price']),2)
 													 ."' data-tco='".number_format($this->set_tco($item['price']),2)
 													 ."' data-sizelbl='".$item['sizelbl']."' data-provider='".$item['provider']
-													 ."' data-tranType='compra_img'>";
+													 ."' data-type='".$item['type']."' data-tranType='compra_img'>";
 	}
 
 	function price_item_cart($item) {

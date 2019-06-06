@@ -177,6 +177,7 @@
           let license = $(item).data('license');
           let desc = $(item).data('desc');
           let thumb = $(item).data('thumb');
+          let type = $(item).data('type');
           let provider = $(item).data('provider');
           let tranType = $(item).data('trantype');
           let idplan = $(item).data('idplan') == null ? 0 : this._convertString($(item).data('idplan'));
@@ -199,6 +200,7 @@
             'iva': iva,
             'tco': tco,
             'thumb': thumb,
+            'type': type,
             'provider': provider,
             'tranType': tranType,
             'idplan': idplan,
@@ -244,7 +246,7 @@
         let item = self._found(this);
         if (item != null) {
           console.log("total antes:" + total);
-          total = total - self._convertString(item.element.price);
+          total = total - self._convertString(item.element.price.toString());
           cart.splice(item.index, 1);
           console.log(cart.length);
           self.$cartCount.text(cart.length);
@@ -340,6 +342,7 @@
         'tco': item.tco,
         'provider': item.provider,
         'thumb': item.thumb,
+        'type': item.type,
         'description': item.desc,
         'tranType': item.tranType,
         'username': userLogged,
@@ -471,7 +474,7 @@
             item.element.iva = (country == 'Colombia' || country == null ? item.element.iva : 0);
             let itemToPush = {
               'orderId': order,
-              'productId': item.element.id,
+              'productId': item.element.id.toString(),
               'size': item.element.size,
               'license_type': item.element.license,
               'price': item.element.price.toFixed(2).toLocaleString(),
@@ -479,6 +482,7 @@
               'tco': item.element.tco.toFixed(2).toLocaleString(),
               'provider': item.element.provider,
               'thumb': item.element.thumb,
+              'type': item.element.type,
               'description': item.element.desc,
               'tranType': item.element.tranType,
               'username': userLogged,
@@ -532,40 +536,58 @@
             Pay.setup.tabsPayMethods.tabs();
         }, */
         complete: function () {
-          let allItems = [];
-          allItems.push.apply(allItems, Pay.setup.resCartItems.images);
-          allItems.push.apply(allItems, Pay.setup.resCartItems.planes);
-          console.log(allItems);
-          if (allItems.length > 0) {
-            if (Pay.setup.token != '') {
-              //let cart = self.storage.get(self.cartName);
-              $.each(allItems, function (index, item) {
-                if (item.result == 'success') {
-                  let objDelete = '.delete a[data-item="' + item.productId + '"]';
-                  $(objDelete).html('')
-                    .removeClass('btn red')
-                    .parent()
-                    .addClass('remove');
-                  //let cartItem = self._found(objDelete);
-                  //cart.splice(cartItem.index, 1);
-                  $('.download a[data-item="' + item.productId + '"]')
-                    .html("<i class='small material-icons green-text'>check_circle</i>")
-                    .removeClass('btn blue');
-                }
-              });
-              //self.storage.set(self.cartName, cart);
-              self.$emptyCart.hide();
-              self.$checkout.hide();
-              if (Pay.setup.resCartItems.images.length > 0) {
-                $('#downloading').removeClass('hide');
-                Pay.setup.$message.html() == 'Transacción aprobada!... preparando compra';
-                self.setMessage('Descargado');
-              }
-              //Pay.setup.resCartItems = [];
+          if (Pay.setup.processed) {
+            Pay.setup.processed = false;
+            if (Pay.setup.cartItems.planes.length > 0) {
+              Pay.setup.resCartItems.planes = Pay.setup.cartItems.planes;
+              Pay.setup.resCartItems.planes[0].result = 'success';
+              console.log(Pay.setup.resCartItems);
+            }
+            if (Pay.setup.cartItems.images.length > 0) {
+              $.download(Pay.setup.cartItems.images, function (res2) {
+                Pay.setup.resCartItems.images = res2;
+                console.log(Pay.setup.resCartItems);
+                //setup.$CCWindow.modal('close');
+                let allItems = [];
+                allItems.push.apply(allItems, Pay.setup.resCartItems.images);
+                allItems.push.apply(allItems, Pay.setup.resCartItems.planes);
+                console.log(allItems);
+                if (allItems.length > 0) {
+
+                  if (Pay.setup.token != '') {
+                    //let cart = self.storage.get(self.cartName);
+
+                    $.each(allItems, function (index, item) {
+                      if (item.result == 'success') {
+                        let objDelete = '.delete a[data-item="' + item.productId + '"]';
+                        $(objDelete).html('')
+                          .removeClass('btn red')
+                          .parent()
+                          .addClass('remove');
+                        //let cartItem = self._found(objDelete);
+                        //cart.splice(cartItem.index, 1);
+                        $('.download a[data-item="' + item.productId + '"]')
+                          .html("<i class='small material-icons green-text'>check_circle</i>")
+                          .removeClass('btn blue');
+                      }
+                    });
+
+                    //self.storage.set(self.cartName, cart);
+                    self.$emptyCart.hide();
+                    self.$checkout.hide();
+                    if (Pay.setup.resCartItems.images.length > 0) {
+                      $('#downloading').removeClass('hide');
+                      Pay.setup.$message.html() == 'Transacción aprobada!... preparando compra';
+                      //self.setMessage('Descargado');
+                    }
+                    //Pay.setup.resCartItems = [];
+                  }
+                }          
+              })
             }
           }
         }
-      });
+      })
       //Pay.setup.$CCWindow.modal('open');
 
     },
@@ -608,7 +630,7 @@
           break
         case 'empty':
           text = "No tienes elementos en tu lista de compra";
-          link = close;
+          link = '';
           break;
         case 'perfil':
           text = "Debes completar tu perfil";
@@ -652,8 +674,14 @@
 
     _convertString: function (numStr) {
       var num;
-      if (/^[-+]?[0-9]+[.,][0-9]+$/.test(numStr)) {
-        numStr = numStr.toString().replace(",", ".");
+      if (typeof numStr == 'number') {
+        num = numStr;
+      } else if (/^\d{1,3}(,\d{3})*(\.\d{2})?$/.test(numStr)) {
+        numStr = numStr.replace(/,/g, "");
+        num = parseFloat(numStr);
+      } else if (/^\d{1,3}(\.\d{3})*(,\d{2})?$/.test(numStr)) {
+        numStr = numStr.replace(/\./g, "");
+        numStr = numStr.replace(",", ".");
         num = parseFloat(numStr);
       } else if (/^\d+$/.test(numStr)) {
         num = parseInt(numStr, 10);

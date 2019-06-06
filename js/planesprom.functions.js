@@ -127,6 +127,7 @@ var Planes = {
         id: $(this).data('id'),
         provider: $(this).data('provider'),
         desc: Planes.config.resultados.text(),
+        type: $(this).data('type'),
         price: $(this).data('price'),
         iva: $(this).data('iva'),
         tco: $(this).data('tco')

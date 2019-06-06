@@ -136,6 +136,22 @@ class Dreamstime_Api
         return $this->checkResponse($this->post($url, $postParams));
     }
 
+    public function goVideoDownload($media, $size)
+    {
+        $postParams = array(
+            DreamstimeParams::API_KEY => $this->apiKey,
+            DreamstimeParams::API_PASSWORD => $this->apiPwd,
+            DreamstimeParams::TYPE_NAME => DreamstimeParams::TYPE_CMD,
+            DreamstimeParams::REQUEST_NAME => DreamstimeParams::DOWNLOAD_VIDEO,
+            DreamstimeParams::MEDIA_VIDEO_CODE => $media,
+            DreamstimeParams::MEDIA_SIZE => $size
+          );
+
+        $url = $this->getFullURI(DreamstimeParams::API_CMD, $postParams);
+        //return $url;
+        return $this->checkResponse($this->post($url, $postParams));
+    }
+
     /**
      * Generate the full URI to use for API calls
      *
