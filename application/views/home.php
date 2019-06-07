@@ -158,7 +158,7 @@
               <a class="btn-flat btn-fotos"><i class="material-icons icon-options left">check</i>Fotos</a>
               <a class="btn-flat btn-vectores">Vectores</a>
               <a class="btn-flat btn-videos">Videos</a>
-              <a class="btn-flat btn-audios">Audios</a>
+              <!-- <a class="btn-flat btn-audios">Audios</a> -->
             </div>
             <?=form_close()?>
           </nav>

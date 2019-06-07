@@ -146,6 +146,10 @@ class Membership
 						$attach = '';
 						$url = 'http://www.ingimage.com';
 						break;
+					case 'Adobe':
+						$attach = realpath("img/Adobe-Stock-Licencia-US.pdf");
+						$url = 'https://stock.adobe.com/';
+						break;
 					default:
 						$attach = '';
 				}

@@ -119,7 +119,7 @@
                                 <? if ($item->img_provider == 'Depositphoto'): ?>
                                   <a href='' class="re-download btn blue waves-effect waves-grey" style="padding:0 10px" 
                                       data-url="<?=base_url('main/reDownload')?>" data-provider="<?=$item->img_provider?>"
-                                      data-lid="<?=$item->license_id?>" data-id="<?=$item->img_code?>">
+                                      data-lid="<?=$item->license_id?>" data-id="<?=$item->img_code?>" data-type="<?=$item->type?>">
                                     <i class="material-icons">file_download</i>
                                   </a>
                                 <? else: ?>

@@ -168,10 +168,9 @@
                     <!-- <i class="material-icons left">ondemand_video</i>Videos</a> -->
                     <img src="<?=base_url('img/Videos-25.png')?>" style="margin: -7px 10px -7px 0px;">Videos</a>
                   </li>
-                  <li <?=($medio=='Audios'?'class="active"':'')?>><a href="#" class="grey-text text-darken-3" data-option="Audios">
-                    <!-- <i class="material-icons left">music_video</i>Audios</a> -->
-                    <img src="<?=base_url('img/Audios-25.png')?>" style="margin: -7px 10px -7px 0px;">Audios</a>
-                  </li>
+                  <!-- <li <?//=($medio=='Audios'?'class="active"':'')?>><a href="#" class="grey-text text-darken-3" data-option="Audios">
+                    <img src="<?//=base_url('img/Audios-25.png')?>" style="margin: -7px 10px -7px 0px;">Audios</a>
+                  </li> -->
                 </ul>
             </nav>
           </div>

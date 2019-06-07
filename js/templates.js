@@ -66,20 +66,24 @@ var cardAction = function(item, provider){
      return '<a href="'+item+'?provider='+provider+'">Preview</a>';
      }
 
-var userImageList = '<div class="recent-activity-list chat-out-list row" style="margin-bottom:0">'+
+var userImageList = function(val) {
+     return '<div class="recent-activity-list chat-out-list row" style="margin-bottom:0">'+
      '<div class="col s4 recent-activity-list-icon">'+
      '<div class="center-align">'+
-     '<img src="" width="100%">'+
+     '<img src="'+val.img_url+'" width="100%">'+
      '</div>'+
      '</div>'+
      '<div class="col s4 recent-activity-list-text" style="font-weight:300">'+
-     '<b>Code</b>'+
-     '<p style="margin-top:5px">Provider</p>'+
+     '<b>'+val.img_code+'</b>'+
+     '<p style="margin-top:5px">'+val.img_provider+'</p>'+
      '</div>'+
      '<div class="col s4">'+
-     '<a class="btn-flat waves-effect waves-grey"><i class="material-icons">file_download</i></a>'+
+     '<a class="redownload btn-flat waves-effect waves-grey" data-provider="'+val.img_provider+'" '+
+     'data-lid="'+val.license_id+'" data-id="'+val.img_code+'" data-type="'+val.type+'">'+
+     '<i class="material-icons">file_download</i></a>'+
      '</div>'+
      '</div>';
+}
 
 var userPlanList = '<div class="recent-activity-list chat-out-list row">'+
      '<div class="col s4 recent-activity-list-icon">'+

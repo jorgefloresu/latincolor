@@ -405,7 +405,7 @@ table.responsive-table th.responsive-header {
 }
 #buy {
   max-width: 800px;
-  max-height: 75%;
+  max-height: 80%;
   /* overflow: hidden; */
 }
 #buy select.browser-default {

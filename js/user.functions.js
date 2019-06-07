@@ -72,11 +72,12 @@ var User = {
   },
 
   setRedownloads: function () {
-    let provider, imageId;
+    let provider, imageId, type;
     User.config.reDownload.on('click', function (event) {
       event.preventDefault();
       provider = $(this).data('provider');
       imageId = $(this).data('id');
+      type = $(this).data('type');
       let form = {
         url: $(this).data('url'),
         inputs: {
@@ -96,7 +97,8 @@ var User = {
           $('.cnt').text('1 de 1');
           $('#download-progress p').text(' Esperando a recibir el archivo...');
           $.loadFile(data.downloadLink, function (file) {
-            $.saveFile(file, 'image/jpeg', 'LCI-'+provider.substring(0,2)+'-'+imageId+'-rdw');
+            let format = (type=='video'?'.mp4':'');
+            $.saveFile(file, 'LCI-'+provider.substring(0,2)+'-'+imageId+'-rdw'+format);
           });
       }
       //window.location = data.downloadLink;

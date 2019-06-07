@@ -80,6 +80,7 @@
 
     actionCart: function () {
       let self = this;
+      self.$checkout.off('click');
       this.$emptyCart.on('click', function (event) {
         event.preventDefault();
         self.$element.off('click', '.download a');
@@ -247,6 +248,8 @@
         if (item != null) {
           console.log("total antes:" + total);
           total = total - self._convertString(item.element.price.toString());
+          self.iva = self.iva - self._convertString(item.element.iva.toString());
+          self.tco = self.tco - self._convertString(item.element.tco.toString());
           cart.splice(item.index, 1);
           console.log(cart.length);
           self.$cartCount.text(cart.length);
@@ -530,6 +533,9 @@
 
     openPayWindow: function () {
       console.log(Pay.setup.factTotal.text().replace(",", "."));
+      if (! $('#downloading').hasClass('hide') ) {
+        $('#downloading').addClass('hide')
+      }
       let self = this;
       Pay.setup.$CCWindow.modal({
         /* ready: function() {
@@ -676,10 +682,10 @@
       var num;
       if (typeof numStr == 'number') {
         num = numStr;
-      } else if (/^\d{1,3}(,\d{3})*(\.\d{2})?$/.test(numStr)) {
+      } else if (/^\d{1,3}(,\d{3})*(\.\d{1,2})?$/.test(numStr)) {
         numStr = numStr.replace(/,/g, "");
         num = parseFloat(numStr);
-      } else if (/^\d{1,3}(\.\d{3})*(,\d{2})?$/.test(numStr)) {
+      } else if (/^\d{1,3}(\.\d{3})*(,\d{1,2})?$/.test(numStr)) {
         numStr = numStr.replace(/\./g, "");
         numStr = numStr.replace(",", ".");
         num = parseFloat(numStr);

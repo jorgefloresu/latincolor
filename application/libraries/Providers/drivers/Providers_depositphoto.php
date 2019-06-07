@@ -108,6 +108,7 @@ class Providers_depositphoto extends CI_Driver {
 						'img_url' => $img_url,
 						'img_price' => $price,
 						'price_type' => 'credits',
+						'type' => $item['type'],
 						'resolution' => '',
 						'size' => $size,
 						'img_dimension' => '',

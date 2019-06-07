@@ -15,6 +15,7 @@ $.Common.prototype = {
           searchForm: $('#search'),
           searchOptions: $(".menu-medios li"),
           keyword: $('#keyword'),
+          reDownload: $('#user-purchases .image-list')
         }
         Login.init();
         this.shop = new $.Shop();
@@ -26,6 +27,7 @@ $.Common.prototype = {
           let self = this;
           this.setMaterial();
           this.doAfterLogin();
+          this.onRedownload();
           this.config.userNav.on('click', function(){
             self.config.rightNav.sideNav('hide');
           });
@@ -38,6 +40,39 @@ $.Common.prototype = {
           $('.chat-collapsible').on('click','li', function(){
             $.getPurchases($(this));
           })
+  },
+
+  onRedownload: function() {
+    let provider, imageId, type;
+    this.config.reDownload.on('click', 'a.redownload', function(){
+      provider = $(this).data('provider');
+      imageId = $(this).data('id');
+      type = $(this).data('type');
+      let form = {
+        url: location.origin + '/latincolor/main/reDownload',
+        inputs: {
+          lid: $(this).data('lid'),
+          provider: provider,
+        }
+      }
+      $('#download-progress').modal('open');
+      $.submitForm(form, getFile);
+    });
+
+    function getFile(data) {
+      console.log(data);
+      if (data.error) {
+        $('.msg-redownload').show();
+      } else {
+          $('.cnt').text('1 de 1');
+          $('#download-progress p').text(' Esperando a recibir el archivo...');
+          $.loadFile(data.downloadLink, function (file) {
+            let format = (type=='video'?'.mp4':'');
+            $.saveFile(file, 'LCI-'+provider.substring(0,2)+'-'+imageId+'-rdw'+format);
+          });
+      }
+      //window.location = data.downloadLink;
+    }
   },
 
 

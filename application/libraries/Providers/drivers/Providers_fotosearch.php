@@ -88,6 +88,7 @@ class Providers_fotosearch extends CI_Driver {
 					'img_price' => $price,
 					'price_type' => 'credits',
 					'resolution' => '',
+					'type' => $item['type'],
 					'size' => $size,
 					'img_dimension' => '',
 					'img_pixels' => '',

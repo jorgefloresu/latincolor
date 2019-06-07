@@ -106,13 +106,14 @@
                   $.each(data, function(index, item){
                     if (item.result == 'success') {
                       $('#download-progress p').text(' Esperando a recibir el archivo...');
-                      console.log(item.url);
+                      console.log(item);
                       $.loadFile(item.url, function (file) {
                         if (item.url.substr(-3) == 'zip') {
                           let hoy = new Date();
                           $.saveFile(file, 'LCI-'+hoy.getTime()+'.zip');
                         } else {
-                          $.saveFile(file, 'LCI-'+item.provider.substring(0,2)+'-'+item.productId);
+                          let format = (item.type=='video'?'.mp4':'');
+                          $.saveFile(file, 'LCI-'+item.provider.substring(0,2)+'-'+item.productId+format);
                         }
                       })
                     }
@@ -138,10 +139,13 @@
                 function updateProgress(evt){
                   if (evt.lengthComputable){
                     let percentComplete;
+                    let valProgress = 0;
                     if (evt.loaded > valProgress) {
                       console.log(evt.loaded+' '+valProgress);
                       valProgress = evt.loaded;  
                     }
+                    console.log(valProgress);
+                    console.log(evt.total);
                     percentComplete = (valProgress / evt.total)*100;
                     let percent = Math.ceil(percentComplete)+'%';
                     $('.determinate').css('width', percent);
@@ -170,9 +174,10 @@
               $.getJSONfrom(url).then(function(res) {
                   $.each(res, function(index, val) {
                     if (el.attr('id')=='user-purchases') {
-                      html += Templates.userImageList.replace('src=""','src="'+val.img_url+'"')
+                      html += Templates.userImageList(val);
+                      /* html += Templates.userImageList.replace('src=""','src="'+val.img_url+'"')
                                                       .replace('Code', val.img_code)
-                                                      .replace('Provider', val.img_provider);
+                                                      .replace('Provider', val.img_provider); */
                     } else {
                       html += Templates.userPlanList.replace('Provider', val.provider)
                                                     .replace('Code', val.img_code)
