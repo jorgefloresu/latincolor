@@ -25,4 +25,14 @@ class Taxes
             $this->CI->system_vars->tco('add');
   }
 
+  public function set_price($original_price)
+  {
+    return ceil($original_price) * (1+strval($this->CI->system_vars->comision()));
+  }
+
+  public function set_plan_price($original_price)
+  {
+    return ceil($original_price) * (1+strval($this->CI->system_vars->plan_comision()));
+  }
+
 }

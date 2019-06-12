@@ -52,8 +52,11 @@ class Providers_fotosearch extends CI_Driver {
         //$data['back'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         //$_SESSION['mysession'] = $data['back'];
 
-        $res = $this->CI->fotosearch_api->getMediaData($imagecode);
-        return $this->convertPreview($res);
+		$res = $this->CI->fotosearch_api->getMediaData($imagecode);
+		if ($res != 'Not found') {
+			$this->preview = $this->convertPreview($res);
+		}
+		return $this->preview;
     }
 
   function download($item) {
@@ -75,7 +78,8 @@ class Providers_fotosearch extends CI_Driver {
         $saveAs = 'fs_'.$media;
 
         $res = $this->CI->fotosearch_api->getDownloadURL($usage, $saveAs, $size, $media);
-        $imgFile = $this->CI->fotosearch_api->goDownload($res->download_id);
+		$imgFile = $this->CI->fotosearch_api->goDownload($res->download_id);
+		$imgFile = str_replace('http://','https://', $imgFile);
 
 				$this->CI->load->model('membership_model');
 
@@ -166,8 +170,9 @@ class Providers_fotosearch extends CI_Driver {
 				//if ('No results' !== $obj) {
 					$this->result['count'] = $obj->meta->total_count;
 					foreach ($obj->objects as $value) {
-
-						$html  = "<div><img src='$value->preview_url' height='170'/><div class='caption'>";
+						
+						$imgFile = str_replace('http://','https://', $value->preview_url);
+						$html  = "<div><img src='$imgFile' height='170'/><div class='caption'>";
 						$html .= "<a class='view-link' href='".base_url('main/preview/')."/$value->id/?provider=Fotosearch'><i class='material-icons'>zoom_in</i></a>";
 						$html .= "<a class='cart-link' href='".base_url('main/instant/')."/$value->id/?provider=Fotosearch'><i class='material-icons' style='padding-left:10px;'>add_shopping_cart</i></a>";
 						//$html .= "<a href='#'><i class='material-icons' style='padding-left:10px;'>file_download</i></a>";

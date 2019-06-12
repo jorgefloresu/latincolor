@@ -99,9 +99,9 @@ var Login = {
 
   loginFields: function(data) {
               Login.config.signin.text('Mi Cuenta');
-              Login.config.signin.attr('href', location.origin+'/latincolor/main/user');
+              Login.config.signin.attr('href', ROOT+'main/user');
               Login.config.signUser.find('a#sign-out')
-                                   .attr('href',location.origin+'/latincolor/login/logout/noindex')
+                                   .attr('href',ROOT+'login/logout/noindex')
                                    .attr('class','')
                                    .text('Cerrar sesión');
               Login.config.userProfile.find('b').text(data.first_name+' '+data.last_name);
@@ -134,7 +134,7 @@ var Login = {
                                    .attr('class','modal-trigger')
                                    .text('Registrarse');
               if ($.currentPage('user'))
-                location.href = location.origin+'/latincolor';
+                location.href = ROOT;
               Login.setMaterial();
 
   },

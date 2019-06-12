@@ -122,16 +122,42 @@ var Api = ( function() {
                     }
           }
 
+  var findByImageId = function(findStr, provider) {
+          //let keyEntered = findStr.split(':');
+          //if ( keyEntered[0] == 'dreamstime') {
+            let previewUrl = ROOT + 'main/preview/'+findStr+'/?provider='+provider;
+            $('<a href="'+previewUrl+'"></a>').appendTo(setup.config.resultSearch).click();
+            //return true;
+          //} else {
+            return false;
+          //}
+  }
+
+  var enableFindById = function(val) {
+      if ( /^\d+$/.test(val) ) {
+        $('#search .escoge-marca').show()
+      } else {
+        $('#search .escoge-marca').hide()                  
+      }
+
+  }
+
   var setSearch = function() {
-            //if (location.href.match(/search/gi) != null) {
-            //  locateProgress('110px');
-            //  $(".chat-collapse").sideNav({
-            //    edge: 'right'
-            //  });
-            //  $('.chat-collapsible').collapsible(collapsibleOpts);
+
+              setup.config.keyword.on("keyup focus", function(){
+                  enableFindById($(this).val())
+              });
+
+              $('#search .busca-id').on('click', function(event) {
+                event.preventDefault();
+                findByImageId(setup.config.keyword.val(), $(this).text())                
+              });
+
               setup.config.searchForm.on("submit", {fillOut: showResult}, mainMethod);
-              setup.config.searchIcon.on('click', function(){
-                setup.config.searchForm.submit();
+              setup.config.searchIcon.on('click', function() {
+                //if (! findByImageId(setup.config.keyword.val()) ) {
+                  setup.config.searchForm.submit();
+                //}
               });
 
               setup.config.searchOptions.on('click', 'a', menuMedios);
@@ -154,12 +180,9 @@ var Api = ( function() {
               setup.config.previewPrices.on("click", "a", function(event){
                   event.preventDefault();
                   
-                  //if ( ! $(this).hasClass('direct-download')) {
                     let subscriptionid = $('.dropdown-plan').text() == 'Elige Plan' ? '' : $('.dropdown-plan').text();
                     $(this).data('subscriptionid', subscriptionid);
                     $('.direct-download').data('subscriptionid', subscriptionid);
-                      //$('.size-info').html($(this).data('width')+' x '+$(this).data('height')+
-                    //                     ' | Licencia: '+$(this).data('license'));
                     if ( ! setup.config.validSubscription || $.Auth.status() !== 'loggedIn' || 
                       $(this).data('license') == 'extended' || $(this).data('provider')!=='Depositphoto') {
                       
@@ -193,19 +216,15 @@ var Api = ( function() {
                         $('.direct-download').show();
                       }
                     }
-                //  }
               });
 
               onPlanSelected();
-              // setup.config.openCart.on('click', function(event){
-              //   event.preventDefault();
-              //   setup.config.previewClose.click();
-              //   shop.displayCart();
-              // });
-            //setup.config.tabs.on('click', 'a', providerMethod);
-              //setup.config.tabs.on('populate', 'a', {fillOut: showResult}, mainMethod);
-              setup.config.searchForm.submit();
-          //  }
+
+              if ( /^\d+$/.test(setup.config.keyword.val()) ) {
+                findByImageId(setup.config.keyword.val(), $.urlParam(location.href,'provider')) 
+              } else {
+                setup.config.searchForm.submit();
+              }
           }
 
   var doDownload = function() {
@@ -245,13 +264,13 @@ var Api = ( function() {
                                 new Intl.NumberFormat().format(data.total)+'</span><span> coincidencias</span>');
               $('.estas-buscando').text('Estás buscando '+getFromUrl(location.href,'medio').toLowerCase());
               $('.this-keyword').text(setup.config.keyword.val());
-              $('.search-type-icon').attr('src', location.origin+'/latincolor/img/'+getFromUrl(location.href,'medio')+'-50.png');
+              $('.search-type-icon').attr('src', ROOT+'img/'+getFromUrl(location.href,'medio')+'-50.png');
               //$('.current-page').text(data.cur_page);
               $('.current-page').val(data.cur_page);
               $('.num-pages').text(data.num_pages+(data.num_pages==1?' pagina':' paginas'));
               $('.current-page').on('keypress', function(e) {
                 if (e.which == 13) {
-                  setup.config.searchForm.attr("action", location.origin+'/latincolor/main/search/'+$(this).val());
+                  setup.config.searchForm.attr("action", ROOT+'main/search/'+$(this).val());
                   setup.config.searchForm.submit();
                 }
               });
@@ -289,7 +308,7 @@ var Api = ( function() {
                       preview.image.css('min-height', 0);
                       setup.config.previewPrices.css('min-height', '270px');
                       //preview.icon.removeClass("fa-image").addClass("fa-video");
-                      preview.icon.attr('src', location.origin+'/latincolor/img/Videos-50.png');
+                      preview.icon.attr('src', ROOT+'img/Videos-50.png');
                       preview.similarCont.find('h5').text('Videos relacionados')
                       preview.video.attr('poster', data.image);
                       $(".material-placeholder").hide();
@@ -302,7 +321,7 @@ var Api = ( function() {
                       preview.similarCont.find('h5').text('Imágenes relacionadas')
                       //preview.icon.removeClass("fa-video").addClass("fa-image");
                       preview.icon.attr('src', function() {
-                        return location.origin+'/latincolor/img/'+
+                        return ROOT+'img/'+
                                (data.type == 'vector'?'Vectores-50.png':'Fotos-50.png');
                       });
                       preview.video.hide();
@@ -423,7 +442,7 @@ var Api = ( function() {
                         let provider = getFromUrl( $(this)[0].url, 'provider' );
                         preview.similarCont.toggle(true);
                         preview.similar.html('Cargando imágenes relacionadas...');
-                        $.getJSONfrom(location.origin+'/latincolor/main/find_similar/'+data.id+'/'+provider)
+                        $.getJSONfrom(ROOT+'main/find_similar/'+data.id+'/'+provider)
                           .done(function(res){
                             preview.similar.jGallery({}, res.thumb);
                         })
@@ -530,7 +549,7 @@ var Api = ( function() {
               setup.config.progress.toggle();
               if ($(this).is("form")) {
                 if (setup.config.keyword.val() != getFromUrl(location.href, 'keyword')) {
-                  $(this).attr("action", location.origin+'/latincolor/main/search/1');
+                  $(this).attr("action", ROOT+'main/search/1');
                 }
                 url = $(this).attr("action");
               }
@@ -539,8 +558,9 @@ var Api = ( function() {
               if ( url.match(/preview/gi) == null && url.match(/instant/gi) == null ) {
                 //setup.config.resultSearch.html("<p>Loading images...</p>");
                 let w = (setup.config.panel.is(":hidden") ? "90%" : "80%");
-                setup.config.resultSearch.html("<div style='position:fixed;opacity:.5;height:50%;width:"+w+"'><span style='position:absolute;font-size:12px;top:50%;left:50%'><img src='"+location.origin+
-                "/latincolor/img/Cube-1s-50px.gif' style='opacity:1'/><br/>Buscando...</span></div>");
+                setup.config.resultSearch.html("<div style='position:fixed;opacity:.5;height:50%;width:"+w+
+                "'><span style='position:absolute;font-size:12px;top:50%;left:50%'><img src='"+
+                ROOT+"img/Cube-1s-50px.gif' style='opacity:1'/><br/>Buscando...</span></div>");
               }
 
               var formData = $(this).prepareData();
@@ -619,8 +639,9 @@ var Api = ( function() {
 
   var notGood = function(res, status, error){
             console.log(res);
-            if (error == "Not Found") {
-              Materialize.toast('Datos no disponibles', 4000)
+            let close = '<a class="toast-action" onclick="Materialize.Toast.removeAll()"><i class="material-icons white-text" style="padding-right:10px">clear</i></a>';
+            if (status == "error") {
+              Materialize.toast('Datos no disponibles '+close, 4000)
             }
             setup.config.progress.toggle(false);
           }

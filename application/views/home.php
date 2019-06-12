@@ -150,8 +150,21 @@
               <div class="input-field">
                 <input id="search" type="search" name="keyword" placeholder="Digita palabras claves en idioma inglés"
                   required>
+                  <a class='escoge-marca dropdown-button btn blue' href='#' data-activates='lista-marcas'
+                    style="position: absolute;right: 77px;top: 9px;padding: 0 10px 0 10px;line-height: 40px;display:none">
+                    Buscar por ID
+                  </a>
+
+                  <!-- Dropdown Structure -->
+                  <ul id='lista-marcas' class='dropdown-homeopt dropdown-content'>
+                    <li><a class="busca-id" href="#!">Depositphoto</a></li>
+                    <li><a class="busca-id" href="#!">Dreamstime</a></li>
+                    <li><a class="busca-id" href="#!">Fotosearch</a></li>
+                  </ul>
+
                 <i class="material-icons icon-search red darken-4">search</i>
                 <input type='hidden' id="medio" name='medio' />
+                <input type='hidden' id="provider" name='provider' />
               </div>
             </div>
             <div class="buttons-filters">

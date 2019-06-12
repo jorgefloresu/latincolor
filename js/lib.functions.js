@@ -64,7 +64,7 @@
               )
             });
 
-            $.post(location.origin+'/latincolor/main/download', downloadItems)
+            $.post(ROOT+'main/download', downloadItems)
               .done(getFile);
 
             /* let result = items;
@@ -141,11 +141,9 @@
                     let percentComplete;
                     let valProgress = 0;
                     if (evt.loaded > valProgress) {
-                      console.log(evt.loaded+' '+valProgress);
+                      //console.log(evt.loaded+' '+valProgress);
                       valProgress = evt.loaded;  
                     }
-                    console.log(valProgress);
-                    console.log(evt.total);
                     percentComplete = (valProgress / evt.total)*100;
                     let percent = Math.ceil(percentComplete)+'%';
                     $('.determinate').css('width', percent);
@@ -207,7 +205,7 @@
                 });
 
     $.getGeo = $.createCache(function(dfd, params, doFunc) {
-                    let url = location.origin + "/latincolor/countries?" + params;
+                    let url = ROOT + "countries?" + params;
                     $.getJSON(url, doFunc)
                      .then(function(res){
                         dfd.resolve(res);
@@ -215,7 +213,7 @@
                 });
 
     $.hasValidSubscription = function () {
-                  let url = location.origin+'/latincolor/main/check_subscriptions/';
+                  let url = ROOT+'main/check_subscriptions/';
                   return $.getJSON(url+$.Auth.info('deposit_userid'));
           }
         

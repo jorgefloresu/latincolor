@@ -107,6 +107,8 @@ class Providers_dreamstime extends CI_Driver {
 					
 					$this->CI->membership_model->record_download($rec);
 					$url = (string)$purchased_media->downloadURL;
+					$url = str_replace('http://','https://', $url);
+
 					$licenseId = (string)$purchased_media->downloadID;
 
 				} elseif ( isset($purchased_media->errorMessage)) {

@@ -90,6 +90,7 @@ if(!function_exists('put_headers')){
 
         if ($type=='js' || $type=='') {
           $str .= "<script type='text/javascript'>\n";
+          $str .= "const ROOT = '".base_url()."'\n";
 
           if ( $userData !== '')
               $str .= "var userData = JSON.parse('".$userData."');\n";

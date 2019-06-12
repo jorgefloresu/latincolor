@@ -61,7 +61,7 @@ var Planes = {
           selection[index] = str.substring(0, str.length - 5);
         });
         let form = {
-          url: location.origin + '/latincolor/main/calc_plan',
+          url: ROOT + 'main/calc_plan',
           inputs: {
             //provider: selection[0],
             medio: selection[0],
@@ -109,7 +109,7 @@ var Planes = {
   },
 
   getPlanesParams: function (medio) {
-    $.getJSONfrom(location.origin + '/latincolor/main/planes_params/'+medio)
+    $.getJSONfrom(ROOT + 'main/planes_params/'+medio)
       .then(function (res) {
         $.each(res, function (name, params) {
           $("#" + name + "-list").html('');

@@ -43,7 +43,7 @@ var Admin = {
     },
 
     getCounters: function () {
-      $.getJSON(location.origin+'/latincolor/admin/check_new')
+      $.getJSON(ROOT+'admin/check_new')
               .done(function(res){
                 Admin.config.counters = res;
                 if (Admin.config.countOnce) {
@@ -129,7 +129,7 @@ var Admin = {
 
     buyerData: function (tr) {
       let row = Admin.dataTable.row( tr ).data();
-      $.getJSON(location.origin+'/latincolor/admin/get_buyer/'+row.username)
+      $.getJSON(ROOT+'admin/get_buyer/'+row.username)
         .done(function(res){
           $('.buyer-user').text(res.username);
           $('.buyer-name').text(res.fname);
@@ -149,7 +149,7 @@ var Admin = {
       let message = row.new == 'g2p' ? 'Espere... Enviando notificacion a '+row.username : 'Cargando...';
       let div = $('<div/>').text(message);
       console.log(row);
-      $.getJSON(location.origin+'/latincolor/admin/ventas_detalle/'+
+      $.getJSON(ROOT+'admin/ventas_detalle/'+
                 row.orderId+'/'+row.new+'/'+row.username+'/'+row.activity)
         .done(function(res){
           div.html(res.html_table);
@@ -235,7 +235,7 @@ var Admin = {
         if ( ! $('div.toolbar .btn').hasClass('disabled') && cellStatus.length > 0) {
           let row = Admin.dataTable.row('.selected').data();
           // row.orderId+'/'+row.username+'/'+row.monto
-          $.getJSON(location.origin+'/latincolor/admin/ventas_detalle/'+
+          $.getJSON(ROOT+'admin/ventas_detalle/'+
                 row.orderId+'/'+row.new+'/'+row.username+'/'+row.activity)
               .then(function (venta) {
                 let orderData = {
@@ -257,7 +257,7 @@ var Admin = {
                     })
                 };
                 console.log(orderData);
-                $.getJSON(location.origin+'/latincolor/order/confirmar_orden', orderData)
+                $.getJSON(ROOT+'order/confirmar_orden', orderData)
                   .done(function(res) {
                         if (res.process.planes.result == 'ok') {
                           Admin.dataTable.cell(cellStatus).data('').draw();
@@ -420,8 +420,8 @@ var Admin = {
     onDepositphoto: function() {
       $('.depositphoto').on('click', function(){
         let preload = "<i class='mdi-editor-insert-invitation'></i>Depositphotos "+
-                  "<img src='"+location.origin+
-                  "/latincolor/img/ajax-li.gif' class='right' style='margin-top:14px'/>";
+                  "<img src='"+ROOT+
+                  "img/ajax-li.gif' class='right' style='margin-top:14px'/>";
         $(this).find('a').html(preload);
       })
     },
@@ -444,7 +444,7 @@ var Admin = {
         $('.tran-detail').text('Obteniendo transacción...');
         let order = $(this).data('order');
         $('#pasarela-tran').modal('open');
-        $.getJSON(location.origin+'/latincolor/admin/consulta_payu/'+order)
+        $.getJSON(ROOT+'admin/consulta_payu/'+order)
           .then(function(res){
             console.log(res);
             $('.tran-detail').text(JSON.stringify(res, null, 3));

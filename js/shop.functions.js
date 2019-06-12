@@ -640,7 +640,7 @@
           break;
         case 'perfil':
           text = "Debes completar tu perfil";
-          link = '<a href="' + location.origin + '/latincolor/main/user?back=cart' + '" class="btn-flat toast-action" onclick="Materialize.Toast.removeAll()">Ir a tu perfil</a>';
+          link = '<a href="' + ROOT + 'main/user?back=cart' + '" class="btn-flat toast-action" onclick="Materialize.Toast.removeAll()">Ir a tu perfil</a>';
           break;
         case 'sesion':
           text = "Debes iniciar sesión";

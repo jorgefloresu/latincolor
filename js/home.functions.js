@@ -31,6 +31,8 @@ var Home  = {
           Home.onSearchOptions();
           Home.onSearchField();
           Home.onSearchButton();
+          Home.onSearchById();
+          Home.onSearchKeyword();
           Home.changeHeader();
     },
 
@@ -47,7 +49,7 @@ var Home  = {
           if(res.status == 404) {
               Login.message('Usuario o password incorrecto');
           } else {
-              Home.updateLoginElements(location.origin+'/latincolor/main/user', 'Hola, '+res.first_name, true);
+              Home.updateLoginElements(ROOT+'main/user', 'Hola, '+res.first_name, true);
               userData = res;
               Home.auth.init();
               Home.shop.displayCart();
@@ -74,7 +76,7 @@ var Home  = {
     },
 
     onSearchOptions: function () {
-          Home.config.searchBar.on("click", "a", function() {
+          Home.config.searchBar.on("click", "a.btn-flat", function() {
             $(this).parent().find('a i').remove();
             Home.config.optionButtons.css("color","#CCC");
             Home.config.medio.val($(this).text());
@@ -102,6 +104,31 @@ var Home  = {
               Home.config.searchForm.submit();
             }
           })
+    },
+
+    onSearchById: function() {
+        $('#home-search .busca-id').on('click', function(event) {
+          event.preventDefault();
+          $('#provider').val($(this).text());
+          Home.config.searchForm.submit();
+          //let previewUrl = ROOT + 'main/preview/'+findStr+'/?provider='+provider;
+          //$('<a href="'+previewUrl+'"></a>').appendTo(setup.config.resultSearch).click();
+
+          //findByImageId(setup.config.keyword.val(), $(this).text())                
+        });
+
+    },
+
+    onSearchKeyword: function() {
+      Home.config.searchField.on('keyup', function(){
+        let val = $(this).val()
+        if ( /^\d+$/.test(val) ) {
+          $('#home-search .escoge-marca').show()
+        } else {
+          $('#home-search .escoge-marca').hide()                  
+        }
+      });
+
     },
 
     changeHeader: function () {

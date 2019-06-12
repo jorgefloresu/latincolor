@@ -309,9 +309,13 @@ class Main extends CI_Controller {
         //$_SESSION['mysession'] = $data['back'];
         //$data['page'] = $this->load->view('preview', '', true);
         $res = $this->providers->{strtolower($data['provider'])}->preview($imagecode);
-        if (count($res)==0)
+        if (count($res)>0) {
+          if ($res['image']=='') {
+            header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+          }
+        } else {
           header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
-
+        }
         $data = array_merge($data, $res);
         echo json_encode($data);
     }

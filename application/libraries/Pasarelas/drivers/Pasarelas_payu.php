@@ -8,25 +8,30 @@ class Pasarelas_payu extends CI_Driver {
     
     public function init_payu()
     {
-        //PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
-        //PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
-        //PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
-        PayU::$apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
-        PayU::$apiLogin = "pRRXKOl8ikMmt9u";
-        PayU::$merchantId = "508029";
+        if ( strpos(base_url(), 'latincolorimages.com') )
+        {
+            // PARA PRODUCCION
+            PayU::$apiKey = "7n4NihX9sYjJXtNJMWQpN8SuOQ";
+            PayU::$apiLogin = "KSL1JO3V5g6w0Hc";
+            PayU::$merchantId = "766521";
+            PayU::$isTest = false; //Dejarlo True cuando sean pruebas.
+            Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/");
+            Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/");   
+        }
+        else
+        {
+            // PARA PRUEBAS 
+            PayU::$apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
+            PayU::$apiLogin = "pRRXKOl8ikMmt9u";
+            PayU::$merchantId = "508029";
+            PayU::$isTest = true; //Dejarlo True cuando sean pruebas.
+            Environment::setPaymentsCustomUrl("https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi");
+            Environment::setReportsCustomUrl("https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi");
+            Environment::setSubscriptionsCustomUrl("https://sandbox.api.payulatam.com/payments-api/rest/v4.3/");
+        }
+
         PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
-        PayU::$isTest = true; //Dejarlo True cuando sean pruebas.
 
-        //Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
-        //Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
-        //Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
-
-        // URL de Pagos
-        Environment::setPaymentsCustomUrl("https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi");
-        // URL de Consultas
-        Environment::setReportsCustomUrl("https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi");
-        // URL de Suscripciones para Pagos Recurrentes
-        Environment::setSubscriptionsCustomUrl("https://sandbox.api.payulatam.com/payments-api/rest/v4.3/");
     }
 
     function pay_parameters($pay)

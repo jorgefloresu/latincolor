@@ -35,6 +35,7 @@ class Membership
 	{
 		$plan = $this->CI->membership_model->get_plan($medio, $frecuencia, $cantidad, $tiempo);
 		foreach ($plan as $key => $value) {
+			$plan[$key]->valor = $this->CI->taxes->set_plan_price($value->valor);
 			$plan[$key]->iva = $this->CI->taxes->set_iva($value->valor);
 			$plan[$key]->tco = $this->CI->taxes->set_tco($value->valor+$plan[$key]->iva, true);
 		}

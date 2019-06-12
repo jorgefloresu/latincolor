@@ -191,6 +191,18 @@
                       <input type="text" id="keyword" name="keyword" placeholder="Digita aquí palabras claves en idioma inglés"
                         value="<?=$keyword?>" class="header-search-input z-depth-2 grey-text" />
                       <!-- <input type="hidden" id="provider" name="provider" value="$provider" /> -->
+                      <a class='escoge-marca dropdown-button btn blue' href='#' data-activates='lista-marcas'
+                        style="position: absolute;right: 0;top: 3px;height: 25px;padding: 0 10px 0 10px;line-height: 30px;display:none">
+                        Buscar por ID
+                      </a>
+
+                      <!-- Dropdown Structure -->
+                      <ul id='lista-marcas' class='dropdown-homeopt dropdown-content'>
+                        <li><a class="busca-id" href="#!">Depositphoto</a></li>
+                        <li><a class="busca-id" href="#!">Dreamstime</a></li>
+                        <li><a class="busca-id" href="#!">Fotosearch</a></li>
+                      </ul>
+
                     </div>
                     <input type='hidden' id="orientacion" name='orientacion' value='<?=$orientacion?>' />
                     <input type='hidden' id="color" name='color' value='<?=$color?>' />

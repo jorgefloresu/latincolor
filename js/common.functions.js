@@ -49,7 +49,7 @@ $.Common.prototype = {
       imageId = $(this).data('id');
       type = $(this).data('type');
       let form = {
-        url: location.origin + '/latincolor/main/reDownload',
+        url: ROOT + 'main/reDownload',
         inputs: {
           lid: $(this).data('lid'),
           provider: provider,

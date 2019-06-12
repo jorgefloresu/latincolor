@@ -17,7 +17,8 @@
         "Storages": true,
         "Pay": true,
         "Api": true,
-        "userData": true
+        "userData": true,
+        "ROOT": true
     },
     "rules": {
         "no-console": "off",

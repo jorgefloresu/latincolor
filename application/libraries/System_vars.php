@@ -35,4 +35,9 @@ class System_vars
     return strval($this->sysvars['price_comision']['value']);
   }
 
+  public function plan_comision()
+  {
+    return strval($this->sysvars['plan_comision']['value']);
+  }
+
 }

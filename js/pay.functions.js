@@ -213,7 +213,7 @@ var Pay = (function () {
 
 	var tokenRequestPayU = function () {
 		let args = {
-			url: location.origin + '/latincolor/order/PayU_token',
+			url: ROOT + 'order/PayU_token',
 			inputs: {
 				username: setup.userName.val(),
 				tipoTarjeta: setup.tipoTarjeta.val(),
@@ -239,7 +239,7 @@ var Pay = (function () {
 
 	var payWithToken = function () {
 		let form_data = {
-			url: location.origin + '/latincolor/order/PayU_pay_token',
+			url: ROOT + 'order/PayU_pay_token',
 			inputs: {
 				//token: datatoken.creditCardToken.creditCardTokenId,
 				orderId: 0,
@@ -254,7 +254,7 @@ var Pay = (function () {
 	}
 
 	var processOrder = function (form) {
-		$.getJSON(location.origin + '/latincolor/order/confirmar_orden', form)
+		$.getJSON(ROOT + 'order/confirmar_orden', form)
 				.then(function (res) {
 					if (res.process.images.result !== 'ok') {						
 						console.log('error al enviar correo de orden de las imagenes');

@@ -45,7 +45,7 @@ var User = {
       event.preventDefault();
       if ($('.plan-ini').text() == 'Espere...') {
         let form = {
-          url: location.origin + '/latincolor/main/get_plan_info',
+          url: ROOT + 'main/get_plan_info',
           inputs: {
             subaccountId: $(this).data('subaccountid'),
             planId: $(this).data('plan')

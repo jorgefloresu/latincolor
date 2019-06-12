@@ -8,7 +8,7 @@
       this.settings = (options!==undefined ? options : this.settings);
       this.settings.info = {};
       this.settings.formId = '';
-      this.settings.userInfoUrl = location.origin+'/latincolor/login/user_info';
+      this.settings.userInfoUrl = ROOT+'login/user_info';
       this.init();
     }
 

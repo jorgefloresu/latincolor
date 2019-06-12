@@ -280,29 +280,34 @@ class Fotosearch_Api
      */
     protected function checkResponse($response)
     {
+        if ($response == 'Not found') {
+            $result = $response;
+        } else {
 
-        try {
-            if ($response === false)
-                throw new EServiceUnavailable('Empty search');
+            try {
+                if ($response === false)
+                    throw new EServiceUnavailable('Empty search');
 
-            $result = $this->decodeResponse($response);
+                $result = $this->decodeResponse($response);
 
-            if (!is_object($result)) {
-                throw new EResponseFail('The rpc response is empty, or have invalid format');
+                if (!is_object($result)) {
+                    throw new EResponseFail('The rpc response is empty, or have invalid format');
+                }
+
+                //if ('failure' == $result->type) {
+                //    throw new EDepositApiCall($result->errormsg, $result->errorcode);
+                //}
             }
-
-            //if ('failure' == $result->type) {
-            //    throw new EDepositApiCall($result->errormsg, $result->errorcode);
-            //}
+            catch (EResponseFail $e){
+                $result = $e->errorMessage();
+                //return false;
+            }
+            catch (EServiceUnavailable $e){
+                $result = $e->errorMessage();
+                //return false;
+            }
         }
-        catch (EResponseFail $e){
-            echo $e->errorMessage();
-            return false;
-        }
-        catch (EServiceUnavailable $e){
-            return false;
-        }
-
+        
         return $result;
     }
 
@@ -390,11 +395,11 @@ class CurlHttpClient
                 $result = false;
 
             elseif (200 != curl_getinfo($this->ch, CURLINFO_HTTP_CODE)) {
-                throw new EServiceUnavailable('The API service is unavailable');
+                throw new EServiceUnavailable('Not found');
             }
         }
         catch (EServiceUnavailable $e) {
-            echo $e->errorMessage();
+            $result = $e->errorMessage();
             //show_error($e->errorMessage());
         }
 
@@ -415,8 +420,9 @@ class CurlHttpClient
 class EDepositClient extends Exception {
     public function errorMessage() {
     //error message
-    $errorMsg = 'Error on line '.$this->getLine().' in '.$this->getFile()
-    .': <b>'.$this->getMessage();
+    // $errorMsg = 'Error on line '.$this->getLine().' in '.$this->getFile()
+    // .': <b>'.$this->getMessage();
+    $errorMsg = $this->getMessage();
     return $errorMsg;
   }
 

@@ -152,7 +152,7 @@ var providerPlanFeatures = function(provider, medio) {
 }
 
 var planesResult = function(plan, desc) {
-      let logoProvider = location.origin+"/latincolor/img/"+plan.provider+".png";
+      let logoProvider = ROOT+"img/"+plan.provider+".png";
       //let row = "<li><div class='collapsible-header valign-wrapper "+plan.deal+"'>"+
       let row = "<li><div class='collapsible-header valign-wrapper' "+ (plan.deal!=''?"style='border-left:5px solid red'":"")+">"+
                 "<img src='"+logoProvider+"' height='23'/>";
@@ -219,7 +219,7 @@ var previewFeatures = function(provider) {
      let tag = '<ul>'+
                 '<li class="center" style="margin-bottom:10px"></li>'+
                 '<li class="blue darken-4" style="height: 2px;"></li>'+
-                '<ul class="collection" style="border:none; padding-left:2.6em; list-style-image:url('+ "'" + location.origin+'/latincolor/img/check_circle.png' + "')" + '">';
+                '<ul class="collection" style="border:none; padding-left:2.6em; list-style-image:url('+ "'" + ROOT+'img/check_circle.png' + "')" + '">';
 
      $.each(features, function(index, feature) {
           tag += "<li class='collection-item' style='border-bottom:none; background-color:transparent; padding:7px 20px'>"+
@@ -230,7 +230,7 @@ var previewFeatures = function(provider) {
 }
 
 var planButton = function(plan, desc) {
-     let logoProvider = location.origin+"/latincolor/img/"+plan.provider+".png";
+     let logoProvider = ROOT+"img/"+plan.provider+".png";
      return "<a data-id='"+plan.id+"' data-img='"+plan.id+
                "' data-price='"+plan.valor+"' data-iva='"+plan.iva+"' data-thumb='"+logoProvider+
                "' data-tco='"+plan.tco+"' data-provider='"+plan.provider+"' data-desc='"+desc+"' data-type='plan'"+
