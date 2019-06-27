@@ -274,7 +274,7 @@ class DepositClient
      * @param   integer $mediaId
      * @return  string
      */
-    public function getMedia($mediaId, $license = RpcParams::LICENSE_STANDARD, $size = RpcParams::SIZE_SMALL, $subaccountId = null)
+    public function getMedia($mediaId, $license = RpcParams::LICENSE_STANDARD, $size = RpcParams::SIZE_SMALL, $subaccountId = null, $subscription_id=null)
     {
         $this->checkLoggedIn();
 
@@ -289,6 +289,9 @@ class DepositClient
         if (null != $subaccountId) {
             $postParams[RpcParams::SUBACC_ID] = $subaccountId;
         }
+        // if (null != $subscription_id) {
+        //     $postParams[RpcParams::PLAN_ID] = $subscription_id;
+        // }
 
         return $this->checkResponse($this->post($this->apiUrl, $postParams));
     }
@@ -645,15 +648,16 @@ class DepositClient
             $result = $this->decodeResponse($response);
 
             if ('failure' == $result->type) {
-                //throw new EDepositApiCall($result->error->errormsg);
                 if ($result->error->errorcode != 13001)
                   throw new Exception($result->error->errormsg, $result->error->errorcode);
+                  //throw new EDepositApiCall($result->error->errormsg);
                   //show_error($result->error->errormsg);
             }
 
             if (!is_object($result)) {
+                throw new Exception('The rpc response is empty, or have invalid format');
                 //throw new EResponseFail('The rpc response is empty, or have invalid format');
-                show_error('The rpc response is empty, or have invalid format');
+                //show_error('The rpc response is empty, or have invalid format');
             }
            if (isset($result->result)) {
                 if (empty($result->result)){}
@@ -732,8 +736,9 @@ class DepositClient
     protected function checkLoggedIn()
     {
         if (null === $this->getSessionId()) {
+            throw new Exception('The called method requires authentication');
             //throw new EAuthenticationRequired('The called method requires authentication');
-            show_error('The called method requires authentication');
+            //show_error('The called method requires authentication');
         }
     }
 }
@@ -776,18 +781,25 @@ class DepCurlHttpClient
             CURLOPT_URL             => $url,
             CURLOPT_POSTFIELDS      => $parameters
         ))) {
+            throw new Exception('Error at setting cURL options, reason: '.curl_error($this->ch), curl_errno($this->ch));
             //throw new ECurlFail('Error at setting cURL options, reason: '.curl_error($this->ch), curl_errno($this->ch));
-            show_error('Error at setting cURL options, reason: '.curl_error($this->ch), curl_errno($this->ch));
+            //show_error('Error at setting cURL options, reason: '.curl_error($this->ch), curl_errno($this->ch));
         }
 
         if (false === $result = curl_exec($this->ch)) {
+            throw new Exception('Error at execute cURL request, reason: '.curl_error($this->ch), curl_errno($this->ch));
             //throw new ECurlFail('Error at execute cURL request, reason: '.curl_error($this->ch), curl_errno($this->ch));
-            show_error('Error at execute cURL request, reason: '.curl_error($this->ch), curl_errno($this->ch));
+            //show_error('Error at execute cURL request, reason: '.curl_error($this->ch), curl_errno($this->ch));
         }
 
         elseif (200 != $curlgetinfo = curl_getinfo($this->ch, CURLINFO_HTTP_CODE)) {
-            //throw new EServiceUnavailable('The API servise is unavailable');
-            show_error('The API servise is unavailable: '.$result);
+            if ($result) {
+                $convert_result = json_decode($result);
+                if (! isset($convert_result->downloadLink)) {
+                    throw new Exception('The API servise is unavailable');
+                    //throw new EServiceUnavailable('The API servise is unavailable');
+                }
+            }
         }
         //echo $curlgetinfo;
         return $result;
@@ -803,8 +815,8 @@ class DepCurlHttpClient
         }
     }
 }
-/*
-class EDepositClient extends Exception {
+
+/* class EDepositClient extends Exception {
     public function errorMessage() {
     //error message
     $errorMsg = 'Error on line '.$this->getLine().' in '.$this->getFile()
@@ -818,5 +830,5 @@ class EDepositApiCall extends EDepositClient {};
 class ECurlFail extends EDepositClient {};
 class EServiceUnavailable extends EDepositClient {};
 class EAuthenticationRequired extends EDepositClient {};
-*/
+ */
 ?>

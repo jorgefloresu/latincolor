@@ -126,15 +126,17 @@ if(!function_exists('material_collection'))
 
 if(!function_exists('material_button'))
 {
-    function material_button($style, $text='', $plan=null)
+    function material_button($style, $text='', $plan=null, $set_price=0, $set_iva=0)
     {
       if ($plan) {
         $p = $plan->data;
         $logo_provider = base_url("img/$p->provider.png");
+        $val_price = ($set_price>0 ? $set_price: $p->valor);
+        $val_iva = ($set_iva>0 ? $set_iva : $plan->iva);
         $desc  = "Planes de $p->medio para descarga ".strtolower($p->frecuencia). " de $p->cantidad ";
         $desc .= ($p->medio=='Fotos'?'imágenes':'videos') . " durante $p->tiempo " . ($p->tiempo==1?'mes':'meses');
         $button = "<a data-id='$p->id' data-img='$p->id'"
-                 ." data-price='$p->valor' data-iva='$plan->iva' data-thumb='$logo_provider'"
+                 ." data-price='$val_price' data-iva='$val_iva' data-thumb='$logo_provider'"
                  ." data-tco='$plan->tco' data-provider='$p->provider' data-desc='$desc' data-type='plan'"
                  ." data-size='N/A' data-sizelbl='-' data-license='standard' data-trantype='compra_plan' data-idplan='$p->offerId'"
                  ." class='comprar-paquete-btn btn waves-effect waves-light blue'><i class='material-icons tiny'>add_shopping_cart</i></a>";
@@ -147,7 +149,7 @@ if(!function_exists('material_button'))
 
 if(!function_exists('material_paquete_card'))
 {
-    function material_paquete_card($size, $color, $title, $sign, $valor, $desc, $items, $plan)
+    function material_paquete_card($size, $color, $title, $sign, $valor, $desc, $items, $plan, $iva=0)
     {
       $col = "class='col {$size}'";
       $card = "<div class='card hoverable'>";
@@ -159,6 +161,8 @@ if(!function_exists('material_paquete_card'))
       $desc = "</div><div class='price-desc' style='background:rgba(0,0,0,0.1)'>{$desc}</div></div>";
       $card_content = "<div class='card-content' style='height:330px'>";
       $card_action = "<div class='card-action center-align'>";
+      $set_price = ($iva>0 ? str_replace('.','',$valor) : 0);
+      $set_iva = ($iva>0 ? $iva : 0);
 
       $html = "<article {$col}>"
                 .$card
@@ -172,7 +176,7 @@ if(!function_exists('material_paquete_card'))
                     .material_collection($items, $plan)
                   ."</div>"
                   .$card_action
-                    .material_button("btn blue accent-2",'',$plan)
+                    .material_button("btn blue accent-2", '', $plan, $set_price, $set_iva)
                 ."</div></div>"
               ."</article>";
 

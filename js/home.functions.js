@@ -51,7 +51,7 @@ var Home  = {
           } else {
               Home.updateLoginElements(ROOT+'main/user', 'Hola, '+res.first_name, true);
               userData = res;
-              Home.auth.init();
+              Home.auth.refreshSettings();
               Home.shop.displayCart();
           }
         },

@@ -72,7 +72,7 @@
           <!-- Dropdown Trigger -->
           <a class='dropdown-button dropdown-plan waves-effect waves-light white btn tooltipped' 
             data-position="top" href='#' data-activates='plan-activo' 
-            style="border: .12rem solid blue;color: blue; padding:0 .5rem">Usar Plan</a>
+            style="border: .12rem solid blue;color: blue; padding:0 1.4rem">Usar Plan</a>
 
           <!-- Dropdown Structure -->
           <ul id='plan-activo' class='dropdown-content'>

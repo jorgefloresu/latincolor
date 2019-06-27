@@ -17,10 +17,14 @@ var User = {
       phone: $('#phone'),
       empresa: $('#empresa'),
       nit: $('#nit'),
+      dni: $('#dni'),
 
       reDownload: $('.re-download'),
       planesView: $('#planes-view'),
       planesCollection: $('.planes-collection'),
+      iconSearch: $('.icon-search'),
+      searchForm: $('#search'),
+
     }
 
     User.auth = new $.Auth({
@@ -38,12 +42,18 @@ var User = {
     User.setRedownloads();
     User.savePrefs();
     User.setPlanesView();
-  },
+    User.config.iconSearch.on('click', function(){
+      User.config.searchForm.submit();
+    });
+    /* $('.plan-flag').hover(function(){
+      Materialize.toast('prueba');
+    }) */
+},
 
   setPlanesView: function () {
     User.config.planesCollection.on('click', 'a.plan-view', function (event) {
       event.preventDefault();
-      if ($('.plan-ini').text() == 'Espere...') {
+      if ($('.plan-estado').text() == 'Espere...') {
         let form = {
           url: ROOT + 'main/get_plan_info',
           inputs: {
@@ -64,6 +74,8 @@ var User = {
             $('.plan-cantidad').text(res.cantidad);
             $('.plan-periodo').text(res.periodo+(res.periodo>1?' dias':' dia'));
             $('.plan-duracion').text(res.buyPeriod+' dias');
+            $('.plan-restantes').text(res.restantes);
+            $('.plan-realizadas').text(res.cantidad-res.restantes);
           }
         });
       }
@@ -154,6 +166,7 @@ var User = {
     User.config.phone.val(userData.phone);
     User.config.empresa.val(userData.empresa);
     User.config.nit.val(userData.nit);
+    User.config.dni.val(userData.dni);
 
     var currentCountries = [],
       currentStates = [];

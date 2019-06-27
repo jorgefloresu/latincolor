@@ -285,7 +285,7 @@
               self.actionItem(this);
             else {
               self._toast("perfil");
-              self.openLoginWindow();
+              //self.openLoginWindow();
             }
         } else {
           self._toast("sesion");
@@ -547,7 +547,10 @@
             if (Pay.setup.cartItems.planes.length > 0) {
               Pay.setup.resCartItems.planes = Pay.setup.cartItems.planes;
               Pay.setup.resCartItems.planes[0].result = 'success';
-              console.log(Pay.setup.resCartItems);
+              if (Pay.setup.token != '') {
+                self.doneCartItems(Pay.setup.resCartItems.planes);
+                console.log(Pay.setup.resCartItems);
+              }
             }
             if (Pay.setup.cartItems.images.length > 0) {
               $.download(Pay.setup.cartItems.images, function (res2) {
@@ -556,45 +559,49 @@
                 //setup.$CCWindow.modal('close');
                 let allItems = [];
                 allItems.push.apply(allItems, Pay.setup.resCartItems.images);
-                allItems.push.apply(allItems, Pay.setup.resCartItems.planes);
+                //allItems.push.apply(allItems, Pay.setup.resCartItems.planes);
                 console.log(allItems);
                 if (allItems.length > 0) {
 
                   if (Pay.setup.token != '') {
-                    //let cart = self.storage.get(self.cartName);
+                    
+                    self.doneCartItems(allItems);
 
-                    $.each(allItems, function (index, item) {
-                      if (item.result == 'success') {
-                        let objDelete = '.delete a[data-item="' + item.productId + '"]';
-                        $(objDelete).html('')
-                          .removeClass('btn red')
-                          .parent()
-                          .addClass('remove');
-                        //let cartItem = self._found(objDelete);
-                        //cart.splice(cartItem.index, 1);
-                        $('.download a[data-item="' + item.productId + '"]')
-                          .html("<i class='small material-icons green-text'>check_circle</i>")
-                          .removeClass('btn blue');
-                      }
-                    });
-
-                    //self.storage.set(self.cartName, cart);
-                    self.$emptyCart.hide();
-                    self.$checkout.hide();
                     if (Pay.setup.resCartItems.images.length > 0) {
-                      $('#downloading').removeClass('hide');
+                      //$('#downloading').removeClass('hide');
                       Pay.setup.$message.html() == 'Transacción aprobada!... preparando compra';
                       //self.setMessage('Descargado');
                     }
-                    //Pay.setup.resCartItems = [];
                   }
                 }          
               })
+            }
+            if (Pay.setup.token != '') {
+              self.$emptyCart.hide();
+              self.$checkout.hide();
             }
           }
         }
       })
       //Pay.setup.$CCWindow.modal('open');
+
+    },
+
+    doneCartItems: function(allItems) {
+      $.each(allItems, function (index, item) {
+        if (item.result == 'success') {
+          let objDelete = '.delete a[data-item="' + item.productId + '"]';
+          $(objDelete).html('')
+            .removeClass('btn red')
+            .parent()
+            .addClass('remove');
+          //let cartItem = self._found(objDelete);
+          //cart.splice(cartItem.index, 1);
+          $('.download a[data-item="' + item.productId + '"]')
+            .html("<i class='small material-icons green-text'>check_circle</i>")
+            .removeClass('btn blue');
+        }
+      });
 
     },
 

@@ -33,13 +33,37 @@ class Membership
 
 	public function get_plan($medio, $frecuencia, $cantidad, $tiempo)
 	{
-		$plan = $this->CI->membership_model->get_plan($medio, $frecuencia, $cantidad, $tiempo);
+		$comision = $this->CI->taxes->plan_comision();
+		$excluir = 'Depositphoto';
+
+		$plan = $this->CI->membership_model->get_plan($medio, $frecuencia, $cantidad, $tiempo, $comision, $excluir);
+		$min_val = 100000;
+		$ant_key = NULL;
 		foreach ($plan as $key => $value) {
-			$plan[$key]->valor = $this->CI->taxes->set_plan_price($value->valor);
+			$plan[$key]->valor = $this->CI->taxes->set_plan_price($value->valor, $value->provider);
 			$plan[$key]->iva = $this->CI->taxes->set_iva($value->valor);
 			$plan[$key]->tco = $this->CI->taxes->set_tco($value->valor+$plan[$key]->iva, true);
+			if ($plan[$key]->valor < $min_val) {
+				$plan[$key]->deal = 'active';
+				$min_val = $plan[$key]->valor;				
+				if ($ant_key !== NULL) {
+					$plan[$ant_key]->deal = '';
+				}
+				$ant_key = $key;
+			}
+			
+			$plan[$key]->por_imagen = round(($plan[$key]->valor / $plan[$key]->fotos_suscripcion), 2);
 		}
+		usort($plan, array($this, 'set_deal'));
 		return $plan;
+
+	}
+
+	function set_deal($a, $b) {
+		if ($a->valor == $b->valor) {
+			return 0;
+		}
+		return ($a->valor < $b->valor) ? -1 : 1;
 	}
 
 	public function get_system($feature)
@@ -217,8 +241,9 @@ class Membership
 				throw new Exception("Mailer Error: " . $mail->ErrorInfo, 1);
 			} 
 		} catch (Exception $e) {
-			return ['result'=>$e->getMessage(),
-					'url'=>""];
+			return ['result'=>"error",
+					'url'=>"",
+					'message'=>$e->getMessage()];
 		}
 
 		return ['result'=>"ok",

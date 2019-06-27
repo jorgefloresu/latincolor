@@ -21,7 +21,7 @@ if(!function_exists('add_js')){
                 case 'api':
                   //array_splice($header_js, 9, 0, 'js/'.$item.'.functions.js');
                   $header_js[] = 'js/'.$item.'.functions.js';
-                  $header_js[] = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js';
+                  //$header_js[] = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js';
                   $header_js[] = 'js/imagesloaded.pkgd.min.js';
                   $header_js[] = 'js/jquery.justifiedGallery.min.js';
                   $header_js[] = 'js/magnific-popup.min.js';
@@ -85,7 +85,7 @@ if(!function_exists('put_headers')){
           foreach($header_css AS $item){
               $media = (substr($item,0,15)=='materialize/css' || substr($item,0,14)=='css/home-style'
                         ? 'media="screen,projection"' : '');
-              $str .= '<link rel="stylesheet" href="'.base_url().$item.'" type="text/css" '.$media.'/>'."\n";
+              $str .= '<link rel="stylesheet" href="'.base_url().$item.'" type="text/css" '.$media.' lazyload="1"/>'."\n";
           }
 
         if ($type=='js' || $type=='') {

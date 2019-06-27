@@ -142,8 +142,9 @@ class Login extends CI_Controller {
 
 			//Set who the message is to be sent to
 			$mail->addAddress($email, $fullname);
+			$mail->AddCC("gerencia@latincolorimages.com");
 			//Set the subject line
-			$mail->Subject = 'Bienvenido a Latin Color Images';
+			$mail->Subject = 'Bienvenido '. $email_data['first_name'] . ' a Latin Color Images';
 			//Read an HTML message body from an external file, convert referenced images to embedded,
 			//convert HTML into a basic plain-text alternative body
 			$mail->CharSet = 'utf-8';
@@ -152,7 +153,7 @@ class Login extends CI_Controller {
 			$body = $this->load->view('email/Bienvenido/mail','', TRUE);
 			$mail->Body = str_replace('__USUARIO__', strtoupper($email_data['first_name']), $body);
 			//Replace the plain text body with one created manually
-			$mail->AltBody = 'Su cuenta ha sido creada';
+			$mail->AltBody = 'Tu cuenta ha sido creada';
 
 			if (!$mail->send()) {
 					http_response_code(500);

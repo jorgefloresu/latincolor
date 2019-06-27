@@ -16,6 +16,7 @@ class Main extends CI_Controller {
         $this->load->model('countries_model');
         $this->load->library('language',array('language'=>'es_SV'));
     	  $this->load->driver('providers');
+    	  $this->load->driver('pasarelas');
         $this->load->helper(['tag','material']);
         $this->logo = base_url('img/LCI-logo-Hi.png');
         $this->load->library('taxes');
@@ -55,10 +56,10 @@ class Main extends CI_Controller {
       $data['user_data'] = (object) array('fname'=>'','email_address'=>'');
       $data['user_info'] = '';
       $data['countries'] = $this->countries_model->get_countries();
-      $data['banks'] = $this->banks();
-      $data['persona'] = $this->persona();
-      $data['documento'] = $this->documento();
-      $data['tarjeta'] = $this->tarjeta();
+      //$data['banks'] = $this->pasarelas->payu->banks();
+      $data['persona'] = $this->pasarelas->payu->persona();
+      $data['documento'] = $this->pasarelas->payu->documento();
+      $data['tarjeta'] = $this->pasarelas->payu->tarjeta();
 
       //$userdata = (object) array('fname'=>'','email_address'=>'');
       if ($data['logged']){
@@ -161,75 +162,14 @@ class Main extends CI_Controller {
       print_r($cut);
     }
 
-    public function init_payu()
-    {
-        //PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
-        //PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
-        //PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
-        PayU::$apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
-        PayU::$apiLogin = "pRRXKOl8ikMmt9u";
-        PayU::$merchantId = "508029";
-        PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
-        PayU::$isTest = true; //Dejarlo True cuando sean pruebas.
-
-        //Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
-        //Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
-        //Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
-
-        // URL de Pagos
-        Environment::setPaymentsCustomUrl("https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi");
-        // URL de Consultas
-        Environment::setReportsCustomUrl("https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi");
-        // URL de Suscripciones para Pagos Recurrentes
-        Environment::setSubscriptionsCustomUrl("https://sandbox.api.payulatam.com/payments-api/rest/v4.3/");
-    }
-
-    function banks() {
-      $this->init_payu();
-      //Ingrese aquí el nombre del medio de pago
-      $parameters = array(
-        //Ingrese aquí el identificador de la cuenta.
-        PayUParameters::PAYMENT_METHOD => "PSE",
-        //Ingrese aquí el nombre del pais.
-        PayUParameters::COUNTRY => PayUCountries::CO,
-      );
-      $array=PayUPayments::getPSEBanks($parameters);
-      return $array->banks;
-
-    }
-
-    function persona() {
-      return [['tipo'=>'Persona Natural', 'code'=>'N'],
-              ['tipo'=>'Persona Jurídica', 'code'=>'J']];
-    }
-
-    function documento() {
-      return [['code'=>'CC', 'tipo'=>'Cédula de ciudadanía'],
-              ['code'=>'CE', 'tipo'=>	'Cédula de extranjería'],
-              ['code'=>'NIT', 'tipo'=>	'Número de Identificación Tributaria'],
-              ['code'=>'TI', 'tipo'=>	'Tarjeta de Identidad'],
-              ['code'=>'PP', 'tipo'=>	'Pasaporte'],
-              ['code'=>'IDC', 'tipo'=>	'Identificador único de cliente'],
-              ['code'=>'CEL', 'tipo'=>	'Identificador de la línea del móvil'],
-              ['code'=>'RC', 'tipo'=>	'Registro civil de nacimiento'],
-              ['code'=>'DE', 'tipo'=>	'Documento de identificación extranjero']];
-    }
-
-    function tarjeta() {
-      return [['code'=>'VISA', 'tipo'=>'VISA'],
-              ['code'=>'MASTERCARD', 'tipo'=>'MASTERCARD'],
-              ['code'=>'DINERS', 'tipo'=>'DINERS'],
-              ['code'=>'AMEX', 'tipo'=>'AMEX'],
-              ['code'=>'VISA_DEBIT', 'tipo'=>'VISA_DEBIT']];
-    }
-
-    function search($page) {
+    function search($page=1) {
         $data['logo'] = $this->logo;
         $data['keyword'] = ($this->input->get('keyword') ?: "");
 
         $data['orientacion'] = ($this->input->get('orientacion') ?: '');
         $data['color'] = ($this->input->get('color') ?: '');
         $data['medio'] = ($this->input->get('medio') ?: 'Fotos');
+        $data['filter'] = ($this->input->get('filter') ?: '');
         $data['icon'] = base_url("img/".$data['medio']."-50.png");
 
         //$data['provider'] = ($this->input->get('provider') ?: "Economicas");
@@ -247,10 +187,10 @@ class Main extends CI_Controller {
         }
 
         $data['countries'] = $this->countries_model->get_countries();
-        $data['banks'] = $this->banks();
-        $data['persona'] = $this->persona();
-        $data['documento'] = $this->documento();
-        $data['tarjeta'] = $this->tarjeta();
+        //$data['banks'] = $this->pasarelas->payu->banks();
+        $data['persona'] = $this->pasarelas->payu->persona();
+        $data['documento'] = $this->pasarelas->payu->documento();
+        $data['tarjeta'] = $this->pasarelas->payu->tarjeta();
 
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
                 strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
@@ -260,7 +200,8 @@ class Main extends CI_Controller {
                            'orientacion'=>$data['orientacion'],
                            'color'=>$data['color'],
                            'medio'=>$data['medio'],
-                           'rows' => $data['range']
+                           'rows' => $data['range'],
+                           'filter' => $data['filter']
                           );
 
             //if ($data['provider'] == 'Economicas') {
@@ -293,7 +234,7 @@ class Main extends CI_Controller {
         else {
             $data['page'] = $page;
             add_css(['justifiedGallery.min','magnific-popup','main']);
-            add_js(['api','chart']);
+            add_js(['api']);
             $this->load->view('main', $data);
         }
     }
@@ -422,7 +363,9 @@ class Main extends CI_Controller {
         $data['sum_downloads'] = $this->membership_model->sum_price('downloads', 'img_price', $username);
         //$data['sum_planes'] = sumar_valores($data['planes_list'],'valor');
         $data['sum_planes'] = $this->membership_model->sum_planes($username);
-        //$data['tarjeta'] = 
+        if ($data['user_data']->deposit_userid) {
+          $data['plan_info'] = $this->check_subscriptions($data['user_data']->deposit_userid, FALSE);
+        }
         $offset = 4;
         $this->pagination(count($data['planes_list']), $offset);
         $data['pags'] = $this->pagination->create_links();
@@ -453,6 +396,7 @@ class Main extends CI_Controller {
       $plan_name = $this->membership_model->get_plan_dp($plan->offerId);
       $subaccountData = $this->providers->depositphoto->subaccounts('data', $subaccountId, '', 'unix');
       $data['result'] = '';
+      $data['restantes'] = $subaccountData->subscriptionAmount;
       foreach ($subaccountData->subscriptions as $value) {
         if ($value->name == $plan_name) {
           $data['estado'] = $value->status;
@@ -470,7 +414,7 @@ class Main extends CI_Controller {
       echo json_encode($data);
     }
 
-    function check_subscriptions($subaccountId) {
+    function check_subscriptions($subaccountId, $json=TRUE) {
       
       //$res = $this->membership_model->get_planes($this->input->post('planId'));
       //$plan = $res->row();
@@ -478,14 +422,23 @@ class Main extends CI_Controller {
       $subaccountData = $this->providers->depositphoto->subaccounts('data', $subaccountId, '', 'unix');
       $data['subscriptionAmount'] = $subaccountData->subscriptionAmount;
       $data['filesAmount'] = $subaccountData->filesAmount;
+      $data['totalAmount'] = 0;
       foreach ($subaccountData->subscriptions as $key => $value) {
         if ($value->status == 'active') {
           $data['subscriptions'][$key]['id'] = $value->id;
           $data['subscriptions'][$key]['amount'] = $value->amount;
-          $data['subscriptions'][$key]['name'] = $value->amount.' por '.($value->buyPeriod==1?'dia':'mes');
+          $data['subscriptions'][$key]['name'] = $value->amount.' x '.($value->buyPeriod==1?'dia':'mes');
+          $data['subscriptions'][$key]['restantes'] = $value->amount - $data['subscriptionAmount'];
+          $dateEnd = new DateTime("@$value->dateEnd");
+          $data['fecha_fin'] = $dateEnd->format('d-m-Y');
+          $data['totalAmount'] += $value->amount; 
         }
       }
-      echo json_encode($data);
+      if ($json) {
+        echo json_encode($data);
+      } else {
+        return $data;
+      }
     }
 
     function planes_params($medio) {

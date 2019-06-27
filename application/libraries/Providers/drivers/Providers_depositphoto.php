@@ -31,6 +31,9 @@ class Providers_depositphoto extends CI_Driver {
 				if ($query['color']!='') {
 					$params[RpcParams::SEARCH_COLOR]  = '17';
 				}
+				if ($query['filter']!='') {
+					$params[RpcParams::SEARCH_USERNAME]  = $query['filter'];
+				}
 				switch ($query['medio']) {
 					case 'Vectores':
 						$params[RpcParams::SEARCH_VECTOR] = 'true';
@@ -97,7 +100,7 @@ class Providers_depositphoto extends CI_Driver {
         $login = $this->CI->depositclient->login(DEF_DPUSER, DEF_DPPASS);
         $this->CI->depositclient->setSessionId($login->sessionid);
 
-        $purchased_media = $this->CI->depositclient->getMedia($media, $license, $size, $subaccountid);
+        $purchased_media = $this->CI->depositclient->getMedia($media, $license, $size, $subaccountid, $item['subscriptionId']);
 				//if ( $query = $this->CI->membership_model->record_transaction($username, 'download', $media) )
 				//{
 					$rec = array(
@@ -114,7 +117,8 @@ class Providers_depositphoto extends CI_Driver {
 						'img_dimension' => '',
 						'img_pixels' => '',
 						'license_type' => $license,
-						'license_id' => $purchased_media->licenseId
+						'license_id' => $purchased_media->licenseId,
+						'subscription_id' => $item['subscriptionId']
 					);
 					$this->CI->membership_model->record_download($rec);
 				//}

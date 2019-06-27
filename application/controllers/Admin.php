@@ -27,12 +27,16 @@ class Admin extends CI_Controller {
 		$username = $this->membership->is_logged_in();
 		if ($username != '')
 		{
+			if ($username != 'admin') {
+				redirect('login/logout');
+				exit;
+			}
 			if ($pre_data != NULL)
 				$data = $pre_data;
 			$data['logged'] = $username;
 			$data['user_data'] = $this->membership->get_user($username);
-			$fullname = $this->membership_model->get_fullname($username);
-			$data['user_info'] = json_encode($fullname->row());
+			//$fullname = $this->membership_model->get_fullname($username);
+			$data['user_info'] = json_encode($data['user_data']);
 			$data['new_consultas'] = $this->membership_model->count_new_consultas();
 			$data['new_ventas'] = $this->membership_model->count_new_ventas();
 			$data['new_ordenes'] = $this->membership_model->count_new_ordenes();
@@ -80,6 +84,9 @@ class Admin extends CI_Controller {
 				break;
 			case 'planes':
 				$datares = $this->membership_model->get_planes();
+				break;
+			case 'membership':
+				$datares = $this->membership_model->get_fullname();
 				break;
 		}
 		return $datares->result();

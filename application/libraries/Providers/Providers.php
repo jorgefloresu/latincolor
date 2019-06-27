@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 define('DEF_DPUSER', 'latincolorimages');
-define('DEF_DPPASS', 'latincol2016$');
+define('DEF_DPPASS', 'fotos2019$');
 
 class Providers extends CI_Driver_Library {
 

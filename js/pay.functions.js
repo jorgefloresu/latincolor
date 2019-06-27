@@ -256,12 +256,14 @@ var Pay = (function () {
 	var processOrder = function (form) {
 		$.getJSON(ROOT + 'order/confirmar_orden', form)
 				.then(function (res) {
-					if (res.process.images.result !== 'ok') {						
+					if (res.process.images.result == 'error') {						
 						console.log('error al enviar correo de orden de las imagenes');
+						console.log(res.process.images.message);
 						Materialize.toast('No fue posible enviar notificación al correo',4000);
 					}
-					if (res.process.planes.result !== 'ok') {
+					if (res.process.planes.result == 'error') {
 						console.log('error al enviar correo de orden del plan');
+						console.log(res.process.planes.message);
 						Materialize.toast('No fue posible enviar notificación al correo',4000);
 					}
 				})

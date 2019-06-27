@@ -117,10 +117,9 @@ var Api = ( function() {
   var collapsibleOpts = {
             accordion : true,
             onOpen : function(el) {
-                      if (el.attr('id')=='user-purchases')
                         $.getPurchases(el);
                     }
-          }
+  }
 
   var findByImageId = function(findStr, provider) {
           //let keyEntered = findStr.split(':');
@@ -133,12 +132,22 @@ var Api = ( function() {
           //}
   }
 
+  var checkFilter = function(findStr) {
+          let keyEntered = findStr.split(':');
+          if (keyEntered.length > 1) {
+            $('#filter').val(keyEntered[0]);
+            return keyEntered[1];
+          } else {
+            return findStr;
+          }
+  }
+
   var enableFindById = function(val) {
-      if ( /^\d+$/.test(val) ) {
-        $('#search .escoge-marca').show()
-      } else {
-        $('#search .escoge-marca').hide()                  
-      }
+          if ( /^\d+$/.test(val) ) {
+            $('#search .escoge-marca').show()
+          } else {
+            $('#search .escoge-marca').hide()                  
+          }
 
   }
 
@@ -156,6 +165,7 @@ var Api = ( function() {
               setup.config.searchForm.on("submit", {fillOut: showResult}, mainMethod);
               setup.config.searchIcon.on('click', function() {
                 //if (! findByImageId(setup.config.keyword.val()) ) {
+                  setup.config.keyword.val(checkFilter(setup.config.keyword.val()));
                   setup.config.searchForm.submit();
                 //}
               });
@@ -234,13 +244,17 @@ var Api = ( function() {
               $('.msg-usa-plan').text('Iniciando...').css({'display':'flex', 'color':'grey'});
 
               let selected = preview.prices.find('a.active');
+              let activeSubscriptionId = ($('.dropdown-plan').text() != 'Usa tu plan' ? $('.dropdown-plan').text() : '');
               let item = [{
                 'productId': $(selected).data('img'),
                 'size': $(selected).data('size'),
+                'price': $(selected).data('price'),
                 'license_type': $(selected).data('license'),
                 'provider': $(selected).data('provider'),
-                'thumb': $(selected).data('thumb'),
                 'username': $.Auth.info('username'),
+                'thumb': $(selected).data('thumb'),
+                'type': $(selected).data('type'),
+                'subscription_id': activeSubscriptionId 
               }];
               $.download(item, function (res) {
                 console.log(res);
@@ -359,7 +373,7 @@ var Api = ( function() {
                               }
                               disponibles = Number(res.subscriptionAmount);
                               $.each(res.subscriptions, function(key, plan){
-                                html += "<li><a href='#!' class='selected-plan blue-text text-darken-4' data-disponible='"+disponibles+"' data-id='"+plan.id+"'>"+plan.id+"</a></li>";
+                                html += "<li><a href='#!' class='selected-plan blue-text text-darken-4' data-disponible='"+disponibles+"' data-id='"+plan.id+"'>"+plan.name+"</a></li>";
                               })
                             })
                             .done(function(){
@@ -652,7 +666,12 @@ var Api = ( function() {
 
   var getFromUrl = function(url, field) {
             let exp = new RegExp( field + "=([^&]+)" );
-            return exp.exec(url)[1].replace(/\+/g," ");
+            let expArray = exp.exec(url);
+            if (expArray === null) {
+              return ''
+            } else {
+              return expArray[1].replace(/\+/g," ");
+            }
           }
 
  var menuMedios = function () {

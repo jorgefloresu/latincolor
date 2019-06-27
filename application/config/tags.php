@@ -16,7 +16,7 @@ $config['header_js']  = [
                           'js/js.storage.min.js',
                           'js/jquery.validate.js',
                           'js/templates.js',
-                          'https://www.2checkout.com/checkout/api/2co.min.js',
+                          //'https://www.2checkout.com/checkout/api/2co.min.js',
                           'js/lib.functions.js',
                           'js/auth.functions.js',
                           'js/login.functions.js',

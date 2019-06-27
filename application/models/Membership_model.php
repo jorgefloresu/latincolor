@@ -309,6 +309,11 @@ class Membership_model extends CI_Model {
 
 	function get_downloads($username=null, $provider=null, $img_code=null)
 	{
+		$this->db->select("id, username, date, img_code, img_provider,
+							img_url, img_price, price_type, type, resolution, size, img_dimension, 
+							img_pixels, download_ref, order_id, license_type, license_id, subscription_id");
+		$this->db->from('downloads');
+		
 		if (null != $username)
 			$this->db->where('username', $username);
 		if (null != $provider)
@@ -316,9 +321,9 @@ class Membership_model extends CI_Model {
 		if (null != $img_code)
 			$this->db->where('img_code', $img_code);
 
-		$this->db->order_by('id', 'DESC');
+		$this->db->order_by('date', 'DESC');
 
-		$query = $this->db->get('downloads');
+		$query = $this->db->get();
 		return $query;
 
 	}
@@ -384,13 +389,19 @@ class Membership_model extends CI_Model {
 
 	function get_fullname($username=null)
 	{
-		if (null != $username)
-			$query = $this->db->query(
-				"SELECT CONCAT(first_name,' ',last_name) as fname, first_name, last_name, 
-					membership.id, username, email_address, address, city, state, country, 
-					code, zip, phone, empresa, nit, cc_token, cc_method, deposit_userid
-				 FROM membership, countries WHERE username='$username' 
-				 AND membership.country=countries.name");
+		$field_string = "SELECT CONCAT(first_name,' ',last_name) as fname, first_name, last_name, 
+								membership.id, username, email_address, address, city, state, country, 
+								zip, phone, empresa, nit, dni, cc_token, cc_method, deposit_userid";
+		$table_string = " FROM membership";
+
+		if (null != $username) {
+			$field_string .= ", code";
+			$table_string .=  ", countries WHERE username='$username' 
+								AND membership.country=countries.name";
+		} 
+
+		$query_string = $field_string . $table_string; 
+		$query = $this->db->query($query_string);
 		//$row = $query->row();
 		//return $row;
 		return $query;
@@ -439,8 +450,36 @@ class Membership_model extends CI_Model {
 		return $query;
 	}
 
-	function get_plan($medio, $frecuencia, $cantidad, $tiempo)
+	function get_plan($medio, $frecuencia, $cantidad, $tiempo, $comision=1, $excl_prov='')
 	{
+		// Un solo QUERY para modificar valores a todos los planes excluyendo un proveedor
+		/* $expr = "SELECT planes.id, planes.provider, planes.medio, planes.frecuencia, planes.cantidad, 
+		planes.tiempo, planes.fotos_suscripcion, planes.valor AS real_valor, planes.offerId, 
+		IF(planes.provider='$excl_prov',planes.valor,planes.valor*$comision) AS valor, 
+		IF(calc_valor>0,'active','') as deal,
+		ROUND((IF(planes.provider='$excl_prov',planes.valor,planes.valor*$comision) / planes.fotos_suscripcion), 2) AS por_imagen
+		FROM planes LEFT JOIN 
+			( SELECT * FROM 
+				( SELECT *, IF(provider='$excl_prov',valor,valor*$comision) as calc_valor 
+					FROM planes 
+					WHERE medio='$medio' AND frecuencia='$frecuencia' AND cantidad=$cantidad AND tiempo=$tiempo
+				) AS planes_calc 
+				WHERE calc_valor = 
+					( SELECT MIN(new_valor) FROM 
+						( SELECT id, valor, IF(provider='$excl_prov',valor,valor*$comision) AS new_valor 
+							FROM planes 
+							WHERE medio='$medio' AND frecuencia='$frecuencia' AND cantidad=$cantidad
+							AND tiempo=$tiempo
+						) AS new_planes 
+					)
+			) AS planes_calc 
+			ON planes.id = planes_calc.id 
+			WHERE planes.medio='$medio' 
+			AND planes.frecuencia='$frecuencia' AND planes.cantidad=$cantidad AND planes.tiempo=$tiempo";
+
+		$query = $this->db->query($expr); */
+
+		/* QUERY para traer planes sin alterar precios
 		$deal = "IF((SELECT MIN(valor) FROM planes WHERE frecuencia='$frecuencia'
 						AND cantidad=$cantidad AND tiempo=$tiempo)<valor,'','active')";
 
@@ -448,16 +487,11 @@ class Membership_model extends CI_Model {
 
 		$query = $this->db->query("SELECT *, $deal AS deal, $costo_imagen AS por_imagen
 							FROM planes WHERE medio='$medio' AND frecuencia='$frecuencia'
+							AND cantidad=$cantidad AND tiempo=$tiempo ORDER BY valor ASC"); */
+
+		$query = $this->db->query("SELECT *, '' AS deal, 0.00 AS por_imagen
+							FROM planes WHERE medio='$medio' AND frecuencia='$frecuencia'
 							AND cantidad=$cantidad AND tiempo=$tiempo ORDER BY valor ASC");
-
-		// $data = array(
-		// 	'frecuencia'=> $frecuencia,
-		// 	'cantidad'	=> $cantidad,
-		// 	'tiempo'		=> $tiempo
-		// );
-
-		// $this->db->select('*, ROUND((valor / fotos_suscripcion), 2) AS por_imagen, IF(SELECT)', FALSE);
-		// $query = $this->db->get_where('planes', $data);
 
 		return $query->result();
 	}

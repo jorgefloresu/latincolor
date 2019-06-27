@@ -6,24 +6,24 @@
         <div class="col m3">
           <!-- <a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta" target="_blank" class="phone"><i class="fab fa-whatsapp fa-2x"></i> + (57) 314 295 8463</a> -->
           <a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
-            target="_blank" class="phone hide-on-small-only" style="padding-left: 30px;">
+            alt="Contáctanos" target="_blank" class="phone hide-on-small-only" style="padding-left: 30px;">
             <img src="<?=base_url('img/whatsapp-30.png')?>" style="margin: 10px -35px;position: absolute;"> + (57) 314
             295 8463</a>
         </div>
         <div class="col s12 m6 center">
           <div id="signuser" class="sesion-menu">
             <?php if ($logged): ?>
-            <a href="<?=site_url('main/user')?>" class="sign-in modal-trigger">Hola,
+            <a href="<?=base_url('main/user')?>" class="sign-in modal-trigger">Hola,
               <?=$user_data->first_name?></a>
             <span><i class="fas fa-user-circle fa-lg"></i></span>
-            <a href="<?=site_url('login/logout/noindex')?>" id="sign-out">Cerrar sesión</a>
+            <a href="<?=base_url('login/logout/noindex')?>" id="sign-out">Cerrar sesión</a>
             <a href="#signup-page" id="signup-user" class="modal-trigger" style="display:none">
               <?=_("Sign up")?></a>
             <?php else: ?>
             <a href="#sign-in" class="sign-in modal-trigger">
               <?=_("Login")?></a>
             <span><i class="fas fa-user-circle fa-lg"></i></span>
-            <a href="<?=site_url('login/logout/noindex')?>" id="sign-out" style="display:none">Cerrar sesión</a>
+            <a href="<?=base_url('login/logout/noindex')?>" id="sign-out" style="display:none">Cerrar sesión</a>
             <a href="#signup-page" id="signup-user" class="modal-trigger">
               <?=_("Sign up")?></a>
             <?php endif; ?>
@@ -46,18 +46,18 @@
       <div class="row">
         <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
         <div class="col s10">
-          <a id="logo-container" href="#" class="brand-logo" style="top:-5px"><img src="<?=base_url('img/LCI_LOGO_BLANCO_T.png')?>"></a>
+          <a id="logo-container" alt="Latin Color Images - Banco de Imágenes" href="#" class="brand-logo" style="top:-5px"><img src="<?=base_url('img/LCI_LOGO_BLANCO_T.png')?>"></a>
           <ul class="hide-on-med-and-down" style="padding-left:260px">
-            <li><a href="<?=site_url('main/planes')?>">PLANES & SUSCRIPCIONES</a></li>
-            <li><a href="<?=site_url('main/planes#paquetes-promo')?>">PAQUETES</a></li>
-            <li><a href="<?=site_url('main/servicios')?>">SERVICIOS</a></li>
+            <li><a href="<?=base_url('main/planes')?>">PLANES & SUSCRIPCIONES</a></li>
+            <li><a href="<?=base_url('main/planes#paquetes-promo')?>">PAQUETES</a></li>
+            <li><a href="<?=base_url('main/servicios')?>">SERVICIOS</a></li>
             <!-- Dropdown Trigger -->
             <li><a class="dropdown-button" href="#!" data-activates="opciones">CONTÁCTANOS<i class="material-icons right">arrow_drop_down</i></a></li>
             <ul id="opciones" class="dropdown-homeopt dropdown-content">
-              <li><a href="<?=site_url('main/consultor')?>">Mi Consultor</a></li>
-              <li><a href="<?=site_url('main/nosotros')?>">Quienes somos</a></li>
+              <li><a href="<?=base_url('main/consultor')?>">Mi Consultor</a></li>
+              <li><a href="<?=base_url('main/nosotros')?>">Quienes somos</a></li>
               <li class="divider"></li>
-              <li><a href="<?=site_url('main/contactanos')?>">Contáctanos</a></li>
+              <li><a href="<?=base_url('main/contactanos')?>">Contáctanos</a></li>
             </ul>
           </ul>
         </div>
@@ -90,18 +90,18 @@
                     <?=$user_data->email_address?></span></a>
               </div>
             </li>
-            <li><a href="<?=site_url('main/planes')?>">Planes & Suscripciones</a></li>
-            <li><a href="<?=site_url('main/planes#paquetes-promo')?>">Paquetes</a></li>
-            <li><a href="<?=site_url('main/servicios')?>">Servicios</a></li>
+            <li><a href="<?=base_url('main/planes')?>">Planes & Suscripciones</a></li>
+            <li><a href="<?=base_url('main/planes#paquetes-promo')?>">Paquetes</a></li>
+            <li><a href="<?=base_url('main/servicios')?>">Servicios</a></li>
             <li>
               <ul class="collapsible collapsible-accordion">
                 <li>
                   <a class="collapsible-header">Opciones</a>
                   <div class="collapsible-body">
                     <ul>
-                      <li><a href="<?=site_url('main/consultor')?>">Mi Consultor</a></li>
-                      <li><a href="<?=site_url('main/nosotros')?>">Quienes somos</a></li>
-                      <li><a href="<?=site_url('main/contactanos')?>">Contáctanos</a></li>
+                      <li><a href="<?=base_url('main/consultor')?>">Mi Consultor</a></li>
+                      <li><a href="<?=base_url('main/nosotros')?>">Quienes somos</a></li>
+                      <li><a href="<?=base_url('main/contactanos')?>">Contáctanos</a></li>
                     </ul>
                   </div>
                 </li>
@@ -145,7 +145,7 @@
       <br><br> -->
         <div class="caption center-align">
           <nav id="slide-search-bar">
-            <?=form_open('main/search/1', 'id="home-search" method="get"')?>
+            <?=form_open(base_url().'main/search/1', 'id="home-search" method="get"')?>
             <div class="search-wrapper card">
               <div class="input-field">
                 <input id="search" type="search" name="keyword" placeholder="Digita palabras claves en idioma inglés"

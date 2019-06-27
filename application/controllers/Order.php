@@ -161,7 +161,7 @@ class Order extends CI_Controller
                         $subaccountId = $this->providers->createSubaccount($provider, $userinfo);
                         if ($subaccountId == 'Ya existe login') {
                             $subaccountCheck = false;
-                            throw new PayUException(PayUErrorCodes::API_ERROR, 'Ya existe login');
+                            throw new Exception('Ya existe login');
                             //throw new Twocheckout_Error('Ya existe login');
                             //echo json_encode($charge);
                             //return;
@@ -225,17 +225,21 @@ class Order extends CI_Controller
 
         if (! $from_admin) {
 
+            $subaccountId = $userinfo->deposit_userid;
             if (count($order['items']['planes']) > 0) {
                 $order_data = $order['items']['planes'][0];
                 //$order_data['status'] = ( $order_data['provider']=='Depositphoto' ? 'new' : 'ord' );
                 if ($order_data['provider'] == 'Depositphoto') {
-                    $subaccountId = $userinfo->deposit_userid;
                     if ($subaccountId == '') {
                         $subaccountId = $this->providers->createSubaccount($order_data['provider'], $userinfo);
-                        $resSubacc = $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
-                    }            
-                    $status = 'new';
-                    $resSubs = $this->providers->createSubscription($order_data['provider'], $order_data['idplan'], $subaccountId);
+                        if ($subaccountId != 'Ya existe login') {
+                            $resSubacc = $this->membership_model->update_member($username, ['deposit_userid' => $subaccountId]);
+                        }
+                    }
+                    if ($subaccountId != 'Ya existe login') {
+                        $status = 'new';
+                        $resSubs = $this->providers->createSubscription($order_data['provider'], $order_data['idplan'], $subaccountId);
+                    }
                 } else {
                     $status = 'ord';
                 }
@@ -259,7 +263,12 @@ class Order extends CI_Controller
                                 'status' => $from_admin];
         }
         //$res = $this->membership->confirmar_orden($orderId, $username, $monto, $description, $activity_type, $status);
-        $res = $this->membership->confirmar_orden($order);
+        if ($subaccountId == 'Ya existe login') {
+            http_response_code(500);
+            $res = "El email del usuario ya esta registrado con Depositphoto. Debe proveer userID asignado.";
+        } else {
+            $res = $this->membership->confirmar_orden($order);
+        }
         $res['subs'] = $resSubs;
         $res['subacc'] = $resSubacc;
         echo json_encode($res);

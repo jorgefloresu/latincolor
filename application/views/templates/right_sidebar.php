@@ -13,6 +13,16 @@
         </li>
         <li class="li-hover">
             <ul class="chat-collapsible" data-collapsible="expandable">
+            <? if ($user_data->deposit_userid != ''): ?>
+                <li id="plan-info" data-url="">
+                    <div class="collapsible-header green white-text active">
+                        <i class="material-icons">monetization_on</i>Datos de tu plan
+                    </div>
+                    <div class="collapsible-body recent-activity">
+                        <div class="image-list" style="padding-top: 15px"></div>
+                    </div>
+                </li>
+            <? endif ?>
             <li id="user-purchases" data-url="<?=base_url('transactions/view_downloads')?>">
                 <div class="collapsible-header blue white-text active">
                     <i class="material-icons">image</i>Imagenes Compradas
@@ -22,7 +32,7 @@
                 </div>
             </li>
             <li id="user-planes" data-url="<?=base_url('transactions/view_planes')?>">
-                <div class="collapsible-header green white-text">
+                <div class="collapsible-header orange white-text">
                     <i class="material-icons">next_week</i>Planes Adquiridos
                 </div>
                 <div class="collapsible-body recent-activity">

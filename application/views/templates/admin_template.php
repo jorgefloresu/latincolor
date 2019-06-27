@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?php echo base_url('css/perfect-scrollbar.css'); ?>" />
     <link rel="stylesheet" href="<?php echo base_url('css/admin.css'); ?>" />
     <link rel="stylesheet" href="<?php echo base_url('css/datatables.min.css'); ?>" />
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <link href="http://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet" media="screen,projection"> -->
 
 
@@ -68,6 +68,7 @@
 
     <script type="text/javascript">
     var userData = JSON.parse('<?=$user_info?>');
+    const ROOT = '<?=base_url()?>';
     </script>
 
     <script src="<?php echo base_url('js/jquery-3.3.1.min.js');?>"></script>

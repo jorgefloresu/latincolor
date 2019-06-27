@@ -30,9 +30,18 @@ class Taxes
     return ceil($original_price) * (1+strval($this->CI->system_vars->comision()));
   }
 
-  public function set_plan_price($original_price)
+  public function set_plan_price($original_price, $provider)
   {
-    return ceil($original_price) * (1+strval($this->CI->system_vars->plan_comision()));
+    if ($provider == 'Depositphoto') {
+      return ceil($original_price);
+    } else {
+      return ceil($original_price) * (1+strval($this->CI->system_vars->plan_comision()));
+    }
+  }
+
+  public function plan_comision()
+  {
+    return 1+strval($this->CI->system_vars->plan_comision());
   }
 
 }

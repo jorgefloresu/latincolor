@@ -6,17 +6,18 @@ class Pasarelas_payu extends CI_Driver {
         require_once APPPATH . 'libraries/PayU.php';
     }
     
-    public function init_payu()
+    public function init_payu($testInProd=FALSE)
     {
-        if ( strpos(base_url(), 'latincolorimages.com') )
+        if ( strpos(base_url(), 'latincolorimages.com') || $testInProd)
         {
             // PARA PRODUCCION
             PayU::$apiKey = "7n4NihX9sYjJXtNJMWQpN8SuOQ";
             PayU::$apiLogin = "KSL1JO3V5g6w0Hc";
             PayU::$merchantId = "766521";
             PayU::$isTest = false; //Dejarlo True cuando sean pruebas.
-            Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/");
-            Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/");   
+            Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/4.0/service.cgi");
+            Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/4.0/service.cgi");
+            Environment::setSubscriptionsCustomUrl("https://api.payulatam.com/payments-api/rest/v4.9/");
         }
         else
         {
@@ -43,11 +44,11 @@ class Pasarelas_payu extends CI_Driver {
         $parameters = array(
             //Ingrese aquí el identificador de la cuenta.
             //PayUParameters::ACCOUNT_ID => "500538",
-            PayUParameters::ACCOUNT_ID => "512321",
+            PayUParameters::ACCOUNT_ID => "773138",
             //Ingrese aquí el código de referencia.
             PayUParameters::REFERENCE_CODE => $pay['orderId'],
             //Ingrese aquí la descripción.
-            PayUParameters::DESCRIPTION => "payment test ". $pay['orderId'],
+            PayUParameters::DESCRIPTION => "Pago de la orden ". $pay['orderId'],
 
             // -- Valores --
             //Ingrese aquí el valor.
@@ -71,7 +72,8 @@ class Pasarelas_payu extends CI_Driver {
             //Ingrese aquí el teléfono de contacto del comprador.
             PayUParameters::BUYER_CONTACT_PHONE => $pay['userinfo']->phone,
             //Ingrese aquí el documento de contacto del comprador.
-            PayUParameters::BUYER_DNI => "5415668464654",
+            //PayUParameters::BUYER_DNI => "5415668464654",
+            PayUParameters::BUYER_DNI => $pay['userinfo']->dni,
             //Ingrese aquí la dirección del comprador.
             PayUParameters::BUYER_STREET => $pay['userinfo']->address,
             PayUParameters::BUYER_STREET_2 => "",
@@ -83,13 +85,15 @@ class Pasarelas_payu extends CI_Driver {
 
             // -- pagador --
             //Ingrese aquí el nombre del pagador.
-            PayUParameters::PAYER_NAME => "APPROVED",
+            //PayUParameters::PAYER_NAME => "APPROVED",
+            PayUParameters::PAYER_NAME => $pay['userinfo']->fname,
             //Ingrese aquí el email del pagador.
             PayUParameters::PAYER_EMAIL => $pay['userinfo']->email_address,
             //Ingrese aquí el teléfono de contacto del pagador.
             PayUParameters::PAYER_CONTACT_PHONE => $pay['userinfo']->phone,
             //Ingrese aquí el documento de contacto del pagador.
-            PayUParameters::PAYER_DNI => "5415668464654",
+            //PayUParameters::PAYER_DNI => "5415668464654",
+            PayUParameters::PAYER_DNI => $pay['userinfo']->dni,
             //Ingrese aquí la dirección del pagador.
             PayUParameters::PAYER_STREET => $pay['userinfo']->address,
             PayUParameters::PAYER_STREET_2 => "",
@@ -227,6 +231,50 @@ class Pasarelas_payu extends CI_Driver {
 
         return $response->transactionResponse;
     }
+
+    public function banks()
+    {
+        $this->init_payu();
+        //Ingrese aquí el nombre del medio de pago
+        $parameters = array(
+            //Ingrese aquí el identificador de la cuenta.
+            PayUParameters::PAYMENT_METHOD => "PSE",
+            //Ingrese aquí el nombre del pais.
+            PayUParameters::COUNTRY => PayUCountries::CO,
+        );
+        $array=PayUPayments::getPSEBanks($parameters);
+        return $array->banks;
+
+    }
+
+    public function persona() 
+    {
+        return [['tipo'=>'Persona Natural', 'code'=>'N'],
+                ['tipo'=>'Persona Jurídica', 'code'=>'J']];
+    }
+  
+    public function documento() 
+    {
+        return [['code'=>'CC', 'tipo'=>'Cédula de ciudadanía'],
+                ['code'=>'CE', 'tipo'=>	'Cédula de extranjería'],
+                ['code'=>'NIT', 'tipo'=>	'Número de Identificación Tributaria'],
+                ['code'=>'TI', 'tipo'=>	'Tarjeta de Identidad'],
+                ['code'=>'PP', 'tipo'=>	'Pasaporte'],
+                ['code'=>'IDC', 'tipo'=>	'Identificador único de cliente'],
+                ['code'=>'CEL', 'tipo'=>	'Identificador de la línea del móvil'],
+                ['code'=>'RC', 'tipo'=>	'Registro civil de nacimiento'],
+                ['code'=>'DE', 'tipo'=>	'Documento de identificación extranjero']];
+    }
+  
+    public function tarjeta() 
+    {
+        return [['code'=>'VISA', 'tipo'=>'VISA'],
+                ['code'=>'MASTERCARD', 'tipo'=>'MASTERCARD'],
+                ['code'=>'DINERS', 'tipo'=>'DINERS'],
+                ['code'=>'AMEX', 'tipo'=>'AMEX'],
+                ['code'=>'VISA_DEBIT', 'tipo'=>'VISA_DEBIT']];
+    }
+  
 
 
     /*

@@ -115,6 +115,7 @@ var Login = {
               });
               Login.config.loginMenu.html(Templates.iconLoginDD(data.first_name))
                 .css('text-transform','capitalize');
+              Login.checkActivePlan(data.deposit_userid);
               Login.setMaterial();
 
               $('body').data(data).trigger('login');
@@ -133,8 +134,9 @@ var Login = {
                                    .attr('href','#signup-page')
                                    .attr('class','modal-trigger')
                                    .text('Registrarse');
-              if ($.currentPage('user'))
+              if ($.currentPage('user')) {
                 location.href = ROOT;
+              }
               Login.setMaterial();
 
   },
@@ -162,6 +164,15 @@ var Login = {
         Login.config.registerWindow.modal('close');
         Login.config.loginWindow.modal('open');
       })
+  },
+
+  checkActivePlan: function(userPlan) {
+    if (userPlan != '') {
+      $.hasValidSubscription()
+        .done(function(res){
+          Materialize.toast('Tienes '+res.subscriptionAmount+' descargas disponibles con tu suscripción', 5000);
+        })
+    }
   },
 
   onForgotPassword: function () {

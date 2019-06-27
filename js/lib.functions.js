@@ -59,6 +59,7 @@
                   username: selCartItem.username,
                   thumb: selCartItem.thumb,
                   type: selCartItem.type,
+                  subscriptionId: (selCartItem.hasOwnProperty('subscription_id') ? selCartItem.subscription_id : ''),
                   result: ''
                 })
               )
@@ -166,25 +167,32 @@
             }
 
     $.getPurchases = function(el) {
-              el.find('.image-list').html('');
-              let url = el.data('url')+'?username='+$.Auth.info('username');
               let html = '';
-              $.getJSONfrom(url).then(function(res) {
-                  $.each(res, function(index, val) {
-                    if (el.attr('id')=='user-purchases') {
-                      html += Templates.userImageList(val);
-                      /* html += Templates.userImageList.replace('src=""','src="'+val.img_url+'"')
-                                                      .replace('Code', val.img_code)
-                                                      .replace('Provider', val.img_provider); */
-                    } else {
-                      html += Templates.userPlanList.replace('Provider', val.provider)
-                                                    .replace('Code', val.img_code)
-                                                    .replace('Date', val.session_date);
-                    }
-                  })
-                  el.find('.image-list').html(html);
+              el.find('.image-list').html('');
+              if (el.attr('id')=='plan-info') {
+                  $.hasValidSubscription().then(function(res){
+                    html = Templates.planInfo(res);
+                    el.find('.image-list').html(html);
+                    $('.tooltipped').tooltip();  
+                  })                
+              } else {
+                let url = el.data('url')+'?username='+$.Auth.info('username');
+                $.getJSONfrom(url).then(function(res) {
+                    $.each(res, function(index, val) {
+                      switch (el.attr('id')) {
+                        case 'user-purchases':
+                          html += Templates.userImageList(val);
+                          break;
+                        case 'user-planes':
+                          html += Templates.userPlanList(val);
+                          break;
+                      }
+                    })
+                    el.find('.image-list').html(html);
+                    $('.tooltipped').tooltip();
                 })
-            }
+              }
+          }
             
     $.getJSONfrom = $.createCache(function(dfd, url, formData) {
                     //console.log(url);

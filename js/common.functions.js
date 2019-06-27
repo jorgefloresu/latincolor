@@ -37,9 +37,6 @@ $.Common.prototype = {
           this.config.iconSearch.on('click', function(){
             self.config.searchForm.submit();
           });
-          $('.chat-collapsible').on('click','li', function(){
-            $.getPurchases($(this));
-          })
   },
 
   onRedownload: function() {
@@ -78,12 +75,27 @@ $.Common.prototype = {
 
   doAfterLogin: function() {
           let self = this;
-          $('body').on('login', function(e) {
-              userData = $(this).data();
-              Login.auth.init();
-              $('.chat-collapsible').collapsible(self.collapsibleOpts);
-              self.shop.displayCart();
-          });
+          $('body').off('login').on('login', function(e) {
+                userData = $(this).data();
+                Login.auth.refreshSettings();
+      
+                if ($.Auth.info('deposit_userid') == '') {
+                  $('#plan-info').remove();
+                } else {
+                  let container = '<li id="plan-info" data-url="">'+
+                      '<div class="collapsible-header green white-text active">'+
+                      '<i class="material-icons">monetization_on</i>Datos de tu plan'+
+                      '</div>'+
+                      '<div class="collapsible-body recent-activity">'+
+                      '<div class="image-list" style="padding-top: 15px"></div>'+
+                      '</div>'+
+                      '</li>';
+                  $('.chat-collapsible').prepend(container);
+                }
+      
+                $('.chat-collapsible').collapsible(self.collapsibleOpts);
+                self.shop.displayCart();
+            });
   },
 
   menuMedios: function (current, main) {
@@ -98,7 +110,6 @@ $.Common.prototype = {
   collapsibleOpts: {
     accordion : true,
     onOpen : function(el) {
-              if (el.attr('id')=='user-purchases')
                 $.getPurchases(el);
             }
   },

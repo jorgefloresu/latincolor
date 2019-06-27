@@ -69,6 +69,7 @@ class RpcParams
     const LICENSE_ID        = 'dp_license_id';
 
     const SUBSCRIPTION_ID   = 'dp_offer_id';
+    const PLAN_ID           = 'dp_subscription_id';
 
     const LOGIN_USER        = 'dp_login_user';
     const LOGIN_PASSWORD    = 'dp_login_password';

@@ -48,6 +48,9 @@
                             <li class="<?=($page=='downloads_list')?'active':''?>">
                               <a href="<?=base_url("admin?table=downloads")?>">Descargas</a>
                             </li>
+                            <li class="<?=($page=='usuarios_list')?'active':''?>">
+                              <a href="<?=base_url("admin?table=membership")?>">Usuarios</a>
+                            </li>
 
                         </ul>
                     </div>

@@ -17,15 +17,21 @@
           <div class="card-content">
             <div class="row">
               <div class="col m2 hide-on-small-only"></div>
-              <div class="col s4 m3">
+              <div class="col s3 m3">
                   <h4 class="card-title grey-text text-darken-4"><?=$user_data->fname?></h4>
                   <p class="medium-small grey-text"><?=$logged?></p>
               </div>
-              <div class="col s4 m2 center-align">
+              <? if (isset($plan_info)): ?>
+              <div class="col s3 m2 center-align">
+                  <h4 class="card-title grey-text text-darken-4"><?=$plan_info['subscriptionAmount'].' de '.$plan_info['totalAmount']?></h4>
+                  <p class="medium-small grey-text">Saldo de tu plan</p>
+              </div>
+              <? endif ?>
+              <div class="col s3 m2 center-align">
                   <h4 class="card-title grey-text text-darken-4">$<?=$sum_downloads?></h4>
                   <p class="medium-small grey-text">Imágenes compradas</p>
               </div>
-              <div class="col s4 m2 center-align">
+              <div class="col s3 m2 center-align">
                   <h4 class="card-title grey-text text-darken-4">$<?=$sum_planes?></h4>
                   <p class="medium-small grey-text">Planes comprados</p>
               </div>
@@ -69,6 +75,7 @@
                 <?=material_input("s6", "last_name", "prefs[last_name]", "Apellido", TRUE)?>
                 <?=material_input("s6", "empresa", "prefs[empresa]", "Empresa", TRUE)?>
                 <?=material_input("s6", "nit", "prefs[nit]", "NIT", TRUE)?>
+                <?=material_input("s6", "dni", "prefs[dni]", "DNI", TRUE)?>
               </div>
             </div>
             <div id="tab-addr" class="col s12">
@@ -122,6 +129,9 @@
                                       data-lid="<?=$item->license_id?>" data-id="<?=$item->img_code?>" data-type="<?=$item->type?>">
                                     <i class="material-icons">file_download</i>
                                   </a>
+                                  <? if ($item->subscription_id != ''):?>
+                                    <i class="plan-flag material-icons right grey-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Descargado con tu plan">assistant_photo</i>
+                                  <? endif ?>
                                 <? else: ?>
                                   <a href='#info' class="btn blue waves-effect waves-grey modal-trigger" style="padding:0 10px">
                                     <i class="material-icons">info_outline</i>
@@ -134,7 +144,7 @@
                               </div>
                               <div class="col s3">
                                 <? $dt = new DateTime($item->date) ?>
-                                <p class="collections-title"><?=$dt->format('m/d/Y')?></p>
+                                <p class="collections-title"><?=$dt->format('d/m/Y')?></p>
                                 <p class="collections-content"><?=$dt->format('h:i:s A')?></p>
                               </div>
                               <div class="col s2">
@@ -204,6 +214,8 @@
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
+<?$this->load->view('templates/footer_tag') ?>
+
 <?=put_headers('js', $user_info)?>
 
 </body>

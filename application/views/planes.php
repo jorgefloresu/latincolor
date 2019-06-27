@@ -140,18 +140,18 @@
                                      $plan['medium'])?>
 
           <?=material_paquete_card('s12 m6 l3', 'orange',
-                                    'LARGE', 'US$', '1.299', 'Medianas',
+                                    'LARGE', 'US$', '1.369', 'Medianas',
                                     ['100 imágenes mensuales acumulativas', '1.200 imágenes al año',
                                      '10 Videos HD para descargar durante 1 año', 'Licencia para 10 usuarios',
                                      'Videos 1920x1080 @25FPS / MOV / 79.9MB / H.264'],
-                                     $plan['large'])?>
+                                     $plan['large'], 260.11)?>
 
           <?=material_paquete_card('s12 m6 l3', 'green',
-                                    'X-LARGE', 'US$', '2.279', 'Plan PREMIUM',
+                                    'X-LARGE', 'US$', '2.389', 'Plan PREMIUM',
                                      ['750 imágenes mensuales (sin limitación diaria ni mensual)',
                                       'Con integración en Adobe CC: PhotoShop, Illustrator, InDesing, Dimension PremierPro y Adobe Spark',
                                       'Licencia para 10 usuarios', 'Hasta 500.000 impresiones por fotografía'],
-                                      $plan['xlarge'])?>
+                                      $plan['xlarge'], 453.91)?>
         </div>
         <div class="row">
           <div class="col s12">

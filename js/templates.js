@@ -67,15 +67,18 @@ var cardAction = function(item, provider){
      }
 
 var userImageList = function(val) {
-     return '<div class="recent-activity-list chat-out-list row" style="margin-bottom:0">'+
+     let color = (val.subscription_id != ''?'color:white;background-color:green;padding:5px':'');
+     let tooltip = (val.subscription_id != ''?'tooltipped':'');
+     let dataTool = (val.subscription_id != ''?'data-position="top" data-delay="50" data-tooltip="Descargado con tu plan"':'');
+     return '<div class="recent-activity-list chat-out-list row '+tooltip+'" '+dataTool+' style="margin-bottom:0">'+
      '<div class="col s4 recent-activity-list-icon">'+
      '<div class="center-align">'+
      '<img src="'+val.img_url+'" width="100%">'+
      '</div>'+
      '</div>'+
      '<div class="col s4 recent-activity-list-text" style="font-weight:300">'+
-     '<b>'+val.img_code+'</b>'+
-     '<p style="margin-top:5px">'+val.img_provider+'</p>'+
+     '<b style="'+color+'">'+val.img_code+'</b>'+
+     '<p style="margin-top:5px;">'+val.img_provider+'</p>'+
      '</div>'+
      '<div class="col s4">'+
      '<a class="redownload btn-flat waves-effect waves-grey" data-provider="'+val.img_provider+'" '+
@@ -85,19 +88,37 @@ var userImageList = function(val) {
      '</div>';
 }
 
-var userPlanList = '<div class="recent-activity-list chat-out-list row">'+
+var userPlanList = function(val) {
+     let logoProvider = ROOT+"img/"+val.provider+".png";
+     return '<div class="recent-activity-list chat-out-list row">'+
      '<div class="col s4 recent-activity-list-icon">'+
      '<div class="center-align">'+
-     'Provider'+
+     "<img src='"+logoProvider+"' height='16'/>"+
      '</div>'+
      '</div>'+
      '<div class="col s4 recent-activity-list-text" style="font-weight:300">'+
-     '<b>Code</b>'+
+     '<b>'+val.img_code+'</b>'+
      '</div>'+
      '<div class="col s4">'+
-     'Date'+
+     val.session_date+
      '</div>'+
      '</div>';
+}
+
+var planInfo = function(val) {
+     return '<div class="chat-out-list row">'+
+     '<div class="col s7"><div>Limite de descargas</div></div>'+
+     '<div class="col s5" style="font-weight:300"><b>'+val.totalAmount+'</b></div>'+
+     '</div>'+
+     '<div class="chat-out-list row">'+
+     '<div class="col s7"><div>Descargas disponibles</div></div>'+
+     '<div class="col s5" style="font-weight:300"><b>'+val.subscriptionAmount+'</b></div>'+
+     '</div>'+
+     '<div class="chat-out-list row">'+
+     '<div class="col s7"><div>Fecha vencimiento</div></div>'+
+     '<div class="col s5" style="font-weight:300"><b>'+val.fecha_fin+'</b></div>'+
+     '</div>';
+}
 
 var providerPlanFeatures = function(provider, medio) {
      let commonFeatures = {
@@ -261,6 +282,7 @@ return {
      cardAction: cardAction,
      userImageList: userImageList,
      userPlanList: userPlanList,
+     planInfo: planInfo,
      planesResult: planesResult,
      videoTypes: videoTypes,
      previewFeatures: previewFeatures,

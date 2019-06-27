@@ -75,6 +75,14 @@
           $.extend($.Auth.defaults, options)
         },
 
+        refreshSettings: function () {
+          this.settings.info = userData; //response;
+          this.settings.status = (this.settings.info.username !== undefined ? "loggedIn" : "");
+          Storages.sessionStorage.set('status',this.settings.status);
+          $.extend(true, $.Auth.defaults, this.settings);
+
+        },
+
       },
 
       status: function() {
@@ -84,7 +92,7 @@
       enabled: function() {
         let info = $.Auth.defaults.info;
         console.log(info);
-        return (info.address!=='' && info.zip!=='' && info.phone!=='' && info.country!=='');
+        return (info.address!=='' && info.zip!=='' && info.phone!=='' && info.country!=='' && info.dni);
       },
 
       info: function(prop) {
