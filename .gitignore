@@ -1,8 +1,6 @@
 /materialize/material-icons/
 /system_old/
-.ftpconfig
 /vendor/
-/.vscode/
 /application/config/config.php
 /application/config/database.php
 /application/logs/
