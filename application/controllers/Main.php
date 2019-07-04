@@ -571,7 +571,7 @@ class Main extends CI_Controller {
 
     function pagination($totalrows, $offset) {
 		//pagination settings
-		$config['base_url'] = site_url('main/search/');
+		$config['base_url'] = base_url('main/search/');
 		$config['total_rows'] = $totalrows;
 		$config['per_page'] = $offset;
 		$config["uri_segment"] = 3;
@@ -586,7 +586,7 @@ class Main extends CI_Controller {
     // unset($params['np']);
     //
 		// $config['first_url'] = site_url('main/search/1').'?'.http_build_query($params);
-    $config['first_url'] = site_url('main/search/1').'?'.http_build_query($_GET);
+    $config['first_url'] = base_url('main/search/1').'?'.http_build_query($_GET);
 		if (count($_GET) > 0)
 		{
 			$config['suffix'] = '?' . http_build_query($_GET, '', "&");

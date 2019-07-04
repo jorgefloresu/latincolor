@@ -77,7 +77,7 @@
           <!-- Dropdown Structure -->
           <ul id='plan-activo' class='dropdown-content'>
           </ul>
-          <a href="<?=site_url('main/planes')?>" class="waves-effect waves-light btn" style="background-color: transparent;border: .12rem solid #f12088;color: #f12088;padding:0 .5rem">
+          <a href="<?=base_url('main/planes')?>" class="waves-effect waves-light btn" style="background-color: transparent;border: .12rem solid #f12088;color: #f12088;padding:0 .5rem">
             Comprar plan</a>
           
           <a href="#" class="menu-cart waves-effect waves-light tooltipped btn right blue darken-2" data-tooltip="Carrito vacío" style="background-color:#1c9414; padding:0 9px">
