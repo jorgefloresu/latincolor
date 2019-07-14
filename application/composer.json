@@ -2,6 +2,13 @@
     "require": {
         "phpmailer/phpmailer": "^6.0",
         "league/oauth2-google": "^2.2",
-        "mongodb/mongodb": "^1.4"
-    }
+        "mongodb/mongodb": "^1.4.2",
+        "astock/stock-api-libphp": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:adobe/stock-api-libphp.git"
+        }
+    ]
 }

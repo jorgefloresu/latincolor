@@ -11,7 +11,7 @@ class Main extends CI_Controller {
         //$this->output->cache(60);
         //$this->output->delete_cache();
         //$this->load->library('rawdata/depositclient');
-        require_once APPPATH . 'libraries/PayU.php';
+        //require_once APPPATH . 'libraries/PayU.php';
         $this->load->library('membership');
         $this->load->model('countries_model');
         $this->load->library('language',array('language'=>'es_SV'));
@@ -20,7 +20,13 @@ class Main extends CI_Controller {
         $this->load->helper(['tag','material']);
         $this->logo = base_url('img/LCI-logo-Hi.png');
         $this->load->library('taxes');
+    }
 
+    function adobe() {
+      $query['prov']['as']['limit'] = 5;
+      $query['keyword'] = 'business';
+      $query['page'] = 1;
+      echo $this->providers->adobestock->search($query);
     }
 
     function login_test() {
@@ -286,7 +292,7 @@ class Main extends CI_Controller {
 
     function planes() {
       $data['plan'] = [
-                        'small' => $this->paquete_button('DP049'),
+                        'small' => $this->paquete_button('DT181'),
                         'medium'=> $this->paquete_button('IN246'),
                         'large' => $this->paquete_button('DT200'),
                         'xlarge'=> $this->paquete_button('AS001')

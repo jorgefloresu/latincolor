@@ -34,6 +34,10 @@ class ComposerStaticInit64858c081f40a96ca8d06298c210015f
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
+        'A' => 
+        array (
+            'AdobeStock\\Api\\' => 15,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -65,6 +69,10 @@ class ComposerStaticInit64858c081f40a96ca8d06298c210015f
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'AdobeStock\\Api\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/astock/stock-api-libphp/src',
         ),
     );
 

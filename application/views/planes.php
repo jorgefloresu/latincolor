@@ -126,10 +126,10 @@
         </div>
         <div class="paquete-option row">
           <?=material_paquete_card('s12 m6 l3', 'indigo',
-                                    'SMALL', 'US$', '59', 'Microempresarios',
-                                    ['50 imágenes para descargar durante un mes', 'Todas las categorías en fotos, ilustraciones, vectores, iconos, infografías y 3D',
-                                     'Tamaño aprox: 5000x3000 300 dpi, JPG y PSD',
-                                     'Hasta 500.000 impresiones por fotografía'], 
+                                    'SMALL', 'US$', '49.50', 'Microempresarios',
+                                    ['30 imágenes para descargar durante un mes', 'Todas las categorías en fotos',
+                                     'Tamaño aprox: 5000x3000 300 dpi',
+                                     'Videos 1920x1080 @25FPS / MOV / 79.9MB / H.264'], 
                                      $plan['small'])?>
 
           <?=material_paquete_card('s12 m6 l3', 'grey',
@@ -147,7 +147,7 @@
                                      $plan['large'], 260.11)?>
 
           <?=material_paquete_card('s12 m6 l3', 'green',
-                                    'X-LARGE', 'US$', '2.389', 'Plan PREMIUM',
+                                    'X-LARGE', 'US$', '2.949', 'Plan PREMIUM',
                                      ['750 imágenes mensuales (sin limitación diaria ni mensual)',
                                       'Con integración en Adobe CC: PhotoShop, Illustrator, InDesing, Dimension PremierPro y Adobe Spark',
                                       'Licencia para 10 usuarios', 'Hasta 500.000 impresiones por fotografía'],

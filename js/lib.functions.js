@@ -168,30 +168,34 @@
 
     $.getPurchases = function(el) {
               let html = '';
-              el.find('.image-list').html('');
-              if (el.attr('id')=='plan-info') {
-                  $.hasValidSubscription().then(function(res){
-                    html = Templates.planInfo(res);
-                    el.find('.image-list').html(html);
-                    $('.tooltipped').tooltip();  
-                  })                
-              } else {
-                let url = el.data('url')+'?username='+$.Auth.info('username');
-                $.getJSONfrom(url).then(function(res) {
-                    $.each(res, function(index, val) {
-                      switch (el.attr('id')) {
-                        case 'user-purchases':
-                          html += Templates.userImageList(val);
-                          break;
-                        case 'user-planes':
-                          html += Templates.userPlanList(val);
-                          break;
-                      }
-                    })
-                    el.find('.image-list').html(html);
-                    $('.tooltipped').tooltip();
-                })
-              }
+              let username = $.Auth.info('username');
+              if (username != null) {
+                el.find('.image-list').html('');
+                if (el.attr('id')=='plan-info') {
+                    $.hasValidSubscription().then(function(res){
+                      html = Templates.planInfo(res);
+                      el.find('.image-list').html(html);
+                      $('.tooltipped').tooltip();  
+                    })                
+                } else {
+                  let url = el.data('url')+'?username='+$.Auth.info('username');
+                  $.getJSONfrom(url).then(function(res) {
+                      $.each(res, function(index, val) {
+                        switch (el.attr('id')) {
+                          case 'user-purchases':
+                            html += Templates.userImageList(val);
+                            break;
+                          case 'user-planes':
+                            html += Templates.userPlanList(val);
+                            break;
+                        }
+                      })
+                      el.find('.image-list').html(html);
+                      $('.tooltipped').tooltip();
+                  })
+                }
+              } 
+              
           }
             
     $.getJSONfrom = $.createCache(function(dfd, url, formData) {
