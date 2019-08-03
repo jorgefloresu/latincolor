@@ -481,7 +481,7 @@ p.collections-content {
     font-weight: 400;
     line-height: 1.5rem;
 }
-.fixed-action-btn {
+.fixed-btn-result {
   /* left: -25px;
   top: 300px; */
   bottom: 50px;
@@ -489,6 +489,11 @@ p.collections-content {
   width: 57px;
   height: 77px;
   z-index: 1;
+}
+.fixed-btn-preview {
+  position: absolute;
+  bottom: 120px;
+  
 }
 .planes,
 .servicios,

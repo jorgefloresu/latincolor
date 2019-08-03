@@ -148,7 +148,7 @@ class Providers_adobestock extends CI_Driver {
 
     function convertPreview($obj) {
         $this->preview['sizes'] = '';
-		$this->preview['sizes'] .= "<tr><td class='table-sizes' colspan='2'><div class='valign-wrapper'>";
+		$this->preview['sizes'] .= "<tr><td class='table-sizes' colspan='2' style='min-height:335px'><div class='valign-wrapper'>";
 		$this->preview['source'] = 'preview';
         foreach ($obj->files as $key => $s) {
             $this->preview['image'] = (string)$s->thumbnail_1000_url;
@@ -160,10 +160,28 @@ class Providers_adobestock extends CI_Driver {
             }
             $this->preview['keywords'] = implode(', ', $array_keywords);
             $license = 'standard';
-            $this->preview['sizes'] .= '<h6>Comprar un plan de Adobe Stock</h6>';
-
+            $this->preview['sizes'] .= '<p class="center-align" style="margin:0 auto; padding: 20px 50px 0 50px;"><img src="'.base_url('img/Adobe.png').'"><br>Para adquirir esta imagen debes comprar un plan de Adobe Stock</p>';
         }
-		$this->preview['sizes'] .= "</div></td></tr>";
+		$this->preview['sizes'] .= "</div><div class='collection collection-size'>";
+		$planes = $this->CI->membership_model->get_planes(null, 'Adobe')->result();
+		foreach ($planes as $plan) {
+			$this->preview['sizes'] .= $this->price_item( array(
+				'id' 			=> $plan->id,
+				'price' 	=> $this->set_price($plan->valor),
+				'width'		=> '',
+				'height'	=> '',
+				'size' 		=> "$plan->cantidad $plan->medio X $plan->tiempo meses",
+				'sizelbl' => $plan->cantidad,
+				'desc' 		=> "$plan->cantidad $plan->medio para descarga ".strtolower($plan->frecuencia). " durante $plan->tiempo meses",
+				'license' => 'standard',
+				'thumb' 	=> base_url('img/Adobe.png'),
+				'type' 		=> 'plan',
+				'subscription'=>'',
+				'provider'=> 'Adobe'
+			));
+			
+		}
+		$this->preview['sizes'] .= '</div></td></tr>';
 
         return $this->preview;
     }

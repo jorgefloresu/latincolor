@@ -22,7 +22,7 @@
 
   <main class="search-result-background">
         <?$this->load->view('templates/result_panel')?>
-        <div class="fixed-action-btn">
+        <div class="fixed-action-btn fixed-btn-result">
           <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">fullscreen</i></a>
         </div>
 

@@ -443,9 +443,11 @@ class Membership_model extends CI_Model {
 		return $order;
 	}
 
-	function get_planes($id=null) {
+	function get_planes($id=null, $provider=null) {
 		if ($id != null)
 			$this->db->where('id', $id);
+		if ($provider != null)
+			$this->db->where('provider', $provider);
 		$query = $this->db->get('planes');
 		return $query;
 	}
