@@ -12,6 +12,7 @@
                   <table id="data-table-simple" class="display responsive nowrap" style="width:100%">
                   <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Usuario</th>
@@ -30,6 +31,7 @@
                   <tbody>
                     <?foreach ($datares as $key => $value):?>
                     <tr>
+                      <td><?=$value->id?></td>
                       <td><?=$value->first_name?></td>
                       <td><?=$value->last_name?></td>
                       <td><?=$value->username?></td>
