@@ -525,9 +525,12 @@ var Api = ( function() {
 
   var dismissPreview = function(event) {
             event.preventDefault();
+            preview.imgContainer.addClass("is-loading");
+            preview.image.attr('src', '');
+            preview.webm.attr('src', '');
+            preview.mp4.attr('src', '');
             setup.config.previewWindow.modal("close");
             //setup.config.previewWindow.velocity({top:"-4000px", opacity:0, height:0}, {duration:600, queue: false}, "easeInSine");
-            preview.image.attr('src', '');
 
           }
 

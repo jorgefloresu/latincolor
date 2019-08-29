@@ -74,18 +74,19 @@ class Adobestock_Api
         $mediaParams = array(
             AdobeStockParams::MEDIA_ID=>$mediaId
         );
-        $postParams = array(
+        /* $postParams = array(
             AdobeStockParams::RESULT_ID,
             AdobeStockParams::RESULT_TITLE,
             AdobeStockParams::RESULT_KEYWORDS,
             AdobeStockParams::RESULT_THUMB_1000,
             AdobeStockParams::RESULT_TYPE_ID
-        );
+        ); */
         $postParams = '&'.AdobeStockParams::RESULT_ID.'&'.
             AdobeStockParams::RESULT_TITLE.'&'.
             AdobeStockParams::RESULT_KEYWORDS.'&'.
             AdobeStockParams::RESULT_THUMB_1000.'&'.       
-            AdobeStockParams::RESULT_TYPE_ID;
+            AdobeStockParams::RESULT_TYPE_ID.'&'.
+            AdobeStockParams::RESULT_VIDEO_PREVIEW;
 
         $url = $this->getFullURI(AdobeStockParams::MEDIA_DATA_CMD, $mediaParams) . $postParams;
         return $this->checkResponse($this->post($url, $postParams));

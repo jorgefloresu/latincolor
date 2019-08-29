@@ -150,8 +150,13 @@ class Providers_adobestock extends CI_Driver {
         $this->preview['sizes'] = '';
 		$this->preview['sizes'] .= "<tr><td class='table-sizes' colspan='2' style='min-height:335px'><div class='valign-wrapper'>";
 		$this->preview['source'] = 'preview';
+
         foreach ($obj->files as $key => $s) {
-            $this->preview['image'] = (string)$s->thumbnail_1000_url;
+			$this->preview['type'] = ($s->media_type_id==4 ? 'video' : 'image');
+			if ( $this->preview['type'] == 'video' ) {
+				$this->preview['mp4'] = (string)$s->video_preview_url;
+			}
+			$this->preview['image'] = (string)$s->thumbnail_1000_url;
             $this->preview['id'] = (string)$s->id;
             $this->preview['title'] = $s->title;
             $array_keywords = array();
@@ -159,8 +164,9 @@ class Providers_adobestock extends CI_Driver {
                 $array_keywords[] = $keyword->name;
             }
             $this->preview['keywords'] = implode(', ', $array_keywords);
-            $license = 'standard';
-            $this->preview['sizes'] .= '<p class="center-align" style="margin:0 auto; padding: 20px 50px 0 50px;"><img src="'.base_url('img/Adobe.png').'"><br>Para adquirir esta imagen debes comprar un plan de Adobe Stock</p>';
+			$license = 'standard';
+			$source = ($s->media_type_id==4 ? 'este video' : 'esta imagen');
+            $this->preview['sizes'] .= '<p class="center-align" style="margin:0 auto; padding: 20px 50px 0 50px;"><img src="'.base_url('img/Adobe.png').'"><br>Para adquirir '. $source .' debes comprar un plan de Adobe Stock</p>';
         }
 		$this->preview['sizes'] .= "</div><div class='collection collection-size'>";
 		$planes = $this->CI->membership_model->get_planes(null, 'Adobe')->result();
@@ -170,9 +176,9 @@ class Providers_adobestock extends CI_Driver {
 				'price' 	=> $this->set_price($plan->valor),
 				'width'		=> '',
 				'height'	=> '',
-				'size' 		=> "$plan->cantidad $plan->medio X $plan->tiempo meses",
+				'size' 		=> "$plan->cantidad fotos o videos X $plan->tiempo meses",
 				'sizelbl' => $plan->cantidad,
-				'desc' 		=> "$plan->cantidad $plan->medio para descarga ".strtolower($plan->frecuencia). " durante $plan->tiempo meses",
+				'desc' 		=> "$plan->cantidad fotos o videos para descarga ".strtolower($plan->frecuencia). " durante $plan->tiempo meses",
 				'license' => 'standard',
 				'thumb' 	=> base_url('img/Adobe.png'),
 				'type' 		=> 'plan',
