@@ -6,6 +6,7 @@
 /application/config/database.php
 /application/logs/
 /application/downloads/
+/application/uploads/
 /application/libraries/PayU_old
 /node_modules/
 /zip/

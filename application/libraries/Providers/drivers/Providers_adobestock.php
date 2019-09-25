@@ -165,27 +165,64 @@ class Providers_adobestock extends CI_Driver {
             }
             $this->preview['keywords'] = implode(', ', $array_keywords);
 			$license = 'standard';
-			$source = ($s->media_type_id==4 ? 'este video' : 'esta imagen');
-            $this->preview['sizes'] .= '<p class="center-align" style="margin:0 auto; padding: 20px 50px 0 50px;"><img src="'.base_url('img/Adobe.png').'"><br>Para adquirir '. $source .' debes comprar un plan de Adobe Stock</p>';
+			if ($s->media_type_id==4) {
+				$source = 'este video ';
+				$action = 'necesitas créditos de Adobe Stock';
+			} else {
+				$source = 'esta imagen ';
+				$action = 'debes comprar un plan de Adobe Stock';
+			}
+
+			$this->preview['sizes'] .= '<p class="center-align" style="margin:0 auto; padding: 20px 50px 0 50px;"><img src="'
+						. base_url('img/Adobe.png').'"><br>Para adquirir '
+						. $source . $action. '</p>';
         }
 		$this->preview['sizes'] .= "</div><div class='collection collection-size'>";
 		$planes = $this->CI->membership_model->get_planes(null, 'Adobe')->result();
-		foreach ($planes as $plan) {
-			$this->preview['sizes'] .= $this->price_item( array(
-				'id' 			=> $plan->id,
-				'price' 	=> $this->set_price($plan->valor),
-				'width'		=> '',
-				'height'	=> '',
-				'size' 		=> "$plan->cantidad fotos o videos X $plan->tiempo meses",
-				'sizelbl' => $plan->cantidad,
-				'desc' 		=> "$plan->cantidad fotos o videos para descarga ".strtolower($plan->frecuencia). " durante $plan->tiempo meses",
-				'license' => 'standard',
-				'thumb' 	=> base_url('img/Adobe.png'),
-				'type' 		=> 'plan',
-				'subscription'=>'',
-				'provider'=> 'Adobe'
-			));
-			
+
+		if ( $this->preview['type'] == 'video' ) {
+			foreach ($obj->files as $key => $s) {
+				foreach ($s->comps as $key => $value) {
+					if ($key=="Video_HD") {
+						$price = $this->set_adobe_price($this->adobe_videoHD);
+						$added = "2";
+					} else {
+						$price = $this->set_adobe_price($this->adobe_video4K);
+						$added = "4";
+					}
+					$this->preview['sizes'] .= $this->price_item( array(
+						'id' 			=> $s->id,
+						'price' 	=> $price,
+						'width'		=> $value->width,
+						'height'	=> $value->height,
+						'size' 		=> "$value->width X $value->height <br><span style='font-size:11px'>MÁS $added IMÁGENES</span>",
+						'sizelbl' => $key,
+						'desc' 		=> "Adobe Stock videos +$added imágenes",
+						'license' => $key,
+						'thumb' 	=> base_url('img/Adobe.png'),
+						'type' 		=> 'plan',
+						'subscription'=>'',
+						'provider'=> 'Adobestock'
+					));
+				}
+			}
+		} else {
+			foreach ($planes as $plan) {
+				$this->preview['sizes'] .= $this->price_item( array(
+					'id' 			=> $plan->id,
+					'price' 	=> $this->set_adobe_price($plan->valor),
+					'width'		=> '',
+					'height'	=> '',
+					'size' 		=> "$plan->cantidad fotos X $plan->tiempo meses",
+					'sizelbl' => $plan->cantidad,
+					'desc' 		=> "$plan->cantidad fotos para descarga ".strtolower($plan->frecuencia). " durante $plan->tiempo meses",
+					'license' => 'standard',
+					'thumb' 	=> base_url('img/Adobe.png'),
+					'type' 		=> 'plan',
+					'subscription'=>'',
+					'provider'=> 'Adobestock'
+				));				
+			}
 		}
 		$this->preview['sizes'] .= '</div></td></tr>';
 

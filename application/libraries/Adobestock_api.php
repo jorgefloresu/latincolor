@@ -86,7 +86,8 @@ class Adobestock_Api
             AdobeStockParams::RESULT_KEYWORDS.'&'.
             AdobeStockParams::RESULT_THUMB_1000.'&'.       
             AdobeStockParams::RESULT_TYPE_ID.'&'.
-            AdobeStockParams::RESULT_VIDEO_PREVIEW;
+            AdobeStockParams::RESULT_VIDEO_PREVIEW.'&'.
+            AdobeStockParams::RESULT_COMPS;
 
         $url = $this->getFullURI(AdobeStockParams::MEDIA_DATA_CMD, $mediaParams) . $postParams;
         return $this->checkResponse($this->post($url, $postParams));

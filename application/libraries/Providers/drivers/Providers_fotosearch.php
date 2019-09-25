@@ -171,7 +171,8 @@ class Providers_fotosearch extends CI_Driver {
 					$this->result['count'] = $obj->meta->total_count;
 					foreach ($obj->objects as $value) {
 						
-						$imgFile = str_replace('http://','https://', $value->preview_url);
+						$imgFile = $value->preview_url;
+						//$imgFile = str_replace('http://','https://', $value->preview_url);
 						$html  = "<div><img src='$imgFile' height='170'/><div class='caption'>";
 						$html .= "<a class='view-link' href='".base_url('main/preview/')."/$value->id/?provider=Fotosearch'><i class='material-icons'>zoom_in</i></a>";
 						$html .= "<a class='cart-link' href='".base_url('main/instant/')."/$value->id/?provider=Fotosearch'><i class='material-icons' style='padding-left:10px;'>add_shopping_cart</i></a>";

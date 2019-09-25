@@ -530,8 +530,8 @@ class Membership_model extends CI_Model {
 			$system = array();
 			foreach ($result as $key=>$value) {
 				$system[$value->feature] = array('value'=>$value->value,
-																				 'description'=>$value->description
-																			 );
+												 'description'=>$value->description
+												);
 			}
 			return $system;
 		} else {
@@ -539,8 +539,8 @@ class Membership_model extends CI_Model {
 			$row = $query->row();
 			if (isset($row)) {
 	        return array('feature'=>array('value'=>$row->value,
-																				'description'=>$row->description
-																			));
+										  'description'=>$row->description
+										 ));
 			} else {
 				return 'No set';
 			}

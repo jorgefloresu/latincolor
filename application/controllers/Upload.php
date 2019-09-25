@@ -19,7 +19,7 @@
 
     function uploadImage()
     {
-       $config['upload_path']   =   "uploads/";
+       $config['upload_path']   =   APPPATH."uploads/";
        $config['allowed_types'] =   "gif|jpg|jpeg|png"; 
        $config['max_size']      =   "5000";
        $config['max_width']     =   "5000";
@@ -27,7 +27,7 @@
 
        $this->load->library('upload',$config);
 
-       if(!$this->upload->do_upload())
+       if(!$this->upload->do_upload("file"))
        {
            $error = array('error' => $this->upload->display_errors());
            $this->load->view('pages/upload_view', $error);
@@ -53,7 +53,7 @@
     function _createThumbnail($filename)
     {
         $config['image_library']    = "gd2";      
-        $config['source_image']     = "uploads/" .$filename;      
+        $config['source_image']     = APPPATH."uploads/" .$filename;      
         $config['create_thumb']     = TRUE;      
         $config['maintain_ratio']   = TRUE;      
         $config['width'] = "80";      

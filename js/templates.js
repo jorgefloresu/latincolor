@@ -221,7 +221,11 @@ var providerPreviewFeatures = function(provider) {
                'Todo uso comercial y publicitario',
                'Material merchandising entregado de manera gratuita'
           ],
-          'Adobe': []
+          'Adobestock': [
+               'Las imagenes que se incluyen en la compra de vídeos son bajo licencia estándar de la colección de Adobe Stock',
+               'Tus compras de productos de AdobeStock están integradas con tus programas de diseño de la Creative Cloud.  Conoce las ventajas de esta solución de stock con <a href="'+ROOT+'main/consultor">Tu Consultor</a>',
+               'Necesitas un paquete de videos? comunícate con <a href="'+ROOT+'main/consultor">Tu Consultor</a>'
+          ]
      }
      return particularFeatures[provider];
 }

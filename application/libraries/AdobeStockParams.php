@@ -27,6 +27,7 @@ class AdobeStockParams
     const RESULT_TYPE_ID     = 'result_columns[]=media_type_id';
     const RESULT_THUMB_1000   = 'result_columns[]=thumbnail_1000_url';
     const RESULT_VIDEO_PREVIEW   = 'result_columns[]=video_preview_url';
+    const RESULT_COMPS       = 'result_columns[]=comps';
 
     const MEDIA_DATA_CMD     = 'Search/Files?';
 

@@ -14,6 +14,7 @@ var Api = ( function() {
                 title: $('#title'),
                 subtitle: $('#subtitle'),
                 condiciones: $('.condiciones'),
+                usoLicencia: $('.uso-licencia b'),
                 imgContainer: $('#loading'),
                 image: $('#loading img'),
                 prices: $('#prices table tbody'),
@@ -314,6 +315,12 @@ var Api = ( function() {
                   if (data) {
                     preview.title.html(data.title);
                     preview.subtitle.html("No. de referencia: #"+data.id);
+                    preview.usoLicencia.text(function(){
+                      if (data.provider=='Adobestock' && data.type=='video')
+                        return 'Condiciones de compra';
+                      else
+                        return 'Derechos de Uso Licencia Estándar';
+                    });
                     preview.condiciones.text(function(){
                       return data.provider + (data.provider=='Depositphoto'?'s':'');
                     });

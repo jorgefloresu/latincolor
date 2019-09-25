@@ -55,7 +55,7 @@
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>Imágenes de <span class="condiciones"></span></span>
-            <span class="center"><b>Derechos de Uso Licencia Estándar</b></span>
+            <span class="center uso-licencia"><b>Derechos de Uso Licencia Estándar</b></span>
             <!-- <ul>
                 <li class="center" style="margin-bottom:10px"></li>
                 <li class="blue darken-4" style="height: 2px;"></li>

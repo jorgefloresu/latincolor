@@ -21,9 +21,12 @@ class Providers extends CI_Driver_Library {
 		$this->CI->load->model('membership_model');
 		$system = $this->CI->membership_model->get_system();
 		$this->comision = $system['price_comision']['value'];
+		$this->adobe_comision = $system['stock_comision']['value'];
 		$this->iva = $system['iva']['value'];
 		$this->tco_percent = $system['2co_percent']['value'];
 		$this->tco_additional = $system['2co_additional']['value'];
+		$this->adobe_videoHD = $system['stock_video_hd']['value'];
+		$this->adobe_video4K = $system['stock_video_4k']['value'];
 	}
 
 	function index() {
@@ -32,6 +35,10 @@ class Providers extends CI_Driver_Library {
 
 	function set_price($original_price) {
 		return ceil($original_price) * (1+strval($this->comision));
+	}
+
+	function set_adobe_price($original_price) {
+		return ceil($original_price * (1+strval($this->adobe_comision)));
 	}
 
 	function set_iva($valor) {
@@ -50,7 +57,7 @@ class Providers extends CI_Driver_Library {
 			$tag = "<a id='savetocart' class='collection-item' href='#' data-id='".$item['id']."' data-img='".$item['id']."'"
 				." data-price='".number_format($item['price'],2)."' data-iva='".number_format($this->set_iva($item['price']),2)."' data-thumb='".$item['thumb']."'"
 				." data-tco='".number_format($this->set_tco($item['price']),2)."' data-provider='".$item['provider']."' data-desc='".$item['desc']."' data-type='plan'"
-				." data-size='N/A' data-sizelbl='-' data-license='standard' data-trantype='compra_plan' data-idplan=''>";
+				." data-size='N/A' data-sizelbl='".$item['width']."X".$item['height']."' data-license='".$item['license']."' data-trantype='compra_plan' data-idplan=''>";
 
 		} else {
 			$tag = "<a id='savetocart' class='collection-item' href='#' data-img='".$item['id']
@@ -197,9 +204,9 @@ class Providers extends CI_Driver_Library {
 		$dt = $this->dreamstime->convertResult(curl_multi_getcontent($ch['dt']));
 		$as = $this->adobestock->convertResult(curl_multi_getcontent($ch['as']));
 
-		$resCount = array('as'=>(int)$as['count'], 'dt'=>(int)$dt['count'], 'fs'=>(int)$fs['count'], 'dp'=>(int)$dp['count']);
-		$resImages = array('as'=>$as['images'], 'dt'=>$dt['images'], 'fs'=>$fs['images'], 'dp'=>$dp['images']);
-		$resRemain = array('as'=>count($as['images']), 'dt'=>count($dt['images']), 'fs'=>count($fs['images']), 'dp'=>count($dp['images']));
+		$resCount = array('dp'=>(int)$dp['count'], 'as'=>(int)$as['count'], 'dt'=>(int)$dt['count'], 'fs'=>(int)$fs['count']);
+		$resImages = array('dp'=>$dp['images'], 'as'=>$as['images'], 'dt'=>$dt['images'], 'fs'=>$fs['images']);
+		$resRemain = array('dp'=>count($dp['images']), 'as'=>count($as['images']), 'dt'=>count($dt['images']), 'fs'=>count($fs['images']));
 
 		if ($query['page'] == 1) {
 			$resRemain = $this->cutres($resRemain, $query['rows']);
@@ -248,7 +255,7 @@ class Providers extends CI_Driver_Library {
 		// print_r($new_images);
 
 		//$all['images'] = array_merge_recursive($fs['images'], $dp['images'], $dt['images']);
-		$all['images'] = array_merge_recursive($resImages['as'], $resImages['dt'], $resImages['fs'], $resImages['dp']);
+		$all['images'] = array_merge_recursive($resImages['dp'], $resImages['as'], $resImages['dt'], $resImages['fs']);
 		//$all['images'] = array_merge($new_images[0],$new_images[1],$new_images[2]);
 		//print_r($all['images']);
 
@@ -259,7 +266,7 @@ class Providers extends CI_Driver_Library {
 		if ($page == 1) {
 			//$rows_per_prov = round($rows/count($this->valid_drivers));
 			$init = array('limit'=>$rows,'offset'=>0);
-			$show_page = array('as'=> $init, 'dt'=> $init,'fs'=> $init, 'dp'=> $init);
+			$show_page = array('dp'=> $init, 'as'=> $init, 'dt'=> $init,'fs'=> $init);
 			$total_found = $show_page;
 			//$total_start = array('dp'=> $rows,'dt'=> $rows,'fs'=> $rows);
 		}	else {
@@ -271,10 +278,10 @@ class Providers extends CI_Driver_Library {
 			$num_prov = count($total_found);
 			$per_page = $rows;
 			$show_page = array(
+				'dp'=> array('limit'=>0,'offset'=>0),
 				'as'=> array('limit'=>0,'offset'=>0),
 				'dt'=> array('limit'=>0,'offset'=>0),
-				'fs'=> array('limit'=>0,'offset'=>0),
-				'dp'=> array('limit'=>0,'offset'=>0)
+				'fs'=> array('limit'=>0,'offset'=>0)
 			);
 			$need = 0;
 			for ($i=1; $i<=$page ;$i++) {
