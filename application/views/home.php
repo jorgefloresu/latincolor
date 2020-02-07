@@ -1,4 +1,4 @@
-<?$this->load->view('templates/header')?>
+<?php $this->load->view('templates/header')?>
 <header>
   <nav class="top-content white-text z-depth-0" role="navigation">
     <div class="nav-wrapper">
@@ -7,25 +7,25 @@
           <!-- <a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta" target="_blank" class="phone"><i class="fab fa-whatsapp fa-2x"></i> + (57) 314 295 8463</a> -->
           <a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
             alt="Contáctanos" target="_blank" class="phone hide-on-small-only" style="padding-left: 30px;">
-            <img src="<?=base_url('img/whatsapp-30.png')?>" style="margin: 10px -35px;position: absolute;"> + (57) 314
+            <img src="<?php echo base_url('img/whatsapp-30.png')?>" style="margin: 10px -35px;position: absolute;"> + (57) 314
             295 8463</a>
         </div>
         <div class="col s12 m6 center">
           <div id="signuser" class="sesion-menu">
             <?php if ($logged): ?>
-            <a href="<?=base_url('main/user')?>" class="sign-in modal-trigger">Hola,
-              <?=$user_data->first_name?></a>
+            <a href="<?php echo base_url('main/user')?>" class="sign-in modal-trigger">Hola,
+              <?php echo $user_data->first_name?></a>
             <span><i class="fas fa-user-circle fa-lg"></i></span>
-            <a href="<?=base_url('login/logout/noindex')?>" id="sign-out">Cerrar sesión</a>
+            <a href="<?php echo base_url('login/logout/noindex')?>" id="sign-out">Cerrar sesión</a>
             <a href="#signup-page" id="signup-user" class="modal-trigger" style="display:none">
-              <?=_("Sign up")?></a>
+              <?php echo _("Sign up")?></a>
             <?php else: ?>
             <a href="#sign-in" class="sign-in modal-trigger">
-              <?=_("Login")?></a>
+              <?php echo _("Login")?></a>
             <span><i class="fas fa-user-circle fa-lg"></i></span>
-            <a href="<?=base_url('login/logout/noindex')?>" id="sign-out" style="display:none">Cerrar sesión</a>
+            <a href="<?php echo base_url('login/logout/noindex')?>" id="sign-out" style="display:none">Cerrar sesión</a>
             <a href="#signup-page" id="signup-user" class="modal-trigger">
-              <?=_("Sign up")?></a>
+              <?php echo _("Sign up")?></a>
             <?php endif; ?>
           </div>
         </div>
@@ -46,18 +46,18 @@
       <div class="row">
         <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
         <div class="col s10">
-          <a id="logo-container" alt="Latin Color Images - Banco de Imágenes" href="#" class="brand-logo" style="top:-5px"><img src="<?=base_url('img/LCI_LOGO_BLANCO_T.png')?>"></a>
+          <a id="logo-container" alt="Latin Color Images - Banco de Imágenes" href="#" class="brand-logo" style="top:-5px"><img src="<?php echo base_url('img/LCI_LOGO_BLANCO_T.png')?>"></a>
           <ul class="hide-on-med-and-down" style="padding-left:260px">
-            <li><a href="<?=base_url('main/planes')?>">PLANES & SUSCRIPCIONES</a></li>
-            <li><a href="<?=base_url('main/planes#paquetes-promo')?>">PAQUETES</a></li>
-            <li><a href="<?=base_url('main/servicios')?>">SERVICIOS</a></li>
+            <li><a href="<?php echo base_url('main/planes')?>">PLANES & SUSCRIPCIONES</a></li>
+            <li><a href="<?php echo base_url('main/planes#paquetes-promo')?>">PAQUETES</a></li>
+            <li><a href="<?php echo base_url('main/servicios')?>">SERVICIOS</a></li>
             <!-- Dropdown Trigger -->
             <li><a class="dropdown-button" href="#!" data-activates="opciones">CONTÁCTANOS<i class="material-icons right">arrow_drop_down</i></a></li>
             <ul id="opciones" class="dropdown-homeopt dropdown-content">
-              <li><a href="<?=base_url('main/consultor')?>">Mi Consultor</a></li>
-              <li><a href="<?=base_url('main/nosotros')?>">Quienes somos</a></li>
+              <li><a href="<?php echo base_url('main/consultor')?>">Mi Consultor</a></li>
+              <li><a href="<?php echo base_url('main/nosotros')?>">Quienes somos</a></li>
               <li class="divider"></li>
-              <li><a href="<?=base_url('main/contactanos')?>">Contáctanos</a></li>
+              <li><a href="<?php echo base_url('main/contactanos')?>">Contáctanos</a></li>
             </ul>
           </ul>
         </div>
@@ -85,23 +85,23 @@
                 </div>
                 <a href="#!user"><img class="circle" src="./img/lcilogo.png"></a> -->
                 <a href="#!name"><span class="white-text name">
-                    <?=$user_data->fname?></span></a>
+                    <?php echo $user_data->fname?></span></a>
                 <a href="#!email"><span class="white-text email">
-                    <?=$user_data->email_address?></span></a>
+                    <?php echo $user_data->email_address?></span></a>
               </div>
             </li>
-            <li><a href="<?=base_url('main/planes')?>">Planes & Suscripciones</a></li>
-            <li><a href="<?=base_url('main/planes#paquetes-promo')?>">Paquetes</a></li>
-            <li><a href="<?=base_url('main/servicios')?>">Servicios</a></li>
+            <li><a href="<?php echo base_url('main/planes')?>">Planes & Suscripciones</a></li>
+            <li><a href="<?php echo base_url('main/planes#paquetes-promo')?>">Paquetes</a></li>
+            <li><a href="<?php echo base_url('main/servicios')?>">Servicios</a></li>
             <li>
               <ul class="collapsible collapsible-accordion">
                 <li>
                   <a class="collapsible-header">Opciones</a>
                   <div class="collapsible-body">
                     <ul>
-                      <li><a href="<?=base_url('main/consultor')?>">Mi Consultor</a></li>
-                      <li><a href="<?=base_url('main/nosotros')?>">Quienes somos</a></li>
-                      <li><a href="<?=base_url('main/contactanos')?>">Contáctanos</a></li>
+                      <li><a href="<?php echo base_url('main/consultor')?>">Mi Consultor</a></li>
+                      <li><a href="<?php echo base_url('main/nosotros')?>">Quienes somos</a></li>
+                      <li><a href="<?php echo base_url('main/contactanos')?>">Contáctanos</a></li>
                     </ul>
                   </div>
                 </li>
@@ -145,7 +145,7 @@
       <br><br> -->
         <div class="caption center-align">
           <nav id="slide-search-bar">
-            <?=form_open(base_url().'main/search/1', 'id="home-search" method="get"')?>
+            <?php echo form_open(base_url().'main/search/1', 'id="home-search" method="get"')?>
             <div class="search-wrapper card">
               <div class="input-field">
                 <input id="search" type="search" name="keyword" placeholder="Digita palabras claves en idioma inglés"
@@ -161,6 +161,10 @@
                     <li><a class="busca-id" href="#!">Dreamstime</a></li>
                     <li><a class="busca-id" href="#!">Fotosearch</a></li>
                   </ul>
+                    
+                  <i class="material-icons" id="start_button" onclick="startButton(event)">
+                    <img alt="Start" id="start_img" src="//www.google.com/intl/en/chrome/assets/common/images/content/mic.gif">
+                  </i>
 
                 <i class="material-icons icon-search red darken-4">search</i>
                 <input type='hidden' id="medio" name='medio' />
@@ -168,26 +172,29 @@
               </div>
             </div>
             <div class="buttons-filters">
-              <a class="btn-flat btn-fotos"><i class="material-icons icon-options left">check</i>Fotos</a>
-              <a class="btn-flat btn-vectores">Vectores</a>
-              <a class="btn-flat btn-videos">Videos</a>
+              <a id="photos" class="btn-flat btn-fotos"><i class="material-icons icon-options left">check</i>Fotos</a>
+              <a id="vectors" class="btn-flat btn-vectores">Vectores</a>
+              <a id="videos" class="btn-flat btn-videos">Videos</a>
               <!-- <a class="btn-flat btn-audios">Audios</a> -->
             </div>
-            <?=form_close()?>
+
+            <?$this->load->view('templates/voice_msgs')?>
+
+            <?php echo form_close()?>
           </nav>
         </div>
       </div>
     </div>
 </main>
 
-<?$this->load->view('cart')?>
-<?$this->load->view('templates/welcome_user')?>
-<?$this->load->view('pages/payment_form'); ?>
+<?php $this->load->view('cart')?>
+<?php $this->load->view('templates/welcome_user')?>
+<?php $this->load->view('pages/payment_form'); ?>
 
-<?$this->load->view('templates/sign_in')?>
-<?$this->load->view('pages/signup_form')?>
-<?$this->load->view('pages/forgot_pass')?>
-<?$this->load->view('templates/info_bottom')?>
+<?php $this->load->view('templates/sign_in')?>
+<?php $this->load->view('pages/signup_form')?>
+<?php $this->load->view('pages/forgot_pass')?>
+<?php $this->load->view('templates/info_bottom')?>
 
 <footer class="home-page-footer page-footer white hide-on-small-only">
   <div class="footer-copyright">
@@ -195,8 +202,8 @@
       <div class="row no-margin-bottom">
         <div class="col s12 m6 l6">
           &reg; 2019 Latin Color Images
-          <a class="grey-text text-lighten-3" href="<?=base_url('main/privacidad')?>">Politicas de privacidad</a>
-          <a class="grey-text text-lighten-3" href="<?=base_url('main/condiciones')?>">Términos de la licencia de uso <span id="wt"></span></a>
+          <a class="grey-text text-lighten-3" href="<?php echo base_url('main/privacidad')?>">Politicas de privacidad</a>
+          <a class="grey-text text-lighten-3" href="<?php echo base_url('main/condiciones')?>">Términos de la licencia de uso <span id="wt"></span></a>
         </div>
         <div class="col s12 m6 l6">
           <div class="right"><a class="grey-text text-lighten-3" href="#">Idioma <i class="fas fa-globe fa-lg">globe</i></a></div>
@@ -208,7 +215,7 @@
 
 <!-- Error Structure -->
 <div id="error" class="modal"></div>
-<?=put_headers('js', $user_info)?>
+<?php echo put_headers('js', $user_info)?>
 
 
 </body>

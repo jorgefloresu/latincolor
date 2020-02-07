@@ -47,7 +47,7 @@ var Home  = {
       Home.auth.setDefaults({
         onLogin: function (res) {
           if(res.status == 404) {
-              Login.message('Usuario o password incorrecto');
+              Login.message(Lang.incorrectLogin);
           } else {
               Home.updateLoginElements(ROOT+'main/user', 'Hola, '+res.first_name, true);
               userData = res;

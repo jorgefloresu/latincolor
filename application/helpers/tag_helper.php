@@ -1,4 +1,5 @@
-<?
+<?php
+
 //Dynamically add Javascript files to header page
 if(!function_exists('add_js')){
     function add_js($file='')
@@ -150,4 +151,4 @@ if(!function_exists('build_data_table')){
     }
 }
 
-?>
+

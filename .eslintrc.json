@@ -18,7 +18,8 @@
         "Pay": true,
         "Api": true,
         "userData": true,
-        "ROOT": true
+        "ROOT": true,
+        "Lang": true
     },
     "rules": {
         "no-console": "off",

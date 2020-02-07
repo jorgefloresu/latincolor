@@ -1,7 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
 
   <head>
+
+  <script>
+      (function(e, p){
+          var m = location.href.match(/platform=(win8|win|mac|linux|cros)/);
+          e.id = (m && m[1]) ||
+                (p.indexOf('Windows NT 6.2') > -1 ? 'win8' : p.indexOf('Windows') > -1 ? 'win' : p.indexOf('Mac') > -1 ? 'mac' : p.indexOf('CrOS') > -1 ? 'cros' : 'linux');
+          e.className = e.className.replace(/\bno-js\b/,'js');
+      })(document.documentElement, window.navigator.userAgent)
+    </script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +19,9 @@
     <meta name="google-site-verification" content="gbiXTCGaj_ExlQzTaccfnaWv4RCI1ynFRSvIIEaoyII" />
     <link rel="shortcut icon" href="<?=base_url('favicon.ico')?>" type="image/x-icon">
     <link rel="icon" href="<?=base_url('favicon.ico')?>" type="image/x-icon">
-    <? if ($this->input->get('keyword')): ?>
+    <?php if ($this->input->get('keyword')): ?>
       <link rel="canonical" href="<?=base_url('main/search')?>">
-    <? endif ?>
+    <?php endif ?>
     <link rel="apple-touch-icon" sizes="57x57" href="<?=base_url('apple-icon-57x57.png')?>">
     <link rel="apple-touch-icon" sizes="60x60" href="<?=base_url('apple-icon-60x60.png')?>">
     <link rel="apple-touch-icon" sizes="72x72" href="<?=base_url('apple-icon-72x72.png')?>">
@@ -38,24 +48,25 @@
     <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/4887737.js"></script>
     <!-- End of HubSpot Embed Code -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-39846111-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23141518-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-39846111-1');
+      gtag('config', 'UA-23141518-1');
     </script>
+
 
     <!--[if IE]>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <?=put_headers('css')?>
+      <?php echo put_headers('css')?>
     <![endif]-->
 
-    <title><?echo _("Title")?></title>
+    <title><?php echo _("Latin Color Images - Stock Images - Colombia")?></title>
     <meta name="title" content="Latin Color Images - Banco de imágenes en Colombia" />
     <meta name="description" content="Banco de imágenes, videos y vectores. Operamos desde Colombia para toda latinoamérica. Promovemos la venta de imágenes y videos individuales o por medio de suscripciones, planes y paquetes. Brindamos además un servicio personalizado de asesoría en la búsqueda de imágenes. También somos representantes de diversos bancos de imágenes internacionales.">
-    <meta name="keywords" content="banco de imágenes,banco de imagenes en latinoamerica,banco de imagenes en colombia,banco de imagenes y videos en colombia,banco de imagenes videos y vectores en colombia,banco de fotos en colombia,banco de fotografía en colombia,stock de imágenes en colombia,producción de imágenes a la medida en colombia,photoresearcher,búsqueda de imágenes en colombia,búsqueda de imágenes y videos en colombia, banco de imágenes royalty free en colombia,banco de imágenes con licencia extendida en colombia,banco de imágenes con todas las licencias en colombia,banco de imagenes para uso publicitario en colombia,banco de imagenes para uso editorial en colombia,venta de fotos en colombia,venta de fotografías en colombia,imagenes y videos de alimentos,imagenes y videos de animales,imagenes y videos de naturaleza,imagenes y videos de arquitectura,imagenes y videos de industria,imagenes y videos de gente,imagenes y videos de costumbres,imagenes y videos de paisajes,imagenes y videos de objetos,imagenes y videos de texturas,imagenes y videos de ciudades,imagenes y videos de pueblos,stock images of colombia,stock images and videos in colombia,images producing in colombia,image search in colombia,images with all licenses in colombia,royalty free images in colombia,colombia advertising usage of images,colombia images editorial use,stock photos in colombia,stock photography in colombia,colombian image stock,colombian image bank,images plan and packages in colombia,image selling in colombia,food images and videos,animals images and videos,nature images and videos,architecture images and videos,industry images and videos,people images and videos,customs images and videos,landscapes images and videos,objects images and videos,textures images and videos,cities images and,towns images and videos,planes y suscripciones,planes paquetes y suscripciones,planes y suscripciones de imagenes y videos en colombia,planes paquetes y suscripciones de imagenes y videos en colombia" />
+    <meta name="keywords" content="banco de imágenes,banco de imagenes en latinoamerica,banco de imagenes en colombia,banco de imagenes y videos en colombia,banco de imagenes videos y vectores en colombia,banco de fotos en colombia,banco de fotografía en colombia,stock de imágenes en colombia,producción de imágenes a la medida en colombia,photoresearcher,búsqueda de imágenes en colombia,búsqueda de imágenes y videos en colombia, banco de imágenes royalty free en colombia,banco de imágenes con licencia extendida en colombia,banco de imágenes con todas las licencias en colombia,banco de imagenes para uso publicitario en colombia,banco de imagenes para uso editorial en colombia,venta de fotos en colombia,venta de fotografías en colombia,imagenes y videos de alimentos,imagenes y videos de animales,imagenes y videos de naturaleza,imagenes y videos de arquitectura,imagenes y videos de industria,imagenes y videos de gente,imagenes y videos de costumbres,imagenes y videos de paisajes,imagenes y videos de objetos,imagenes y videos de texturas,imagenes y videos de ciudades,imagenes y videos de pueblos,stock images of colombia,stock images and videos in colombia,images producing in colombia,image search in colombia,images with all licenses in colombia,royalty free images in colombia,colombia advertising usage of images,colombia images editorial use,stock photos in colombia,stock photography in colombia,colombian image stock,colombian image bank,images plan and packages in colombia,image selling in colombia,food images and videos,animals images and videos,nature images and videos,architecture images and videos,industry images and videos,people images and videos,customs images and videos,landscapes images and videos,objects images and videos,textures images and videos,cities images and,towns images and videos,planes y suscripciones,planes paquetes y suscripciones,planes y suscripciones de imagenes y videos en colombia,planes paquetes y suscripciones de imagenes y videos en colombia,adobe,adobe stock,depositphotos,dreamstime,fotosearch,pond5" />
 
     <script type="application/ld+json">
     {
@@ -99,5 +110,9 @@
   <body>
     <!--[if !IE]> -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" lazyload="1">
-      <?=put_headers('css')?>
+      <?php echo put_headers('css')?>
     <!-- <![endif]-->
+  
+    <link href="//www.google.com/images/icons/product/chrome-32.png" rel="icon" type="image/ico">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+    <?php $this->load->view('js_lang')?>

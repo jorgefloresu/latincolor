@@ -7,10 +7,10 @@
     </div>
     <div class="col s12 m8 l9">
       <ul class="subaccounts collapsible" data-collapsible="accordion">
-        <? foreach ($subaccounts->subaccounts as $key => $value): ?>
-          <li data-url='<?=base_url("admin/get_subaccount_data/{$value}")?>'>
+        <?php  foreach ($subaccounts->subaccounts as $key => $value): ?>
+          <li data-url='<?php echo base_url("admin/get_subaccount_data/{$value}")?>'>
             <div class="collapsible-header"><i class="material-icons">filter_drama</i>
-              Sub Cuenta # <?=$value?> <span class="load" style="color:#CCC;display:none">- Extrayendo datos...</span>
+              Sub Cuenta # <?php echo $value?> <span class="load" style="color:#CCC;display:none">- Extrayendo datos...</span>
             </div>
             <div class="collapsible-body">
               <table>
@@ -18,7 +18,7 @@
                   <tr>
                     <td>
                       <div class="chip">
-                        <img src="<?=base_url('img/ajax-loader.gif')?>" alt="Contact Person">
+                        <img src="<?php echo base_url('img/ajax-loader.gif')?>" alt="Contact Person">
                       </div>
                     </td>
                     <td>
@@ -28,14 +28,14 @@
                       <span class="since">Cargando...</span>
                     </td>
                     <td>
-                      <a class='delete-user' href='<?=base_url("admin/delete_subaccount/{$value}")?>'><i class="material-icons red-text">delete</i></a>
+                      <a class='delete-user' href='<?php echo base_url("admin/delete_subaccount/{$value}")?>'><i class="material-icons red-text">delete</i></a>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </li>
-        <? endforeach ?>
+        <?php  endforeach ?>
         </ul>
       </div>
   </div>
@@ -48,23 +48,23 @@
       <table id="data-table-simple" class="display responsive nowrap" style="width:100%">
         <thead>
           <tr>
-          <? foreach ($subscriptions->offers as $key => $properties):
+          <?php  foreach ($subscriptions->offers as $key => $properties):
               if ($key>0) break;
               foreach ($properties as $property => $value): ?>
-                  <th><?= $property ?></th>
-          <?  endforeach;
+                  <th><?php echo  $property ?></th>
+          <?php   endforeach;
              endforeach ?>
            </tr>
         </thead>
 
         <tbody>
-          <? foreach ($subscriptions->offers as $property): ?>
+          <?php  foreach ($subscriptions->offers as $property): ?>
             <tr>
-            <? foreach ($property as $key => $value): ?>
-                  <td><?= $value ?></td>
-            <? endforeach ?>
+            <?php  foreach ($property as $key => $value): ?>
+                  <td><?php echo  $value ?></td>
+            <?php  endforeach ?>
             </tr>
-          <? endforeach ?>
+          <?php  endforeach ?>
         </tbody>
       </table>
     </div>

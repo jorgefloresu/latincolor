@@ -1,8 +1,8 @@
-<?$this->load->view('templates/header')?>
+<?php $this->load->view('templates/header')?>
 
   <header>
 
-      <?$this->load->view('templates/ctrl/ctrl-nav')?>
+      <?php $this->load->view('templates/ctrl/ctrl-nav')?>
 
   </header>
 
@@ -24,10 +24,10 @@
           <div class="col s12 m6">
             <div class="card">
               <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="<?=base_url('img/user-profile-bg.jpg')?>" alt="user background">
+                <img class="activator" src="<?php echo base_url('img/user-profile-bg.jpg')?>" alt="user background">
               </div>
               <div class="card-content">
-                  <img src="<?=base_url('img/avatar.jpg')?>" alt="" class="circle responsive-img activator card-profile-image z-depth-1 hide-on-med-and-down">
+                  <img src="<?php echo base_url('img/avatar.jpg')?>" alt="" class="circle responsive-img activator card-profile-image z-depth-1 hide-on-med-and-down">
                   <a class="btn-floating activator btn-move-up waves-effect waves-light pink accent-2 right">
                     <i class="material-icons white-text">account_circle</i>
                   </a>
@@ -40,14 +40,14 @@
                   <p class="valign-wrapper" style="padding:10px 0"><i class="material-icons small cyan-text text-darken-2">email</i> carolina@latincolorimages.com</p>
                   <p><a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
                     target="_blank" class="phone hide-on-small-only" style="padding-left: 30px;">
-                    <img src="<?=base_url('img/whatsapp-30.png')?>" style="margin:0 -30px;position: absolute;"> +57 1 314
+                    <img src="<?php echo base_url('img/whatsapp-30.png')?>" style="margin:0 -30px;position: absolute;"> +57 1 314
                     295 8463</a>
                   </p>
                   <p style="margin-top:34px"><b>Para ventas y soporte en Centroamérica</b></p>
                   <p class="valign-wrapper" style="padding:10px 0"><i class="material-icons small cyan-text text-darken-2">email</i> jorge@latincolorimages.com</p>
                   <p><a href="https://api.whatsapp.com/send?l=es&phone=573142958463&text=Buen%20dia,%20tengo%20una%20consulta"
                       target="_blank" class="phone hide-on-small-only" style="padding-left: 30px;">
-                      <img src="<?=base_url('img/whatsapp-30.png')?>" style="margin:0 -30px;position: absolute;"> +503 7920 2025</a>
+                      <img src="<?php echo base_url('img/whatsapp-30.png')?>" style="margin:0 -30px;position: absolute;"> +503 7920 2025</a>
                   </p>
               </div>
             </div>
@@ -82,11 +82,11 @@
     </div>
 
 
-    <?$this->load->view('cart')?>
+    <?php $this->load->view('cart')?>
 
-    <?$this->load->view('templates/sign_in')?>
+    <?php $this->load->view('templates/sign_in')?>
 
-    <?$this->load->view('templates/right_sidebar')?>
+    <?php $this->load->view('templates/right_sidebar')?>
 
   </main>
 
@@ -96,17 +96,17 @@
       </div>
   </div>
 
-  <?$this->load->view('pages/payment_form'); ?>
-  <?$this->load->view('pages/signup_form')?>
-  <?$this->load->view('pages/forgot_pass')?>
-  <?$this->load->view('templates/info_bottom')?>
+  <?php $this->load->view('pages/payment_form'); ?>
+  <?php $this->load->view('pages/signup_form')?>
+  <?php $this->load->view('pages/forgot_pass')?>
+  <?php $this->load->view('templates/info_bottom')?>
 
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
-<?$this->load->view('templates/footer_tag') ?>
+<?php $this->load->view('templates/footer_tag') ?>
 
-<?=put_headers('js', $user_info)?>
+<?php echo put_headers('js', $user_info)?>
 
 </body>
 </html>

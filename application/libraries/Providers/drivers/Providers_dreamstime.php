@@ -41,7 +41,8 @@ class Providers_dreamstime extends CI_Driver {
 						$params[DreamstimeParams::SEARCH_VIDEO] = 'only';
 						break;
 					case 'Vectores':
-						$params[DreamstimeParams::SEARCH_VECTOR] = 1;
+						//$params[DreamstimeParams::SEARCH_VECTOR] = 1;
+						$params[DreamstimeParams::SEARCH_QUERY] = $query['keyword'] . " vectors";
 						break;
 				}
         $res = $this->CI->dreamstime_api->search($params);

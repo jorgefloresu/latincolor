@@ -1,8 +1,8 @@
-<?$this->load->view('templates/header')?>
+<?php $this->load->view('templates/header')?>
 
   <header>
 
-      <?$this->load->view('templates/ctrl/ctrl-nav')?>
+      <?php $this->load->view('templates/ctrl/ctrl-nav')?>
 
   </header>
 
@@ -22,7 +22,7 @@
 
           </div>
         </div>
-        <div class="parallax"><img src="<?=base_url('img/consultor.jpg')?>" alt="planes"></div>
+        <div class="parallax"><img src="<?php echo base_url('img/consultor.jpg')?>" alt="planes"></div>
     </div>
 
     <div id="dinos-tu-consulta" class="container">
@@ -40,8 +40,8 @@
 
         <div class="row">
           <div class="col s12">
-            <form id="form-consultor" action="<?=base_url('main/send_consulta')?>">
-              <input id="cons" type="hidden" name="cons" value="<?=$pre_consulta?>"/>
+            <form id="form-consultor" action="<?php echo base_url('main/send_consulta')?>">
+              <input id="cons" type="hidden" name="cons" value="<?php echo $pre_consulta?>"/>
             <div class="card">
               <div class="card-content">
                 <div class="section">
@@ -64,7 +64,7 @@
                     <div class="input-field col s12">
                       <i class="material-icons prefix">textsms</i>
                       <textarea id="detalle" class="materialize-textarea" name="detalle" data-length="120"></textarea>
-                      <label for="detalle"><?=$pre_detalle_label?></label>
+                      <label for="detalle"><?php echo $pre_detalle_label?></label>
                     </div>
                   </div>
                 </div>
@@ -107,11 +107,11 @@
     </div>
 
 
-    <?$this->load->view('cart')?>
+    <?php $this->load->view('cart')?>
 
-    <?$this->load->view('templates/sign_in')?>
+    <?php $this->load->view('templates/sign_in')?>
 
-    <?$this->load->view('templates/right_sidebar')?>
+    <?php $this->load->view('templates/right_sidebar')?>
 
   </main>
 
@@ -120,19 +120,19 @@
         <p>Descargando...</p>
       </div>
   </div> -->
-  <?$this->load->view('templates/welcome_user')?>
+  <?php $this->load->view('templates/welcome_user')?>
 
-  <?$this->load->view('pages/payment_form'); ?>
-  <?$this->load->view('pages/signup_form')?>
-  <?$this->load->view('pages/forgot_pass')?>
-  <?$this->load->view('templates/info_bottom')?>
+  <?php $this->load->view('pages/payment_form'); ?>
+  <?php $this->load->view('pages/signup_form')?>
+  <?php $this->load->view('pages/forgot_pass')?>
+  <?php $this->load->view('templates/info_bottom')?>
 
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
-<?$this->load->view('templates/footer_tag') ?>
+<?php $this->load->view('templates/footer_tag') ?>
 
-<?=put_headers('js', $user_info)?>
+<?php echo put_headers('js', $user_info)?>
 
 </body>
 </html>

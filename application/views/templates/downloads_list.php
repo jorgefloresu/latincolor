@@ -24,18 +24,18 @@
                   </thead>
 
                   <tbody>
-                    <?foreach ($datares as $key => $value):?>
+                    <?php foreach ($datares as $key => $value):?>
                     <tr>
-                      <td><img src="<?=$value->img_url?>" style="max-height:50px; max-width:50px"/></td>
-                      <td><?=$value->username?></td>
-                      <td><?=$value->img_provider?></td>
-                      <td><?=$value->img_code?></td>
-                      <td><?=$value->license_id?></td>
-                      <td><?=$value->size?></td>
-                      <td><?=$value->img_price?></td>
-                      <td><?=$value->date?></td>
+                      <td><img src="<?php echo $value->img_url?>" style="max-height:50px; max-width:50px"/></td>
+                      <td><?php echo $value->username?></td>
+                      <td><?php echo $value->img_provider?></td>
+                      <td><?php echo $value->img_code?></td>
+                      <td><?php echo $value->license_id?></td>
+                      <td><?php echo $value->size?></td>
+                      <td><?php echo $value->img_price?></td>
+                      <td><?php echo $value->date?></td>
                     </tr>
-                    <?endforeach;?>
+                    <?php endforeach;?>
                   </tbody>
 
                   </table>

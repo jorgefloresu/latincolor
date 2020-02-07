@@ -35,7 +35,7 @@
                 <ul class="collapsible grey lighten-4" style="width:100%">
                   <li class="white-text indigo darken-4" style="padding:13px 0;font-size: 0.98rem;font-weight: 100;text-align:center">FILTROS DE BÚSQUEDA</li>
                   <li class="grey lighten-4 center-align" style="padding:15px 10px;">
-                    <img class="search-type-icon" src="<?=$icon?>">
+                    <img class="search-type-icon" src="<?php echo $icon?>">
                     <!-- <i class="material-icons medium">crop_original</i> -->
                     <span class="estas-buscando" style="display:block;"></span>
                     <span class="this-keyword" style="font-weight:900;text-transform:uppercase;">RESULTADOS</span>
@@ -49,7 +49,7 @@
                           <span class="title">Imágenes por página</span>
                           <p>Cantidad mostrada: <span class="count-on-page"></span><br>
                         </li> -->
-                        <? $data['options'] = array(
+                        <?php  $data['options'] = array(
                                     'or-all' => array('title'=>'', 'name'=>'Todas'),
                                     'or-hor' => array('title'=>'', 'name'=>'Horizontal'),
                                     'or-ver' => array('title'=>'', 'name'=>'Vertical'),
@@ -69,7 +69,7 @@
                           <i class="material-icons circle green">insert_chart</i>
                           <span class="title">Imágenes por página</span> -->
                           <!-- <p>Cantidad mostrada: <span class="count-on-page"></span><br> -->
-                        <? $data['options'] = array(
+                        <?php  $data['options'] = array(
                                     'co-all' => array('title'=>'', 'name'=>'Todos'),
                                     'co-byn' => array('title'=>'', 'name'=>'Blanco/Negro')
                                   );
@@ -84,7 +84,7 @@
                     <div class="collapsible-header valign-wrapper active grey lighten-2">MEDIOS</div>
                     <div class="collapsible-body grey lighten-3" style="padding:0">
                       <ul class="collection media-options">
-                        <? //$data['options'] = array(
+                        <?php  //$data['options'] = array(
                            //         'md-fotos' => array('title'=>'', 'name'=>'Fotos'),
                            //         'md-vectores' => array('title'=>'', 'name'=>'Vectores'),
                            //         'md-videos' => array('title'=>'', 'name'=>'Videos')
@@ -101,7 +101,7 @@
                         <span class="title" style="font-size:12px">Resultados por página</span>
                         <form action="#" style="margin-bottom:-10px">
                          <p class="range-field container">
-                         <input type="range" id="test5" min="0" max="200" step="20" value="<?=$range?>" />
+                         <input type="range" id="test5" min="0" max="200" step="20" value="<?php echo $range?>" />
                          </p>
                         </form>
                         <span class="title" style="font-size:12px">0</span>

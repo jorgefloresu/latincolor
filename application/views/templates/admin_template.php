@@ -22,7 +22,7 @@
 <body>
     <header id="header" class="page-topbar">
         <!-- start header nav-->
-        <?$this->load->view('templates/admin_header')?>
+        <?php $this->load->view('templates/admin_header')?>
         <!-- end header nav-->
     </header>
 
@@ -31,7 +31,7 @@
         <!-- START WRAPPER -->
         <div class="wrapper">
 
-            <?$this->load->view('templates/admin_sidebar')?>
+            <?php $this->load->view('templates/admin_sidebar')?>
 
             <section id="content">
 
@@ -55,20 +55,20 @@
                 <div class="container">
                     <div class="section">
 
-                        <?=$main_content?>
+                        <?php echo $main_content?>
 
                     </div>
                 </div>
             </section>
         </div>
         
-        <?$this->load->view('pages/plan_form')?>
+        <?php $this->load->view('pages/plan_form')?>
 
     </div>
 
     <script type="text/javascript">
-    var userData = JSON.parse('<?=$user_info?>');
-    const ROOT = '<?=base_url()?>';
+    var userData = JSON.parse('<?php echo $user_info?>');
+    const ROOT = '<?php echo base_url()?>';
     </script>
 
     <script src="<?php echo base_url('js/jquery-3.3.1.min.js');?>"></script>

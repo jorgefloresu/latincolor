@@ -2,38 +2,38 @@
   <h5>Ordenes</h5>
   <div class="row">
     <div class="col s12 m9 l9">
-      <? if($new_ordenes->ord > 0 || $new_ordenes->pro > 0): ?>
+      <?php  if($new_ordenes->ord > 0 || $new_ordenes->pro > 0): ?>
         <table id="data-ventas" class="ordenes display">
           <thead>
             <tr>
               <th></th>
-            <? foreach ($ordenes as $key => $columns):
+            <?php  foreach ($ordenes as $key => $columns):
                 if ($key>0) break;
                 foreach ($columns as $column => $value): ?>
-                    <th><?= $column ?></th>
-            <?  endforeach;
+                    <th><?php echo  $column ?></th>
+            <?php   endforeach;
                endforeach ?>
              </tr>
           </thead>
 
           <tbody>
 
-            <? foreach ($ordenes as $orden): ?>
+            <?php  foreach ($ordenes as $orden): ?>
               <tr><td></td>
-              <? foreach ($orden as $key => $value): ?>
-                  <? if ($key == 'orderId'): ?>
-                    <td class="view-tran blue-text" style="cursor:pointer" data-order="<?=substr($value, 0, strlen($value)-1)?>"><?=$value?></td>
-                  <? else: ?>
-                    <td><?= $value ?></td>
-                  <? endif ?>
-              <? endforeach ?>
+              <?php  foreach ($orden as $key => $value): ?>
+                  <?php  if ($key == 'orderId'): ?>
+                    <td class="view-tran blue-text" style="cursor:pointer" data-order="<?php echo substr($value, 0, strlen($value)-1)?>"><?php echo $value?></td>
+                  <?php  else: ?>
+                    <td><?php echo  $value ?></td>
+                  <?php  endif ?>
+              <?php  endforeach ?>
               </tr>
-            <? endforeach ?>
+            <?php  endforeach ?>
           </tbody>
         </table>
-      <? else: ?>
+      <?php  else: ?>
         <p>No hay órdenes nuevas</p>
-      <? endif ?>
+      <?php  endif ?>
     </div>
     <div class="col s12 m3 l3">
       <h6>Datos del usuario</h6>
@@ -60,4 +60,4 @@
 
 </div>
 
-<?$this->load->view('templates/view_pasarela_tran')?>
+<?php $this->load->view('templates/view_pasarela_tran')?>

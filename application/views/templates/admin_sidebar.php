@@ -3,11 +3,11 @@
         <li class="user-details">
           <div class="row">
             <div class="col s4 m4 l4">
-              <img src="<?=base_url('img/avatar.jpg')?>" alt="" class="circle responsive-img valign profile-image">
+              <img src="<?php echo base_url('img/avatar.jpg')?>" alt="" class="circle responsive-img valign profile-image">
             </div>
             <div class="col s8 m8 l8">
               <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">
-                <?=$user_data->fname?><i class="mdi-navigation-arrow-drop-down right" style="margin:0; width:1.5rem"></i></a>
+                <?php echo $user_data->fname?><i class="mdi-navigation-arrow-drop-down right" style="margin:0; width:1.5rem"></i></a>
               <ul id="profile-dropdown" class="dropdown-content" style="width: 128px; position: absolute; top: 57px; left: 101.234px; opacity: 1; display: none;">
                   <li><a href="#"><i class="mdi-action-face-unlock"></i> Profile</a>
                   </li>
@@ -18,7 +18,7 @@
                   <li class="divider"></li>
                   <li><a href="#"><i class="mdi-action-lock-outline"></i> Lock</a>
                   </li>
-                  <li><a id="sign-out" href="<?=site_url('login/logout/admin')?>"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                  <li><a id="sign-out" href="<?php echo site_url('login/logout/admin')?>"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
                   </li>
               </ul>
               <p class="user-roal">Administrador</p>
@@ -27,29 +27,29 @@
         </li>
         <!--<li class="bold"><a href="index.html" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
         </li>-->
-        <li class="bold <?=($page=='config')?'active':''?>">
-          <a href="<?=base_url("admin/config")?>" class="waves-effect waves-cyan">
+        <li class="bold <?php echo ($page=='config')?'active':''?>">
+          <a href="<?php echo base_url("admin/config")?>" class="waves-effect waves-cyan">
             <i class="mdi-action-settings"></i> Configuración
           </a>
         </li>
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
-                <li class="bold <?=(substr($page,-4)=='list')?'active':''?>">
-                  <a class="collapsible-header waves-effect waves-cyan <?=(substr($page,-4)=='list')?'active':''?>">
+                <li class="bold <?php echo (substr($page,-4)=='list')?'active':''?>">
+                  <a class="collapsible-header waves-effect waves-cyan <?php echo (substr($page,-4)=='list')?'active':''?>">
                     <i class="material-icons">table_chart</i> Tablas</a>
                     <div class="collapsible-body">
                         <ul>
-                            <li class="<?=($page=='activities_list')?'active':''?>">
-                              <a href="<?=base_url("admin?table=activities")?>">Actividades</a>
+                            <li class="<?php echo ($page=='activities_list')?'active':''?>">
+                              <a href="<?php echo base_url("admin?table=activities")?>">Actividades</a>
                             </li>
-                            <li class="<?=($page=='planes_list')?'active':''?>">
-                              <a href="<?=base_url("admin?table=planes")?>">Planes</a>
+                            <li class="<?php echo ($page=='planes_list')?'active':''?>">
+                              <a href="<?php echo base_url("admin?table=planes")?>">Planes</a>
                             </li>
-                            <li class="<?=($page=='downloads_list')?'active':''?>">
-                              <a href="<?=base_url("admin?table=downloads")?>">Descargas</a>
+                            <li class="<?php echo ($page=='downloads_list')?'active':''?>">
+                              <a href="<?php echo base_url("admin?table=downloads")?>">Descargas</a>
                             </li>
-                            <li class="<?=($page=='usuarios_list')?'active':''?>">
-                              <a href="<?=base_url("admin?table=membership")?>">Usuarios</a>
+                            <li class="<?php echo ($page=='usuarios_list')?'active':''?>">
+                              <a href="<?php echo base_url("admin?table=membership")?>">Usuarios</a>
                             </li>
 
                         </ul>
@@ -147,38 +147,38 @@
                 </li>-->
             </ul>
         </li>
-        <li class="bold <?=($page=='consultas')?'active':''?>">
-          <a href="<?=base_url("admin/consultas")?>" class="waves-effect waves-cyan">
+        <li class="bold <?php echo ($page=='consultas')?'active':''?>">
+          <a href="<?php echo base_url("admin/consultas")?>" class="waves-effect waves-cyan">
             <i class="material-icons">pan_tool</i> Consultas
-            <? if ($new_consultas > 0): ?>
-              <span class="new badge red"><?=$new_consultas?></span>
-            <? endif ?>
+            <?php  if ($new_consultas > 0): ?>
+              <span class="new badge red"><?php echo $new_consultas?></span>
+            <?php  endif ?>
           </a>
         </li>
         <li class="li-hover"><div class="divider"></div></li>
         <li class="li-hover"><p class="ultra-small margin more-text">Ordenes y ventas diarias</p></li>
-        <li class="badge-ordenes bold <?=($page=='ordenes')?'active':''?>">
-          <a href="<?=base_url('admin/ordenes')?>" class="waves-effect waves-cyan">
+        <li class="badge-ordenes bold <?php echo ($page=='ordenes')?'active':''?>">
+          <a href="<?php echo base_url('admin/ordenes')?>" class="waves-effect waves-cyan">
             <i class="mdi-action-description"></i> Ordenes
-            <? if ($new_ordenes->ord > 0): ?>
-              <span class="new badge red"><?=$new_ordenes->ord?></span>
-            <? endif ?>
+            <?php  if ($new_ordenes->ord > 0): ?>
+              <span class="new badge red"><?php echo $new_ordenes->ord?></span>
+            <?php  endif ?>
           </a>
         </li>
-        <li class="badge-ventas bold <?=($page=='ventas')?'active':''?>">
-          <a href="<?=base_url('admin/ventas')?>" class="waves-effect waves-cyan">
+        <li class="badge-ventas bold <?php echo ($page=='ventas')?'active':''?>">
+          <a href="<?php echo base_url('admin/ventas')?>" class="waves-effect waves-cyan">
             <i class="material-icons">monetization_on</i> Ventas
-            <? if ($new_ventas > 0): ?>
-              <span class="new badge red"><?=$new_ventas?></span>
-            <? else: ?>
+            <?php  if ($new_ventas > 0): ?>
+              <span class="new badge red"><?php echo $new_ventas?></span>
+            <?php  else: ?>
               <span></span>
-            <? endif ?>
+            <?php  endif ?>
           </a>
         </li>
         <li class="li-hover"><div class="divider"></div></li>
         <li class="li-hover"><p class="ultra-small margin more-text">Proveedores</p></li>
-        <li class="depositphoto bold <?=($page=='depositphoto')?'active':''?>">
-          <a href="<?=base_url("admin/depositphoto")?>" class="waves-effect waves-cyan">
+        <li class="depositphoto bold <?php echo ($page=='depositphoto')?'active':''?>">
+          <a href="<?php echo base_url("admin/depositphoto")?>" class="waves-effect waves-cyan">
             <i class="material-icons">photo_camera</i> Depositphotos
           </a>
         </li>

@@ -19,7 +19,7 @@
         </p>
         <div id="downloading" class="card-panel teal hide" style="position: absolute;bottom:0;width:94%">
           <span class="white-text">Tu descarga ha iniciado. En caso que tu descarga esté incompleta
-            háznoslo saber a <a href="<?=base_url('main/consultor?cons=Descarga+incompleta')?>" class="yellow-text">Tu Consultor</a>
+            háznoslo saber a <a href="<?php echo base_url('main/consultor?cons=Descarga+incompleta')?>" class="yellow-text">Tu Consultor</a>
             y escribe, en el detalle de la consulta, el código de las imágenes que no recibiste. Puedes cerrar esta ventana.
           </span>
         </div>

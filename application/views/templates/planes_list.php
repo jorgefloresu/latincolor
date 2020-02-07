@@ -25,22 +25,22 @@
                   </thead>
 
                   <tbody>
-                    <?foreach ($datares as $field):?>
+                    <?php foreach ($datares as $field):?>
                     <tr>
-                      <td><?=$field->id?></td>
-                      <td><?=$field->provider?></td>
-                      <td><?=$field->frecuencia?></td>
-                      <td><?=$field->cantidad?></td>
-                      <td><?=$field->tiempo?></td>
-                      <td><?=$field->fotos_suscripcion?></td>
-                      <td><?=$field->valor?></td>
-                      <td><?=$field->especial?>
-                        <!-- <input type="text" id="<?=$field->id?>-especial" name="<?=$field->id?>-especial" value="<?=$field->especial?>"> -->
+                      <td><?php echo $field->id?></td>
+                      <td><?php echo $field->provider?></td>
+                      <td><?php echo $field->frecuencia?></td>
+                      <td><?php echo $field->cantidad?></td>
+                      <td><?php echo $field->tiempo?></td>
+                      <td><?php echo $field->fotos_suscripcion?></td>
+                      <td><?php echo $field->valor?></td>
+                      <td><?php echo $field->especial?>
+                        <!-- <input type="text" id="<?php echo $field->id?>-especial" name="<?php echo $field->id?>-especial" value="<?php echo $field->especial?>"> -->
                       </td>
-                      <td><?=$field->ahorro?></td>
-                      <td><?=$field->descuento?></td>
+                      <td><?php echo $field->ahorro?></td>
+                      <td><?php echo $field->descuento?></td>
                     </tr>
-                    <?endforeach;?>
+                    <?php endforeach;?>
                   </tbody>
 
                   </table>
@@ -54,7 +54,7 @@
               </div>
               <div class="col s12 m8 l9">
 
-                <?=form_open_multipart('admin/do_upload')?>
+                <?php echo form_open_multipart('admin/do_upload')?>
                   <div class="file-field input-field">
                         <div class="btn">
                           <span>Archivo:</span>

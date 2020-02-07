@@ -2,7 +2,7 @@
 
   <div class="imgdetail-title row" style="">
     <div style="float:left;margin:8px;color:#757575">
-      <img id="icon-type" src="<?=base_url('img/Fotos-50.png')?>">
+      <img id="icon-type" src="<?php echo base_url('img/Fotos-50.png')?>">
       <!-- <i id="icon-type" class="fas fa-image fa-2x"></i> -->
     </div>
     <div style="padding-top:10px; /*width:95%;float:left*/">
@@ -59,7 +59,7 @@
             <!-- <ul>
                 <li class="center" style="margin-bottom:10px"></li>
                 <li class="blue darken-4" style="height: 2px;"></li>
-                <?//=material_collection(['Todo uso digital y en redes sociales','Impresiones hasta 500.000 copias por imagen en cualquier medio','Todo uso comercial y publicitario','Material merchandising entregado de manera gratuita'])?>
+                <?php //=material_collection(['Todo uso digital y en redes sociales','Impresiones hasta 500.000 copias por imagen en cualquier medio','Todo uso comercial y publicitario','Material merchandising entregado de manera gratuita'])?>
                 <li class="indigo" style="height: 2px;"></li>
             </ul>    -->
             <div class="provider-features">
@@ -77,7 +77,7 @@
           <!-- Dropdown Structure -->
           <ul id='plan-activo' class='dropdown-content'>
           </ul>
-          <a href="<?=base_url('main/planes')?>" class="waves-effect waves-light btn" style="background-color: transparent;border: .12rem solid #f12088;color: #f12088;padding:0 .5rem">
+          <a href="<?php echo base_url('main/planes')?>" class="waves-effect waves-light btn" style="background-color: transparent;border: .12rem solid #f12088;color: #f12088;padding:0 .5rem">
             Comprar plan</a>
           
           <a href="#" class="menu-cart waves-effect waves-light tooltipped btn right blue darken-2" data-tooltip="Carrito vacío" style="background-color:#1c9414; padding:0 9px">

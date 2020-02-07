@@ -20,13 +20,24 @@ class Main extends CI_Controller {
         $this->load->helper(['tag','material']);
         $this->logo = base_url('img/LCI-logo-Hi.png');
         $this->load->library('taxes');
-    }
 
-    function adobe() {
-      $query['prov']['as']['limit'] = 5;
-      $query['keyword'] = 'business';
-      $query['page'] = 1;
-      echo $this->providers->adobestock->search($query);
+        if (isset($_SERVER['HTTP_ORIGIN'])) {
+          // should do a check here to match $_SERVER['HTTP_ORIGIN'] to a
+          // whitelist of safe domains
+          header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+          header('Access-Control-Allow-Credentials: true');
+          header('Access-Control-Max-Age: 86400');    // cache for 1 day
+      }
+      // Access-Control headers are received during OPTIONS requests
+      if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+      
+          if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+              header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");         
+      
+          if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+              header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+      
+      }
     }
 
     function login_test() {
@@ -59,7 +70,7 @@ class Main extends CI_Controller {
       $data['range'] = DEF_NUMBER_OF_ROWS;
       $data['items'] = DEF_NUMBER_OF_ROWS;
       $data['logged'] = $this->membership->is_logged_in();
-      $data['user_data'] = (object) array('fname'=>'','email_address'=>'');
+      $data['user_data'] = (object) array('fname'=>'','email_address'=>'','deposit_userid'=>'');
       $data['user_info'] = '';
       $data['countries'] = $this->countries_model->get_countries();
       //$data['banks'] = $this->pasarelas->payu->banks();
@@ -183,7 +194,7 @@ class Main extends CI_Controller {
         $data['tabs'] = '';
 
         $data['logged'] = $this->membership->is_logged_in();
-        $data['user_data'] = (object) array('fname'=>'','email_address'=>'');
+        $data['user_data'] = (object) array('fname'=>'','email_address'=>'','deposit_userid'=>'');
         $data['user_info'] = '';
 
         if ($data['logged']){
@@ -560,6 +571,7 @@ class Main extends CI_Controller {
     function files2zip($items) {
       $zip = new ZipArchive(); // Load zip library 
       $zip_name = FCPATH .'zip/'. time() . ".zip"; // Zip name
+      $error = '';
       if($zip->open($zip_name, ZIPARCHIVE::CREATE)!==TRUE)
       { 
         // Opening zip file to load files

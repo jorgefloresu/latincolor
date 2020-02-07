@@ -74,7 +74,7 @@ class PHPMailer_Library_lci extends PHPMailer
   		//For gmail, this generally needs to be the same as the user you logged in as
   		//$mail->setFrom($email, 'Jorge Flores');
 		$mail->Username = 'gerencia@latincolorimages.com';
-		$mail->Password = 'Latin215001$';
+		$mail->Password = 'Nico2019$';
 		$mail->setFrom('gerencia@latincolorimages.com','Latin Color Images');
 
       return $mail;

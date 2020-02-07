@@ -16,6 +16,7 @@ class AdobeStockParams
     const SEARCH_COLOR       = 'search_parameters[filters][colors]';
     const TYPE_PHOTO         = 'search_parameters[filters][content_type:photo]';
     const TYPE_VIDEO         = 'search_parameters[filters][content_type:video]';
+    const TYPE_VECTOR        = 'search_parameters[filters][content_type:vector]';
     const SIMILAR_IMAGE      = 'search_parameters[similar_image]';
     const MEDIA_ID           = 'search_parameters[media_id]';
 

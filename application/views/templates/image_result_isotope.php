@@ -3,9 +3,9 @@
 
   <div class="navbar-fixed">
 
-    <?=$result_topbar?> 
-    <?=$result_searchbar?>
-    <?=$result_optionsbar?>
+    <?php echo $result_topbar?> 
+    <?php echo $result_searchbar?>
+    <?php echo $result_optionsbar?>
 
     <div class="progress">
       <div class="determinate hide" style=""></div>
@@ -17,20 +17,20 @@
 
 <div class="container">
 
-  <?=$result_breadcrumb?>
+  <?php echo $result_breadcrumb?>
 
   <!--<div id="status"></div>-->
 
   <div class="grid"></div>
 
-  <?=$result_imagedetail?>
+  <?php echo $result_imagedetail?>
 
   <!--    <div id="popup-preview" class="mfp-hide white-popup"></div> -->
 
-  <?=$sign_in?>
-  <?=$view_cart?>
-  <?=$right_sidebar?>
-  <?=$pay_window?>
+  <?php echo $sign_in?>
+  <?php echo $view_cart?>
+  <?php echo $right_sidebar?>
+  <?php echo $pay_window?>
 
 </div>
 

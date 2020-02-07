@@ -22,5 +22,6 @@ $config['header_js']  = [
                           'js/login.functions.js',
                           'js/pay.functions.js',
                           'js/shop.functions.js',
-                          'js/twak.to.js'
+                          'js/twak.to.js',
+                          'js/voice-cmd.js'
                         ];

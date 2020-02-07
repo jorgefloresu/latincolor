@@ -4,15 +4,15 @@
     <p>Variables globales del sistema</p>
   </div>
   <div class="col s12 m8 l9">
-    <form action="<?=base_url('admin/set_config')?>" id="set-config" class="set-config">
+    <form action="<?php echo base_url('admin/set_config')?>" id="set-config" class="set-config">
     <div class="row">
-        <?foreach ($system as $key => $field):?>
+        <?php foreach ($system as $key => $field):?>
           <div class="input-field col s12">
-            <input type="hidden" name="features[<?=$key?>]" value="<?=$key?>">
-            <input id="<?=$key?>" name="features[<?=$key?>]" value="<?=$field['value']?>" placeholder="Use valores decimales" type="text" class="validate">
-            <label for="<?=$key?>"><?=$field['description']?></label>
+            <input type="hidden" name="features[<?php echo $key?>]" value="<?php echo $key?>">
+            <input id="<?php echo $key?>" name="features[<?php echo $key?>]" value="<?php echo $field['value']?>" placeholder="Use valores decimales" type="text" class="validate">
+            <label for="<?php echo $key?>"><?php echo $field['description']?></label>
           </div>
-        <?endforeach?>
+        <?php endforeach?>
 
     </div>
     <div class="row">

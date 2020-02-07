@@ -5,7 +5,7 @@
       <p>Registro de consultas hechas por usuarios</p>
     </div>
     <div class="col s12 m8 l9">
-      <?=$html_table?>
+      <?php echo $html_table?>
     </div>
   </div>
 

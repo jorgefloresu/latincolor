@@ -29,23 +29,23 @@
                   </thead>
 
                   <tbody>
-                    <?foreach ($datares as $key => $value):?>
+                    <?php foreach ($datares as $key => $value):?>
                     <tr>
-                      <td><?=$value->id?></td>
-                      <td><?=$value->first_name?></td>
-                      <td><?=$value->last_name?></td>
-                      <td><?=$value->username?></td>
-                      <td><?=$value->email_address?></td>
-                      <td><?=$value->address?></td>
-                      <td><?=$value->city?></td>
-                      <td><?=$value->state?></td>
-                      <td><?=$value->country?></td>
-                      <td><?=$value->phone?></td>
-                      <td><?=$value->empresa?></td>
-                      <td><?=$value->nit?></td>
-                      <td><?=$value->deposit_userid?></td>
+                      <td><?php echo $value->id?></td>
+                      <td><?php echo $value->first_name?></td>
+                      <td><?php echo $value->last_name?></td>
+                      <td><?php echo $value->username?></td>
+                      <td><?php echo $value->email_address?></td>
+                      <td><?php echo $value->address?></td>
+                      <td><?php echo $value->city?></td>
+                      <td><?php echo $value->state?></td>
+                      <td><?php echo $value->country?></td>
+                      <td><?php echo $value->phone?></td>
+                      <td><?php echo $value->empresa?></td>
+                      <td><?php echo $value->nit?></td>
+                      <td><?php echo $value->deposit_userid?></td>
                     </tr>
-                    <?endforeach;?>
+                    <?php endforeach;?>
                   </tbody>
 
                   </table>

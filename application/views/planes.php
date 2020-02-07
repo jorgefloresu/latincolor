@@ -1,8 +1,8 @@
-<?$this->load->view('templates/header')?>
+<?php $this->load->view('templates/header')?>
 
   <header>
 
-      <?$this->load->view('templates/ctrl/ctrl-nav')?>
+      <?php $this->load->view('templates/ctrl/ctrl-nav')?>
 
   </header>
 
@@ -23,7 +23,7 @@
 
         </div>
       </div>
-      <div class="parallax"><img src="<?=base_url('img/planes.jpg')?>" alt="planes"></div>
+      <div class="parallax"><img src="<?php echo base_url('img/planes-fotos-videos.jpg')?>" alt="planes de fotos y videos"></div>
     </div>
 
 
@@ -49,7 +49,7 @@
 
           <div class="row" style="margin-bottom:0">
 
-            <?=material_plan_card("s12 m6 l3",
+            <?php echo material_plan_card("s12 m6 l3",
             [ 'MEDIO'     =>['image',
                              '',
                              '',
@@ -92,7 +92,7 @@
           <div class="planes-result container">
             <ul class='plan-option collapsible popout' data-collapsible='accordion'>
             </ul>
-            <p class='center' style='padding-top:25px'>Tienes alguna inquietud sobre la licencia, contacta <a href="<?=base_url('main/consultor')?>">TU CONSULTOR</a></p>
+            <p class='center' style='padding-top:25px'>Tienes alguna inquietud sobre la licencia, contacta <a href="<?php echo base_url('main/consultor')?>">TU CONSULTOR</a></p>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@
           </div>
         </div>
       </div>
-      <div class="parallax"><img src="<?=base_url('img/paquetes.jpg')?>" alt="paquetes"></div>
+      <div class="parallax"><img src="<?php echo base_url('img/paquetes-fotos-videos.jpg')?>" alt="paquetes de fotos y videos"></div>
     </div>
 
     <div class="container">
@@ -125,28 +125,28 @@
 
         </div>
         <div class="paquete-option row">
-          <?=material_paquete_card('s12 m6 l3', 'indigo',
+          <?php echo material_paquete_card('s12 m6 l3', 'indigo',
                                     'SMALL', 'US$', '49.50', 'Microempresarios',
                                     ['30 imágenes para descargar durante un mes', 'Todas las categorías en fotos',
                                      'Tamaño aprox: 5000x3000 300 dpi',
                                      'Videos 1920x1080 @25FPS / MOV / 79.9MB / H.264'], 
                                      $plan['small'])?>
 
-          <?=material_paquete_card('s12 m6 l3', 'grey',
+          <?php echo material_paquete_card('s12 m6 l3', 'grey',
                                     'MEDIUM', 'US$', '999', 'PYMES',
                                     ['500 imágenes mensuales', '6.000 imágenes al año', 'A sólo US$0.16 por foto',
                                      'Tamaño aprox: 5000x3000 300 dpi, JPG y PSD',
                                      'Hasta 300.000 impresiones por fotografía'],
                                      $plan['medium'])?>
 
-          <?=material_paquete_card('s12 m6 l3', 'orange',
+          <?php echo material_paquete_card('s12 m6 l3', 'orange',
                                     'LARGE', 'US$', '1.369', 'Medianas',
                                     ['100 imágenes mensuales acumulativas', '1.200 imágenes al año',
                                      '10 Videos HD para descargar durante 1 año', 'Licencia para 10 usuarios',
                                      'Videos 1920x1080 @25FPS / MOV / 79.9MB / H.264'],
                                      $plan['large'], 260.11)?>
 
-          <?=material_paquete_card('s12 m6 l3', 'green',
+          <?php echo material_paquete_card('s12 m6 l3', 'green',
                                     'X-LARGE', 'US$', '2.949', 'Plan PREMIUM',
                                      ['750 imágenes mensuales (sin limitación diaria ni mensual)',
                                       'Con integración en Adobe CC: PhotoShop, Illustrator, InDesing, Dimension PremierPro y Adobe Spark',
@@ -162,7 +162,7 @@
               <ul>
               <li class="center" style="margin-bottom:10px">En todos los paquetes obtienes:</li>
               <li class="blue darken-4" style="height: 2px;"></li>
-              <?=material_collection(['Imágenes a perpetuidad','Uso en medios digitales y redes sociales','Todo uso comercial, publicitario y editorial'])?>
+              <?php echo material_collection(['Imágenes a perpetuidad','Uso en medios digitales y redes sociales','Todo uso comercial, publicitario y editorial'])?>
               <li class="indigo" style="height: 2px;"></li>
               </ul>              
               <p class="center" style="font-size:12px">No es permitido usar para la venta de material merchandising ni templates</p>
@@ -182,14 +182,14 @@
           </div>
         </div>
       </div>
-      <div class="parallax"><img src="<?=base_url('img/imagebkg_ciudad.jpg')?>" alt="Unsplashed background img 3"></div>
+      <div class="parallax"><img src="<?php echo base_url('img/imagebkg_ciudad.jpg')?>" alt="Unsplashed background img 3"></div>
     </div> -->
 
-    <?$this->load->view('cart')?>
+    <?php $this->load->view('cart')?>
 
-    <?$this->load->view('templates/sign_in')?>
+    <?php $this->load->view('templates/sign_in')?>
 
-    <?$this->load->view('templates/right_sidebar')?>
+    <?php $this->load->view('templates/right_sidebar')?>
 
   </main>
 
@@ -198,18 +198,18 @@
         <p>Descargando...</p>
       </div>
   </div>
-  <?$this->load->view('templates/welcome_user')?>
+  <?php $this->load->view('templates/welcome_user')?>
 
-  <?$this->load->view('pages/payment_form'); ?>
-  <?$this->load->view('pages/signup_form')?>
-  <?$this->load->view('pages/forgot_pass')?>
-  <?$this->load->view('templates/info_bottom')?>
+  <?php $this->load->view('pages/payment_form'); ?>
+  <?php $this->load->view('pages/signup_form')?>
+  <?php $this->load->view('pages/forgot_pass')?>
+  <?php $this->load->view('templates/info_bottom')?>
 
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
-<?$this->load->view('templates/footer_tag') ?>
-<?=put_headers('js', $user_info)?>
+<?php $this->load->view('templates/footer_tag') ?>
+<?php echo put_headers('js', $user_info)?>
 
 </body>
 </html>

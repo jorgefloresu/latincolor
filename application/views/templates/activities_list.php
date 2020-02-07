@@ -20,14 +20,14 @@
                   </thead>
 
                   <tbody>
-                    <?foreach ($datares as $key => $value):?>
+                    <?php foreach ($datares as $key => $value):?>
                     <tr>
-                      <td><?=$value->username?></td>
-                      <td><?=$value->activity_type?></td>
-                      <td><?=$value->session_date?></td>
-                      <td><?=$value->img_code?></td>
+                      <td><?php echo $value->username?></td>
+                      <td><?php echo $value->activity_type?></td>
+                      <td><?php echo $value->session_date?></td>
+                      <td><?php echo $value->img_code?></td>
                     </tr>
-                    <?endforeach;?>
+                    <?php endforeach;?>
                   </tbody>
 
                   </table>

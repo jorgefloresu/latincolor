@@ -2,39 +2,39 @@
   <h5>Ventas</h5>
   <div class="row">
     <div class="col s12 m9 l9 container">
-      <? if(count($ventas) > 0): ?>
+      <?php  if(count($ventas) > 0): ?>
         <table id="data-ventas" class="display">
           <thead>
             <tr>
               <th></th>
-            <? foreach ($ventas as $key => $columns):
+            <?php  foreach ($ventas as $key => $columns):
                 if ($key>0) break;
                 foreach ($columns as $column => $value): ?>
-                    <th><?= $column ?></th>
-            <?  endforeach;
+                    <th><?php echo  $column ?></th>
+            <?php   endforeach;
                endforeach ?>
              </tr>
           </thead>
 
           <tbody>
 
-            <? foreach ($ventas as $venta): ?>
+            <?php  foreach ($ventas as $venta): ?>
               <tr><td></td>
-              <? foreach ($venta as $key => $value): ?>
-                  <? if ($key == 'orderId'): ?>
-                    <!-- <td><a class='modal-trigger modal-close view-tran' href='#pasarela-tran'><?= substr($value, 0, strlen($value)-1); ?></a></td> -->
-                    <td class="view-tran blue-text" style="cursor:pointer" data-order="<?=substr($value, 0, strlen($value)-1)?>"><?=$value?></td>
-                  <? else: ?>
-                    <td><?= $value ?></td>
-                  <? endif ?>
-              <? endforeach ?>
+              <?php  foreach ($venta as $key => $value): ?>
+                  <?php  if ($key == 'orderId'): ?>
+                    <!-- <td><a class='modal-trigger modal-close view-tran' href='#pasarela-tran'><?php echo  substr($value, 0, strlen($value)-1); ?></a></td> -->
+                    <td class="view-tran blue-text" style="cursor:pointer" data-order="<?php echo substr($value, 0, strlen($value)-1)?>"><?php echo $value?></td>
+                  <?php  else: ?>
+                    <td><?php echo  $value ?></td>
+                  <?php  endif ?>
+              <?php  endforeach ?>
               </tr>
-            <? endforeach ?>
+            <?php  endforeach ?>
           </tbody>
         </table>
-      <? else: ?>
+      <?php  else: ?>
         <p>No hay órdenes nuevas</p>
-      <? endif ?>
+      <?php  endif ?>
     </div>
     <div class="col s12 m3 l3 container">
       <h6>Datos del usuario</h6>
@@ -61,4 +61,4 @@
 
 </div>
 
-<?$this->load->view('templates/view_pasarela_tran')?>
+<?php $this->load->view('templates/view_pasarela_tran')?>

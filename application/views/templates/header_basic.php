@@ -11,7 +11,7 @@
 
     <link href="<?php echo base_url('css/styles.css');?>" type="text/css" rel="stylesheet" media="screen,projection">
 		<link href="<?php echo base_url('css/home-style.css');?>" type="text/css" rel="stylesheet" media="screen,projection">
-    <title><?=_("Title")?></title>
+    <title><?php echo _("Title")?></title>
   </head>
 
   <body>

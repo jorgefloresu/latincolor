@@ -1,8 +1,8 @@
-<?$this->load->view('templates/header')?>
+<?php $this->load->view('templates/header')?>
 
   <header>
 
-      <?$this->load->view('templates/ctrl/ctrl-nav')?>
+      <?php $this->load->view('templates/ctrl/ctrl-nav')?>
       <div class="row" style="margin-top:120px;padding-left:13px;margin-bottom:0px;">
         <!-- <div class="col s2 valign-wrapper" style="height:30px;"> -->
           <!-- <span style="margin-left:-13px">Buscando...</span> -->
@@ -21,7 +21,7 @@
   </header>
 
   <main class="search-result-background">
-        <?$this->load->view('templates/result_panel')?>
+        <?php $this->load->view('templates/result_panel')?>
         <div class="fixed-action-btn fixed-btn-result">
           <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">fullscreen</i></a>
         </div>
@@ -35,22 +35,22 @@
           </div>
         </div>
 
-        <?$this->load->view('preview')?>
+        <?php $this->load->view('preview')?>
 
-        <?$this->load->view('templates/right_sidebar')?>
+        <?php $this->load->view('templates/right_sidebar')?>
 
   </main>
 
-  <?$this->load->view('cart')?>
+  <?php $this->load->view('cart')?>
 
-  <?$this->load->view('templates/sign_in')?>
+  <?php $this->load->view('templates/sign_in')?>
 
-  <?$this->load->view('templates/welcome_user')?>
+  <?php $this->load->view('templates/welcome_user')?>
 
-  <?$this->load->view('pages/payment_form'); ?>
-  <?$this->load->view('pages/signup_form')?>
-  <?$this->load->view('pages/forgot_pass')?>
-  <?$this->load->view('templates/info_bottom')?>
+  <?php $this->load->view('pages/payment_form'); ?>
+  <?php $this->load->view('pages/signup_form')?>
+  <?php $this->load->view('pages/forgot_pass')?>
+  <?php $this->load->view('templates/info_bottom')?>
 
 
   <!-- <div id="downloading" class="modal bottom-sheet">
@@ -62,7 +62,7 @@
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
 
-<?=put_headers('js', $user_info)?>
+<?php echo put_headers('js', $user_info)?>
 
 </body>
 </html>

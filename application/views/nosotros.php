@@ -1,8 +1,8 @@
-<?$this->load->view('templates/header')?>
+<?php $this->load->view('templates/header')?>
 
   <header>
 
-      <?$this->load->view('templates/ctrl/ctrl-nav')?>
+      <?php $this->load->view('templates/ctrl/ctrl-nav')?>
 
   </header>
 
@@ -49,11 +49,11 @@
     </div>
 
 
-    <?$this->load->view('cart')?>
+    <?php $this->load->view('cart')?>
 
-    <?$this->load->view('templates/sign_in')?>
+    <?php $this->load->view('templates/sign_in')?>
 
-    <?$this->load->view('templates/right_sidebar')?>
+    <?php $this->load->view('templates/right_sidebar')?>
 
   </main>
 
@@ -63,17 +63,17 @@
       </div>
   </div>
 
-  <?$this->load->view('pages/payment_form'); ?>
-  <?$this->load->view('pages/signup_form')?>
-  <?$this->load->view('pages/forgot_pass')?>
-  <?$this->load->view('templates/info_bottom')?>
+  <?php $this->load->view('pages/payment_form'); ?>
+  <?php $this->load->view('pages/signup_form')?>
+  <?php $this->load->view('pages/forgot_pass')?>
+  <?php $this->load->view('templates/info_bottom')?>
 
 
   <!-- Error Structure -->
 <div id="error" class="modal"></div>
-<?$this->load->view('templates/footer_tag') ?>
+<?php $this->load->view('templates/footer_tag') ?>
 
-<?=put_headers('js', $user_info)?>
+<?php echo put_headers('js', $user_info)?>
 
 </body>
 </html>

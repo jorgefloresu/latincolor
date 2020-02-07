@@ -1,9 +1,9 @@
-<?$this->load->view('templates/header')?>
+<?php $this->load->view('templates/header')?>
 
   <header style="margin-bottom: 15px;">
     <nav class="blue darken-3">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo"><?echo _("Cart details")?></a>
+        <a href="#" class="brand-logo"><?php echo _("Cart details")?></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="">Sass</a></li>
           <li><a href="">Components</a></li>
@@ -46,11 +46,11 @@
         </div>
     </div>
 
-  <?$this->load->view('pages/payment_form'); ?>
+  <?php $this->load->view('pages/payment_form'); ?>
  
   </main>
 
-<?$this->load->view('templates/footer')?>
+<?php $this->load->view('templates/footer')?>
 
 <script type="text/javascript" src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
 <script src="<?php echo base_url('js/pay.functions.js');?>"></script>
